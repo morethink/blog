@@ -4,7 +4,7 @@
 
 # Set to true, if you want to fully override the default configuration.
 # Useful if you don't want to inherit the theme _config.yml configurations.
-override: true
+override: false
 
 # ---------------------------------------------------------------
 # Site Information Settings
@@ -202,7 +202,7 @@ sidebar:
 scroll_to_more: false
 
 # Automatically saving scroll position on each post/page in cookies.
-save_scroll: false
+save_scroll: true
 
 # Automatically excerpt description in homepage as preamble text.
 excerpt_description: true
