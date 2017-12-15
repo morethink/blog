@@ -1,0 +1,35 @@
+// Custom styles.
+// 博客背景
+.main {
+  font-family: 'dejavu sans mono', '微软雅黑';
+}
+.posts-expand .post-title:hover {
+  border-left: #649ab6 20px solid;
+  padding-left: 15px;
+  cursor: pointer;
+  transition: border-width 0.3s linear 0.1s, color 0.2s linear 0.3s;
+}
+.posts-expand .post-title-link {
+  color: #649ab6;
+  font-weight: bolder;
+}
+.posts-expand .post-title-link:hover::before {
+  text-decoration: none;
+}
+.posts-expand .post-title {
+  color: #649ab6;
+  text-align: center;
+  word-break: break-word;
+  font-weight: bolder;
+}
+
+.post-body p a{
+  color: #0593d3;
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3;
+  &:hover {
+    color: #fc6423;
+    border-bottom: none;
+    border-bottom: 1px solid #fc6423;
+  }
+}
