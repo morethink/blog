@@ -242,11 +242,35 @@ CORS与JSONP相比
 
 # WebSocket
 
-还未探讨
+WebSocket是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀。
+
+该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。
+
+请求头信息：(多了个 origin)
+
+```
+GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+Sec-WebSocket-Protocol: chat, superchat
+Sec-WebSocket-Version: 13
+Origin: http://example.com
+```
+
+响应头：(如果origin在白名单内)
+
+```
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+Sec-WebSocket-Protocol: chat
+```
 
 
-参考
-
+**参考文档**：
 1. 跨域
     - [浏览器同源政策及其规避方法](http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html)
     - [跨域资源共享 CORS 详解](http://www.ruanyifeng.com/blog/2016/04/cors.html)
