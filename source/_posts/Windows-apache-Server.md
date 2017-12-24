@@ -1,8 +1,7 @@
-
 ---
 title: windows Apache服务器配置
 date: 2017-09-19
-tags: 代理
+tags: 反向代理
 categories: 服务器
 ---
 

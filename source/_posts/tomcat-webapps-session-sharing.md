@@ -1,7 +1,7 @@
 ---
 title: 单点登录之tomcat中session在两个webapp中实现共享
 date: 2017-10-30
-tags: [Redis,Tomcat,session]
+tags: [Redis,Tomcat]
 categories: 服务器
 ---
 
