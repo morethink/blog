@@ -129,6 +129,8 @@ public static void main(String[] args) {
 Maven只有 2.2.1版本，2.2.1版本有一个问题，那就是不兼容docx和pptx，如果你们不使用jodconverter-2.2.2 中lib，而想要使用2.2.1版本，需要修改一下 `BasicDocumentFormatRegistry` 类中的 `getFormatByFileExtension`方法：
 1. 新建包 `com.artofsolving.jodconverter`
 2. 新建类`BasicDocumentFormatRegistry`，复制下面代码
+
+
 ```java
 package com.artofsolving.jodconverter;
 
