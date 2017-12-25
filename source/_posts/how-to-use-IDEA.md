@@ -18,6 +18,7 @@ categories: 工具
 这样的话修改的html，jsp或者第三方模版框架例如 Freemarker热部署才可以生效。
 
 # 热部署插件 JRebel
+
 > 在 Java Web 开发中， 一般更新了 Java 文件后要手动重启 Tomcat 服务器， 才能生效， 浪费不少生命啊， 自从有了 JRebel 这神器的出现， 不论是更新 class 类还是更新 Spring 配置文件都能做到立马生效，大大提高开发效率。
 
 [IntelliJ IDEA 的 Java 热部署插件 JRebel 安装及使用](http://whudoc.qiniudn.com/2016/IntelliJ-IDEA-Tutorial/jrebel-setup.html)
@@ -26,3 +27,4 @@ categories: 工具
 
 1. 阿里巴巴规约检测
 2. 翻译插件
+3. wakatime
