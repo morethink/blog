@@ -1,7 +1,7 @@
 ---
 title: Windows下Nginx实现负载均衡
 date: 2017-02-11
-tags: 反向代理
+tags: [反向代理,Nginx]
 categories: 服务器
 ---
 
