@@ -1,8 +1,8 @@
 ---
 title: CentOS7下 Java，Tomcat，MySQL，Maven热部署
 date: 2017-4-25
-tags: Linux
-categories: 服务器
+tags: [CentOS7,Tomcat,MySQL,Maven]
+categories: Linux
 ---
 
 本文介绍了CentOS7 64 Java，Tomcat，MySQL，Maven热部署等服务器环境的搭建过程。

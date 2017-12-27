@@ -1,7 +1,7 @@
 ---
 title: Linux学习笔记一
 date: 2017-7-30
-tags: Linux
+tags: 
 categories: Linux
 ---
 
