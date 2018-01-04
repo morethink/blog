@@ -1,7 +1,7 @@
 ---
 title: Spring事务不回滚原因分析
 date: 2017-05-14
-tags: Spring
+tags: 事务
 categories: Spring
 ---
 

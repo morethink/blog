@@ -30,6 +30,7 @@ http://sourceforge.net/projects/jodconverter/files/JODConverter/
 
 进入openoffice安装目录，通过cmd启动一个soffice服务，启动的命令是`soffice -headless -accept="socket,host=127.0.0.1,port=8100;urp;"`。
 
+如果觉得后台运行OpenOffice服务比较麻烦，可以通过
 # 运行代码
 
 
@@ -222,3 +223,4 @@ if (extension.indexOf("xls") >= 0) {
 2. [Java项目中使用OpenOffice转PDF](http://blog.csdn.net/qq_33571718/article/details/51154472)
 3. [java使用openoffice将office系列文档转换为PDF](http://blog.csdn.net/make_a_difference/article/details/53771136###;)
 4. [java 如何将 word,excel,ppt如何转pdf--jacob](http://www.cnblogs.com/xxyfhjl/p/6773786.html)
+5. [java 如何将 word,excel,ppt如何转pdf --openoffice (1)](http://www.cnblogs.com/xxyfhjl/p/6775137.html)
