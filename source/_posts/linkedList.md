@@ -1,7 +1,7 @@
 ---
-title: Java 链表 面试题
+title: 面试中的Java链表
 date: 2017-08-20
-tags: 面试
+tags: [面试,链表]
 categories: 算法
 ---
 
@@ -9,10 +9,10 @@ categories: 算法
 
 链表节点定义如下:
 ```Java
-    static class Node {
-        int num;
-        Node next;
-    }
+static class Node {
+    int num;
+    Node next;
+}
 ```
 <!-- more -->
 
@@ -24,14 +24,14 @@ categories: 算法
 依次遍历链表
 
 ```Java
-    public static int size(Node head) {
-        int size = 0;
-        while (head != null) {
-            size++;
-            head = head.next;
-        }
-        return size;
+public static int size(Node head) {
+    int size = 0;
+    while (head != null) {
+        size++;
+        head = head.next;
     }
+    return size;
+}
 ```
 
 # 2. 将单链表反转
@@ -40,47 +40,46 @@ categories: 算法
 
 ```Java
 public static Node reverse(Node head) {
-        Node p1 = head, p2;
-        head = null;
-        while (p1 != null) {
-            p2 = p1;
-            p1 = p1.next;
+    Node p1 = head, p2;
+    head = null;
+    while (p1 != null) {
+        p2 = p1;
+        p1 = p1.next;
 
-            //头插法
-            p2.next = head;
-            head = p2;
-        }
-        return head;
+        //头插法
+        p2.next = head;
+        head = p2;
     }
+    return head;
+}
 ```
 
 # 3. 查找单链表中的倒数第K个结点（k > 0）
 
 第一种解法是得到顺数的第 size+k-1 个节点，即为倒数的第K歌节点
-第二种解法是快慢指针,主要思路就是使用两个指针，先让前面的指针走到正向第k个结点，
-这样前后两个指针的距离差是k-1，之后前后两个指针一起向前走，前面的指针走到最后一个结点时，
-后面指针所指结点就是倒数第k个结点，下面采用这种解法。
+第二种解法是快慢指针,主要思路就是使用两个指针，先让前面的指针走到正向第k个结点，后面的指针才走，这样前后两个指针的距离差是k-1，之后前后两个指针一起向前走，前面的指针走到最后一个结点时，后面指针所指结点就是倒数第k个结点，下面采用这种解法。
 
 ```Java
-    public static Node getKNode(Node head, int k) {
-        if (k < 0 || head == null) {
-            return null;
-        }
-        Node p2 = head, p1 = head;
-        while (k-- > 1 && p1 != null) {
-            p1 = p1.next;
-        }
-        // 说明k>size，因此返回null
-        if (k > 1 || p1 == null) {
-            return null;
-        }
-        while (p1.next != null) {
-            p1 = p1.next;
-            p2 = p2.next;
-        }
-        return p2;
+public static Node getKNode(Node head, int k) {
+    if (k < 0 || head == null) {
+        return null;
     }
+    Node p2 = head, p1 = head;
+    while (k-- > 1 && p1 != null) {
+        p1 = p1.next;
+    }
+    // 说明k>size，因此返回null
+    if (k > 1 || p1 == null) {
+        return null;
+    }
+    while (p1.next != null) {
+        p1 = p1.next;
+        p2 = p2.next;
+    }
+    return p2;
+}
 ```
+
 # 4. 查找单链表的中间结点
 
 采用快慢指针，p1每次走两步，p2每次走一步，奇数返回size/2+1，偶数返回size/2,
@@ -88,20 +87,20 @@ public static Node reverse(Node head) {
 
 ```Java
 public static Node getMidNode(Node head) {
-        if (head == null) {
-            return null;
-        }
-        Node p1 = head, p2 = head;
-        while (p1.next != null) {
-            if (p1 == null) {
-                break;
-            }
-            p1 = p1.next.next;
-            p2 = p2.next;
-
-        }
-        return p2;
+    if (head == null) {
+        return null;
     }
+    Node p1 = head, p2 = head;
+    while (p1.next != null) {
+        if (p1 == null) {
+            break;
+        }
+        p1 = p1.next.next;
+        p2 = p2.next;
+
+    }
+    return p2;
+}
 ```
 
 # 5. 从尾到头打印单链表
@@ -110,27 +109,27 @@ public static Node getMidNode(Node head) {
 
 ```Java
 public static void reversePrint(Node node) {
-        Stack<Node> stack = new Stack<>();
-        while (node != null) {
-            stack.push(node);
-            node = node.next;
-        }
-        while (!stack.isEmpty()) {
-            System.out.print(stack.pop().num + " ");
-        }
-
+    Stack<Node> stack = new Stack<>();
+    while (node != null) {
+        stack.push(node);
+        node = node.next;
     }
+    while (!stack.isEmpty()) {
+        System.out.print(stack.pop().num + " ");
+    }
+
+}
 ```
 
 递归
 
 ```Java
 public static void reversePrint2(Node node) {
-        if (node != null) {
-            reversePrint2(node.next);
-            System.out.print(node.num + " ");
-        }
+    if (node != null) {
+        reversePrint2(node.next);
+        System.out.print(node.num + " ");
     }
+}
 ```
 
 
@@ -139,82 +138,86 @@ public static void reversePrint2(Node node) {
 类似于归并排序
 
 ```Java
-    public static Node merge(Node head1, Node head2) {
-        Node p1 = head1, p2 = head2, head;
-        if (head1.num < head2.num) {
-            head = head1;
-            p1 = p1.next;
-        } else {
-            head = head2;
-            p2 = p2.next;
-        }
-
-        Node p = head;
-        while (p1 != null && p2 != null) {
-            if (p1.num <= p2.num) {
-                p.next = p1;
-                p1 = p1.next;
-                p = p.next;
-            } else {
-                p.next = p2;
-                p2 = p2.next;
-                p = p.next;
-            }
-        }
-        if (p1 != null) {
-            p.next = p1;
-        }
-        if (p2 != null) {
-            p.next = p2;
-        }
-        return head;
+public static Node merge(Node head1, Node head2) {
+    Node p1 = head1, p2 = head2, head;
+    if (head1.num < head2.num) {
+        head = head1;
+        p1 = p1.next;
+    } else {
+        head = head2;
+        p2 = p2.next;
     }
+
+    Node p = head;
+    while (p1 != null && p2 != null) {
+        if (p1.num <= p2.num) {
+            p.next = p1;
+            p1 = p1.next;
+            p = p.next;
+        } else {
+            p.next = p2;
+            p2 = p2.next;
+            p = p.next;
+        }
+    }
+    if (p1 != null) {
+        p.next = p1;
+    }
+    if (p2 != null) {
+        p.next = p2;
+    }
+    return head;
+}
 ```
 # 7. 判断一个单链表中是否有环
 
 这里也是用到两个指针。如果一个链表中有环，也就是说用一个指针去遍历，是永远走不到头的。因此，我们可以用两个指针去遍历，一个指针一次走两步，一个指针一次走一步，如果有环，两个指针肯定会在环中相遇。时间复杂度为O（n）。
 ```Java
 public static boolean hasRing(Node head) {
-        Node p1 = head, p2 = head;
-        while (p1 != null && p1.next != null) {
-            p1 = p1.next.next;
-            p2 = p2.next;
-            if (p1 == p2) {
-                return true;
-            }
+    Node p1 = head, p2 = head;
+    while (p1 != null && p1.next != null) {
+        p1 = p1.next.next;
+        p2 = p2.next;
+        if (p1 == p2) {
+            return true;
         }
-        return false;
     }
+    return false;
+}
 ```
 # 8. 已知一个单链表中存在环，求进入环中的第一个节点
-**解题思路**： 由上题可知，按照 p2 每次两步，p1 每次一步的方式走，发现 p2 和 p1 重合，确定了单向链表有环路了。接下来，让p2回到链表的头部，重新走，每次步长不是走2了，而是走1，那么当 p1 和 p2 再次相遇的时候，就是环路的入口了。
+**解题思路**：
 
-**为什么？**：假定起点到环入口点的距离为 a，p1 和 p2 的相交点M与环入口点的距离为b，环路的周长为L，当 p1 和 p2 第一次相遇的时候，假定 p1 走了 n 步。那么有：
+由上题可知，按照 p1 每次两步，p2 每次一步的方式走，发现 p2 和 p1 重合，确定了单向链表有环路了。接下来，让 p1 回到链表的头部，重新走，每次步长不是走2了，而是走1，那么当 p1 和 p2 再次相遇的时候，就是环路的入口了。
 
-p1走的路径： a+b ＝ n；
-p2走的路径： a+b+k*L = 2*n； p2 比 p1 多走了k圈环路，总路程是p1的2倍
+**为什么？**
 
-根据上述公式可以得到 k*L=a+b=n显然，如果从相遇点M开始，p1 再走 n 步的话，还可以再回到相遇点，同时p2从头开始走的话，经过n步，也会达到相遇点M。
+假定起点到环入口点的距离为 a，p1 和 p2 的相交点M与环入口点的距离为b，环路的周长为L，当 p1 和 p2 第一次相遇的时候，假定 p2 走了 n 步。那么有：
+
+p2走的路径： a+b ＝ n；
+p1走的路径： a+b+k*L = 2*n； p1 比 p2 多走了k圈环路，总路程是p2的2倍
+
+根据上述公式可以得到 k*L=a+b=n ，显然，如果从相遇点M开始，p2 再走 n 步的话，还可以再回到相遇点，同时p2从头开始走的话，经过n步，也会达到相遇点M。
 
 显然在这个步骤当中 p1 和 p2 只有前 a 步走的路径不同，所以当 p1 和 p2 再次重合的时候，必然是在链表的环路入口点上。
 
 ```Java
 public static Node getFirstRingNode(Node head) {
-        Node p1 = head, p2 = head;
-        while (p1 != null && p1.next != null) {
-            p1 = p1.next.next;
-            p2 = p2.next;
-            if (p1 == p2) {
-                p1 = head;
-                while (p1 != p2) {
-                    p1 = p1.next;
-                    p2 = p2.next;
-                }
-                break;
+    Node p1 = head, p2 = head;
+    while (p1 != null && p1.next != null) {
+        p1 = p1.next.next;
+        p2 = p2.next;
+        if (p1 == p2) {
+            p1 = head;
+            while (p1 != p2) {
+                p1 = p1.next;
+                p2 = p2.next;
             }
+            break;
         }
-        return p1;
     }
+    return p1;
+}
 ```
 # 9. 判断两个单链表是否相交
 
@@ -222,15 +225,15 @@ public static Node getFirstRingNode(Node head) {
 
 ```Java
 public static boolean isIntersect(Node head1, Node head2) {
-        Node p1 = head1, p2 = head2;
-        while (p1.next != null) {
-            p1 = p1.next;
-        }
-        while (p2.next != null) {
-            p2 = p2.next;
-        }
-        return p1 == p2;
+    Node p1 = head1, p2 = head2;
+    while (p1.next != null) {
+        p1 = p1.next;
     }
+    while (p2.next != null) {
+        p2 = p2.next;
+    }
+    return p1 == p2;
+}
 ```
 # 10. 求两个单链表相交的第一个节点
 
@@ -240,25 +243,25 @@ public static boolean isIntersect(Node head1, Node head2) {
 
 ```Java
 public static Node firstIntersectNode(Node head1, Node head2) {
-        int len1 = size(head1);
-        int len2 = size(head2);
-        Node p1 = head1, p2 = head2;
-        if (len1 > len2) {
-            for (int i = 1; i < len1 - len2; i++) {
-                p1 = p1.next;
-            }
-        } else {
-            for (int i = 1; i < len2 - len1; i++) {
-                p2 = p2.next;
-            }
-        }
-        while (p1 != p2) {
+    int len1 = size(head1);
+    int len2 = size(head2);
+    Node p1 = head1, p2 = head2;
+    if (len1 > len2) {
+        for (int i = 1; i < len1 - len2; i++) {
             p1 = p1.next;
+        }
+    } else {
+        for (int i = 1; i < len2 - len1; i++) {
             p2 = p2.next;
         }
-
-        return p1;
     }
+    while (p1 != p2) {
+        p1 = p1.next;
+        p2 = p2.next;
+    }
+
+    return p1;
+}
 ```
 
 # 11. 给出一单链表头指针 head 和一节点指针 deletedNode，O(1)时间复杂度删除节点deletedNode
@@ -267,25 +270,25 @@ public static Node firstIntersectNode(Node head1, Node head2) {
 
 ```Java
 public static Node firstIntersectNode(Node head1, Node head2) {
-        int len1 = size(head1);
-        int len2 = size(head2);
-        Node p1 = head1, p2 = head2;
-        if (len1 > len2) {
-            for (int i = 1; i < len1 - len2; i++) {
-                p1 = p1.next;
-            }
-        } else {
-            for (int i = 1; i < len2 - len1; i++) {
-                p2 = p2.next;
-            }
-        }
-        while (p1 != p2) {
+    int len1 = size(head1);
+    int len2 = size(head2);
+    Node p1 = head1, p2 = head2;
+    if (len1 > len2) {
+        for (int i = 1; i < len1 - len2; i++) {
             p1 = p1.next;
+        }
+    } else {
+        for (int i = 1; i < len2 - len1; i++) {
             p2 = p2.next;
         }
-
-        return p1;
     }
+    while (p1 != p2) {
+        p1 = p1.next;
+        p2 = p2.next;
+    }
+
+    return p1;
+}
 ```
 # 12. 链表的冒泡排序
 
@@ -293,45 +296,45 @@ public static Node firstIntersectNode(Node head1, Node head2) {
 
 ```Java
 public static void bubbleSort(Node head) {
-        Node tail = null;
-        Node p1;
-        while (head != tail) {
-            for (p1 = head; p1.next != tail; p1 = p1.next) {
-                if (p1.num > p1.next.num) {
-                    int temp = p1.num;
-                    p1.num = p1.next.num;
-                    p1.next.num = temp;
-                }
+    Node tail = null;
+    Node p1;
+    while (head != tail) {
+        for (p1 = head; p1.next != tail; p1 = p1.next) {
+            if (p1.num > p1.next.num) {
+                int temp = p1.num;
+                p1.num = p1.next.num;
+                p1.next.num = temp;
             }
-            tail = p1;
         }
-        show(head);
+        tail = p1;
     }
+    show(head);
+}
 ```
 # 13. 单链表的双冒泡排序
 
 ```Java
 public static void doubleBubblesort(Node start, Node end) {
-        if (start != end) {
-            Node p1 = start;
-            Node p2 = p1.next;
-            while (p2 != end) {
-                if (p2.num < start.num) {
-                    p1 = p1.next;
-                    int temp = p1.num;
-                    p1.num = p2.num;
-                    p2.num = temp;
-                }
-                p2 = p2.next;
+    if (start != end) {
+        Node p1 = start;
+        Node p2 = p1.next;
+        while (p2 != end) {
+            if (p2.num < start.num) {
+                p1 = p1.next;
+                int temp = p1.num;
+                p1.num = p2.num;
+                p2.num = temp;
             }
-            int temp = p1.num;
-            p1.num = start.num;
-            start.num = temp;
-            doubleBubblesort(start, p1);
-            doubleBubblesort(p1.next, null);
+            p2 = p2.next;
         }
-
+        int temp = p1.num;
+        p1.num = start.num;
+        start.num = temp;
+        doubleBubblesort(start, p1);
+        doubleBubblesort(p1.next, null);
     }
+
+}
 ```
 
 **参考文档**

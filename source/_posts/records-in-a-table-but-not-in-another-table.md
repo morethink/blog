@@ -1,7 +1,7 @@
 ---
 title: 查询在一张表不在另外一张表的记录及效率探究
 date: 2017-11-16
-tags:
+tags: [MySQL]
 categories: 数据库
 ---
 

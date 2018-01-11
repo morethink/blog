@@ -38,11 +38,11 @@ XMLHttpRequest cannot load http://localhost/home/saveCandidate. No 'Access-Contr
 
   |      URL                         |    解释            |是否跨域  |
   | ---                              | ---                | ---     |
-  |   http://www.morethink.net       |原来的URL            |
-  |   http://www.image.morethink.net |子域名               | 跨域(cookie也无法访问)
-  |   http://morethink.net           |不加www              | 跨域
-  |   https://www.morethink.net      |更改协议              | 跨域
-  |   http://www.morethink.net:8080  |更改端口号             | 跨域
+  |   http://www.morethink.cn       |原来的URL            |
+  |   http://www.image.morethink.cn |子域名               | 跨域(cookie也无法访问)
+  |   http://morethink.cn           |不加www              | 跨域
+  |   https://www.morethink.cn      |更改协议              | 跨域
+  |   http://www.morethink.cn:8080  |更改端口号             | 跨域
 
 **原因**：
 

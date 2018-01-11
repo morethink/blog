@@ -72,6 +72,10 @@ theme: next
 # see detail from https://github.com/hustcc/canvas-nest.js
 canvas_nest: false
 
+douban:
+    user: 14660354
+
+
 search:
   path: search.xml
   field: post
