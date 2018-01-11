@@ -89,14 +89,16 @@ menu:
   tags: /tags/ || tags
   archives: /archives/ || archive
   about: /about/ || user
-  #schedule: /schedule/ || calendar
+  book: /douban/
+  # schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
 
 # Enable/Disable menu icons.
 menu_icons:
   enable: true
-
+  # Icon Mapping.
+  book: book
 
 # ---------------------------------------------------------------
 # Scheme Settings
