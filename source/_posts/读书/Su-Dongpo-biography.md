@@ -2,7 +2,7 @@
 title: 我读东坡
 date: 2017-7-21
 tags:
-categories: 简书
+categories: 读书
 ---
 
 每当我一提起苏东坡来，大家总会不自觉的微笑，这句话最能概括苏东坡的一切。

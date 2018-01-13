@@ -2,7 +2,7 @@
 title: 写作本身的思考 - 暗时间
 date: 2017-4-28
 tags:
-categories: 简书
+categories: 读书
 ---
 
 # 你得坚持写作

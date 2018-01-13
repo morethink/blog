@@ -2,7 +2,7 @@
 title: 罔
 date: 2017-7-31
 tags: 诗
-categories: 简书
+categories: 读书
 ---
 尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。
 
