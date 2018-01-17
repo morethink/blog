@@ -7,6 +7,6 @@ type: "about"
 问题使人痛苦，亦使人成长。
 编程使人疲惫，亦使人兴奋。
 
-
+木心有一句话："那个成就是你是十倍的人，下的功夫是你的百倍"。
 
 <figure><embed src="https://wakatime.com/share/@f1441586-b64f-4aa7-9437-c18d43980d31/3f316425-c53d-4689-ae00-8579c8f12bca.svg"></embed></figure>

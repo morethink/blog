@@ -1,13 +1,13 @@
 ---
-title: CentOS7下 Java，Tomcat，MySQL，Maven热部署
+title: CentOS7下 Java、Tomcat、MySQL、Maven热部署
 date: 2017-4-25
 tags: [CentOS7,Tomcat,MySQL,Maven]
 categories: Linux
 ---
 
-本文介绍了CentOS7 64 Java，Tomcat，MySQL，Maven热部署等服务器环境的搭建过程。
+本文介绍了CentOS7 64位下Java、Tomcat、MySQL、Maven热部署等服务器环境的搭建和调试过程。
 
-服务器：
+学生服务器资源获取方法：
 1. [云+校园计划 - 腾讯云](https://www.qcloud.com/act/campus)
 2. 阿里云云翼计划
 3. github 学生包，里面有Digital Ocean 50美元的VPS可用
@@ -50,7 +50,7 @@ categories: Linux
       4. 使用 `source /etc/profile`命令使其立即生效
       3. 通过`java -version`验证Java是否配置成功。
 
-# 安装Tomcat9.0
+# 安装Tomcat9
 
 1. 在Java目录下解压上面一步已经上传上去的Tomcat9.0
     - tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz
@@ -71,7 +71,7 @@ categories: Linux
 
 # MySQL
 
-**安装MySQL**
+## 安装MySQL
 
 CentOS 7的yum源中貌似没有正常安装mysql时的mysql-sever文件，需要去官网上下载
 
@@ -94,7 +94,8 @@ CentOS 7的yum源中貌似没有正常安装mysql时的mysql-sever文件，需�
 # mysql> exit
 ```
 
-**远程连接**
+## 远程连接
+
 进入MySQL后通过
 ```
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '你的密码' WITH GRANT OPTION;
@@ -112,7 +113,7 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '你的密码' WI
 
 当我排除上面3中情况后，发现属于第四中，可能是因为还没有立即生效。
 
-**设置中文**
+## 中文乱码问题
 
 在我建立数据时发现中文无法插入，于是查看使用`show variables like 'character%';`
 如图所示，发现默认不是utf-8，于是通过在CentOS7中修改文件/usr/share/mysql/my-default.cnf，在[mysqld]，[mysql]，[client]下分别添加如下内容
@@ -160,6 +161,33 @@ SYSFONT="lat0-sun16"
 ![](https://images.morethink.cn/mysql-chinese-success-result.jpg)
 
 
+## 解决MySQL5.5忘记密码
+
+通过跳过权限安全检查设置新密码。
+
+1. 首先检查mysql服务是否启动，若已启动则先将其停止服务，可在开始菜单的运行，使用命令： `net stop mysql`
+，然后打开第一个cmd1窗口，切换到mysql的bin目录，运行命令：
+`mysqld --defaults-file="C:\Program Files\MySQL\MySQL Server 5.5\my.ini" --console --skip-grant-tables`，将命令中的MySql版本更换你的版本。
+**该命令通过跳过权限安全检查，开启mysql服务，这样连接mysql时，可以不用输入用户密码**。
+此时已经开启了mysql服务了！
+**这个窗口保留不关闭**。
+2. 打开第二个cmd2窗口，连接mysql
+    - 输入命令：`mysql -u root -p`
+      出现： `Enter password:` ，在这里直接回车，不用输入密码。 然后就就会出现登录成功的信息。
+    - 使用命令切换到mysql数据库：`use mysql;`
+    - 使用命令更改root密码：
+    `UPDATE user SET Password=PASSWORD('newpassword') where USER='root';`
+    - 刷新权限：
+    `FLUSH PRIVILEGES;`
+    - 然后退出，重新登录：
+    `quit`
+    - 重新登录： 可以关掉之前的cmd1 窗口了。
+3. 然后用`net start mysql` 启动服务
+    - 登录：`mysql -u root -p`
+    - 出现输入密码提示，输入新的密码即可登录：
+    `Enter password: ***********`
+
+显示登录信息： 成功  就一切ok了
 
 # Maven 热部署
 
@@ -206,3 +234,4 @@ ion reset by peer: socket write error -> [Help 1]
     - [Centos 7 mysql 5.7 给root开启远程访问权限，修改root密码](http://blog.sina.com.cn/s/blog_5da16ee20102x47h.html)
     - **[连接Mysql提示Can’t connect to local MySQL server through socket的解决方法](http://www.aiezu.com/db/mysql_cant_connect_through_socket.html)**
 5. [How To Install Apache Tomcat 8 on CentOS 7](https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-centos-7)
+6. [windows环境中mysql忘记root密码的解决办法](http://www.cnblogs.com/linuxnotes/archive/2013/03/09/2951101.html)
