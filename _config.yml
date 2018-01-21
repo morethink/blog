@@ -75,12 +75,17 @@ canvas_nest: false
 douban:
     user: 14660354
 
+algolia:
+  applicationID: '0UOQC1TXOW'
+  indexName: 'getstarted_actors'
+  chunkSize: 5000
 
-search:
-  path: search.xml
-  field: post
-  format: html
-  limit: 10000
+
+# search:
+#   path: search.xml
+#   field: post
+#   format: html
+#   limit: 10000
 
 #hexo sitemap
 sitemap:
