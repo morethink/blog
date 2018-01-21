@@ -587,6 +587,12 @@ calendar:
   singleEvents: true
   maxResults: 250
 
+algolia:
+  applicationID: '0UOQC1TXOW'
+  indexName: 'getstarted_actors'
+  apiKey: '0f163be816631add221273d388addac7'
+  chunkSize: 5000
+
 # Algolia Search
 algolia_search:
   enable: true
