@@ -5,16 +5,20 @@ tags: HashMap
 categories: Java
 ---
 
-# HashMap 原理
+# HashMap中数据结构
 
-在jdk1.8中，HashMap采用数组+链表或者数组+树的方式来存储数据。因为数组是一组连续的内存空间，易查询，不易增删，而链表是不连续的内存空间，通过节点相互连接，易删除，不易查询。HashMap结合这两者的优秀之处来提高效率。
+在jdk1.7中，HashMap采用数组+链表(拉链法)。因为数组是一组连续的内存空间，易查询，不易增删，而链表是不连续的内存空间，通过节点相互连接，易删除，不易查询。HashMap结合这两者的优秀之处来提高效率。
 
+而在jdk1.8时，为了解决当hash碰撞过于频繁，而链表的查询效率(时间复杂度为O(n))过低时，当链表的长度达到一定值(默认是8)时，将链表转换成红黑树(时间复杂度为O(lg n))，极大的提高了查询效率。
 
+如图所示：
 ![](https://images.morethink.cn/b3e3671b2edf38a675b5a28587f37ae4.png "JDK8 HashMap")
 
 <!-- more -->
 
-# 默认bucket数组大小
+# HashMap初始化
+
+**以下代码未经特别声明，都是jdk1.8**。
 
 ```java
 /**
@@ -30,25 +34,15 @@ public HashMap() {
     this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted
 }
 ```
-源码里面写着是16,但是通过
-```java
-Map map = new HashMap<>();
-System.out.println(map.size());
-```
-打印时，为什么是0？因为size是已经添加进去的数量，而不是最大容量。
-然后通过查看`HashMap`的构造方法，发现没有执行new操作，猜测可能跟`ArrayList`一样是在第一次`add`的时候开辟的内存，于是查看`put`方法。
+HashMap的默认大小是16。查看`HashMap`的构造方法，发现没有执行new操作，猜测可能跟`ArrayList`一样是在第一次`add`的时候开辟的内存，于是查看`put`方法。
 
 # put方法
 
 ## 关于Node节点
 
-HashMap将hash，key，value，next已经封装到一个静态内部类Node上。
+HashMap将hash，key，value，next已经封装到一个静态内部类Node上。它实现了`Map.Entry<K,V>`接口。
 
 ```java
-/**
- * Basic hash bin node, used for most entries.  (See below for
- * TreeNode subclass, and in LinkedHashMap for its Entry subclass.)
- */
 static class Node<K,V> implements Map.Entry<K,V> {
     final int hash;
     final K key;
@@ -89,54 +83,22 @@ static class Node<K,V> implements Map.Entry<K,V> {
     }
 }
 ```
+
 然后在定义一个Node数组table
 
 ```java
-/**
- * The table, initialized on first use, and resized as
- * necessary. When allocated, length is always a power of two.
- * (We also tolerate length zero in some operations to allow
- * bootstrapping mechanics that are currently not needed.)
- */
 transient Node<K,V>[] table;
 ```
+
 
 ## hash实现
 
 当我们put的时候，首先计算 `key`的`hash`值，这里调用了 `hash`方法，`hash`方法实际是让`key.hashCode()`与`key.hashCode()>>>16`进行异或操作，高16bit补0，一个数和0异或不变，所以 hash 函数大概的作用就是：**高16bit不变，低16bit和高16bit做了一个异或，目的是减少碰撞**。按照函数注释，因为bucket数组大小是2的幂，计算下标`index = (table.length - 1) & hash`，如果不做 hash 处理，相当于散列生效的只有几个低 bit 位，为了减少散列的碰撞，设计者综合考虑了速度、作用、质量之后，使用高16bit和低16bit异或来简单处理减少碰撞，而且JDK8中用了复杂度 O（logn）的树结构来提升碰撞下的性能。
 
 ```java
-/**
- * Associates the specified value with the specified key in this map.
- * If the map previously contained a mapping for the key, the old
- * value is replaced.
- *
- * @param key key with which the specified value is to be associated
- * @param value value to be associated with the specified key
- * @return the previous value associated with <tt>key</tt>, or
- *         <tt>null</tt> if there was no mapping for <tt>key</tt>.
- *         (A <tt>null</tt> return can also indicate that the map
- *         previously associated <tt>null</tt> with <tt>key</tt>.)
- */
 public V put(K key, V value) {
     return putVal(hash(key), key, value, false, true);
 }
-/**
- * Computes key.hashCode() and spreads (XORs) higher bits of hash
- * to lower.  Because the table uses power-of-two masking, sets of
- * hashes that vary only in bits above the current mask will
- * always collide. (Among known examples are sets of Float keys
- * holding consecutive whole numbers in small tables.)  So we
- * apply a transform that spreads the impact of higher bits
- * downward. There is a tradeoff between speed, utility, and
- * quality of bit-spreading. Because many common sets of hashes
- * are already reasonably distributed (so don't benefit from
- * spreading), and because we use trees to handle large sets of
- * collisions in bins, we just XOR some shifted bits in the
- * cheapest possible way to reduce systematic lossage, as well as
- * to incorporate impact of the highest bits that would otherwise
- * never be used in index calculations because of table bounds.
- */
 static final int hash(Object key) {
     int h;
     return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
@@ -150,16 +112,6 @@ static final int hash(Object key) {
 - 不重复在判断table[i]是否连接了一个链表，链表为空则new 一个Node键值对，链表不为空就循环直到最后一个节点的next为null或者出现出现重复key值
 
 ```java
-/**
- * Implements Map.put and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @param value the value to put
- * @param onlyIfAbsent if true, don't change existing value
- * @param evict if false, the table is in creation mode.
- * @return previous value, or null if none
- */
 final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
                boolean evict) {
     Node<K,V>[] tab; Node<K,V> p; int n, i;
@@ -221,36 +173,14 @@ void afterNodeRemoval(Node<K,V> p) { }
 # get方法
 
 首先通过`hash`函数找到索引，然后判断map为null，再判断table[i]是否等于key，然后在找与table相连的链表的key是否相等。
+
 ```java
-/**
- * Returns the value to which the specified key is mapped,
- * or {@code null} if this map contains no mapping for the key.
- *
- * <p>More formally, if this map contains a mapping from a key
- * {@code k} to a value {@code v} such that {@code (key==null ? k==null :
- * key.equals(k))}, then this method returns {@code v}; otherwise
- * it returns {@code null}.  (There can be at most one such mapping.)
- *
- * <p>A return value of {@code null} does not <i>necessarily</i>
- * indicate that the map contains no mapping for the key; it's also
- * possible that the map explicitly maps the key to {@code null}.
- * The {@link #containsKey containsKey} operation may be used to
- * distinguish these two cases.
- *
- * @see #put(Object, Object)
- */
 public V get(Object key) {
     Node<K,V> e;
     return (e = getNode(hash(key), key)) == null ? null : e.value;
 }
 
-/**
- * Implements Map.get and related methods
- *
- * @param hash hash for key
- * @param key the key
- * @return the node, or null if none
- */
+
 final Node<K,V> getNode(int hash, Object key) {
     Node<K,V>[] tab; Node<K,V> first, e; int n; K k;
     if ((tab = table) != null && (n = tab.length) > 0 &&
@@ -272,7 +202,72 @@ final Node<K,V> getNode(int hash, Object key) {
 }
 ```
 
-# resize方法
+# jdk1.7中的线程安全问题(resize死循环)
+
+当HashMap的size超过Capacity*loadFactor时，需要对HashMap进行扩容。具体方法是，创建一个新的，长度为原来Capacity两倍的数组，保证新的Capacity仍为2的N次方，从而保证上述寻址方式仍适用。同时需要通过如下transfer方法将原来的所有数据全部重新插入（rehash）到新的数组中。
+
+下列代码基于 jdk1.7.0_79
+
+```java
+void transfer(Entry[] newTable, boolean rehash) {
+  int newCapacity = newTable.length;
+  for (Entry<K,V> e : table) {
+    while(null != e) {
+      Entry<K,V> next = e.next;
+      if (rehash) {
+        e.hash = null == e.key ? 0 : hash(e.key);
+      }
+      int i = indexFor(e.hash, newCapacity);
+      e.next = newTable[i];
+      newTable[i] = e;
+      e = next;
+    }
+  }
+}
+```
+
+该方法并不保证线程安全，而且在多线程并发调用时，可能出现死循环。其执行过程如下。从步骤2可见，转移时链表顺序反转。
+
+1. 遍历原数组中的元素
+2. 对链表上的每一个节点遍历：用next取得要转移那个元素的下一个，将e转移到新数组的头部，使用头插法插入节点
+3. 循环2，直到链表节点全部转移
+4. 循环1，直到所有元素全部转移
+
+
+## 单线程rehash
+
+单线程情况下，rehash无问题。下图演示了单线程条件下的rehash过程
+![](https://images.morethink.cn/c05a4a71c5ef3eb97458a16751a1815f.png "单线程rehash")
+
+## 多线程并发下的rehash
+
+这里假设有两个线程同时执行了put操作并引发了rehash，执行了transfer方法，并假设线程一进入transfer方法并执行完next = e.next后，因为线程调度所分配时间片用完而“暂停”，此时线程二完成了transfer方法的执行。此时状态如下。
+
+![](https://images.morethink.cn/dc8ccf56884d2e89deba7e7903d6162b.png)
+
+接着线程1被唤醒，继续执行第一轮循环的剩余部分
+
+```java
+e.next = newTable[1] = null
+newTable[1] = e = key(5)
+e = next = key(9)
+```
+
+结果如下图所示
+![](https://images.morethink.cn/5cdb106bc7eb9e827acf573312db6ae5.png)
+
+
+接着执行下一轮循环，结果状态图如下所示
+
+![](https://images.morethink.cn/75b2eb45292a2176ef3e8048179b9d6d.png)
+此时循环链表形成，并且key(11)无法加入到线程1的新数组。在下一次访问该链表时会出现死循环。
+
+
+# jdk1.8中的扩容
+
+在jdk1.8中采用resize方法来对HashMap进行扩容。
+
+## resize方法
 
 ```java
 final Node<K,V>[] resize() {
@@ -360,7 +355,15 @@ final Node<K,V>[] resize() {
 }
 ```
 
+
+声明两对指针，维护两个链表，依次在末端添加新的元素，在多线程操作的情况下，无非是第二个线程重复第一个线程一模一样的操作。
+
+**因此不会产生jdk1.7扩容时的resize死循环问题**。
+
+jdk1.8中hashmap的确不会因为多线程put导致死循环，但是依然有其他的弊端。因此多线程情况下还是建议使用concurrenthashmap。
+
 # 面试问题
+
 1. 如果new HashMap(19)，bucket数组多大？
 HashMap的bucket 数组大小一定是2的幂，如果new的时候指定了容量且不是2的幂，实际容量会是最接近(大于)指定容量的2的幂，比如 new HashMap<>(19)，比19大且最接近的2的幂是32，实际容量就是32。
     **基础知识**
@@ -412,17 +415,9 @@ HashMap 在 put 的元素数量大于 Capacity * LoadFactor（默认16 * 0.75）
 6. 你了解重新调整HashMap大小存在什么问题吗？
 
 
-# JDK1.7和JDK1.8比较
-
-**存储结构**
-JDK7中的 HashMap 还是采用大家所熟悉的数组+链表的结构来存储数据。
-JDK8中的 HashMap 采用了数组+链表或树的结构来存储数据。
-
-
-再看源码的时候，发现源码经常在判断条件中进行赋值。
-
 **参考文档**
 1. [HashMap实现原理分析](http://blog.csdn.net/vking_wang/article/details/14166593)
 2. [由阿里巴巴Java开发规约HashMap条目引发的故事](https://zhuanlan.zhihu.com/p/30360734?utm_source=qq&utm_medium=social)
 3. [Java8 HashMap之tableSizeFor](http://www.cnblogs.com/loading4/p/6239441.html)
 4. [Java 8系列之重新认识HashMap](https://tech.meituan.com/java-hashmap.html)
+5. [Java进阶（六）从ConcurrentHashMap的演进看Java多线程核心技术](http://www.jasongj.com/java/concurrenthashmap/index.html)
