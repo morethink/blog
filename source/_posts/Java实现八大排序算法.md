@@ -1,5 +1,5 @@
 ---
-title: 八大排序算法Java实现
+title: Java实现八大排序算法
 date: 2018-02-05
 tags: 排序
 categories: 算法
