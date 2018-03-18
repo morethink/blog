@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="单点登录," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文转载自： https://www.cnblogs.com/ywlaker/p/6113927.html  作者：凌承一出处：http://www.cnblogs.com/ywlaker/声明：本文版权归作者和博客园共有，欢迎转载，但转载必须保留此段声明，并在文章页面明显位置给出原文链接，否则作者将保留追究法律责任的权利。  单系统登录机制web应用采用browser/server架构，http">
+<meta name="keywords" content="单点登录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单点登录原理与简单实现">
+<meta property="og:url" content="https://www.morethink.cn/sso/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="本文转载自： https://www.cnblogs.com/ywlaker/p/6113927.html  作者：凌承一出处：http://www.cnblogs.com/ywlaker/声明：本文版权归作者和博客园共有，欢迎转载，但转载必须保留此段声明，并在文章页面明显位置给出原文链接，否则作者将保留追究法律责任的权利。  单系统登录机制web应用采用browser/server架构，http">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/02c5bff6aa0c8a04bbda6261bb0fbd7f.png">
+<meta property="og:image" content="https://images.morethink.cn/41970737be124812ef2b457d33aa38df.png">
+<meta property="og:image" content="https://images.morethink.cn/61273ed59b80ddef53862a0cba5f83a0.png">
+<meta property="og:image" content="https://images.morethink.cn/39ec3914d68cc400fab2d251d84370e6.png">
+<meta property="og:image" content="https://images.morethink.cn/1c722018d9dfd78b8623a1c5c50cd740.png">
+<meta property="og:image" content="https://images.morethink.cn/33e912634f234d469982fd25afac8e2a.png">
+<meta property="og:image" content="https://images.morethink.cn/3d3db13c2cab0ba0863b8ecfe4c3f7b2.png">
+<meta property="og:image" content="https://images.morethink.cn/797930-20161203152650974-276822362.png">
+<meta property="og:image" content="https://images.morethink.cn/797930-20161129155242271-222889796.png">
+<meta property="og:image" content="https://images.morethink.cn/797930-20161129155244646-2067469767.png">
+<meta property="og:image" content="https://images.morethink.cn/797930-20161129155245506-1069288802.png">
+<meta property="og:image" content="https://images.morethink.cn/3a48b1deaaecd4dc74377a5eacec4a08.png">
+<meta property="og:image" content="https://images.morethink.cn/d341e21bdb77889efae518d35d754b34.png">
+<meta property="og:image" content="https://images.morethink.cn/1439e11d0b2659b62780e887bd22b20f.png">
+<meta property="og:image" content="https://images.morethink.cn/a743f4b854fb7f82bf4855112de304de.png">
+<meta property="og:image" content="https://images.morethink.cn/e619435d561a998088a6d11a4ecc22cc.png">
+<meta property="og:image" content="https://images.morethink.cn/07a3bf0aefd180dfaa5779ba740998b4.png">
+<meta property="og:image" content="https://images.morethink.cn/e504ce5c9dc7e9e70303b9f3f54d20c2.png">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单点登录原理与简单实现">
+<meta name="twitter:description" content="本文转载自： https://www.cnblogs.com/ywlaker/p/6113927.html  作者：凌承一出处：http://www.cnblogs.com/ywlaker/声明：本文版权归作者和博客园共有，欢迎转载，但转载必须保留此段声明，并在文章页面明显位置给出原文链接，否则作者将保留追究法律责任的权利。  单系统登录机制web应用采用browser/server架构，http">
+<meta name="twitter:image" content="https://images.morethink.cn/02c5bff6aa0c8a04bbda6261bb0fbd7f.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/sso/"/>
+
+
+
+
+
+  <title>单点登录原理与简单实现 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/sso/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">单点登录原理与简单实现</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T00:00:00+08:00">
+                2017-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务器/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文转载自： <a href="https://www.cnblogs.com/ywlaker/p/6113927.html" target="_blank" rel="noopener">https://www.cnblogs.com/ywlaker/p/6113927.html</a></p>
+<blockquote>
+<p>作者：凌承一<br>出处：<a href="http://www.cnblogs.com/ywlaker/" target="_blank" rel="noopener">http://www.cnblogs.com/ywlaker/</a><br>声明：本文版权归作者和博客园共有，欢迎转载，但转载必须保留此段声明，并在文章页面明显位置给出原文链接，否则作者将保留追究法律责任的权利。</p>
+</blockquote>
+<h1 id="单系统登录机制"><a href="#单系统登录机制" class="headerlink" title="单系统登录机制"></a>单系统登录机制</h1><p>web应用采用browser/server架构，http作为通信协议。http是无状态协议，浏览器的每一次请求，服务器会独立处理，不与之前或之后的请求产生关联，这个过程用下图说明，三次请求/响应对之间没有任何联系。</p>
+<p><img src="https://images.morethink.cn/02c5bff6aa0c8a04bbda6261bb0fbd7f.png" alt="" title="无状态的Http协议"></p>
+<a id="more"></a>
+<p>但这也同时意味着，任何用户都能通过浏览器访问服务器资源，如果想保护服务器的某些资源，必须限制浏览器请求；要限制浏览器请求，必须鉴别浏览器请求，响应合法请求，忽略非法请求；要鉴别浏览器请求，必须清楚浏览器请求状态。既然http协议无状态，那就让服务器和浏览器共同维护一个状态吧！这就是会话机制。</p>
+<h2 id="会话机制"><a href="#会话机制" class="headerlink" title="会话机制"></a>会话机制</h2><p>浏览器第一次请求服务器，服务器创建一个会话，并将会话的id作为响应的一部分发送给浏览器，浏览器存储会话id，并在后续第二次和第三次请求中带上会话id，服务器取得请求中的会话id就知道是不是同一个用户了，这个过程用下图说明，后续请求与第一次请求产生了关联。</p>
+<p><img src="https://images.morethink.cn/41970737be124812ef2b457d33aa38df.png" alt="" title="会话机制"></p>
+<p>服务器在内存中保存会话对象，浏览器怎么保存会话id呢？</p>
+<p>你可能会想到两种方式</p>
+<ul>
+<li>请求参数</li>
+<li>cookie</li>
+</ul>
+<p>将会话id作为每一个请求的参数，服务器接收请求自然能解析参数获得会话id，并借此判断是否来自同一会话，很明显，这种方式不靠谱。那就浏览器自己来维护这个会话id吧，每次发送http请求时浏览器自动发送会话id，cookie机制正好用来做这件事。cookie是浏览器用来存储少量数据的一种机制，数据以”key/value”形式存储，浏览器发送http请求时自动附带cookie信息。</p>
+<p>tomcat会话机制当然也实现了cookie，访问tomcat服务器时，浏览器中可以看到一个名为<code>JSESSIONID</code>的cookie，这就是tomcat会话机制维护的会话id，使用了cookie的请求响应过程如下图：</p>
+<p><img src="https://images.morethink.cn/61273ed59b80ddef53862a0cba5f83a0.png" alt="" title="JSESSIONID"></p>
+<h2 id="登录状态"><a href="#登录状态" class="headerlink" title="登录状态"></a>登录状态</h2><p>有了会话机制，登录状态就好明白了，我们假设浏览器第一次请求服务器需要输入用户名与密码验证身份，服务器拿到用户名密码去数据库比对，正确的话说明当前持有这个会话的用户是合法用户，应该将这个会话标记为“已授权”或者“已登录”等等之类的状态，既然是会话的状态，自然要保存在会话对象中，tomcat在会话对象中设置登录状态如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HttpSession session = request.getSession();</span><br><span class="line">session.setAttribute(<span class="string">"isLogin"</span>, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>用户再次访问时，tomcat在会话对象中查看登录状态：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HttpSession session = request.getSession();</span><br><span class="line">session.getAttribute(<span class="string">"isLogin"</span>);</span><br></pre></td></tr></table></figure>
+<p>实现了登录状态的浏览器请求服务器模型如下图描述：</p>
+<p><img src="https://images.morethink.cn/39ec3914d68cc400fab2d251d84370e6.png" alt="" title="登录状态控制"></p>
+<p>每次请求受保护资源时都会检查会话对象中的登录状态，只有 <code>isLogin=true</code> 的会话才能访问，登录机制因此而实现。</p>
+<h1 id="多系统的复杂性"><a href="#多系统的复杂性" class="headerlink" title="多系统的复杂性"></a>多系统的复杂性</h1><p>web系统早已从久远的单系统发展成为如今由多系统组成的应用群，面对如此众多的系统，用户难道要一个一个登录、然后一个一个注销吗？就像下图描述的这样</p>
+<p><img src="https://images.morethink.cn/1c722018d9dfd78b8623a1c5c50cd740.png" alt="" title="多系统"></p>
+<p><strong>web系统由单系统发展成多系统组成的应用群，复杂性应该由系统内部承担，而不是用户。无论web系统内部多么复杂，对用户而言，都是一个统一的整体，也就是说，用户访问web系统的整个应用群与访问单个系统一样，登录/注销只要一次就够了</strong>。</p>
+<p><img src="https://images.morethink.cn/33e912634f234d469982fd25afac8e2a.png" alt="" title="单系统的登录"></p>
+<p><strong><em>虽然单系统的登录解决方案很完美，但对于多系统应用群已经不再适用了，为什么呢？</em></strong></p>
+<p>单系统登录解决方案的核心是cookie，cookie携带会话id在浏览器与服务器之间维护会话状态。但cookie是有限制的，这个限制就是cookie的域（通常对应网站的域名），浏览器发送http请求时会自动携带与该域匹配的cookie，而不是所有cookie。</p>
+<p><img src="https://images.morethink.cn/3d3db13c2cab0ba0863b8ecfe4c3f7b2.png" alt="" title="夸域名"></p>
+<h2 id="子域名cookie共享完成单点登录"><a href="#子域名cookie共享完成单点登录" class="headerlink" title="子域名cookie共享完成单点登录"></a>子域名cookie共享完成单点登录</h2><p>既然这样，为什么不将web应用群中所有子系统的域名统一在一个顶级域名下，例如“<code>*.baidu.com</code>”，然后将它们的cookie域设置为“baidu.com”，这种做法理论上是可以的，甚至早期很多多系统登录就采用这种同域名共享cookie的方式。</p>
+<p>然而，可行并不代表好，共享cookie的方式存在众多局限。</p>
+<ol>
+<li>首先，应用群域名得统一。</li>
+<li>其次，应用群各系统使用的技术（至少是web服务器）要相同，不然cookie的key值（tomcat为JSESSIONID）不同，无法维持会话，共享cookie的方式是无法实现跨语言技术平台登录的，比如java、php、.net系统之间。</li>
+<li>第三，cookie本身不安全。</li>
+</ol>
+<p>除上面之外，如果我们在<code>session</code>存放的是<code>User</code>对象，那么我们使用全局cookie共享<code>JSESSIONID</code>值，每一个子域名就可以访问同一个session，登录成功后保存一个user对象，注销后就移除这个user对象。session中的user对象必须先序列化保存到redis中，并且每次访问的时候，都需要去redis中取出session，并且重新序列化成user对象。<strong>这样会造成额外的消耗</strong>。</p>
+<p>因此，我们需要一种全新的登录方式来实现多系统应用群的登录，这就是单点登录。</p>
+<h1 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h1><p><strong>什么是单点登录</strong>？</p>
+<p>单点登录全称Single Sign On（以下简称SSO），是指在多系统应用群中登录一个系统，便可在其他所有系统中得到授权而无需再次登录，包括单点登录与单点注销两部分。</p>
+<h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>相比于单系统登录，sso需要一个独立的认证中心，只有认证中心能接受用户的用户名密码等安全信息，其他系统不提供登录入口，只接受认证中心的间接授权。间接授权通过令牌实现，sso认证中心验证用户的用户名密码没问题，创建授权令牌，在接下来的跳转过程中，授权令牌作为参数发送给各个子系统，子系统拿到令牌，即得到了授权，可以借此创建局部会话，局部会话登录方式与单系统的登录方式相同。</p>
+<p>这个过程，也就是单点登录的原理，用下图说明：</p>
+<p><img src="https://images.morethink.cn/797930-20161203152650974-276822362.png" alt="" title="单点登录"></p>
+<p>下面对上图简要描述：</p>
+<ol>
+<li>用户访问系统1的受保护资源，系统1发现用户未登录，跳转至sso认证中心，并将自己的地址作为参数。</li>
+<li>sso认证中心发现用户未登录，将用户引导至登录页面。</li>
+<li>用户输入用户名密码提交登录申请。</li>
+<li>sso认证中心校验用户信息，创建用户与sso认证中心之间的会话，称为全局会话，同时创建授权令牌。</li>
+<li>sso认证中心带着令牌跳转会最初的请求地址（系统1）。</li>
+<li>系统1拿到令牌，去sso认证中心校验令牌是否有效。</li>
+<li>sso认证中心校验令牌，返回有效，注册系统1。</li>
+<li>系统1使用该令牌创建与用户的会话，称为局部会话，返回受保护资源。</li>
+<li>用户访问系统2的受保护资源。</li>
+<li>系统2发现用户未登录，跳转至sso认证中心，并将自己的地址作为参数。</li>
+<li>sso认证中心发现用户已登录，跳转回系统2的地址，并附上令牌。</li>
+<li>系统2拿到令牌，去sso认证中心校验令牌是否有效。</li>
+<li>sso认证中心校验令牌，返回有效，注册系统2。</li>
+<li>系统2使用该令牌创建与用户的局部会话，返回受保护资源。</li>
+</ol>
+<p>用户登录成功之后，会与sso认证中心及各个子系统建立会话，用户与sso认证中心建立的会话称为全局会话，用户与各个子系统建立的会话称为局部会话，局部会话建立之后，用户访问子系统受保护资源将不再通过sso认证中心，全局会话与局部会话有如下约束关系：</p>
+<ul>
+<li>局部会话存在，全局会话一定存在。</li>
+<li>全局会话存在，局部会话不一定存在。</li>
+<li>全局会话销毁，局部会话必须销毁。</li>
+</ul>
+<p>你可以通过博客园、百度、csdn、淘宝等网站的登录过程加深对单点登录的理解，注意观察登录过程中的跳转url与参数</p>
+<h2 id="注销"><a href="#注销" class="headerlink" title="注销"></a>注销</h2><p>单点登录自然也要单点注销，在一个子系统中注销，所有子系统的会话都将被销毁，用下面的图来说明：</p>
+<p><img src="https://images.morethink.cn/797930-20161129155242271-222889796.png" alt="" title="单点注销"></p>
+<p>sso认证中心一直监听全局会话的状态，一旦全局会话销毁，监听器将通知所有注册系统执行注销操作</p>
+<p>下面对上图简要说明：</p>
+<ol>
+<li>用户向系统1发起注销请求。</li>
+<li>系统1根据用户与系统1建立的会话id拿到令牌，向sso认证中心发起注销请求。</li>
+<li>sso认证中心校验令牌有效，销毁全局会话，同时取出所有用此令牌注册的系统地址。</li>
+<li>sso认证中心向所有注册系统发起注销请求。</li>
+<li>各注册系统接收sso认证中心的注销请求，销毁局部会话。</li>
+<li>sso认证中心引导用户至登录页面。</li>
+</ol>
+<h2 id="部署图"><a href="#部署图" class="headerlink" title="部署图"></a>部署图</h2><p>单点登录涉及sso认证中心与众子系统，子系统与sso认证中心需要通信以交换令牌、校验令牌及发起注销请求，因而子系统必须集成sso的客户端，sso认证中心则是sso服务端，整个单点登录过程实质是sso客户端与服务端通信的过程，用下图描述：</p>
+<p><img src="https://images.morethink.cn/797930-20161129155244646-2067469767.png" alt="" title="部署图"></p>
+<p>sso认证中心与sso客户端通信方式有多种，这里以简单好用的httpClient为例，web service、rpc、restful api都可以。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>只是简要介绍下基于java的实现过程，不提供完整源码，明白了原理，我相信你们可以自己实现。sso采用客户端/服务端架构，我们先看sso-client与sso-server要实现的功能（下面：sso认证中心=sso-server）。</p>
+<h3 id="sso-client"><a href="#sso-client" class="headerlink" title="sso-client"></a>sso-client</h3><ol>
+<li>拦截子系统未登录用户请求，跳转至sso认证中心。</li>
+<li>接收并存储sso认证中心发送的令牌。</li>
+<li>与sso-server通信，校验令牌的有效性。</li>
+<li>建立局部会话。</li>
+<li>拦截用户注销请求，向sso认证中心发送注销请求。</li>
+<li>接收sso认证中心发出的注销请求，销毁局部会话。</li>
+</ol>
+<h3 id="sso-server"><a href="#sso-server" class="headerlink" title="sso-server"></a>sso-server</h3><ol>
+<li>验证用户的登录信息。</li>
+<li>创建全局会话。</li>
+<li>创建授权令牌。</li>
+<li>与sso-client通信发送令牌。</li>
+<li>校验sso-client令牌有效性。</li>
+<li>系统注册。</li>
+<li>接收sso-client注销请求，注销所有会话。</li>
+</ol>
+<p>接下来，我们按照原理来一步步实现sso吧！</p>
+<h2 id="sso-client拦截未登录请求"><a href="#sso-client拦截未登录请求" class="headerlink" title="sso-client拦截未登录请求"></a>sso-client拦截未登录请求</h2><p>java拦截请求的方式有servlet、filter、listener三种方式，我们采用filter。在sso-client中新建LoginFilter.java类并实现Filter接口，在doFilter()方法中加入对未登录用户的拦截：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">    HttpServletRequest req = (HttpServletRequest) request;</span><br><span class="line">    HttpServletResponse res = (HttpServletResponse) response;</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (session.getAttribute(<span class="string">"isLogin"</span>)) &#123;</span><br><span class="line">        chain.doFilter(request, response);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//跳转至sso认证中心</span></span><br><span class="line">    res.sendRedirect(<span class="string">"sso-server-url-with-system-url"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="sso-server拦截未登录请求"><a href="#sso-server拦截未登录请求" class="headerlink" title="sso-server拦截未登录请求"></a>sso-server拦截未登录请求</h2><p>拦截从sso-client跳转至sso认证中心的未登录请求，跳转至登录页面，这个过程与sso-client完全一样。</p>
+<h2 id="sso-server验证用户登录信息"><a href="#sso-server验证用户登录信息" class="headerlink" title="sso-server验证用户登录信息"></a>sso-server验证用户登录信息</h2><p>用户在登录页面输入用户名密码，请求登录，sso认证中心校验用户信息，校验成功，将会话状态标记为“已登录”。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(String username, String password, HttpServletRequest req)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.checkLoginInfo(username, password);</span><br><span class="line">    req.getSession().setAttribute(<span class="string">"isLogin"</span>, <span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"success"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="sso-server创建授权令牌"><a href="#sso-server创建授权令牌" class="headerlink" title="sso-server创建授权令牌"></a>sso-server创建授权令牌</h2><p>授权令牌是一串随机字符，以什么样的方式生成都没有关系，只要不重复、不易伪造即可，下面是一个例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String token = UUID.randomUUID().toString();</span><br></pre></td></tr></table></figure>
+<h2 id="sso-client取得令牌并校验"><a href="#sso-client取得令牌并校验" class="headerlink" title="sso-client取得令牌并校验"></a>sso-client取得令牌并校验</h2><p>sso认证中心登录后，跳转回子系统并附上令牌，子系统（sso-client）取得令牌，然后去sso认证中心校验，在LoginFilter.java的doFilter()中添加几行：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 请求附带token参数</span></span><br><span class="line">String token = req.getParameter(<span class="string">"token"</span>);</span><br><span class="line"><span class="keyword">if</span> (token != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">// 去sso认证中心校验token</span></span><br><span class="line">    <span class="keyword">boolean</span> verifyResult = <span class="keyword">this</span>.verify(<span class="string">"sso-server-verify-url"</span>, token);</span><br><span class="line">    <span class="keyword">if</span> (!verifyResult) &#123;</span><br><span class="line">        res.sendRedirect(<span class="string">"sso-server-url"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    chain.doFilter(request, response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>verify()方法使用httpClient实现，这里仅简略介绍，httpClient详细使用方法请参考官方文档。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HttpPost httpPost = <span class="keyword">new</span> HttpPost(<span class="string">"sso-server-verify-url-with-token"</span>);</span><br><span class="line">HttpResponse httpResponse = httpClient.execute(httpPost);</span><br></pre></td></tr></table></figure>
+<h2 id="sso-server接收并处理校验令牌请求"><a href="#sso-server接收并处理校验令牌请求" class="headerlink" title="sso-server接收并处理校验令牌请求"></a>sso-server接收并处理校验令牌请求</h2><ul>
+<li><p>用户在sso认证中心登录成功后，sso-server创建授权令牌并存储该令牌，所以，sso-server对令牌的校验就是去查找这个令牌是否存在以及是否过期，令牌校验成功后sso-server将发送校验请求的系统注册到sso认证中心（就是存储起来的意思）</p>
+</li>
+<li><p>令牌与注册系统地址通常存储在key-value数据库（如redis）中，redis可以为key设置有效时间也就是令牌的有效期。redis运行在内存中，速度非常快，正好sso-server不需要持久化任何数据。</p>
+</li>
+<li><p>令牌与注册系统地址可以用下图描述的结构存储在redis中，可能你会问，为什么要存储这些系统的地址？如果不存储，注销的时候就麻烦了，用户向sso认证中心提交注销请求，sso认证中心注销全局会话，但不知道哪些系统用此全局会话建立了自己的局部会话，也不知道要向哪些子系统发送注销请求注销局部会话。</p>
+</li>
+</ul>
+<p><img src="https://images.morethink.cn/797930-20161129155245506-1069288802.png" alt=""></p>
+<h2 id="sso-client校验令牌成功创建局部会话"><a href="#sso-client校验令牌成功创建局部会话" class="headerlink" title="sso-client校验令牌成功创建局部会话"></a>sso-client校验令牌成功创建局部会话</h2><p>令牌校验成功后，sso-client将当前局部会话标记为“已登录”，修改LoginFilter.java，添加几行：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (verifyResult) &#123;</span><br><span class="line">    session.setAttribute(<span class="string">"isLogin"</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sso-client还需将当前会话id与令牌绑定，表示这个会话的登录状态与令牌相关，此关系可以用java的hashmap保存，保存的数据用来处理sso认证中心发来的注销请求</p>
+<h2 id="注销过程"><a href="#注销过程" class="headerlink" title="注销过程"></a>注销过程</h2><p>用户向子系统发送带有“logout”参数的请求（注销请求），sso-client拦截器拦截该请求，向sso认证中心发起注销请求：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String logout = req.getParameter(<span class="string">"logout"</span>);</span><br><span class="line"><span class="keyword">if</span> (logout != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.ssoServer.logout(token);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sso认证中心也用同样的方式识别出sso-client的请求是注销请求（带有“logout”参数），sso认证中心注销全局会话：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/logout"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">logout</span><span class="params">(HttpServletRequest req)</span> </span>&#123;</span><br><span class="line">    HttpSession session = req.getSession();</span><br><span class="line">    <span class="keyword">if</span> (session != <span class="keyword">null</span>) &#123;</span><br><span class="line">        session.invalidate();<span class="comment">//触发LogoutListener</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"redirect:/"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sso认证中心有一个全局会话的监听器，一旦全局会话注销，将通知所有注册系统注销</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogoutListener</span> <span class="keyword">implements</span> <span class="title">HttpSessionListener</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionCreated</span><span class="params">(HttpSessionEvent event)</span> </span>&#123;&#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sessionDestroyed</span><span class="params">(HttpSessionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//通过httpClient向所有注册系统发送注销请求</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="代码部署"><a href="#代码部署" class="headerlink" title="代码部署"></a>代码部署</h1><p>GitHub地址： <a href="https://github.com/morethink/simple-sso.git" target="_blank" rel="noopener">https://github.com/morethink/simple-sso.git</a></p>
+<h2 id="IDEA部署"><a href="#IDEA部署" class="headerlink" title="IDEA部署"></a>IDEA部署</h2><p><img src="https://images.morethink.cn/3a48b1deaaecd4dc74377a5eacec4a08.png" alt=""><br><img src="https://images.morethink.cn/d341e21bdb77889efae518d35d754b34.png" alt=""><br><img src="https://images.morethink.cn/1439e11d0b2659b62780e887bd22b20f.png" alt=""></p>
+<h2 id="单点登录-1"><a href="#单点登录-1" class="headerlink" title="单点登录"></a>单点登录</h2><p><strong>访问a系统</strong>：</p>
+<p><a href="http://localhost/a/test" target="_blank" rel="noopener">http://localhost/a/test</a></p>
+<p><img src="https://images.morethink.cn/a743f4b854fb7f82bf4855112de304de.png" alt=""></p>
+<p><strong>访问b系统</strong>：</p>
+<p><a href="http://localhost/b/test" target="_blank" rel="noopener">http://localhost/b/test</a></p>
+<p><img src="https://images.morethink.cn/e619435d561a998088a6d11a4ecc22cc.png" alt=""></p>
+<p><strong>a系统登录成功</strong>：</p>
+<p><img src="https://images.morethink.cn/07a3bf0aefd180dfaa5779ba740998b4.png" alt=""></p>
+<p><strong>b系统同时也登录成功</strong>:</p>
+<p><img src="https://images.morethink.cn/e504ce5c9dc7e9e70303b9f3f54d20c2.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/sso/" title="单点登录原理与简单实现">https://www.morethink.cn/sso/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/单点登录/" rel="tag"># 单点登录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/TCP/" rel="next" title="面试中的TCP协议">
+                <i class="fa fa-chevron-left"></i> 面试中的TCP协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Java-openoffice-pdf/" rel="prev" title="Java使用Openoffice将word、ppt转换为PDF">
+                Java使用Openoffice将word、ppt转换为PDF <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单系统登录机制"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5355;&#x7CFB;&#x7EDF;&#x767B;&#x5F55;&#x673A;&#x5236;" class="headerlink" title="&#x5355;&#x7CFB;&#x7EDF;&#x767B;&#x5F55;&#x673A;&#x5236;"></a>&#x5355;&#x7CFB;&#x7EDF;&#x767B;&#x5F55;&#x673A;&#x5236;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#会话机制"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x4F1A;&#x8BDD;&#x673A;&#x5236;" class="headerlink" title="&#x4F1A;&#x8BDD;&#x673A;&#x5236;"></a>&#x4F1A;&#x8BDD;&#x673A;&#x5236;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录状态"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x767B;&#x5F55;&#x72B6;&#x6001;" class="headerlink" title="&#x767B;&#x5F55;&#x72B6;&#x6001;"></a>&#x767B;&#x5F55;&#x72B6;&#x6001;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多系统的复杂性"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x591A;&#x7CFB;&#x7EDF;&#x7684;&#x590D;&#x6742;&#x6027;" class="headerlink" title="&#x591A;&#x7CFB;&#x7EDF;&#x7684;&#x590D;&#x6742;&#x6027;"></a>&#x591A;&#x7CFB;&#x7EDF;&#x7684;&#x590D;&#x6742;&#x6027;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#子域名cookie共享完成单点登录"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x5B50;&#x57DF;&#x540D;cookie&#x5171;&#x4EAB;&#x5B8C;&#x6210;&#x5355;&#x70B9;&#x767B;&#x5F55;" class="headerlink" title="&#x5B50;&#x57DF;&#x540D;cookie&#x5171;&#x4EAB;&#x5B8C;&#x6210;&#x5355;&#x70B9;&#x767B;&#x5F55;"></a>&#x5B50;&#x57DF;&#x540D;cookie&#x5171;&#x4EAB;&#x5B8C;&#x6210;&#x5355;&#x70B9;&#x767B;&#x5F55;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单点登录"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5355;&#x70B9;&#x767B;&#x5F55;" class="headerlink" title="&#x5355;&#x70B9;&#x767B;&#x5F55;"></a>&#x5355;&#x70B9;&#x767B;&#x5F55;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x767B;&#x5F55;" class="headerlink" title="&#x767B;&#x5F55;"></a>&#x767B;&#x5F55;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注销"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x6CE8;&#x9500;" class="headerlink" title="&#x6CE8;&#x9500;"></a>&#x6CE8;&#x9500;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署图"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x90E8;&#x7F72;&#x56FE;" class="headerlink" title="&#x90E8;&#x7F72;&#x56FE;"></a>&#x90E8;&#x7F72;&#x56FE;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x5B9E;&#x73B0;" class="headerlink" title="&#x5B9E;&#x73B0;"></a>&#x5B9E;&#x73B0;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sso-client"><span class="nav-number">4.0.1.</span> <span class="nav-text"><a href="#sso-client" class="headerlink" title="sso-client"></a>sso-client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sso-server"><span class="nav-number">4.0.2.</span> <span class="nav-text"><a href="#sso-server" class="headerlink" title="sso-server"></a>sso-server</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sso-client拦截未登录请求"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#sso-client&#x62E6;&#x622A;&#x672A;&#x767B;&#x5F55;&#x8BF7;&#x6C42;" class="headerlink" title="sso-client&#x62E6;&#x622A;&#x672A;&#x767B;&#x5F55;&#x8BF7;&#x6C42;"></a>sso-client&#x62E6;&#x622A;&#x672A;&#x767B;&#x5F55;&#x8BF7;&#x6C42;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sso-server拦截未登录请求"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#sso-server&#x62E6;&#x622A;&#x672A;&#x767B;&#x5F55;&#x8BF7;&#x6C42;" class="headerlink" title="sso-server&#x62E6;&#x622A;&#x672A;&#x767B;&#x5F55;&#x8BF7;&#x6C42;"></a>sso-server&#x62E6;&#x622A;&#x672A;&#x767B;&#x5F55;&#x8BF7;&#x6C42;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sso-server验证用户登录信息"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#sso-server&#x9A8C;&#x8BC1;&#x7528;&#x6237;&#x767B;&#x5F55;&#x4FE1;&#x606F;" class="headerlink" title="sso-server&#x9A8C;&#x8BC1;&#x7528;&#x6237;&#x767B;&#x5F55;&#x4FE1;&#x606F;"></a>sso-server&#x9A8C;&#x8BC1;&#x7528;&#x6237;&#x767B;&#x5F55;&#x4FE1;&#x606F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sso-server创建授权令牌"><span class="nav-number">4.4.</span> <span class="nav-text"><a href="#sso-server&#x521B;&#x5EFA;&#x6388;&#x6743;&#x4EE4;&#x724C;" class="headerlink" title="sso-server&#x521B;&#x5EFA;&#x6388;&#x6743;&#x4EE4;&#x724C;"></a>sso-server&#x521B;&#x5EFA;&#x6388;&#x6743;&#x4EE4;&#x724C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sso-client取得令牌并校验"><span class="nav-number">4.5.</span> <span class="nav-text"><a href="#sso-client&#x53D6;&#x5F97;&#x4EE4;&#x724C;&#x5E76;&#x6821;&#x9A8C;" class="headerlink" title="sso-client&#x53D6;&#x5F97;&#x4EE4;&#x724C;&#x5E76;&#x6821;&#x9A8C;"></a>sso-client&#x53D6;&#x5F97;&#x4EE4;&#x724C;&#x5E76;&#x6821;&#x9A8C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sso-server接收并处理校验令牌请求"><span class="nav-number">4.6.</span> <span class="nav-text"><a href="#sso-server&#x63A5;&#x6536;&#x5E76;&#x5904;&#x7406;&#x6821;&#x9A8C;&#x4EE4;&#x724C;&#x8BF7;&#x6C42;" class="headerlink" title="sso-server&#x63A5;&#x6536;&#x5E76;&#x5904;&#x7406;&#x6821;&#x9A8C;&#x4EE4;&#x724C;&#x8BF7;&#x6C42;"></a>sso-server&#x63A5;&#x6536;&#x5E76;&#x5904;&#x7406;&#x6821;&#x9A8C;&#x4EE4;&#x724C;&#x8BF7;&#x6C42;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sso-client校验令牌成功创建局部会话"><span class="nav-number">4.7.</span> <span class="nav-text"><a href="#sso-client&#x6821;&#x9A8C;&#x4EE4;&#x724C;&#x6210;&#x529F;&#x521B;&#x5EFA;&#x5C40;&#x90E8;&#x4F1A;&#x8BDD;" class="headerlink" title="sso-client&#x6821;&#x9A8C;&#x4EE4;&#x724C;&#x6210;&#x529F;&#x521B;&#x5EFA;&#x5C40;&#x90E8;&#x4F1A;&#x8BDD;"></a>sso-client&#x6821;&#x9A8C;&#x4EE4;&#x724C;&#x6210;&#x529F;&#x521B;&#x5EFA;&#x5C40;&#x90E8;&#x4F1A;&#x8BDD;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注销过程"><span class="nav-number">4.8.</span> <span class="nav-text"><a href="#&#x6CE8;&#x9500;&#x8FC7;&#x7A0B;" class="headerlink" title="&#x6CE8;&#x9500;&#x8FC7;&#x7A0B;"></a>&#x6CE8;&#x9500;&#x8FC7;&#x7A0B;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码部署"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x4EE3;&#x7801;&#x90E8;&#x7F72;" class="headerlink" title="&#x4EE3;&#x7801;&#x90E8;&#x7F72;"></a>&#x4EE3;&#x7801;&#x90E8;&#x7F72;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA部署"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#IDEA&#x90E8;&#x7F72;" class="headerlink" title="IDEA&#x90E8;&#x7F72;"></a>IDEA&#x90E8;&#x7F72;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单点登录-1"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#&#x5355;&#x70B9;&#x767B;&#x5F55;-1" class="headerlink" title="&#x5355;&#x70B9;&#x767B;&#x5F55;"></a>&#x5355;&#x70B9;&#x767B;&#x5F55;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

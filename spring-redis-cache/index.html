@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Redis," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="缓存什么是缓存？在高并发下，为了提高访问的性能，需要将数据库中 一些经常展现和不会频繁变更的数据，存放在存取速率更快的内存中。这样可以  降低数据的获取时间，带来更好的体验 减轻数据库的压力  缓存适用于读多写少的场合，查询时缓存命中率很低、写操作很频繁等场景不适宜用缓存。 MySQL有自己的查询缓存，为什么还要使用 Redis 等缓存应用？  当只有一台 MySQL服务器时，可以将缓存放置在本地">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring使用redis做缓存">
+<meta property="og:url" content="https://www.morethink.cn/spring-redis-cache/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="缓存什么是缓存？在高并发下，为了提高访问的性能，需要将数据库中 一些经常展现和不会频繁变更的数据，存放在存取速率更快的内存中。这样可以  降低数据的获取时间，带来更好的体验 减轻数据库的压力  缓存适用于读多写少的场合，查询时缓存命中率很低、写操作很频繁等场景不适宜用缓存。 MySQL有自己的查询缓存，为什么还要使用 Redis 等缓存应用？  当只有一台 MySQL服务器时，可以将缓存放置在本地">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/6ae279a4bbe330303c483347a583f965.png">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring使用redis做缓存">
+<meta name="twitter:description" content="缓存什么是缓存？在高并发下，为了提高访问的性能，需要将数据库中 一些经常展现和不会频繁变更的数据，存放在存取速率更快的内存中。这样可以  降低数据的获取时间，带来更好的体验 减轻数据库的压力  缓存适用于读多写少的场合，查询时缓存命中率很低、写操作很频繁等场景不适宜用缓存。 MySQL有自己的查询缓存，为什么还要使用 Redis 等缓存应用？  当只有一台 MySQL服务器时，可以将缓存放置在本地">
+<meta name="twitter:image" content="https://images.morethink.cn/6ae279a4bbe330303c483347a583f965.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/spring-redis-cache/"/>
+
+
+
+
+
+  <title>spring使用redis做缓存 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/spring-redis-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">spring使用redis做缓存</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T00:00:00+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><h2 id="什么是缓存？"><a href="#什么是缓存？" class="headerlink" title="什么是缓存？"></a>什么是缓存？</h2><p>在高并发下，为了提高访问的性能，需要将数据库中 <strong>一些经常展现和不会频繁变更的数据</strong>，存放在存取速率更快的内存中。这样可以</p>
+<ol>
+<li>降低数据的获取时间，带来更好的体验</li>
+<li>减轻数据库的压力</li>
+</ol>
+<p>缓存适用于读多写少的场合，查询时缓存命中率很低、写操作很频繁等场景不适宜用缓存。</p>
+<p><strong>MySQL有自己的查询缓存，为什么还要使用 Redis 等缓存应用</strong>？</p>
+<ul>
+<li>当只有一台 MySQL服务器时，可以将缓存放置在本地。这样当有相同的 SQL 查询到达时，可以直接从缓存中取到查询结果，不需要进行 SQL 的解析和执行。MySQL 提供了服务器层面的缓存支持。</li>
+<li>如果有多台 MySQL 服务器，请求会随机分发给多台中的一台，我们无法保证相同的请求会到达同一台服务器，本地缓存命中率较低。所以基于本机的缓存就没有什么意义，此时采用的策略应该是将查询结果缓存在 Redis 或者 Memcache 中。</li>
+</ul>
+<p>而Redis是一个高性能的 key-value 内存数据库，恰恰可以作为缓存使用。<br><a id="more"></a><br>GitHub 地址：<a href="https://github.com/antirez/redis" target="_blank" rel="noopener">https://github.com/antirez/redis</a> 。Github 是这么描述的：<br>Redis is an in-memory database that persists on disk. The data model is key-value, but many different kind of values are supported: Strings, Lists, Sets, Sorted Sets, Hashes, HyperLogLogs, Bitmaps.</p>
+<p>但是mysql自己本身有查询缓存，memcached也是一个优秀的内存数据库，为什么一定要选择redis</p>
+<h2 id="缓存更新"><a href="#缓存更新" class="headerlink" title="缓存更新"></a>缓存更新</h2><p>查看<a href="http://coolshell.cn/articles/17416.html" target="_blank" rel="noopener">缓存更新的套路</a>，缓存更新的模式有四种：</p>
+<ul>
+<li>Cache aside</li>
+<li>Read through</li>
+<li>Write through</li>
+<li>Write behind cachin。</li>
+</ul>
+<p>这里我们使用的是 Cache Aside 策略，从三个维度：</p>
+<ol>
+<li>命中：应用程序从cache中取数据，取到后返回。执行图中1,2步</li>
+<li>失效：应用程序先从cache取数据，没有得到，则从数据库中取数据，成功后，放到缓存中。执行图中1,2,3，4,1，2步</li>
+<li>更新：先把数据存到数据库中，成功后，再让缓存失效。执行图中1，2步</li>
+</ol>
+<p><img src="https://images.morethink.cn/6ae279a4bbe330303c483347a583f965.png" alt="" title="redis调用过程"></p>
+<h1 id="spring配置redis缓存"><a href="#spring配置redis缓存" class="headerlink" title="spring配置redis缓存"></a>spring配置redis缓存</h1><p>接下来讲解一下spring的配置。</p>
+<h1 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h1><p>pom.xml中添加</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- redis cache--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="RedisConfig"><a href="#RedisConfig" class="headerlink" title="RedisConfig"></a>RedisConfig</h1><p>现在我们使用的是java config 配置，因此需要将本RedisConfig放在可以被<br><code>&lt;context:component-scan base-package=&quot;&quot;/&gt;</code><br>扫描的包下。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonAutoDetect;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.PropertyAccessor;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.CacheManager;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.annotation.CachingConfigurerSupport;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.annotation.EnableCaching;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.interceptor.KeyGenerator;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.cache.RedisCacheManager;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.RedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.jedis.JedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.serializer.StringRedisSerializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 李文浩</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 2017/11/5.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JedisConnectionFactory <span class="title">redisConnectionFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        JedisConnectionFactory redisConnectionFactory = <span class="keyword">new</span> JedisConnectionFactory();</span><br><span class="line">        <span class="comment">// Defaults</span></span><br><span class="line">        redisConnectionFactory.setHostName(<span class="string">"127.0.0.1"</span>);</span><br><span class="line">        redisConnectionFactory.setPort(<span class="number">6379</span>);</span><br><span class="line">        <span class="keyword">return</span> redisConnectionFactory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;String, String&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory factory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;String, String&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;String, String&gt;();</span><br><span class="line">        redisTemplate.setConnectionFactory(factory);</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line">        setSerializer(redisTemplate);</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CacheManager <span class="title">cacheManager</span><span class="params">(RedisTemplate redisTemplate)</span> </span>&#123;</span><br><span class="line">        RedisCacheManager rcm = <span class="keyword">new</span> RedisCacheManager(redisTemplate);</span><br><span class="line">        <span class="comment">// 设置缓存过期时间，秒</span></span><br><span class="line">        rcm.setDefaultExpiration(<span class="number">600</span>);</span><br><span class="line">        <span class="keyword">return</span> rcm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setSerializer</span><span class="params">(RedisTemplate&lt;String, String&gt; template)</span> </span>&#123;</span><br><span class="line">        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = <span class="keyword">new</span> Jackson2JsonRedisSerializer(Object.class);</span><br><span class="line">        ObjectMapper om = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line">        template.setKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> KeyGenerator <span class="title">keyGenerator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> KeyGenerator() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">generate</span><span class="params">(Object target, Method method, Object... params)</span> </span>&#123;</span><br><span class="line">                StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                sb.append(target.getClass().getName());</span><br><span class="line">                sb.append(<span class="string">":"</span> + method.getName());</span><br><span class="line">                <span class="keyword">for</span> (Object obj : params) &#123;</span><br><span class="line">                    sb.append(<span class="string">":"</span> + <span class="keyword">null</span> == obj ? <span class="string">"null"</span> : obj.toString());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> sb.toString();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们不配置重写<code>keyGenerator()</code>方法的话，默认的key生成策略是</p>
+<p>Cacheable.java<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Spring Expression Language (SpEL) expression for computing the key dynamically.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;Default is &#123;<span class="doctag">@code</span> ""&#125;, meaning all method parameters are considered as a key,</span></span><br><span class="line"><span class="comment"> * unless a custom &#123;<span class="doctag">@link</span> #keyGenerator&#125; has been configured.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;The SpEL expression evaluates against a dedicated context that provides the</span></span><br><span class="line"><span class="comment"> * following meta-data:</span></span><br><span class="line"><span class="comment"> * &lt;ul&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;&#123;<span class="doctag">@code</span> #root.method&#125;, &#123;<span class="doctag">@code</span> #root.target&#125;, and &#123;<span class="doctag">@code</span> #root.caches&#125; for</span></span><br><span class="line"><span class="comment"> * references to the &#123;<span class="doctag">@link</span> java.lang.reflect.Method method&#125;, target object, and</span></span><br><span class="line"><span class="comment"> * affected cache(s) respectively.&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;Shortcuts for the method name (&#123;<span class="doctag">@code</span> #root.methodName&#125;) and target class</span></span><br><span class="line"><span class="comment"> * (&#123;<span class="doctag">@code</span> #root.targetClass&#125;) are also available.</span></span><br><span class="line"><span class="comment"> * &lt;li&gt;Method arguments can be accessed by index. For instance the second argument</span></span><br><span class="line"><span class="comment"> * can be accessed via &#123;<span class="doctag">@code</span> #root.args[1]&#125;, &#123;<span class="doctag">@code</span> #p1&#125; or &#123;<span class="doctag">@code</span> #a1&#125;. Arguments</span></span><br><span class="line"><span class="comment"> * can also be accessed by name if that information is available.&lt;/li&gt;</span></span><br><span class="line"><span class="comment"> * &lt;/ul&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">String <span class="title">key</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br></pre></td></tr></table></figure></p>
+<p>也就是把所有的方法参数作为一个key，但是这可能会重复。</p>
+<h1 id="缓存注解"><a href="#缓存注解" class="headerlink" title="缓存注解"></a>缓存注解</h1><ul>
+<li><code>@CacheConfig</code>：主要用于配置该类中会用到的一些共用的缓存配置。在这里<code>@CacheConfig(cacheNames = &quot;companies&quot;)</code>，配置了该数据访问对象中返回的内容将存储于名为companies的缓存对象中，我们也可以不使用该注解，直接通过<code>@Cacheable</code>自己配置缓存集的名字来定义。</li>
+<li><code>@Cacheable</code>： <strong>声明Spring在调用方法之前，首先应该在缓存中查找方法的返回值。如果这个值能够找到，就会返回存储的值，否则的话，这个方法就会被调用，返回值会放在缓存之中</strong>。该注解主要有下面几个参数：<ul>
+<li><code>value</code>、<code>cacheNames</code>：两个等同的参数（cacheNames为Spring4新增，作为value的别名），<strong>用于指定缓存存储的集合名</strong>。由于Spring4中新增了<code>@CacheConfig</code>，因此在Spring3中原本必须有的value属性，也成为非必需项了</li>
+<li><code>key</code>：缓存对象存储在Map集合中的key值，非必需，缺省按照函数的所有参数组合作为key值，若自己配置需使用SpEL表达式，比如：@Cacheable(key = “#p0”)：使用函数第一个参数作为缓存的key值，更多关于SpEL表达式的详细内容可参考官方文档</li>
+<li><code>condition</code>：缓存对象的条件，非必需，也需使用SpEL表达式，只有满足表达式条件的内容才会被缓存，比如：@Cacheable(key = “#p0”, condition = “#p0.length() &lt; 3”)，表示只有当第一个参数的长度小于3的时候才会被缓存，若做此配置上面的AAA用户就不会被缓存，读者可自行实验尝试。</li>
+<li><code>unless</code>：另外一个缓存条件参数，非必需，需使用SpEL表达式。它不同于condition参数的地方在于它的判断时机，该条件是在函数被调用之后才做判断的，所以它可以通过对result进行判断。</li>
+<li><code>keyGenerator</code>：用于指定key生成器，非必需。若需要指定一个自定义的key生成器，我们需要去实现org.springframework.cache.interceptor.KeyGenerator接口，并使用该参数来指定。需要注意的是：该参数与key是互斥的</li>
+<li><code>cacheManager</code>：用于指定使用哪个缓存管理器，非必需。只有当有多个时才需要使用</li>
+<li><code>cacheResolver</code>：用于指定使用那个缓存解析器，非必需。需通过org.springframework.cache.interceptor.CacheResolver接口来实现自己的缓存解析器，并用该参数指定。</li>
+</ul>
+</li>
+</ul>
+<p>除了这里用到的两个注解之外，还有下面几个核心注解：</p>
+<ul>
+<li><code>@CachePut</code>： <strong>表明Spring应该将方法的返回值放到缓存中，在方法的调用前并不会检查缓存，方法始终都会被调用</strong>。它的参数与@<code>Cacheable</code>类似，具体功能可参考上面对<code>@Cacheable</code>参数的解析。</li>
+<li><code>@CacheEvict</code>：<strong>配置于函数上，通常用在删除方法上，用来从缓存中移除相应数据</strong>。除了同<code>@Cacheable</code>一样的参数之外，它还有下面两个参数：<ul>
+<li><code>allEntries</code>：非必需，默认为false。当为true时，会移除所有数据</li>
+<li><code>beforeInvocation</code>：非必需，默认为false，会在调用方法之后移除数据。当为true时，会在调用方法之前移除数据。</li>
+</ul>
+</li>
+</ul>
+<h1 id="缓存与数据库一致性"><a href="#缓存与数据库一致性" class="headerlink" title="缓存与数据库一致性"></a>缓存与数据库一致性</h1><ul>
+<li>数据库处理要求强一致实时性的数据，例如金融数据、交易数据。</li>
+<li>Redis处理不要求强一致实时性的数据，例如网站最热贴排行榜。</li>
+</ul>
+<p>也就是说根据你的业务需求，设置你的过期时间，容许redis有一些不一致。</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>缓存java对象时必须实现Serilaizable接口，因为Spring会将对象先序列化之后再存入到Redis中。</li>
+<li>缓存方法的 <code>@Cacheable</code> 最好使用方法名，避免不同的方法的 @Cacheable 值一致，然后再配以以上缓存策略。</li>
+<li>在我将这个<code>@Cacheable</code>放置在SSM的dao层和service层时，redis缓存可以正常运行，但是当我将<code>@Cacheable</code>放在action层上时就会有NPE。</li>
+<li><code>@Cacheable</code>没有配置名字，改为<code>@Cacheable(&quot;值&quot;)</code>，否则会出现如下错误。 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java.lang.IllegalStateException: No cache could be resolved <span class="keyword">for</span> <span class="string">'Builder[public abstract studio.jikewang.entity.TeacherClass studio.jikewang.dao.TeacherClassDao.getTeacherClass(int)] caches=[] | key='</span><span class="string">' | keyGenerator='</span><span class="string">' | cacheManager='</span><span class="string">' | cacheResolver='</span><span class="string">' | condition='</span><span class="string">' | unless='</span><span class="string">' | sync='</span><span class="keyword">false</span><span class="string">''</span> using resolver <span class="string">'org.springframework.cache.interceptor.SimpleCacheResolver@4f8d471b'</span>. At least one cache should be provided per cache operation.</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>参考文档：</strong></p>
+<ol>
+<li><a href="http://blog.csdn.net/defonds/article/details/48716161" target="_blank" rel="noopener">Redis 缓存 + Spring 的集成示例</a></li>
+<li><a href="http://www.cnblogs.com/x113773/p/7227114.html" target="_blank" rel="noopener">Spring Boot 使用Redis缓存</a></li>
+<li><a href="http://twei.site/2017/08/20/MySQL%E7%BC%93%E5%AD%98-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%93%E5%AD%98query-cache/" target="_blank" rel="noopener">MySQL缓存–服务器缓存query cache</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/spring-redis-cache/" title="spring使用redis做缓存">https://www.morethink.cn/spring-redis-cache/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/tomcat-webapps-session-sharing/" rel="next" title="单点登录之tomcat中session在两个webapp中实现共享">
+                <i class="fa fa-chevron-left"></i> 单点登录之tomcat中session在两个webapp中实现共享
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/get-request-Chinese-garbled/" rel="prev" title="get请求中文乱码及get,post编码探究">
+                get请求中文乱码及get,post编码探究 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7F13;&#x5B58;" class="headerlink" title="&#x7F13;&#x5B58;"></a>&#x7F13;&#x5B58;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是缓存？"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x7F13;&#x5B58;&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x7F13;&#x5B58;&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;&#x7F13;&#x5B58;&#xFF1F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存更新"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x7F13;&#x5B58;&#x66F4;&#x65B0;" class="headerlink" title="&#x7F13;&#x5B58;&#x66F4;&#x65B0;"></a>&#x7F13;&#x5B58;&#x66F4;&#x65B0;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spring配置redis缓存"><span class="nav-number">2.</span> <span class="nav-text"><a href="#spring&#x914D;&#x7F6E;redis&#x7F13;&#x5B58;" class="headerlink" title="spring&#x914D;&#x7F6E;redis&#x7F13;&#x5B58;"></a>spring&#x914D;&#x7F6E;redis&#x7F13;&#x5B58;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖配置"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x4F9D;&#x8D56;&#x914D;&#x7F6E;" class="headerlink" title="&#x4F9D;&#x8D56;&#x914D;&#x7F6E;"></a>&#x4F9D;&#x8D56;&#x914D;&#x7F6E;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RedisConfig"><span class="nav-number">4.</span> <span class="nav-text"><a href="#RedisConfig" class="headerlink" title="RedisConfig"></a>RedisConfig</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存注解"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x7F13;&#x5B58;&#x6CE8;&#x89E3;" class="headerlink" title="&#x7F13;&#x5B58;&#x6CE8;&#x89E3;"></a>&#x7F13;&#x5B58;&#x6CE8;&#x89E3;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存与数据库一致性"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x7F13;&#x5B58;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x4E00;&#x81F4;&#x6027;" class="headerlink" title="&#x7F13;&#x5B58;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x4E00;&#x81F4;&#x6027;"></a>&#x7F13;&#x5B58;&#x4E0E;&#x6570;&#x636E;&#x5E93;&#x4E00;&#x81F4;&#x6027;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

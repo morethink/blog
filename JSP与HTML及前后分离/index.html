@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JSP,HTML," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="JSP是什么首先要知道JSP的本质其实是个Servlet，index.jsp在访问的时候首先会自动将该页面翻译生一个index_jsp.java文件，即Servlet代码。 打开这个类你会发现这个类继承了类org.apache.jasper.runtime.HttpJspBase.SUN在JSP API中定义了一个接口HttpJspBase,这个接口继承了JspPage接口，而JspPage接口又">
+<meta name="keywords" content="JSP,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP与HTML及前后分离">
+<meta property="og:url" content="https://www.morethink.cn/JSP与HTML及前后分离/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="JSP是什么首先要知道JSP的本质其实是个Servlet，index.jsp在访问的时候首先会自动将该页面翻译生一个index_jsp.java文件，即Servlet代码。 打开这个类你会发现这个类继承了类org.apache.jasper.runtime.HttpJspBase.SUN在JSP API中定义了一个接口HttpJspBase,这个接口继承了JspPage接口，而JspPage接口又">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.187Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSP与HTML及前后分离">
+<meta name="twitter:description" content="JSP是什么首先要知道JSP的本质其实是个Servlet，index.jsp在访问的时候首先会自动将该页面翻译生一个index_jsp.java文件，即Servlet代码。 打开这个类你会发现这个类继承了类org.apache.jasper.runtime.HttpJspBase.SUN在JSP API中定义了一个接口HttpJspBase,这个接口继承了JspPage接口，而JspPage接口又">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/JSP与HTML及前后分离/"/>
+
+
+
+
+
+  <title>JSP与HTML及前后分离 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/JSP与HTML及前后分离/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JSP与HTML及前后分离</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-21T00:00:00+08:00">
+                2016-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web前端/" itemprop="url" rel="index">
+                    <span itemprop="name">Web前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JSP是什么"><a href="#JSP是什么" class="headerlink" title="JSP是什么"></a>JSP是什么</h1><p>首先要知道JSP的本质其实是个Servlet，index.jsp在访问的时候首先会自动将该页面翻译生一个index_jsp.java文件，即Servlet代码。</p>
+<p>打开这个类你会发现这个类继承了类<code>org.apache.jasper.runtime.HttpJspBase.SUN</code>在JSP API中定义了一个接口<code>HttpJspBase</code>,这个接口继承了<code>JspPage</code>接口，而JspPage接口又继承了Servlet接口，因此WEB容器必须实现这些接口。<code>org.apache.jasper.runtime.HttpJspBase</code>就是Tomcat对JSP API中HttpJspBase接口的实现。因此JSP页面在本质上就是Servlet程序，而Servlet程序要被WEB容器调用执行，必须在WEB.XML中注册映射，对于JSP，这些则由WEB容器自动完成。</p>
+<a id="more"></a>
+<h1 id="HTML是什么"><a href="#HTML是什么" class="headerlink" title="HTML是什么"></a>HTML是什么</h1><p>参考维基百科的定义：</p>
+<blockquote>
+<p>超文本标记语言（英语：HyperText Markup Language，简称：HTML）是一种用于创建网页的标准标记语言。HTML是一种基础技术，常与CSS、JavaScript一起被众多网站用于设计令人赏心悦目的网页、网页应用程序以及移动应用程序的用户界面[1]。网页浏览器可以读取HTML文件，并将其渲染成可视化网页。HTML描述了一个网站的结构语义随着线索的呈现，使之成为一种标记语言而非编程语言。</p>
+<p>HTML元素是构建网站的基石。HTML允许嵌入图像与对象，并且可以用于创建交互式表单，它被用来结构化信息——例如标题、段落和列表等等，也可用来在一定程度上描述文档的外观和语义。HTML的语言形式为尖括号包围的HTML元素（如<html>），浏览器使用HTML标签和脚本来诠释网页内容，但不会将它们显示在页面上。</html></p>
+<p>HTML可以嵌入如JavaScript的脚本语言，它们会影响HTML网页的行为。网页浏览器也可以引用层叠样式表（CSS）来定义文本和其它元素的外观与布局。维护HTML和CSS标准的组织万维网联盟（W3C）鼓励人们使用CSS替代一些用于表现的HTML元素[2]。</p>
+</blockquote>
+<h1 id="JSP-VS-HTML"><a href="#JSP-VS-HTML" class="headerlink" title="JSP VS HTML"></a>JSP VS HTML</h1><p><strong>JSP与Html相比，谁更适合做页面</strong>？</p>
+<p>java的web开发里我们一般使用jsp来编写页面，当然也可以使用先进点的模板引擎开发页面例如velocity，freemark等，不管我们页面使用的是jsp还是模板引擎，这些类似html的文件其实并不是真正的html，例如jsp本质其实是个servlet也就是一个java程序，所以它们的本质是服务端语言和html的一个整合技术，在实际运行中web容器会根据服务端的返回数据将jsp或模板引擎解析成浏览器能解析的html，然后传输这个html到浏览器进行解析。</p>
+<p>现在比较提倡前后分离，前后端通过API来相互连接，后端给出接口，前端通过AJAX访问接口，拿到数据，动态更新。</p>
+<h1 id="前后分离"><a href="#前后分离" class="headerlink" title="前后分离"></a>前后分离</h1><p><strong>前后端分离是趋势，但是短时间内不可能取代不分离的</strong>。</p>
+<p>因为前后分离导致：数据和表现分离，只需要静态的html和动态的接口（例如jsp），数据在浏览器端实现动态加载。因此存在问题，例如SEO，搜索引擎难以识别等，我们可以参考淘宝前端的设计，在 java 接口和 html 输出之前用 NodeJS 代理一层，暂时能解决 SEO 的问题。</p>
+<p>理想情况是，先出文档（前后端都认可），然后后端、前端都按照文档来，一切以接口规定的为准。 重点在于接口！靠 API 来分离前后端，解决前后端大团队、多版本、复杂功能协作的问题。定义好了接口，前端就可以用不用等后端，直接用模拟的数据格式，方便地进行前端测试了。</p>
+<p>前端可以通过Nginx来解决跨域问题。<br>具体可以查看 <a href="https://www.morethink.cn/Nginx-Cross-Domain/">前端通过Nginx反向代理解决跨域问题</a></p>
+<p>说重点，API 相比前后端混写、模板引擎之类的东西的好处：</p>
+<ul>
+<li>方便设计、开发、测试（前端不再需要依赖后端，后端也不需要依赖前端，就可以各干各的，独立测试代码）</li>
+<li>方便记录和统计功能使用（后端相同功能的入口位置统一，不同功能的位置也可以合理有序地组织）</li>
+<li>方便修改和版本控制等（后端可以提供多版本的 API，不需要修改已有代码，不影响已有 API 的功能）</li>
+<li><strong>最重点的是</strong>：<br>你的Team要是分工不明确、人少、功能简单直接、代码修改不多，就完全不需要分离，就酱。</li>
+<li><strong>最明显的</strong>：<br>前端代码不用被后端粘贴来粘贴去了，后端的相同代码，也不需要各种位置粘贴来粘贴去了。</li>
+<li><strong>隐藏的好处</strong>：<br>到时候出了问题，照着 API 设计文档一对比，就知道是前端用的不对，还是后端写的不对，分分钟找到背锅侠。</li>
+<li>可以一套接口，浏览器，Android通用，极大减少开发量。</li>
+</ul>
+<h1 id="RESTFul-API"><a href="#RESTFul-API" class="headerlink" title="RESTFul API"></a>RESTFul API</h1><p>我们知道前后分离之后是靠API统一前后端的开发，<strong>而RESTFul API目前是前后端分离的最佳实践</strong>。</p>
+<p>它有如下好处：</p>
+<ul>
+<li>轻量，直接通过http，不需要额外协议，post/get/put/delete操作</li>
+<li>面向资源，一目了然，具有自解释性</li>
+<li>数据描述简单，一般通过json或者xml做数据通信</li>
+</ul>
+<p>下面参考阮一峰的博客解释一下RESTful架构。</p>
+<p>要理解RESTful架构，最好的方法就是去理解Representational State Transfer这个词组到底是什么意思，它的每一个词代表了什么涵义。如果你把这个名称搞懂了，也就不难体会REST是一种什么样的设计。</p>
+<h2 id="资源（Resources）"><a href="#资源（Resources）" class="headerlink" title="资源（Resources）"></a>资源（Resources）</h2><p>REST的名称”表现层状态转化”中，省略了主语。”表现层”其实指的是”资源”（Resources）的”表现层”。</p>
+<p>所谓”资源”，就是网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的实在。你可以用一个URI（统一资源定位符）指向它，每种资源对应一个特定的URI。要获取这个资源，访问它的URI就可以，因此URI就成了每一个资源的地址或独一无二的识别符。</p>
+<p>所谓”上网”，就是与互联网上一系列的”资源”互动，调用它的URI。</p>
+<h2 id="表现层（Representation）"><a href="#表现层（Representation）" class="headerlink" title="表现层（Representation）"></a>表现层（Representation）</h2><p>“资源”是一种信息实体，它可以有多种外在表现形式。我们把”资源”具体呈现出来的形式，叫做它的”表现层”（Representation）。</p>
+<p>比如，文本可以用txt格式表现，也可以用HTML格式、XML格式、JSON格式表现，甚至可以采用二进制格式；图片可以用JPG格式表现，也可以用PNG格式表现。</p>
+<p>URI只代表资源的实体，不代表它的形式。严格地说，有些网址最后的”.html”后缀名是不必要的，因为这个后缀名表示格式，属于”表现层”范畴，而URI应该只代表”资源”的位置。它的具体表现形式，应该在HTTP请求的头信息中用Accept和Content-Type字段指定，这两个字段才是对”表现层”的描述。</p>
+<h2 id="状态转化（State-Transfer）"><a href="#状态转化（State-Transfer）" class="headerlink" title="状态转化（State Transfer）"></a>状态转化（State Transfer）</h2><p>访问一个网站，就代表了客户端和服务器的一个互动过程。在这个过程中，势必涉及到数据和状态的变化。</p>
+<p>互联网通信协议HTTP协议，是一个无状态协议。这意味着，所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生”状态转化”（State Transfer）。而这种转化是建立在表现层之上的，所以就是”表现层状态转化”。</p>
+<p>客户端用到的手段，只能是HTTP协议。具体来说，就是HTTP协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：GET用来获取资源，POST用来新建资源（也可以用于更新资源），PUT用来更新资源，DELETE用来删除资源。</p>
+<h2 id="总结RESTful架构"><a href="#总结RESTful架构" class="headerlink" title="总结RESTful架构"></a>总结RESTful架构</h2><p>综合上面的解释，我们总结一下什么是RESTful架构：</p>
+<ol>
+<li><strong>每一个URI代表一种资源</strong>；</li>
+<li><strong>客户端和服务器之间，传递这种资源的某种表现层</strong>；</li>
+<li><strong>客户端通过四个HTTP动词，对服务器端资源进行操作，实现”表现层状态转化”</strong>。</li>
+</ol>
+<h1 id="GraphQL"><a href="#GraphQL" class="headerlink" title="GraphQL"></a>GraphQL</h1><p>GraphQL是一种API查询语言，是由Facebook创建并最终开源的，可以认为是REST的一种替代品。来自AXA Banque的API架构师Lauret给出了一些可对二者进行比较的切入点：</p>
+<ul>
+<li>GraphQL能够通过一次查询得到所有需要的数据，从而减少网络跳转的次数。</li>
+<li>GraphQL采用所见即所得模型，这样客户端代码不易出错。</li>
+<li>RESTful HTTP通过使用状态码和HTTP verb，提高了结果的一致性和可预测性。</li>
+<li>借助超媒体，在用户使用API时可以“发现”资源间的关系，这简化了RESTful用户的具体实现。</li>
+<li>HTTP实现了缓存机制而GraphQL还没有实现。</li>
+<li>GraphQL给用户提供了schema，这很有用，但是需要注意的是接口描述并非API文档。</li>
+</ul>
+<p><strong>Lauret认为GraphQL的主要优势是其使用的所见即所得(WYSIWYG)模型</strong>。也就是说，查询结果的结构是查询结构本身的精确映射，这样的话，用户在解排（unmarshal）响应的时候不容易出错。</p>
+<p>有兴趣的朋友可以看看这两篇解释GraphQL的文章：</p>
+<ul>
+<li><a href="http://www.infoq.com/cn/news/2017/07/graphql-vs-rest#" target="_blank" rel="noopener">GraphQL和REST对比时需要注意些什么</a></li>
+<li><a href="http://www.zcfy.cc/article/rest-apis-are-rest-in-peace-apis-long-live-graphql-3935.html" target="_blank" rel="noopener">安息吧 REST API，GraphQL 长存</a></li>
+</ul>
+<p><strong>我觉得GraphQL更多的是作为REST的一种替代品</strong>。</p>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="http://blog.csdn.net/sdyy321/article/details/5838717" target="_blank" rel="noopener">JSP本质</a></li>
+<li><a href="http://www.blogjava.net/fancydeepin/archive/2013/09/30/404571.html" target="_blank" rel="noopener">JSP/Servlet 工作原理</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/HTML" target="_blank" rel="noopener">HTML - 维基百科，自由的百科全书</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4282789.html" target="_blank" rel="noopener">关于大型网站技术演进的思考（九）–网站静态化处理–总述（1）</a></li>
+<li><a href="https://segmentfault.com/q/1010000011514355" target="_blank" rel="noopener">这样是不是就叫 前后端分离开发了？</a></li>
+<li><a href="http://2014.jsconf.cn/slides/herman-taobaoweb/index.html#/" target="_blank" rel="noopener">http://2014.jsconf.cn/slides/herman-taobaoweb/index.html#/</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank" rel="noopener">理解RESTful架构</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/JSP与HTML及前后分离/" title="JSP与HTML及前后分离">https://www.morethink.cn/JSP与HTML及前后分离/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JSP/" rel="tag"># JSP</a>
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/String/" rel="next" title="String解析">
+                <i class="fa fa-chevron-left"></i> String解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Servlet/" rel="prev" title="Servlet 浅析">
+                Servlet 浅析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP是什么"><span class="nav-number">1.</span> <span class="nav-text"><a href="#JSP&#x662F;&#x4EC0;&#x4E48;" class="headerlink" title="JSP&#x662F;&#x4EC0;&#x4E48;"></a>JSP&#x662F;&#x4EC0;&#x4E48;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML是什么"><span class="nav-number">2.</span> <span class="nav-text"><a href="#HTML&#x662F;&#x4EC0;&#x4E48;" class="headerlink" title="HTML&#x662F;&#x4EC0;&#x4E48;"></a>HTML&#x662F;&#x4EC0;&#x4E48;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP-VS-HTML"><span class="nav-number">3.</span> <span class="nav-text"><a href="#JSP-VS-HTML" class="headerlink" title="JSP VS HTML"></a>JSP VS HTML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前后分离"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x524D;&#x540E;&#x5206;&#x79BB;" class="headerlink" title="&#x524D;&#x540E;&#x5206;&#x79BB;"></a>&#x524D;&#x540E;&#x5206;&#x79BB;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RESTFul-API"><span class="nav-number">5.</span> <span class="nav-text"><a href="#RESTFul-API" class="headerlink" title="RESTFul API"></a>RESTFul API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源（Resources）"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#&#x8D44;&#x6E90;&#xFF08;Resources&#xFF09;" class="headerlink" title="&#x8D44;&#x6E90;&#xFF08;Resources&#xFF09;"></a>&#x8D44;&#x6E90;&#xFF08;Resources&#xFF09;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表现层（Representation）"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#&#x8868;&#x73B0;&#x5C42;&#xFF08;Representation&#xFF09;" class="headerlink" title="&#x8868;&#x73B0;&#x5C42;&#xFF08;Representation&#xFF09;"></a>&#x8868;&#x73B0;&#x5C42;&#xFF08;Representation&#xFF09;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态转化（State-Transfer）"><span class="nav-number">5.3.</span> <span class="nav-text"><a href="#&#x72B6;&#x6001;&#x8F6C;&#x5316;&#xFF08;State-Transfer&#xFF09;" class="headerlink" title="&#x72B6;&#x6001;&#x8F6C;&#x5316;&#xFF08;State Transfer&#xFF09;"></a>&#x72B6;&#x6001;&#x8F6C;&#x5316;&#xFF08;State Transfer&#xFF09;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结RESTful架构"><span class="nav-number">5.4.</span> <span class="nav-text"><a href="#&#x603B;&#x7ED3;RESTful&#x67B6;&#x6784;" class="headerlink" title="&#x603B;&#x7ED3;RESTful&#x67B6;&#x6784;"></a>&#x603B;&#x7ED3;RESTful&#x67B6;&#x6784;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GraphQL"><span class="nav-number">6.</span> <span class="nav-text"><a href="#GraphQL" class="headerlink" title="GraphQL"></a>GraphQL</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

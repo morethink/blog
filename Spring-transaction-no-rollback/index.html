@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="事务," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。 在我完成一个项目的时候，遇到了一个Spring事务不回滚的问题，通过aspectJ和@Transactional注解都无法完成对于事务的回滚，经过查看博客和文档  默认回滚RuntimeException Service内部方法调用 Spring父子容器覆盖  代码已经上传到 https://githu">
+<meta name="keywords" content="事务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring事务不回滚原因分析">
+<meta property="og:url" content="https://www.morethink.cn/Spring-transaction-no-rollback/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。 在我完成一个项目的时候，遇到了一个Spring事务不回滚的问题，通过aspectJ和@Transactional注解都无法完成对于事务的回滚，经过查看博客和文档  默认回滚RuntimeException Service内部方法调用 Spring父子容器覆盖  代码已经上传到 https://githu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/java-exception.jpg">
+<meta property="og:image" content="https://images.morethink.cn/tx.png">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring事务不回滚原因分析">
+<meta name="twitter:description" content="Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。 在我完成一个项目的时候，遇到了一个Spring事务不回滚的问题，通过aspectJ和@Transactional注解都无法完成对于事务的回滚，经过查看博客和文档  默认回滚RuntimeException Service内部方法调用 Spring父子容器覆盖  代码已经上传到 https://githu">
+<meta name="twitter:image" content="https://images.morethink.cn/java-exception.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/Spring-transaction-no-rollback/"/>
+
+
+
+
+
+  <title>Spring事务不回滚原因分析 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Spring-transaction-no-rollback/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Spring事务不回滚原因分析</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T00:00:00+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。</p>
+<p>在我完成一个项目的时候，遇到了一个Spring事务不回滚的问题，通过aspectJ和@Transactional注解都无法完成对于事务的回滚，经过查看博客和文档</p>
+<ol>
+<li>默认回滚RuntimeException</li>
+<li>Service内部方法调用</li>
+<li>Spring父子容器覆盖</li>
+</ol>
+<p>代码已经上传到 <a href="https://github.com/morethink/transactional" target="_blank" rel="noopener">https://github.com/morethink/transactional</a></p>
+<a id="more"></a>
+<h1 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h1><p>下面是@Transactional的注释文档，下面有个If no rules are relevant to the exception,it will be treated like {@link  org.springframework.transaction.interceptor.DefaultTransactionAttribute} (rolling back on runtime exceptions).<br>默认会使用<code>RuntimeException</code>,那为什么<strong>Spring默认回滚RuntimeException</strong>，因为Java把Exception分为两种。</p>
+<ol>
+<li>checked Exception：Exception类本身，以及Exception的子类中除了”运行时异常”之外的其它子类都属于被检查异常。</li>
+<li>unchecked Exception： RuntimeException和Error都属于未检查异常。</li>
+</ol>
+<p><img src="https://images.morethink.cn/java-exception.jpg" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Describes transaction attributes on a method or class.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;This annotation type is generally directly comparable to Spring&apos;s</span><br><span class="line"> * &#123;@link org.springframework.transaction.interceptor.RuleBasedTransactionAttribute&#125;</span><br><span class="line"> * class, and in fact &#123;@link AnnotationTransactionAttributeSource&#125; will directly</span><br><span class="line"> * convert the data to the latter class, so that Spring&apos;s transaction support code</span><br><span class="line"> * does not have to know about annotations. If no rules are relevant to the exception,</span><br><span class="line"> * it will be treated like</span><br><span class="line"> * &#123;@link org.springframework.transaction.interceptor.DefaultTransactionAttribute&#125;</span><br><span class="line"> * (rolling back on runtime exceptions).</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;For specific information about the semantics of this annotation&apos;s attributes,</span><br><span class="line"> * consult the &#123;@link org.springframework.transaction.TransactionDefinition&#125; and</span><br><span class="line"> * &#123;@link org.springframework.transaction.interceptor.TransactionAttribute&#125; javadocs.</span><br><span class="line"> *</span><br><span class="line"> * @author Colin Sampaleanu</span><br><span class="line"> * @author Juergen Hoeller</span><br><span class="line"> * @author Sam Brannen</span><br><span class="line"> * @since 1.2</span><br><span class="line"> * @see org.springframework.transaction.interceptor.TransactionAttribute</span><br><span class="line"> * @see org.springframework.transaction.interceptor.DefaultTransactionAttribute</span><br><span class="line"> * @see org.springframework.transaction.interceptor.RuleBasedTransactionAttribute</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+<p>因此，如果发生的不是RuntimeException，而你有没有配置rollback for ，那么，异常就不会回滚。</p>
+<h1 id="service-内部方法调用"><a href="#service-内部方法调用" class="headerlink" title="service 内部方法调用"></a>service 内部方法调用</h1><p><strong>就是一个没有开启事务控制的方法调用一个开启了事务控制方法，不会事务回滚。</strong></p>
+<p><strong>AccountService类</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class AccountService &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private AccountDao accountDao;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 完成转钱业务,transfer方法开启事务</span><br><span class="line">     *</span><br><span class="line">     * @param out</span><br><span class="line">     * @param in</span><br><span class="line">     * @param money</span><br><span class="line">     */</span><br><span class="line">    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)</span><br><span class="line">    public void transfer(String out, String in, double money) &#123;</span><br><span class="line">        Account account = new Account();</span><br><span class="line">        account.setName(out);</span><br><span class="line">        account.setMoney(money);</span><br><span class="line">        accountDao.out(account);</span><br><span class="line">        int i = 1 / 0;</span><br><span class="line">        account.setName(in);</span><br><span class="line">        accountDao.in(account);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 完成转钱业务,transferProxy方法没有开启事务</span><br><span class="line">     *</span><br><span class="line">     * @param out</span><br><span class="line">     * @param in</span><br><span class="line">     * @param money</span><br><span class="line">     */</span><br><span class="line">    public void transferProxy(String out, String in, double money) &#123;</span><br><span class="line">        System.out.println(&quot;调用transfer方法 开始&quot;);</span><br><span class="line">        transfer(out, in, money);</span><br><span class="line">        System.out.println(&quot;调用transfer方法 结束&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>AccountAction类</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class AccountAction &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private AccountService accountService;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/transfer&quot;)</span><br><span class="line">    public String transfer(String out, String in, double money) &#123;</span><br><span class="line">        accountService.transfer(out, in, money);</span><br><span class="line">        return &quot;transfer&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/transferProxy&quot;)</span><br><span class="line">    public String transferProxy(String out, String in, double money) &#123;</span><br><span class="line">        accountService.transferProxy(out, in, money);</span><br><span class="line">        return &quot;transfer&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>通过transferProxy方法调用transfer方法时</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Logging initialized using &apos;class org.apache.ibatis.logging.stdout.StdOutImpl&apos; adapter.</span><br><span class="line">调用transfer方法 开始</span><br><span class="line">Creating a new SqlSession</span><br><span class="line">SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@a0dbf4] was not registered for synchronization because synchronization is not active</span><br><span class="line">JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@6386ed [wrapping: com.mysql.jdbc.JDBC4Connection@9f2009]] will not be managed by Spring</span><br><span class="line">==&gt;  Preparing: update account set money = money - ? where name = ?</span><br><span class="line">==&gt; Parameters: 100.0(Double), aaa(String)</span><br><span class="line">&lt;==    Updates: 1</span><br><span class="line">Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@a0dbf4]</span><br></pre></td></tr></table></figure>
+<p> 发现没有开启事务</p>
+</li>
+<li>直接调用transfer方法时 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Logging initialized using &apos;class org.apache.ibatis.logging.stdout.StdOutImpl&apos; adapter.</span><br><span class="line">Creating a new SqlSession</span><br><span class="line">Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@238be2]</span><br><span class="line">JDBC Connection [com.mchange.v2.c3p0.impl.NewProxyConnection@a502e0 [wrapping: com.mysql.jdbc.JDBC4Connection@3dbe42]] will be managed by Spring</span><br><span class="line">==&gt;  Preparing: update account set money = money - ? where name = ?</span><br><span class="line">==&gt; Parameters: 100.0(Double), aaa(String)</span><br><span class="line">&lt;==    Updates: 1</span><br><span class="line">Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@238be2]</span><br><span class="line">Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@238be2]</span><br><span class="line">Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@238be2]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>我们都知道Spring事务管理是通过AOP代理实现的，可是那么什么条件会使得AOP代理开启？通过查看<br><a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#transaction" target="_blank" rel="noopener">Sprin官方文档</a>，发现只有把整个Service设为事务控制时，才会进行AOP代理。如果我们通过一个没有事务的transferProxy方法去调用有事务的transfer方法，是通过this引用进行调用，没有开启事务，即使发生了RuntimeException也不会回滚。</p>
+<p><img src="https://images.morethink.cn/tx.png" alt=""></p>
+<p>然后</p>
+<h1 id="Spring父子容器覆盖"><a href="#Spring父子容器覆盖" class="headerlink" title="Spring父子容器覆盖"></a>Spring父子容器覆盖</h1><p>Spring容器优先加载由ServletContextListener（对应applicationContext.xml）产生的父容器，而SpringMVC（对应mvc_dispatcher_servlet.xml）产生的是子容器。子容器Controller进行扫描装配时装配的@Service注解的实例是没有经过事务加强处理，即没有事务处理能力的Service，而父容器进行初始化的Service是保证事务的增强处理能力的。如果不在子容器中将Service exclude掉，此时得到的将是原样的无事务处理能力的Service，因为在多上下文的情况下，如果同一个bean被定义两次，后面一个优先。</p>
+<p>当我们在applicationContext.xml,spring-mvc.xml都配置如下扫描包时，spring-mvc.xml中的service就会覆盖applicationContext.xml中的service。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">context:component-scan base-package=&quot;net.morethink&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：当我们使用JUnit测试的时候，不会出现这种情况。<br>JUnit配置如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@RunWith(SpringJUnit4ClassRunner.class)</span><br><span class="line">@ContextConfiguration(locations = &#123;&quot;classpath:applicationContext.xml&quot;, &quot;classpath:dispatcher-servlet.xml&quot;&#125;)</span><br><span class="line">@WebAppConfiguration</span><br><span class="line">public class AccountActionTest &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    protected MockMvc mockMvc;</span><br><span class="line">    @Autowired</span><br><span class="line">    protected WebApplicationContext wac;</span><br><span class="line"></span><br><span class="line">    @Before()  //这个方法在每个方法执行之前都会执行一遍</span><br><span class="line">    public void setup() &#123;</span><br><span class="line">        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();  //初始化MockMvc对象</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testTransfer() throws Exception &#123;</span><br><span class="line">        String responseString = mockMvc.perform(</span><br><span class="line">                get(&quot;/transfer&quot;)    //请求的url,请求的方法是get</span><br><span class="line">                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)  //数据的格式</span><br><span class="line">                        .param(&quot;out&quot;, &quot;aaa&quot;)</span><br><span class="line">                        .param(&quot;in&quot;, &quot;bbb&quot;)</span><br><span class="line">                        .param(&quot;money&quot;, &quot;100&quot;)</span><br><span class="line">        ).andExpect(status().isOk())    //返回的状态是200</span><br><span class="line">//                .andDo(print())         //打印出请求和相应的内容</span><br><span class="line">                .andReturn().getResponse().getContentAsString();   //将相应的数据转换为字符串</span><br><span class="line">        System.out.println(responseString);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testTransferProxy() throws Exception &#123;</span><br><span class="line">        String responseString = mockMvc.perform(</span><br><span class="line">                get(&quot;/transferProxy&quot;)    //请求的url,请求的方法是get</span><br><span class="line">                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)  //数据的格式</span><br><span class="line">                        .param(&quot;out&quot;, &quot;aaa&quot;)</span><br><span class="line">                        .param(&quot;in&quot;, &quot;bbb&quot;)</span><br><span class="line">                        .param(&quot;money&quot;, &quot;100&quot;)</span><br><span class="line">        ).andExpect(status().isOk())    //返回的状态是200</span><br><span class="line">//                .andDo(print())         //打印出请求和相应的内容</span><br><span class="line">                .andReturn().getResponse().getContentAsString();   //将相应的数据转换为字符串</span><br><span class="line">        System.out.println(responseString);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>可能因为JUnit不会产生父子容器。</strong></p>
+<p><strong>还有可能是其它配置文件出错，例如，连接池配置为多例</strong></p>
+<p>参考文档</p>
+<ol>
+<li><a href="http://www.jianshu.com/p/f5fc14bde8a0" target="_blank" rel="noopener">Spring声明式事务为何不回滚</a></li>
+<li><a href="http://www.importnew.com/19489.html" target="_blank" rel="noopener">Spring中@Transactional事务回滚（含实例详细讲解，附源码）</a></li>
+<li><a href="http://blog.csdn.net/c289054531/article/details/9187081" target="_blank" rel="noopener">深入研究java.lang.ThreadLocal类</a></li>
+<li><a href="http://blog.csdn.net/c289054531/article/details/9196053" target="_blank" rel="noopener">Spring单实例、多线程安全、事务解析</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/Spring-transaction-no-rollback/" title="Spring事务不回滚原因分析">https://www.morethink.cn/Spring-transaction-no-rollback/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/事务/" rel="tag"># 事务</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/读书/There-is-a-light-that-falls-down/" rel="next" title="有一种斜落下来的幽光">
+                <i class="fa fa-chevron-left"></i> 有一种斜落下来的幽光
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/to-16-freshman/" rel="prev" title="给大一的学弟">
+                给大一的学弟 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#异常"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5F02;&#x5E38;" class="headerlink" title="&#x5F02;&#x5E38;"></a>&#x5F02;&#x5E38;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#service-内部方法调用"><span class="nav-number">2.</span> <span class="nav-text"><a href="#service-&#x5185;&#x90E8;&#x65B9;&#x6CD5;&#x8C03;&#x7528;" class="headerlink" title="service &#x5185;&#x90E8;&#x65B9;&#x6CD5;&#x8C03;&#x7528;"></a>service &#x5185;&#x90E8;&#x65B9;&#x6CD5;&#x8C03;&#x7528;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring父子容器覆盖"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Spring&#x7236;&#x5B50;&#x5BB9;&#x5668;&#x8986;&#x76D6;" class="headerlink" title="Spring&#x7236;&#x5B50;&#x5BB9;&#x5668;&#x8986;&#x76D6;"></a>Spring&#x7236;&#x5B50;&#x5BB9;&#x5668;&#x8986;&#x76D6;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

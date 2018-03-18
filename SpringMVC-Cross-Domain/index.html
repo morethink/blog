@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="跨域," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="有个朋友在写扇贝插件的时候遇到了跨域问题。于是我对解决跨域问题的方式进行了一番探讨。 问题  API：查询单词URL： https://api.shanbay.com/bdc/search/?word={word}请求方式: GET参数： {word}, 必须，要查询的单词">
+<meta name="keywords" content="跨域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC解决跨域问题">
+<meta property="og:url" content="https://www.morethink.cn/SpringMVC-Cross-Domain/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="有个朋友在写扇贝插件的时候遇到了跨域问题。于是我对解决跨域问题的方式进行了一番探讨。 问题  API：查询单词URL： https://api.shanbay.com/bdc/search/?word={word}请求方式: GET参数： {word}, 必须，要查询的单词">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/zhihu-https-cross-domain.jpg">
+<meta property="og:image" content="https://images.morethink.cn/jsonp-success.jpg">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.192Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC解决跨域问题">
+<meta name="twitter:description" content="有个朋友在写扇贝插件的时候遇到了跨域问题。于是我对解决跨域问题的方式进行了一番探讨。 问题  API：查询单词URL： https://api.shanbay.com/bdc/search/?word={word}请求方式: GET参数： {word}, 必须，要查询的单词">
+<meta name="twitter:image" content="https://images.morethink.cn/zhihu-https-cross-domain.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/SpringMVC-Cross-Domain/"/>
+
+
+
+
+
+  <title>SpringMVC解决跨域问题 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/SpringMVC-Cross-Domain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">SpringMVC解决跨域问题</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-09T00:00:00+08:00">
+                2017-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringMVC/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringMVC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>有个朋友在写扇贝插件的时候遇到了跨域问题。<br>于是我对解决跨域问题的方式进行了一番探讨。</p>
+<p>问题</p>
+<blockquote>
+<p>API：查询单词<br><strong>URL</strong>： <a href="https://api.shanbay.com/bdc/search/?word={word}" target="_blank" rel="noopener">https://api.shanbay.com/bdc/search/?word={word}</a><br><strong>请求方式</strong>: GET<br><strong>参数</strong>： {word}, 必须，要查询的单词</p>
+</blockquote>
+<a id="more"></a>
+<p>报错为<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XMLHttpRequest cannot load http://localhost/home/saveCandidate. No &apos;Access-Control-Allow-Origin&apos; header is present on the requested resource. Origin &apos;null&apos; is therefore not allowed access. The response had HTTP status code 404.</span><br></pre></td></tr></table></figure></p>
+<p>这就是典型的跨域问题。</p>
+<p>但是我在浏览器里输入URL是可以进行查询单词的操作的，有什么不同，即下面两个问题</p>
+<ol>
+<li>为什么在浏览器地址栏输入URL不会出现跨域问题。</li>
+<li>不在服务器运行的html是否可以完成一次http请求</li>
+</ol>
+<p>经过Google和自己测试</p>
+<ol>
+<li><strong>跨域限制是浏览器行为，不是服务器行为。</strong> 浏览器认为地址栏输入时安全的,所以不限制认为是跨域。</li>
+<li>可以，只要服务器配置为所有域都可以进行请求,那么不在服务器运行的HTML就可以完成http请求。</li>
+</ol>
+<h1 id="什么是跨域问题"><a href="#什么是跨域问题" class="headerlink" title="什么是跨域问题"></a>什么是跨域问题</h1><p><strong>同源策略</strong>：</p>
+<blockquote>
+<p>同源指的是<strong>域名（或IP）</strong>，<strong>协议</strong>，<strong>端口</strong>都相同，不同源的客户端脚本(javascript、ActionScript)在没明确授权的情况下，不能读写对方的资源。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>解释</th>
+<th>是否跨域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://www.morethink.cn">http://www.morethink.cn</a></td>
+<td>原来的URL</td>
+</tr>
+<tr>
+<td><a href="http://www.image.morethink.cn" target="_blank" rel="noopener">http://www.image.morethink.cn</a></td>
+<td>子域名</td>
+<td>跨域(cookie也无法访问)</td>
+</tr>
+<tr>
+<td><a href="http://morethink.cn" target="_blank" rel="noopener">http://morethink.cn</a></td>
+<td>不加www</td>
+<td>跨域</td>
+</tr>
+<tr>
+<td><a href="https://www.morethink.cn">https://www.morethink.cn</a></td>
+<td>更改协议</td>
+<td>跨域</td>
+</tr>
+<tr>
+<td><a href="http://www.morethink.cn:8080">http://www.morethink.cn:8080</a></td>
+<td>更改端口号</td>
+<td>跨域</td>
+</tr>
+</tbody>
+</table>
+<p><strong>原因</strong>：</p>
+<p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。<br>设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的Cookie，会发生什么？<br>很显然，如果Cookie包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。<br>由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。</p>
+<p>同源策略限制以下几种行为：</p>
+<ol>
+<li>Cookie、LocalStorage 和 IndexDB 无法读取</li>
+<li>DOM 和 Js对象无法获得</li>
+<li>AJAX 请求不能发送</li>
+</ol>
+<h1 id="模拟跨域问题"><a href="#模拟跨域问题" class="headerlink" title="模拟跨域问题"></a>模拟跨域问题</h1><p>测试URL为   <a href="http://localhost:80/home/allProductions" target="_blank" rel="noopener">http://localhost:80/home/allProductions</a></p>
+<p>可以直接在浏览器<code>console</code>中执行</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'GET'</span>, <span class="string">'http://localhost:80/home/allProductions'</span>,<span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br><span class="line">xhr.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(xhr.responseText));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在任意网站打开控制台，执行此段代码可以模拟跨域请求。</p>
+<p>在知乎控制台打开报错如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Mixed Content: The page at &apos;https://www.zhihu.com/question/26376773&apos; was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint &apos;http://localhost/home/allProductions&apos;. This request has been blocked; the content must be served over HTTPS.</span><br></pre></td></tr></table></figure>
+<p><img src="https://images.morethink.cn/zhihu-https-cross-domain.jpg" alt=""></p>
+<p>因为知乎是https，报错与普通的http协议不同。</p>
+<p>再澄清一下跨域问题：</p>
+<ol>
+<li>并非浏览器限制了发起跨站请求，而是跨站请求可以正常发起，但是返回结果被浏览器拦截了。最好的例子是CRSF跨站攻击原理，无论是否跨域，请求已经发送到了后端服务器！</li>
+<li>但是，<strong>有些浏览器不允许从HTTPS的域跨域访问HTTP，比如Chrome和Firefox，这些浏览器在请求还未发出的时候就会拦截请求，这是一个特例。</strong></li>
+</ol>
+<p>在博客园控制台打开报错如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">XMLHttpRequest cannot load http://localhost/home/allProductions. No &apos;Access-Control-Allow-Origin&apos; header is present on the requested resource. Origin &apos;http://www.cnblogs.com&apos; is therefore not allowed access.</span><br></pre></td></tr></table></figure>
+<h1 id="怎么解决跨域问题"><a href="#怎么解决跨域问题" class="headerlink" title="怎么解决跨域问题"></a>怎么解决跨域问题</h1><p>解决方案有很多</p>
+<ol>
+<li>通过jsonp跨域</li>
+<li>document.domain + iframe跨域</li>
+<li>location.hash + iframe</li>
+<li>window.name + iframe跨域</li>
+<li>postMessage跨域</li>
+<li>跨域资源共享（CORS）</li>
+<li><a href="http://www.morethink.cn/2017/03/27/Nginx-Cross-Domain/">前端通过Nginx解决跨域问题</a></li>
+<li>nodejs中间件代理跨域</li>
+<li>WebSocket协议跨域</li>
+</ol>
+<p>这里主要介绍SpringMVC解决跨域问题的方式。</p>
+<ol>
+<li>JSONP</li>
+<li>CORS</li>
+<li>WebSocket</li>
+</ol>
+<h1 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h1><p>可以直接参考<a href="https://my.oschina.net/xinxingegeya/blog/480510" target="_blank" rel="noopener">Spring MVC 4.1 支持jsonp</a>进行配置你的SpringMVC注解</p>
+<h2 id="JSONP-原理"><a href="#JSONP-原理" class="headerlink" title="JSONP 原理"></a>JSONP 原理</h2><p>我虽然请求不了json数据，但是我可以请求一个<code>Content-Type</code>为<code>application/javascript</code>的JavaScript对象，这样就可以避免浏览器的同源策略。</p>
+<p>就是当服务器接受到名为<code>jsonp</code>或者<code>callback</code>的参数时，返回<code>Content-Type: application/javascript</code>的结果，从而避免浏览器的同源策略检测。</p>
+<ol>
+<li>在控制台中直接进行测试你的jsonp是否配置成功<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">println</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> url = <span class="string">"http://localhost:80/home/allProductions?&amp;callback=println"</span>;</span><br><span class="line"><span class="comment">// 创建script标签，设置其属性</span></span><br><span class="line"><span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">script.setAttribute(<span class="string">'src'</span>, url);</span><br><span class="line"><span class="comment">// 把script标签加入head，此时调用开始</span></span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(script);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="https://images.morethink.cn/jsonp-success.jpg" alt=""></p>
+<ol>
+<li>使用JQuery测试你的jsonp是否配置成功(需要自己添加jQuery.js)<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">println</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(data);</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">'print'</span>);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="keyword">function</span> <span class="title">jsonp_test</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            $.ajax(&#123;</span></span><br><span class="line"><span class="javascript">                type: <span class="string">"get"</span>,</span></span><br><span class="line"><span class="javascript">                url: <span class="string">"http://localhost:80/home/allProductions"</span>,</span></span><br><span class="line"><span class="javascript">                dataType: <span class="string">"jsonp"</span>,</span></span><br><span class="line"><span class="javascript">                jsonp: <span class="string">"callback"</span>,<span class="comment">//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)</span></span></span><br><span class="line"><span class="javascript">                jsonpCallback: <span class="string">"println"</span>, <span class="comment">//返回后调用的处理函数</span></span></span><br><span class="line"><span class="javascript">                error: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">//请求出错的处理</span></span></span><br><span class="line"><span class="javascript">                    alert(<span class="string">"请求出错"</span>);</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"jsonp_test()"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h1><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。<br>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
+<p>CORS需要浏览器和服务器同时支持。</p>
+<ol>
+<li>所有浏览器都支持该功能，IE浏览器不能低于IE10。<br><strong>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。</strong> 对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</li>
+<li>实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</li>
+</ol>
+<p><strong>即CORS与普通请求代码一样。</strong></p>
+<p>CORS与JSONP相比</p>
+<ol>
+<li><strong>JSONP只能实现GET请求，而CORS支持所有类型的HTTP请求。</strong></li>
+<li>使用CORS，开发者可以使用普通的XMLHttpRequest发起请求和获得数据，比起JSONP有更好的错误处理。</li>
+<li>JSONP主要被老的浏览器支持，它们往往不支持CORS，而绝大多数现代浏览器都已经支持了CORS。</li>
+</ol>
+<h2 id="CrossOrigin注解"><a href="#CrossOrigin注解" class="headerlink" title="@CrossOrigin注解"></a><code>@CrossOrigin</code>注解</h2><p>此注解既可用于方法也可用于类</p>
+<p>源码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@CrossOrigin</span>(origins = <span class="string">"http://www.zhihu.com"</span>)</span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/allProductions"</span>, method = RequestMethod.GET)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">getAllOldProductions</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@CrossOrigin</code>注解既可注解在方法上，也可注解在类上。</p>
+<p>完成配置之后</p>
+<h2 id="XML全局配置"><a href="#XML全局配置" class="headerlink" title="XML全局配置"></a>XML全局配置</h2><p>所有跨域请求都可以访问</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:cors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/**"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:cors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>更加细粒度的配置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:cors</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/api/**"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allowed-origins</span>=<span class="string">"http://domain1.com, http://domain2.com"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allowed-methods</span>=<span class="string">"GET, PUT"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allowed-headers</span>=<span class="string">"header1, header2, header3"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">exposed-headers</span>=<span class="string">"header1, header2"</span> <span class="attr">allow-credentials</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">max-age</span>=<span class="string">"123"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/resources/**"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">allowed-origins</span>=<span class="string">"http://domain1.com"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:cors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h1><p>WebSocket是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀，在2008年诞生，2011年成为国际标准。<strong>所有浏览器都已经支持了</strong>。</p>
+<p>它的最大特点就是，服务器可以主动向客户端推送信息，客户端也可以主动向服务器发送信息，是真正的双向平等对话，属于服务器推送技术的一种。</p>
+<p><strong>该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信</strong>。</p>
+<p>请求头信息：(多了个 origin)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET /chat HTTP/1.1</span><br><span class="line">Host: server.example.com</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==</span><br><span class="line">Sec-WebSocket-Protocol: chat, superchat</span><br><span class="line">Sec-WebSocket-Version: 13</span><br><span class="line">Origin: http://example.com</span><br></pre></td></tr></table></figure>
+<p>响应头：(如果origin在白名单内)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 101 Switching Protocols</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=</span><br><span class="line">Sec-WebSocket-Protocol: chat</span><br></pre></td></tr></table></figure>
+<h2 id="相比于HTTP-2"><a href="#相比于HTTP-2" class="headerlink" title="相比于HTTP/2"></a>相比于HTTP/2</h2><p>HTTP/2只是对HTML、CSS等JS资源的传输方式进行了优化，并没有提供新的JS API，不能用于实时传输消息，也无法推送指定的信息。</p>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li>跨域<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器同源政策及其规避方法</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
+</ul>
+</li>
+<li>SpringMVC 跨域解决方法<ul>
+<li><a href="http://blog.csdn.net/isea533/article/details/50449907" target="_blank" rel="noopener">Spring MVC 4.2 增加 CORS 支持</a></li>
+</ul>
+</li>
+<li><a href="https://segmentfault.com/a/1190000011145364?utm_source=weekly&amp;utm_medium=email&amp;utm_campaign=email_weekly#articleHeader2" target="_blank" rel="noopener">前端常见跨域解决方案（全）</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/SpringMVC-Cross-Domain/" title="SpringMVC解决跨域问题">https://www.morethink.cn/SpringMVC-Cross-Domain/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SpringMVC-Empty-String-To-Null/" rel="next" title="SpringMVC空字符串转为null">
+                <i class="fa fa-chevron-left"></i> SpringMVC空字符串转为null
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Nginx-Cross-Domain/" rel="prev" title="前端通过Nginx反向代理解决跨域问题">
+                前端通过Nginx反向代理解决跨域问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是跨域问题"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x8DE8;&#x57DF;&#x95EE;&#x9898;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x8DE8;&#x57DF;&#x95EE;&#x9898;"></a>&#x4EC0;&#x4E48;&#x662F;&#x8DE8;&#x57DF;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模拟跨域问题"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x6A21;&#x62DF;&#x8DE8;&#x57DF;&#x95EE;&#x9898;" class="headerlink" title="&#x6A21;&#x62DF;&#x8DE8;&#x57DF;&#x95EE;&#x9898;"></a>&#x6A21;&#x62DF;&#x8DE8;&#x57DF;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么解决跨域问题"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x600E;&#x4E48;&#x89E3;&#x51B3;&#x8DE8;&#x57DF;&#x95EE;&#x9898;" class="headerlink" title="&#x600E;&#x4E48;&#x89E3;&#x51B3;&#x8DE8;&#x57DF;&#x95EE;&#x9898;"></a>&#x600E;&#x4E48;&#x89E3;&#x51B3;&#x8DE8;&#x57DF;&#x95EE;&#x9898;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSONP"><span class="nav-number">4.</span> <span class="nav-text"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSONP-原理"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#JSONP-&#x539F;&#x7406;" class="headerlink" title="JSONP &#x539F;&#x7406;"></a>JSONP &#x539F;&#x7406;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS"><span class="nav-number">5.</span> <span class="nav-text"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CrossOrigin注解"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#CrossOrigin&#x6CE8;&#x89E3;" class="headerlink" title="@CrossOrigin&#x6CE8;&#x89E3;"></a><code>@CrossOrigin</code>&#x6CE8;&#x89E3;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML全局配置"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#XML&#x5168;&#x5C40;&#x914D;&#x7F6E;" class="headerlink" title="XML&#x5168;&#x5C40;&#x914D;&#x7F6E;"></a>XML&#x5168;&#x5C40;&#x914D;&#x7F6E;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebSocket"><span class="nav-number">6.</span> <span class="nav-text"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#相比于HTTP-2"><span class="nav-number">6.1.</span> <span class="nav-text"><a href="#&#x76F8;&#x6BD4;&#x4E8E;HTTP-2" class="headerlink" title="&#x76F8;&#x6BD4;&#x4E8E;HTTP/2"></a>&#x76F8;&#x6BD4;&#x4E8E;HTTP/2</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

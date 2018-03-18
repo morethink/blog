@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="编程总是会遇到很多问题，你解决问题的、方式反映你的思维方式，你的思维方式决定你的未来，很多事情可以靠经验解决，思维却需要不断的锻炼。 程序员不仅仅是程序员，他更应该是一个高效的学习者。">
+<meta name="keywords" content="Web,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="怎么解决问题">
+<meta property="og:url" content="https://www.morethink.cn/Programming-Thinking/How-To-Solve-Problem/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="编程总是会遇到很多问题，你解决问题的、方式反映你的思维方式，你的思维方式决定你的未来，很多事情可以靠经验解决，思维却需要不断的锻炼。 程序员不仅仅是程序员，他更应该是一个高效的学习者。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="怎么解决问题">
+<meta name="twitter:description" content="编程总是会遇到很多问题，你解决问题的、方式反映你的思维方式，你的思维方式决定你的未来，很多事情可以靠经验解决，思维却需要不断的锻炼。 程序员不仅仅是程序员，他更应该是一个高效的学习者。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/Programming-Thinking/How-To-Solve-Problem/"/>
+
+
+
+
+
+  <title>怎么解决问题 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Programming-Thinking/How-To-Solve-Problem/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">怎么解决问题</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-30T00:00:00+08:00">
+                2017-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程思考/" itemprop="url" rel="index">
+                    <span itemprop="name">编程思考</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>编程总是会遇到很多问题，你解决问题的、方式反映你的思维方式，你的思维方式决定你的未来，很多事情可以靠经验解决，思维却需要不断的锻炼。</p>
+<p>程序员不仅仅是程序员，他更应该是一个高效的学习者。</p>
+<a id="more"></a>
+<p><strong>以下主要来源于马士兵老师(很有参考意义)：</strong></p>
+<p>在编程中，每个人都会难免遇到问题，那么，遇到问题之后，环境配不通，程序调不过，运行不正常，遇见这些恼人的问题的时候，该怎么办呢？<br>首先我要恭喜你，遇见问题，意味着你又有涨经验的机会了，每解决一个问题，你的JAVA经验值就应该上升几百点，问题遇到的越多，知识提升的越快。 但是总是解决不了也是很恼人的，怎么办呢？ 我一般要求我们的学生都是这样来进行的。</p>
+<p>当你遇到一个问题的时候：</p>
+<h1 id="要仔细的观察错误的现象，是的，要仔细"><a href="#要仔细的观察错误的现象，是的，要仔细" class="headerlink" title="要仔细的观察错误的现象，是的，要仔细"></a>要仔细的观察错误的现象，是的，要仔细</h1><p><em>英语是成为一个牛逼程序员的必经之路</em></p>
+<p>有不少同学的手非常快，在编译一个程序的时候，报了一大堆的错误，扫了一眼之后就开始盯着代码一行一行的找，看清什么错误了吗？没有！有的时候安装软件出问题了，一个对话框弹出来说出错了，马上举手问老师：“不得了了，出错了，出错了”。</p>
+<p>“什么错误？”</p>
+<p>“还没看呢？”</p>
+<p>这都是典型的不上心的方法！请记住，学习编程并不是一件很容易的事情，自己首先要重视，要用心才可以。在开发中，仔细观察出错信息，或者运行不正常的信息，是你要做的第一件事。读清楚了，才能在以后的步骤中有的放矢，哭了半天，总要知道哭的是谁才成。</p>
+<p>这里又分三种情况：</p>
+<p>A:错误信息读懂了，那么请进入2步：要仔细思考问题会出在哪些环节</p>
+<p>B:没读懂，愣是一点没看懂，进入第4步吧：google</p>
+<p>C:读了个半懂，有些眉目但是不太能确定，第2步和第4步结合着来。</p>
+<h1 id="要仔细思考问题会出在哪些环节（重要）"><a href="#要仔细思考问题会出在哪些环节（重要）" class="headerlink" title="要仔细思考问题会出在哪些环节（重要）"></a>要仔细思考问题会出在哪些环节（重要）</h1><p>当你读懂了一个问题之后，要好好的思考这个问题可能会在哪些环节上出错。</p>
+<p>一辆汽车从总成品线上下来，车门子关不上！ 哪错了？你怎么查？ 当然是顺着生产线一站一站的查下来。 程序也是一样的，也是一系列语句完成后产生的结果。</p>
+<p>写一个网络程序，总是发现服务器端打印不出接收的数据，有几个环节会出错？仔细分析这个现象的环节：</p>
+<p>客户端产生数据-&gt;按“发送”按钮-&gt;发送到服务器-&gt;服务器接收到后打印</p>
+<p>这几个环节都有可能会出错：</p>
+<p>有可能客户端根本就没产生数据，有可能发送按钮按下去后根本就没发出去，或者发出去的不是你产生的东西，或者根本就没连接网络，或者发送出去服务器没有接收到，或者接收到之前就打印了等等等等。</p>
+<p>学着去这样仔细的分析程序的环节和这些环节可能会产生的问题，你的经验值定然会大幅度快速的提升，这样做很累人，但是一件事情如果做下来一点都不累的话，这个东西还有价值吗？</p>
+<p>在网页A输入了一个人的名字，提交到B，首先存储到数据库，然后再读出来，发现乱码！怎么办？当然是分析环节：</p>
+<p>客户输入-&gt;HTTP发送-&gt;B接收-&gt;存储到数据库-&gt;读出-&gt;展现到网页</p>
+<p>每个环节都可能出问题，怎么才能知道哪里出的问题？继续往下读。</p>
+<h1 id="如何定位错误（重要）"><a href="#如何定位错误（重要）" class="headerlink" title="如何定位错误（重要）"></a>如何定位错误（重要）</h1><p><strong>分析清楚有哪些环节之后，下一步就是定位到底什么环节出错了</strong></p>
+<p>定位有以下三种办法：</p>
+<p>A 打印输出，比如java的System.out.println()，比如js的alert()，这种办法常用，必须掌握</p>
+<p>B Debug，可以参考我们的视频《坦克大战》，详细讲了Eclipse的调试。</p>
+<p>C 删掉一部分调试一部分，也就是去掉一部分的功能，做简化，然后调试剩下的功能，JSP和JavaScript常用。</p>
+<h1 id="如果还不行，google吧"><a href="#如果还不行，google吧" class="headerlink" title="如果还不行，google吧"></a>如果还不行，google吧</h1><p>还查不出来？恭喜你，你遇到的错误是值得认真对待的错误，是会影响你学习生涯的错误，问一下google或者百度吧。照着下面的方法查查看。</p>
+<p>先精后粗，首先先进行尽量精确的查找，比如一个错误，SocketException，你怀疑它是在connect()方法出的问题，那么当然是选这样的关键词<code>java connect SocketException</code></p>
+<ol>
+<li><p>先中后英，本着以解决问题为主的想法，练习英文还是先放在一边吧，首先应该在中文网页中查询，还不行的话，搜索英文的吧。有很多东西就像一层窗户纸，远看灰蒙蒙怪唬人的，你壮着胆子一捅，它就破了。阅读英文的书籍就是如此，不是想象中的那么困难(宁可在沙场上战死，也不能被吓死不是吗)</p>
+</li>
+<li><p>信息筛选，搜索出来的结果不见得能够完全匹配，建议大家多阅读前几页的搜索结果，多打开几个网页看看，不过，我的经验是超过3页一般就没意义了，所以超过3页还没有找到合适的答案，或许应该调整一下关键词，或者放粗整个搜索的结果了。</p>
+</li>
+<li><p>经常的进行知识难点的查询，如果一个问题牵扯的面比较广，就干脆到网上搜索一些相关的专题，比如“java 乱码 mysql” “oracle 创建用户”等等，如果有必要，不要犯懒，勤动手写一些小小的测试程序，来弄明白知识点的细节。这也是涨知识的重要的途径。</p>
+</li>
+</ol>
+<h1 id="什么？还不行？那么就BBS吧"><a href="#什么？还不行？那么就BBS吧" class="headerlink" title="什么？还不行？那么就BBS吧"></a>什么？还不行？那么就BBS吧</h1><p>如果实在还不行，就到BBS上面问一问高手吧。 到哪个BBS上？</p>
+<p>google或者百度不就行了么？关键词“java论坛”“java bbs”</p>
+<p>然后在搜索结果里好好的看看那些活动频繁的论坛，以后就是你经常光顾的地方了。CSDN论坛首页就很不错。</p>
+<p>向别人提问是非常需要技巧的！</p>
+<p>曾经有人问我这样的问题：“请问如何才能学好java呢？”这个要求太泛泛了。还有人给我一段代码甚至jar包也寄过来，然后说老师的我的代码中有个错误您帮我查查。</p>
+<p>我没有办法去花大量的时间建立环境去调试一个还不知道存在不存在的错误！</p>
+<p>还有人在BBS上问这样的问题：“是否有人能帮我完成一个完整聊天的程序？请帮我写一个登陆模块吧！”</p>
+<p>这个要求有些过分了，有人帮你做是你的运气，没有人帮你是正常反应。</p>
+<p>向别人提问，应该首先确定你已经做了自己应该做的事，简单说是我前面列举的1，2，3，4步你都作过了，然后再求助于人。不要没有经过认真思考就草率的向别人提问，自己也不会有长足进步的。</p>
+<p>那我该怎么样向别人提问呢？</p>
+<p>在google或百度搜索《提问的智慧》，你会找到答案。</p>
+<p>在这里我给出一个链接<br>！<a href="https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/master/README-zh_CN.md" target="_blank" rel="noopener">提问的智慧</a>，磨刀不误砍柴功，先花点时间去阅读一下吧。</p>
+<p>得到别人的回答，要懂得感恩。不需要去写信感谢，不需要支付费用，不需要那些花言巧语，做到下面这一点就够了：</p>
+<p>当你逐步成为高手的时候，要回答别人在论坛上提出的问题，有时间有精力的前提之下！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/Programming-Thinking/How-To-Solve-Problem/" title="怎么解决问题">https://www.morethink.cn/Programming-Thinking/How-To-Solve-Problem/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/读书/think-for-writing/" rel="next" title="写作本身的思考 - 暗时间">
+                <i class="fa fa-chevron-left"></i> 写作本身的思考 - 暗时间
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/how-to-use-IDEA/" rel="prev" title="怎么使用IDEA">
+                怎么使用IDEA <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#要仔细的观察错误的现象，是的，要仔细"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x8981;&#x4ED4;&#x7EC6;&#x7684;&#x89C2;&#x5BDF;&#x9519;&#x8BEF;&#x7684;&#x73B0;&#x8C61;&#xFF0C;&#x662F;&#x7684;&#xFF0C;&#x8981;&#x4ED4;&#x7EC6;" class="headerlink" title="&#x8981;&#x4ED4;&#x7EC6;&#x7684;&#x89C2;&#x5BDF;&#x9519;&#x8BEF;&#x7684;&#x73B0;&#x8C61;&#xFF0C;&#x662F;&#x7684;&#xFF0C;&#x8981;&#x4ED4;&#x7EC6;"></a>&#x8981;&#x4ED4;&#x7EC6;&#x7684;&#x89C2;&#x5BDF;&#x9519;&#x8BEF;&#x7684;&#x73B0;&#x8C61;&#xFF0C;&#x662F;&#x7684;&#xFF0C;&#x8981;&#x4ED4;&#x7EC6;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#要仔细思考问题会出在哪些环节（重要）"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x8981;&#x4ED4;&#x7EC6;&#x601D;&#x8003;&#x95EE;&#x9898;&#x4F1A;&#x51FA;&#x5728;&#x54EA;&#x4E9B;&#x73AF;&#x8282;&#xFF08;&#x91CD;&#x8981;&#xFF09;" class="headerlink" title="&#x8981;&#x4ED4;&#x7EC6;&#x601D;&#x8003;&#x95EE;&#x9898;&#x4F1A;&#x51FA;&#x5728;&#x54EA;&#x4E9B;&#x73AF;&#x8282;&#xFF08;&#x91CD;&#x8981;&#xFF09;"></a>&#x8981;&#x4ED4;&#x7EC6;&#x601D;&#x8003;&#x95EE;&#x9898;&#x4F1A;&#x51FA;&#x5728;&#x54EA;&#x4E9B;&#x73AF;&#x8282;&#xFF08;&#x91CD;&#x8981;&#xFF09;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何定位错误（重要）"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5982;&#x4F55;&#x5B9A;&#x4F4D;&#x9519;&#x8BEF;&#xFF08;&#x91CD;&#x8981;&#xFF09;" class="headerlink" title="&#x5982;&#x4F55;&#x5B9A;&#x4F4D;&#x9519;&#x8BEF;&#xFF08;&#x91CD;&#x8981;&#xFF09;"></a>&#x5982;&#x4F55;&#x5B9A;&#x4F4D;&#x9519;&#x8BEF;&#xFF08;&#x91CD;&#x8981;&#xFF09;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如果还不行，google吧"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x5982;&#x679C;&#x8FD8;&#x4E0D;&#x884C;&#xFF0C;google&#x5427;" class="headerlink" title="&#x5982;&#x679C;&#x8FD8;&#x4E0D;&#x884C;&#xFF0C;google&#x5427;"></a>&#x5982;&#x679C;&#x8FD8;&#x4E0D;&#x884C;&#xFF0C;google&#x5427;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么？还不行？那么就BBS吧"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#xFF1F;&#x8FD8;&#x4E0D;&#x884C;&#xFF1F;&#x90A3;&#x4E48;&#x5C31;BBS&#x5427;" class="headerlink" title="&#x4EC0;&#x4E48;&#xFF1F;&#x8FD8;&#x4E0D;&#x884C;&#xFF1F;&#x90A3;&#x4E48;&#x5C31;BBS&#x5427;"></a>&#x4EC0;&#x4E48;&#xFF1F;&#x8FD8;&#x4E0D;&#x884C;&#xFF1F;&#x90A3;&#x4E48;&#x5C31;BBS&#x5427;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

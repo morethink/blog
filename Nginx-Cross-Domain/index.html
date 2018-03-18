@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Nginx,跨域,反向代理," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="在前面写的一篇文章SpringMVC 跨域，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如何通过">
+<meta name="keywords" content="Nginx,跨域,反向代理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端通过Nginx反向代理解决跨域问题">
+<meta property="og:url" content="https://www.morethink.cn/Nginx-Cross-Domain/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="在前面写的一篇文章SpringMVC 跨域，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如何通过">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/reverse-proxy.jpg">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.189Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端通过Nginx反向代理解决跨域问题">
+<meta name="twitter:description" content="在前面写的一篇文章SpringMVC 跨域，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如何通过">
+<meta name="twitter:image" content="https://images.morethink.cn/reverse-proxy.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/Nginx-Cross-Domain/"/>
+
+
+
+
+
+  <title>前端通过Nginx反向代理解决跨域问题 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Nginx-Cross-Domain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">前端通过Nginx反向代理解决跨域问题</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-27T00:00:00+08:00">
+                2017-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/服务器/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在前面写的一篇文章<a href="https://www.morethink.cn/2017/03/09/SpringMVC-Cross-Domain/">SpringMVC 跨域</a>，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:</p>
+<ol>
+<li>JSONP</li>
+<li>CORS</li>
+<li>WebSocket</li>
+</ol>
+<p>可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。</p>
+<p>本文探讨了前端如何通过Nginx反向代理的方式解决跨域问题。</p>
+<a id="more"></a>
+<h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>再次重申： <strong>跨域是浏览器行为，不是服务器行为。</strong></p>
+<p>实际上，请求已经到达服务器了，只不过在回来的时候被浏览器限制了。就像Python他可以进行抓取数据一样，不经过浏览器而发起请求是可以得到数据，想到通过Nginx的反向代理来解决跨域问题。</p>
+<h1 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h1><p>所谓代理就是在我们和真实的服务器之间有一台代理服务器，我们所有的请求都是通过它来进行转接的。</p>
+<h2 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h2><p>正向代理就是我们访问不了Google，但是我在国外有一台vps，它可以访问Google，我访问它，叫它访问Google后，把数据传给我。</p>
+<p><strong>正向代理隐藏了真实的客户端</strong>。</p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><blockquote>
+<p>大家都有过这样的经历，拨打10086客服电话，可能一个地区的10086客服有几个或者几十个，你永远都不需要关心在电话那头的是哪一个，叫什么，男的，还是女的，漂亮的还是帅气的，你都不关心，你关心的是你的问题能不能得到专业的解答，你只需要拨通了10086的总机号码，电话那头总会有人会回答你，只是有时慢有时快而已。那么这里的10086总机号码就是我们说的反向代理。客户不知道真正提供服务人的是谁。</p>
+<p>反向代理隐藏了真实的服务端，当我们请求 www.baidu.com 的时候，就像拨打10086一样，背后可能有成千上万台服务器为我们服务，但具体是哪一台，你不知道，也不需要知道，你只需要知道反向代理服务器是谁就好了，www.baidu.com 就是我们的反向代理服务器，反向代理服务器会帮我们把请求转发到真实的服务器那里去。Nginx就是性能非常好的反向代理服务器，用来做负载均衡。</p>
+</blockquote>
+<p><img src="https://images.morethink.cn/reverse-proxy.jpg" alt="" title="反向代理"></p>
+<p><strong>反向代理隐藏了真实的服务器</strong>。</p>
+<p>Nginx 就是一个很好的反向代理服务器，当然apache也可以实现此功能。</p>
+<p>windows下Apache配置参考这篇文章：  <a href="https://www.morethink.cn/2017/09/19/Windows-apache-Server/">Windows Apache服务器配置</a></p>
+<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。该软件由 Igor Sysoev 创建，并于2004年首次公开发布。同名公司成立于2011年，以提供支持。</p>
+<p>我在<a href="https://www.morethink.cn/2017/02/11/Nginx-Load-Balancing-under-Windows/">Windows下实现Nginx负载均衡</a>提到过Windows下Nginx命令使用。</p>
+<h2 id="Nginx-反向代理模块-proxy-pass"><a href="#Nginx-反向代理模块-proxy-pass" class="headerlink" title="Nginx 反向代理模块 proxy_pass"></a>Nginx 反向代理模块 proxy_pass</h2><p><code>proxy_pass</code> 后面跟着一个 URL，用来将请求反向代理到 URL 参数指定的服务器上。例如我们上面例子中的 <code>proxy_pass https://api.shanbay.com</code>，则将匹配的请求反向代理到 <a href="https://api.shanbay.com。" target="_blank" rel="noopener">https://api.shanbay.com。</a></p>
+<p>通过在配置文件中增加<code>proxy_pass 你的服务器ip</code>,例如这里的扇贝服务器地址，就可以完成反向代理。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        ## 用户访问 localhost，则反向代理到https://api.shanbay.com</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">            proxy_pass https://api.shanbay.com;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="配置html以文件方式打开"><a href="#配置html以文件方式打开" class="headerlink" title="配置html以文件方式打开"></a>配置html以文件方式打开</h1><p>一般的情况下，我们的HTML文件时放置在Nginx服务器上面的，即通过输入 <a href="http://localhost/index.html" target="_blank" rel="noopener">http://localhost/index.html</a> ，但是在前端进行调试的时候，我们可能是通过 使用 file:///E:/nginx/html/index.html 来打开HTML。服务器打开不是特别方便。</p>
+<p>而我们之所以要部署在服务器上，是想要使用浏览器自带的CORS头来解决跨域问题，如果不想把HTML放置在Nginx中，而想通过本地打开的方式来调试HTML，可以通过自己添加<code>Access-Control-Allow-Origin</code>等http头，但是我们的AJAX请求一定要加上<code>http://127.0.0.1/request</code>，而不能直接是 <code>/request</code>，于是将nginx.conf作如下配置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    root   html;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    # 配置html以文件方式打开</span><br><span class="line">    if ($request_method = &apos;POST&apos;) &#123;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Origin&apos; *;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">    if ($request_method = &apos;GET&apos;) &#123;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Origin&apos; *;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    # 代理到8080端口</span><br><span class="line">    proxy_pass        http://127.0.0.1:8080;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="处理DELETE和PUT跨域请求"><a href="#处理DELETE和PUT跨域请求" class="headerlink" title="处理DELETE和PUT跨域请求"></a>处理DELETE和PUT跨域请求</h1><p>而现在我的后台是restful风格的接口，采用了delete和put方法，而上面的配置就无能为力了。</p>
+<p>可以通过增加对非简单请求的判断来解决DELETE和PUT跨域请求。</p>
+<p>非简单请求是那种对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json。</p>
+<p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）。</p>
+<p>服务器收到”预检”请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。</p>
+<p>因此，为了使Nginx可以处理delete等非简单请求，Nginx需要作出相应的改变，更改配置如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    # 完成浏览器的&quot;预检&quot;请求</span><br><span class="line">		if ($request_method = &apos;OPTIONS&apos;) &#123;</span><br><span class="line">		add_header Access-Control-Allow-Origin *;</span><br><span class="line">		add_header Access-Control-Allow-Credentials true;</span><br><span class="line">		add_header Access-Control-Allow-Methods &apos;GET, POST, PUT, DELETE, OPTIONS&apos;;</span><br><span class="line">		add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&apos;;</span><br><span class="line">		return 204;</span><br><span class="line">		&#125;</span><br><span class="line">    # 配置html在本地打开</span><br><span class="line">    if ($request_method = &apos;POST&apos;) &#123;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Origin&apos; *;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&apos;;</span><br><span class="line">      &#125;</span><br><span class="line">    if ($request_method = &apos;GET&apos;) &#123;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Origin&apos; *;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, OPTIONS&apos;;</span><br><span class="line">          add_header &apos;Access-Control-Allow-Headers&apos; &apos;DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    root   html;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">    # 配置html在Nginx中打开</span><br><span class="line">    location ~* \.(html|htm)$ &#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">    # 代理到8080端口</span><br><span class="line">    proxy_pass        http://127.0.0.1:8080;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们还必须把我们的html代码放在Nginx中html文件夹内，即使用Nginx当做我们的前端服务器。</p>
+<h1 id="URL重写"><a href="#URL重写" class="headerlink" title="URL重写"></a>URL重写</h1><p>有时候我们仅仅只想将<code>/api</code>下的url反向代理到后端，可以通过在nginx.conf中配置url重写规则如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    root   html;</span><br><span class="line">    index  index.html index.htm;</span><br><span class="line">         location ^~ /api &#123;</span><br><span class="line">         rewrite ^/api/(.*)$ /$1 break;</span><br><span class="line">         proxy_pass https://api.shanbay.com/;</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这样的话，我们只用处理<code>/api</code>下的url。</p>
+<p>在配置文件中我们通过<code>rewrite</code>将URL重写为真正要请求的<code>URL</code>，通过<code>proxy_pass</code>代理到真实的服务器IP或者域名。</p>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>如果Cookie的域名部分与当前页面的域名不匹配就无法写入。所以如果请求 www.a.com ，服务器 proxy_pass 到 www.b.com 域名，然后 www.b.com 输出 <code>domian=b.com</code> 的 Cookie，前端的页面依然停留在 www.a.com 上，于是浏览器就无法将 Cookie 写入。</p>
+<p>可在nginx反向代理中设置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    # 页面地址是a.com，但是要用b.com的cookie</span><br><span class="line">    proxy_cookie_domain b.com a.com;  #注意别写错位置了 proxy_cookie_path / /;</span><br><span class="line">    proxy_pass http://b.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Nginx解决跨域问题通过Nginx反向代理将对真实服务器的请求转移到本机服务器来避免浏览器的”同源策略限制”。</p>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="http://www.jianshu.com/p/c872ffa500af" target="_blank" rel="noopener">Nginx反向代理配置（解决跨域问题）</a></li>
+<li>这两篇文章讲解了URL重写的规则和用法<ul>
+<li><a href="https://xuexb.com/html/nginx-url-rewrite.html" target="_blank" rel="noopener">nginx配置url重写</a></li>
+<li><a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="noopener">nginx配置location总结及rewrite规则写法</a></li>
+</ul>
+</li>
+<li><a href="http://www.cnblogs.com/wxd0108/p/5217801.html" target="_blank" rel="noopener">Nginx配置文件详解</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/Nginx-Cross-Domain/" title="前端通过Nginx反向代理解决跨域问题">https://www.morethink.cn/Nginx-Cross-Domain/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+          
+            <a href="/tags/反向代理/" rel="tag"># 反向代理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SpringMVC-Cross-Domain/" rel="next" title="SpringMVC解决跨域问题">
+                <i class="fa fa-chevron-left"></i> SpringMVC解决跨域问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Linux-Java/" rel="prev" title="CentOS7下 Java、Tomcat、MySQL、Maven热部署">
+                CentOS7下 Java、Tomcat、MySQL、Maven热部署 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x8DE8;&#x57DF;" class="headerlink" title="&#x8DE8;&#x57DF;"></a>&#x8DE8;&#x57DF;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x4EE3;&#x7406;" class="headerlink" title="&#x4EE3;&#x7406;"></a>&#x4EE3;&#x7406;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正向代理"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x6B63;&#x5411;&#x4EE3;&#x7406;" class="headerlink" title="&#x6B63;&#x5411;&#x4EE3;&#x7406;"></a>&#x6B63;&#x5411;&#x4EE3;&#x7406;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向代理"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x53CD;&#x5411;&#x4EE3;&#x7406;" class="headerlink" title="&#x53CD;&#x5411;&#x4EE3;&#x7406;"></a>&#x53CD;&#x5411;&#x4EE3;&#x7406;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-反向代理模块-proxy-pass"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#Nginx-&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x6A21;&#x5757;-proxy-pass" class="headerlink" title="Nginx &#x53CD;&#x5411;&#x4EE3;&#x7406;&#x6A21;&#x5757; proxy_pass"></a>Nginx &#x53CD;&#x5411;&#x4EE3;&#x7406;&#x6A21;&#x5757; proxy_pass</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置html以文件方式打开"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;html&#x4EE5;&#x6587;&#x4EF6;&#x65B9;&#x5F0F;&#x6253;&#x5F00;" class="headerlink" title="&#x914D;&#x7F6E;html&#x4EE5;&#x6587;&#x4EF6;&#x65B9;&#x5F0F;&#x6253;&#x5F00;"></a>&#x914D;&#x7F6E;html&#x4EE5;&#x6587;&#x4EF6;&#x65B9;&#x5F0F;&#x6253;&#x5F00;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理DELETE和PUT跨域请求"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5904;&#x7406;DELETE&#x548C;PUT&#x8DE8;&#x57DF;&#x8BF7;&#x6C42;" class="headerlink" title="&#x5904;&#x7406;DELETE&#x548C;PUT&#x8DE8;&#x57DF;&#x8BF7;&#x6C42;"></a>&#x5904;&#x7406;DELETE&#x548C;PUT&#x8DE8;&#x57DF;&#x8BF7;&#x6C42;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL重写"><span class="nav-number">6.</span> <span class="nav-text"><a href="#URL&#x91CD;&#x5199;" class="headerlink" title="URL&#x91CD;&#x5199;"></a>URL&#x91CD;&#x5199;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie"><span class="nav-number">7.</span> <span class="nav-text"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>

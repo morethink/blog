@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="SpringMVC架构设计MVC是一种架构模式，它把业务的实现和展示相分离。">
+<meta name="keywords" content="Web,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC 知识整理">
+<meta property="og:url" content="https://www.morethink.cn/SpringMVC-Knowledge-finishing/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="SpringMVC架构设计MVC是一种架构模式，它把业务的实现和展示相分离。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/ddbf6d71cefe533f850b5466b583cfc0.png">
+<meta property="og:image" content="https://images.morethink.cn/a23b0321f130d0b064094c2b9e1e15a6.png">
+<meta property="og:updated_time" content="2018-03-15T07:49:43.193Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC 知识整理">
+<meta name="twitter:description" content="SpringMVC架构设计MVC是一种架构模式，它把业务的实现和展示相分离。">
+<meta name="twitter:image" content="https://images.morethink.cn/ddbf6d71cefe533f850b5466b583cfc0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/SpringMVC-Knowledge-finishing/"/>
+
+
+
+
+
+  <title>SpringMVC 知识整理 | More Think</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-book">
+          <a href="/douban/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/SpringMVC-Knowledge-finishing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">SpringMVC 知识整理</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-12T00:00:00+08:00">
+                2017-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringMVC/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringMVC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="SpringMVC架构设计"><a href="#SpringMVC架构设计" class="headerlink" title="SpringMVC架构设计"></a>SpringMVC架构设计</h1><p><strong>MVC是一种架构模式</strong>，它把业务的实现和展示相分离。</p>
+<p><img src="https://images.morethink.cn/ddbf6d71cefe533f850b5466b583cfc0.png" alt="" title="SpringMVC架构"></p>
+<a id="more"></a>
+<h1 id="SpringMVC与struts2的区别"><a href="#SpringMVC与struts2的区别" class="headerlink" title="SpringMVC与struts2的区别"></a>SpringMVC与struts2的区别</h1><ol>
+<li><strong>Struts2是类级别的拦截</strong>， 一个类对应一个request上下文，<strong>SpringMVC是方法级别的拦截</strong>，一个方法对应一个request上下文，而方法同时又跟一个url对应,所以说从架构本身上SpringMVC就容易实现restful url,而struts2的架构实现起来要费劲，因为Struts2中Action的一个方法可以对应一个url，而其类属性却被所有方法共享，这也就无法用注解或其他方式标识其所属方法了。</li>
+<li><strong>springmvc可以进行单例开发</strong>，并且建议使用单例开发，struts2通过类的成员变量接收参数，无法使用单例，只能使用多例。</li>
+<li>由于Struts2需要针对每个request进行封装，把request，session等servlet生命周期的变量封装成一个一个Map，供给每个Action使用，并保证线程安全，所以在原则上，是比较耗费内存的。</li>
+<li><strong>拦截器实现机制上</strong>，Struts2有以自己的interceptor机制，SpringMVC用的是独立的AOP方式，这样导致Struts2的配置文件量还是比SpringMVC大。</li>
+<li>servlet和filter的区别了。</li>
+<li>SpringMVC集成了Ajax，使用非常方便，只需一个注解<code>@ResponseBody</code>就可以实现，然后直接返回响应文本即可，而Struts2拦截器集成了Ajax，在Action中处理时一般必须安装插件或者自己写代码集成进去，使用起来也相对不方便。</li>
+<li>SpringMVC验证支持JSR303，处理起来相对更加灵活方便，而Struts2验证比较繁琐，感觉太烦乱。</li>
+<li>spring MVC和Spring是无缝的。从这个项目的管理和安全上也比Struts2高（当然Struts2也可以通过不同的目录结构和相关配置做到SpringMVC一样的效果，但是需要xml配置的地方不少）。</li>
+<li>设计思想上，Struts2更加符合OOP的编程思想， SpringMVC就比较谨慎，在servlet上扩展。</li>
+<li>SpringMVC开发效率和性能高于Struts2。</li>
+<li>SpringMVC可以认为已经100%零配置。</li>
+</ol>
+<h1 id="SpringAOP整合SpringMVC"><a href="#SpringAOP整合SpringMVC" class="headerlink" title="SpringAOP整合SpringMVC"></a>SpringAOP整合SpringMVC</h1><p>spring容器不注册controller层组件，controller组件由springMVC容器单独注册。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">// applicationContext.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.shuyun.channel"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.stereotype.Controller"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.web.bind.annotation.RestController"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:exclude-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.web.bind.annotation.ControllerAdvice"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br><span class="line"></span><br><span class="line">// springmvc-servlet.xml</span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.shuyun.channel"</span> <span class="attr">use-default-filters</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.stereotype.Controller"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.web.bind.annotation.RestController"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:include-filter</span> <span class="attr">type</span>=<span class="string">"annotation"</span> <span class="attr">expression</span>=<span class="string">"org.springframework.web.bind.annotation.ControllerAdvice"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context:component-scan</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：</p>
+<p>关于<code>&lt;context:annotation-config /&gt;</code>和 <code>&lt;context:component-scan /&gt;</code>:</p>
+<p><strong>component-scan会自动加上annotation-config功能，有了component-scan不用再写annotation-config了</strong>。参见spring官方reference</p>
+<h1 id="配置层次化Spring容器"><a href="#配置层次化Spring容器" class="headerlink" title="配置层次化Spring容器"></a>配置层次化Spring容器</h1><p>参考 <a href="http://blog.csdn.net/skyhitnow/article/details/43731493" target="_blank" rel="noopener">配置层次化Spring容器</a></p>
+<p>我们知道，在开发基于spring的Web应用时，通常使用两个IoC容器，一个是由DispatchServlet初始化的WebApplicationContext,一个是由ContextLoaderListener初始化的ApplicationContext。对于Spring容器，Spring的官方参考手册详细地讲解了依赖注入的配置方式，对于容器本身的配置和多个容器之间的关系却不曾提及。于是，很多人以为在一个应用中只有一个全局的Spring容器，或者不了解MVC使用的WebApplicationContext和根ApplicationContext的关系。</p>
+<p>通过查看Spring的源码和API,发现Spring可以配置为多个容器，容器之间可以配置为层级关系，一个根容器可以配置许多子容器，子容器还可以配置子容器，从而形成一个单根的层次化结构。对于该容器结构中的每个容器，在其中查找特定的bean时，会首先在本容器内查找，如果找到对应的bean,就返回该bean；如果没有找到，就会从直接父容器中去查找，依此类推，直到根容器为止。</p>
+<p>从上面的示例中可以看到，从子容器中可以取得父容器中配置的bean，而父容器中不能够取得子容器中的bean。</p>
+<p>在Spring MVC中WebApplicationContext配置为根ApplicationContext的子容器，所以，MVC使用的容器中能够取得根ApplicationContext中的bean。<strong>在一个web程序中可以配置多个DispatchSerlvet，每个Servlet对应一个容器</strong>，所有这些容器都作为根容器的子容器，这样，我们就可以把通用的bean放在根容器中，而针对特定DispatchServlet的bean，可以放在各自的子容器中。</p>
+<h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><ul>
+<li><p>Controller的方法中需要接受一个Spring MVC提供的MultipartFile接口作为方法的参数，该参数接收前台表单type为file提交的对象，使用<code>@RequestParam</code>注解指明参数，那么Spring就会自动将表单传递过来的对象的类型转换为MultipartFile类型。</p>
+</li>
+<li><p>MultipartFile中提供了getName()、getSize()、getByte()<br>getContentType()、isEmpty()、getInputStream()、getOriginalFilename()方法来访问文件。getOriginalFilename()方法是获取最初文件名，即本地文件名。</p>
+</li>
+<li>在Controller方法中使用FileUtils下的copyInputStreamToFile(InputStream in,File file)方法来完成文件的拷贝.第一个参数是文件拷贝源的输入流,直接使用MultipartFile下的getInputStream()方法.第二个参数是文件将要保存的位置.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/doUpload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">doUpload</span><span class="params">(@RequestParam(<span class="string">"file"</span>)</span> MultipartFile file) <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!file.isEmpty()) &#123;</span><br><span class="line">        FileUtils.copyInputStreamToFile(file.getInputStream(), <span class="keyword">new</span> File(<span class="string">"E://"</span>, file.getOriginalFilename()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.SUCCESS_RESULT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Jackson"><a href="#Jackson" class="headerlink" title="Jackson"></a>Jackson</h1><ul>
+<li><a href="https://www.mkyong.com/java/how-to-enable-pretty-print-json-output-jackson/" target="_blank" rel="noopener">How to enable pretty print JSON output (Jackson)</a></li>
+<li><a href="https://www.mkyong.com/java/jackson-2-convert-java-object-to-from-json/" target="_blank" rel="noopener">Jackson 2 – Convert Java Object to / from JSON</a></li>
+<li><a href="http://www.cnblogs.com/fangjian0423/p/springMVC-xml-json-convert.html" target="_blank" rel="noopener">SpringMVC关于json、xml自动转换的原理研究(附带源码分析)</a></li>
+</ul>
+<h1 id="SpringMVC拦截器"><a href="#SpringMVC拦截器" class="headerlink" title="SpringMVC拦截器"></a>SpringMVC拦截器</h1><p>拦截器好比你要去取经，那么，你就必须经过九九八十一关，主要用来解决请求的共性问题，如：乱码问题、权限验证问题等</p>
+<p>实现SpringMVC拦截器的三个步骤</p>
+<ol>
+<li>创建一个实现HandlerInterceptor接口，并实现接口的方法的类</li>
+<li><p>将创建的拦截器注册到SpringMVC的配置文件中实现注册</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc：interceptors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"路径下的类"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc：interceptors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置拦截器的拦截规则：</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc：interceptors</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">mvc：interceptor</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"拦截的action"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"路径下的类"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">mvc：interceptor</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc：interceptors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>拦截器中三个方法的介绍：</p>
+<ol>
+<li>preHandle()方法是否将当前请求拦截下来。（返回true请求继续运行，返回false请求终止（包括action层也会终止），Object arg代表被拦截的目标对象。）</li>
+<li>postHandle()方法的ModelAndView对象可以改变发往的视图或修改发往视图的信息。</li>
+<li>afterCompletion()方法表示视图显示之后在执行该方法。（一般用于资源的销毁）</li>
+</ol>
+<h2 id="拦截器和过滤器"><a href="#拦截器和过滤器" class="headerlink" title="拦截器和过滤器"></a>拦截器和过滤器</h2><p>共同：他们都是用来检查程序的共同场景，只不过拦截器是面向Action的，过滤器是面向整个web应用的。</p>
+<ol>
+<li>解决权限验证问题</li>
+<li>解决乱码问题</li>
+</ol>
+<p>拦截器和过滤器的区别：</p>
+<ol>
+<li>拦截器是基于java的反射机制的，而过滤器是基于函数回调。</li>
+<li>拦截器不依赖与servlet容器，过滤器依赖与servlet容器。</li>
+<li>拦截器只能对action请求起作用，而过滤器则可以对几乎所有的请求起作用。</li>
+<li>拦截器可以访问action上下文、<strong>值栈</strong> 里的对象，而过滤器不能访问。</li>
+<li>在action的生命周期中，拦截器可以多次被调用，而过滤器只能在容器初始化时被调用一次。</li>
+<li><strong>拦截器可以获取IOC容器中的各个bean，而过滤器就不行，这点很重要，在拦截器里注入一个service，可以调用业务逻辑</strong>。</li>
+</ol>
+<h2 id="拦截器方法的作用顺序"><a href="#拦截器方法的作用顺序" class="headerlink" title="拦截器方法的作用顺序"></a>拦截器方法的作用顺序</h2><p><img src="https://images.morethink.cn/a23b0321f130d0b064094c2b9e1e15a6.png" alt="" title="拦截器方法的作用顺序"></p>
+<p>拦截器的其它实现方式：</p>
+<ol>
+<li>拦截器的类还可以通过实现WebRequestInterceptor（HandlerInterceptor）接口来编写。</li>
+<li>向SpringMVC框架注册的写法不变。</li>
+<li>弊端：preHandler方法没有返回值，不能终止请求。</li>
+</ol>
+<p>Ps：建议使用功能更强大的实现方式，实现HandlerInterceptor接口。</p>
+<h1 id="Spring4增加功能"><a href="#Spring4增加功能" class="headerlink" title="Spring4增加功能"></a>Spring4增加功能</h1><p>Spring4主要在Web服务方面有下面两个方面提升：</p>
+<ol>
+<li>控制器使用<code>@ResponseBody</code>和 <code>@RestController</code>。</li>
+<li>异步调用。</li>
+</ol>
+<h1 id="Spring整合Struts2"><a href="#Spring整合Struts2" class="headerlink" title="Spring整合Struts2"></a>Spring整合Struts2</h1><p>Spring默认是单例，Struts2默认是多实例的。</p>
+<p>如果是spring配置文件中的 bean的名字的话就是spring创建，那么单实例还是多实例就由spring的action Bean中的业务逻辑控制器类是否配置为scope=”prototype”，有就是多实例的，没有就是单实例的，顺序是先从spring中找，找不到再从struts配置文件中找。</p>
+<ol>
+<li><p>对于无Spring插件（Struts2-spring-plugin-XXX.jar）的整合方式，需要在spring的action Bean中加业务逻辑控制器类配scope=”prototype”。</p>
+ <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"modle.User"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于有Spring插件（Struts2-spring-plugin-XXX.jar）的整合方式：反编译StrutsSpringObjectFactory以及相关的代码才发现，如果在struts action的配置文件 <code>&lt;action name=&quot;..&quot; class=&quot;..&quot;/&gt;</code> 中class写的如果是完整的包名和类名的话就是struts创建action对象，也就是多实例的；</p>
+</li>
+</ol>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="http://www.cnblogs.com/sunniest/p/4555801.html" target="_blank" rel="noopener">史上最全最强SpringMVC详细示例实战教程</a></li>
+<li><a href="https://www.tianmaying.com/tutorial/spring-mvc-quickstart" target="_blank" rel="noopener">Spring MVC快速入门</a></li>
+<li><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html" target="_blank" rel="noopener">Web MVC framework - Part VI. The Web</a></li>
+<li><a href="http://snowolf.iteye.com/blog/1628861" target="_blank" rel="noopener">Spring 注解学习手札（七） 补遗——@ResponseBody，@RequestBody，@PathVariable</a></li>
+<li><a href="https://github.com/kuitos/kuitos.github.io/issues/9" target="_blank" rel="noopener">SpringMVC4.1之Controller层最佳实践</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/SpringMVC-Knowledge-finishing/" title="SpringMVC 知识整理">https://www.morethink.cn/SpringMVC-Knowledge-finishing/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/SpringMVC-Annotation/" rel="next" title="SpringMVC 参数绑定注解解析">
+                <i class="fa fa-chevron-left"></i> SpringMVC 参数绑定注解解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/TCP/" rel="prev" title="面试中的TCP协议">
+                面试中的TCP协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTk4NC82NTQ5"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/morethink" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-globe"></i>segmentfault</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringMVC架构设计"><span class="nav-number">1.</span> <span class="nav-text"><a href="#SpringMVC&#x67B6;&#x6784;&#x8BBE;&#x8BA1;" class="headerlink" title="SpringMVC&#x67B6;&#x6784;&#x8BBE;&#x8BA1;"></a>SpringMVC&#x67B6;&#x6784;&#x8BBE;&#x8BA1;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringMVC与struts2的区别"><span class="nav-number">2.</span> <span class="nav-text"><a href="#SpringMVC&#x4E0E;struts2&#x7684;&#x533A;&#x522B;" class="headerlink" title="SpringMVC&#x4E0E;struts2&#x7684;&#x533A;&#x522B;"></a>SpringMVC&#x4E0E;struts2&#x7684;&#x533A;&#x522B;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringAOP整合SpringMVC"><span class="nav-number">3.</span> <span class="nav-text"><a href="#SpringAOP&#x6574;&#x5408;SpringMVC" class="headerlink" title="SpringAOP&#x6574;&#x5408;SpringMVC"></a>SpringAOP&#x6574;&#x5408;SpringMVC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置层次化Spring容器"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;&#x5C42;&#x6B21;&#x5316;Spring&#x5BB9;&#x5668;" class="headerlink" title="&#x914D;&#x7F6E;&#x5C42;&#x6B21;&#x5316;Spring&#x5BB9;&#x5668;"></a>&#x914D;&#x7F6E;&#x5C42;&#x6B21;&#x5316;Spring&#x5BB9;&#x5668;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x6587;&#x4EF6;&#x4E0A;&#x4F20;" class="headerlink" title="&#x6587;&#x4EF6;&#x4E0A;&#x4F20;"></a>&#x6587;&#x4EF6;&#x4E0A;&#x4F20;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jackson"><span class="nav-number">6.</span> <span class="nav-text"><a href="#Jackson" class="headerlink" title="Jackson"></a>Jackson</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringMVC拦截器"><span class="nav-number">7.</span> <span class="nav-text"><a href="#SpringMVC&#x62E6;&#x622A;&#x5668;" class="headerlink" title="SpringMVC&#x62E6;&#x622A;&#x5668;"></a>SpringMVC&#x62E6;&#x622A;&#x5668;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器和过滤器"><span class="nav-number">7.1.</span> <span class="nav-text"><a href="#&#x62E6;&#x622A;&#x5668;&#x548C;&#x8FC7;&#x6EE4;&#x5668;" class="headerlink" title="&#x62E6;&#x622A;&#x5668;&#x548C;&#x8FC7;&#x6EE4;&#x5668;"></a>&#x62E6;&#x622A;&#x5668;&#x548C;&#x8FC7;&#x6EE4;&#x5668;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器方法的作用顺序"><span class="nav-number">7.2.</span> <span class="nav-text"><a href="#&#x62E6;&#x622A;&#x5668;&#x65B9;&#x6CD5;&#x7684;&#x4F5C;&#x7528;&#x987A;&#x5E8F;" class="headerlink" title="&#x62E6;&#x622A;&#x5668;&#x65B9;&#x6CD5;&#x7684;&#x4F5C;&#x7528;&#x987A;&#x5E8F;"></a>&#x62E6;&#x622A;&#x5668;&#x65B9;&#x6CD5;&#x7684;&#x4F5C;&#x7528;&#x987A;&#x5E8F;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring4增加功能"><span class="nav-number">8.</span> <span class="nav-text"><a href="#Spring4&#x589E;&#x52A0;&#x529F;&#x80FD;" class="headerlink" title="Spring4&#x589E;&#x52A0;&#x529F;&#x80FD;"></a>Spring4&#x589E;&#x52A0;&#x529F;&#x80FD;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring整合Struts2"><span class="nav-number">9.</span> <span class="nav-text"><a href="#Spring&#x6574;&#x5408;Struts2" class="headerlink" title="Spring&#x6574;&#x5408;Struts2"></a>Spring&#x6574;&#x5408;Struts2</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+
+
+  
+
+</body>
+</html>
