@@ -4,6 +4,8 @@ date: 2017-12-12
 tags:
 categories: SpringMVC
 ---
+
+
 # SpringMVC架构设计
 
 **MVC是一种架构模式**，它把业务的实现和展示相分离。

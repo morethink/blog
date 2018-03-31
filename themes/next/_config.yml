@@ -90,6 +90,7 @@ menu:
   archives: /archives/ || archive
   about: /about/ || user
   book: /douban/
+  resume: /resume.pdf#view=FitH&toolbar=0
   # schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -123,8 +124,8 @@ scheme: Gemini
 social:
   GitHub: https://github.com/morethink || github
   博客园: http://www.cnblogs.com/morethink/
-  segmentfault: https://segmentfault.com/u/morethink
-  #E-Mail: mailto:yourname@gmail.com || envelope
+  # segmentfault: https://segmentfault.com/u/morethink
+  # E-Mail: mailto:lwhyx9@gmail.com || envelope
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
   #FB Page: https://www.facebook.com/yourname || facebook

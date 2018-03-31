@@ -16,9 +16,6 @@ static class Node {
 ```
 <!-- more -->
 
-全部代码放在 https://github.com/morethink/algorithm/blob/master/src/algorithm/list/LinkedList.java
-
-
 # 1. 求单链表中结点的个数
 
 依次遍历链表
@@ -336,6 +333,11 @@ public static void doubleBubblesort(Node start, Node end) {
 
 }
 ```
+
+
+全部代码放在
+ https://github.com/morethink/algorithm/blob/master/src/algorithm/list/LinkedList.java
+
 
 **参考文档**
 1. [轻松搞定面试中的链表题目](http://blog.csdn.net/luckyxiaoqiang/article/details/7393134)

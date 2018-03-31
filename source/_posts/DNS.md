@@ -1,7 +1,7 @@
 ---
 title: 面试中的DNS
 date: 2017-12-26
-tags: 面试
+tags: 
 categories: 网络
 ---
 
