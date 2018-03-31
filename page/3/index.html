@@ -314,6 +314,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/get-request-Chinese-garbled/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/get-request-Chinese-garbled/" itemprop="url">get请求中文乱码及get,post编码探究</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-14T00:00:00+08:00">
+                2017-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在我使用get请求进行查询的时候遇到一个问题：<br>当我的请求参数中有中文时，出现乱码。<br>可是即使我设置了Spring的characterEncodingFilter，也还是出现乱码。<br>原因：tomcat默认使用ISO8859-1编码来解析get中的url参数，导致乱码。而<code>characterEncodingFilter</code>或者<code>request.setCharacterEncoding(&quot;UTF-8&quot;);</code>都只针对post请求体有效。<br>下面对Http中get方法编码到tomcat的解码过程进行探究。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/get-request-Chinese-garbled/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/spring-redis-cache/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1356,152 +1502,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/binary-tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李文浩">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="More Think">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/binary-tree/" itemprop="url">Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T00:00:00+08:00">
-                2017-07-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>二叉树是一种非常重要的数据结构，很多其它数据结构都是基于二叉树的基础演变而来的。对于二叉树，有前序、中序以及后序三种遍历方法。因为树的定义本身就是递归定义，因此采用递归的方法去实现树的三种遍历不仅容易理解而且代码很简洁。而对于树的遍历若采用非递归的方法，就要采用栈去模拟实现。在三种遍历中，前序和中序遍历的非递归算法都很容易实现，非递归后序遍历实现起来相对来说要难一点。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/binary-tree/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/读书/wang/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1649,7 +1649,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Win-and-Linux-view-the-port-and-kill-the-process/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/binary-tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -1668,7 +1668,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Win-and-Linux-view-the-port-and-kill-the-process/" itemprop="url">Win和Linux查看端口和杀死进程</a></h2>
+                <a class="post-title-link" href="/binary-tree/" itemprop="url">Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）</a></h2>
         
 
         <div class="post-meta">
@@ -1680,8 +1680,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-30T00:00:00+08:00">
-                2017-07-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T00:00:00+08:00">
+                2017-07-31
               </time>
             
 
@@ -1703,8 +1703,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -1741,10 +1741,10 @@
 
       
         
-          <p>本文介绍Windows和Linux下查看端口和杀死进程的知识。</p>
+          <p>二叉树是一种非常重要的数据结构，很多其它数据结构都是基于二叉树的基础演变而来的。对于二叉树，有前序、中序以及后序三种遍历方法。因为树的定义本身就是递归定义，因此采用递归的方法去实现树的三种遍历不仅容易理解而且代码很简洁。而对于树的遍历若采用非递归的方法，就要采用栈去模拟实现。在三种遍历中，前序和中序遍历的非递归算法都很容易实现，非递归后序遍历实现起来相对来说要难一点。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Win-and-Linux-view-the-port-and-kill-the-process/" rel="contents">
+            <a class="btn" href="/binary-tree/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1836,7 +1836,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
