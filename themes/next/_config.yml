@@ -90,7 +90,7 @@ menu:
   archives: /archives/ || archive
   about: /about/ || user
   book: /douban/
-  resume: /resume.pdf#view=FitH&toolbar=0
+  resume: https://resume.morethink.cn
   # schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
