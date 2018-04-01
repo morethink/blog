@@ -133,9 +133,9 @@
         
         <tags>
             
-            <tag> 排序 </tag>
-            
             <tag> 链表 </tag>
+            
+            <tag> 排序 </tag>
             
         </tags>
         
@@ -1400,117 +1400,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[SpringMVC 参数绑定注解解析]]></title>
-      <url>https://www.morethink.cn/SpringMVC-Annotation/</url>
-      <content type="html"><![CDATA[<p>本文介绍了用于参数绑定的相关注解。</p>
-<p>绑定：将请求中的字段按照名字匹配的原则填入模型对象。</p>
-<p>SpringMVC就跟Struts2一样，通过拦截器进行参数匹配。</p>
-<p>代码在 <a href="https://github.com/morethink/MySpringMVC" target="_blank" rel="noopener">https://github.com/morethink/MySpringMVC</a></p>
-<h1 id="URI模板变量"><a href="#URI模板变量" class="headerlink" title="URI模板变量"></a>URI模板变量</h1><p>这里指uri template中variable(路径变量)，不含queryString部分<br><a id="more"></a></p>
-<h2 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a><code>@PathVariable</code></h2><p>当使用<code>@RequestMapping</code> URI template 样式映射时， 即 someUrl/{paramId}, 这时的paramId可通过 <code>@Pathvariable</code>注解绑定它传过来的值到方法的参数上。</p>
-<p>示例代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/users"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">getUser</span><span class="params">(@PathVariable <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResultUtil.successResult(<span class="string">"123456"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面代码把URI template 中变量 ownerId的值和petId的值，绑定到方法的参数上。<strong>若方法参数名称和需要绑定的uri template中变量名称不一致，需要在@PathVariable(“name”)指定uri template中的名称</strong>。</p>
-<h1 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h1><h2 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a><code>@RequestHeader</code></h2><p><code>@RequestHeader</code> 注解，可以把Request请求header部分的值绑定到方法的参数上。</p>
-<p>示例代码：</p>
-<p>这是一个Request 的header部分：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7</span><br><span class="line">Cache-Control:max-age=0</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Host:localhost:8080</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/getRequestHeader"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">getRequestHeader</span><span class="params">(@RequestHeader(<span class="string">"Accept-Encoding"</span>)</span> String encoding) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(encoding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的代码，把request header部分的 Accept-Encoding的值，绑定到参数encoding上。</p>
-<h2 id="CookieValue"><a href="#CookieValue" class="headerlink" title="@CookieValue"></a><code>@CookieValue</code></h2><p>可以把Request header中关于cookie的值绑定到方法的参数上。</p>
-<p>例如有如下Cookie值：<br><code>JSESSIONID=588DC770E582A3189B7E6210102EAE02</code><br>参数绑定的代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/getCookie"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">getCookie</span><span class="params">(@CookieValue(<span class="string">"JSESSIONID"</span>)</span> String cookie) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(cookie);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>即把JSESSIONID的值绑定到参数cookie上。</p>
-<h1 id="请求体"><a href="#请求体" class="headerlink" title="请求体"></a>请求体</h1><h2 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a><code>@RequestParam</code></h2><ul>
-<li>常用来处理简单类型的绑定，通过Request.getParameter() 获取的String可直接转换为简单类型的情况（ String–&gt; 简单类型的转换操作由ConversionService配置的转换器来完成）；因为使用request.getParameter()方式获取参数，所以可以处理get 方式中queryString的值，也可以处理post方式中 body data的值；</li>
-<li><strong>用来处理Content-Type: 为 <code>application/x-www-form-urlencoded</code>编码的内容，提交方式GET、POST</strong>；</li>
-<li>该注解有两个属性： value、required； value用来指定要传入值的id名称，required用来指示参数是否必须绑定；</li>
-</ul>
-<p>示例代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/tesRequestParam"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">tesRequestParam</span><span class="params">(@RequestParam(<span class="string">"username"</span>)</span> String username) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a><code>@RequestBody</code></h2><p>该注解常用来处理Content-Type: 不是application/x-www-form-urlencoded编码的内容，例如application/json, application/xml等；</p>
-<p>它是通过使用HandlerAdapter 配置的HttpMessageConverters来解析post data body，然后绑定到相应的bean上的。</p>
-<p>因为配置有FormHttpMessageConverter，所以也可以用来处理 application/x-www-form-urlencoded的内容，处理完的结果放在一个MultiValueMap<string, string="">里，这种情况在某些特殊需求下使用，详情查看FormHttpMessageConverter api;</string,></p>
-<p>示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@PostMapping(&quot;/tesRequestBody&quot;)</span><br><span class="line">public Result tesRequestBody(@RequestBody User user) &#123;</span><br><span class="line"></span><br><span class="line">    return ResultUtil.successResult(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>结果截图：</p>
-<p><img src="https://images.morethink.cn/f918dd11d4630c479a25548cca70acc2.png" alt="" title="Content-Type:application/json"></p>
-<h2 id="RequestBody通过list接收对象数组"><a href="#RequestBody通过list接收对象数组" class="headerlink" title="@RequestBody通过list接收对象数组"></a><code>@RequestBody</code>通过list接收对象数组</h2><p>在我们传递对象的时候，无论<code>Content-Type</code>是<code>x-www-form-urlencoded</code>还是<code>application/json</code>其实没有多大的关系，可是当我们需要传递对象数组的时候，表单编码就不行了，这时我们是可以采用json传递，然后后台使用<code>@RequestBody</code>注解，通过list接收来对象数组。</p>
-<p>前端代码：</p>
-<p>index.html<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//打开页面时运行</span></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> users = [];</span><br><span class="line">    <span class="keyword">var</span> user1 = &#123;<span class="string">"username"</span>: <span class="string">"dd"</span>, <span class="string">"password"</span>: <span class="string">"123"</span>&#125;;</span><br><span class="line">    <span class="keyword">var</span> user2 = &#123;<span class="string">"username"</span>: <span class="string">"gg"</span>, <span class="string">"password"</span>: <span class="string">"123"</span>&#125;;</span><br><span class="line">    users.push(user1);</span><br><span class="line">    users.push(user2);</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: <span class="string">"POST"</span>,</span><br><span class="line">        url: <span class="string">"users/saveUsers"</span>,</span><br><span class="line">        timeout: <span class="number">30000</span>,</span><br><span class="line">        dataType: <span class="string">"json"</span>,</span><br><span class="line">        contentType: <span class="string">"application/json"</span>,</span><br><span class="line">        data: <span class="built_in">JSON</span>.stringify(users),</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            <span class="comment">//将返回的数据展示成table</span></span><br><span class="line">            showTable(data);</span><br><span class="line">        &#125;,</span><br><span class="line">        error: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">//请求出错的处理</span></span><br><span class="line">            $(<span class="string">"#result"</span>).text(<span class="string">"请求出错"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>后台代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"saveUsers"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">saveUsers</span><span class="params">(@RequestBody List&lt;User&gt; users)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(users);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>结果截图：</p>
-<p><img src="https://images.morethink.cn/2161af7bd2378ca110347dd73a4ecf94.png" alt="" title="表格展示数据"></p>
-<h1 id="SessionAttribute"><a href="#SessionAttribute" class="headerlink" title="@SessionAttribute"></a><code>@SessionAttribute</code></h1><p>该注解用来绑定HttpSession中的attribute对象的值，便于在方法中的参数里使用。该注解有value、types两个属性，可以通过名字和类型指定要使用的attribute 对象</p>
-<p>示例代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/setSessionAttribute"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">setSessionAttribute</span><span class="params">(HttpSession session, String attribute)</span> </span>&#123;</span><br><span class="line">    session.setAttribute(<span class="string">"attribute"</span>, attribute);</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.SUCCESS_RESULT;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/getSessionAttribute"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">getSessionAttribute</span><span class="params">(@SessionAttribute(<span class="string">"attribute"</span>)</span> String attribute) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(attribute);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们首先给session添加一个attribute，然后再取出这个attribute。</p>
-<p><img src="https://images.morethink.cn/03f2cfd9da78e5abd39254a7cc7c21d7.png" alt="" title="添加属性"></p>
-<p><img src="https://images.morethink.cn/6d17bbc4aeb10b48e4593ca5e82f3ca9.png" alt="" title="得到属性"></p>
-<h1 id="ModelAttribute"><a href="#ModelAttribute" class="headerlink" title="@ModelAttribute"></a><code>@ModelAttribute</code></h1><p>@ModelAttribute标注可被应用在方法或方法参数上。</p>
-<h2 id="方法使用-ModelAttribute标注"><a href="#方法使用-ModelAttribute标注" class="headerlink" title="方法使用@ModelAttribute标注"></a>方法使用@ModelAttribute标注</h2><p>标注在方法上的<code>@ModelAttribute</code>说明方法是用于添加一个或多个属性到model上。这样的方法能接受与<code>@RequestMapping</code>标注相同的参数类型，只不过不能直接被映射到具体的请求上。</p>
-<p>在同一个控制器中，标注了<code>@ModelAttribute</code>的方法实际上会在<code>@RequestMapping</code>方法之前被调用。</p>
-<p>以下是示例：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Add one attribute</span></span><br><span class="line"><span class="comment">// The return value of the method is added to the model under the name "account"</span></span><br><span class="line"><span class="comment">// You can customize the name via @ModelAttribute("myAccount")</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@ModelAttribute</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Account <span class="title">addAccount</span><span class="params">(@RequestParam String number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> accountManager.findAccount(number);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add multiple attributes</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@ModelAttribute</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">populateModel</span><span class="params">(@RequestParam String number, Model model)</span> </span>&#123;</span><br><span class="line">    model.addAttribute(accountManager.findAccount(number));</span><br><span class="line">    <span class="comment">// add more ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><code>@ModelAttribute</code>方法通常被用来填充一些公共需要的属性或数据</strong>，比如一个下拉列表所预设的几种状态，或者宠物的几种类型，或者去取得一个HTML表单渲染所需要的命令对象，比如Account等。</p>
-<p>@ModelAttribute标注方法有两种风格：</p>
-<ul>
-<li>在第一种写法中，方法通过返回值的方式默认地将添加一个属性；</li>
-<li>在第二种写法中，方法接收一个Model对象，然后可以向其中添加任意数量的属性。</li>
-</ul>
-<p>可以在根据需要，在两种风格中选择合适的一种。</p>
-<p><strong>一个控制器可以拥有多个<code>@ModelAttribute</code>方法。同个控制器内的所有这些方法，都会在<code>@RequestMapping</code>方法之前被调用。</strong></p>
-<p><code>@ModelAttribute</code>方法也可以定义在<code>@ControllerAdvice</code>标注的类中，并且这些<code>@ModelAttribute</code>可以同时对许多控制器生效。</p>
-<p>属性名没有被显式指定的时候又当如何呢？在这种情况下，框架将根据属性的类型给予一个默认名称。举个例子，若方法返回一个Account类型的对象，则默认的属性名为”account”。可以通过设置@ModelAttribute标注的值来改变默认值。当向Model中直接添加属性时，请使用合适的重载方法addAttribute(..)-即带或不带属性名的方法。</p>
-<p>@ModelAttribute标注也可以被用在<code>@RequestMapping</code>方法上。这种情况下，<code>@RequestMapping</code>方法的返回值将会被解释为model的一个属性，而非一个视图名，此时视图名将以视图命名约定来方式来确定。</p>
-<h2 id="方法参数使用-ModelAttribute标注"><a href="#方法参数使用-ModelAttribute标注" class="headerlink" title="方法参数使用@ModelAttribute标注"></a>方法参数使用<code>@ModelAttribute</code>标注</h2><p><strong>标注在方法参数上的<code>@ModelAttribute</code>说明了该方法参数的值将由model中取得。如果model中找不到，那么该参数会先被实例化，然后被添加到model中。在model中存在以后，请求中所有名称匹配的参数都会填充到该参数中。</strong></p>
-<p>这在Spring MVC中被称为数据绑定，一个非常有用的特性，我们不用每次都手动从表格数据中转换这些字段数据。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">saveUser</span><span class="params">(@ModelAttribute User user)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上面的代码为例，这个User类型的实例可能来自哪里呢？有几种可能:</p>
-<ul>
-<li>它可能因为<code>@SessionAttributes</code>标注的使用已经存在于model中</li>
-<li>它可能因为在同个控制器中使用了<code>@ModelAttribute</code>方法已经存在于model中，正如上一小节所叙述的</li>
-<li>它可能是由URI模板变量和类型转换中取得的</li>
-<li>它可能是调用了自身的默认构造器被实例化出来的</li>
-</ul>
-<p>@ModelAttribute方法常用于从数据库中取一个属性值，该值可能通过<code>@SessionAttributes</code>标注在请求中间传递。在一些情况下，使用URI模板变量和类型转换的方式来取得一个属性是更方便的方式。</p>
-<h1 id="在不给定注解的情况下，参数是怎样绑定的？"><a href="#在不给定注解的情况下，参数是怎样绑定的？" class="headerlink" title="在不给定注解的情况下，参数是怎样绑定的？"></a>在不给定注解的情况下，参数是怎样绑定的？</h1><p>通过分析<code>AnnotationMethodHandlerAdapter</code>和<code>RequestMappingHandlerAdapter</code>的源代码发现，方法的参数在不给定参数的情况下：</p>
-<ul>
-<li>若要绑定的对象时简单类型：调用<code>@RequestParam</code>来处理的。<br>这里的简单类型指Java的原始类型(boolean, int 等)、原始类型对象（Boolean, Int等）、String、Date等ConversionService里可以直接String转换成目标对象的类型。也就是说没有特别需求，不推荐使用<code>@RequestParam</code>。</li>
-<li>若要绑定的对象时复杂类型：调用<code>@ModelAttribute</code>来处理的。也就是说如果不需要从model或者session中得到数据，@ModelAttribute可以不使用。</li>
-</ul>
-<h1 id="RequestMapping支持的方法参数"><a href="#RequestMapping支持的方法参数" class="headerlink" title="@RequestMapping支持的方法参数"></a><code>@RequestMapping</code>支持的方法参数</h1><p>下面这些参数Spring在调用请求方法的时候会自动给它们赋值，所以当在请求方法中需要使用到这些对象的时候，可以直接在方法上给定一个方法参数的申明，然后在方法体里面直接用就可以了。</p>
-<ol>
-<li>HttpServlet 对象，主要包括HttpServletRequest 、HttpServletResponse 和HttpSession 对象。 但是有一点需要注意的是在使用HttpSession 对象的时候，如果此时HttpSession 对象还没有建立起来的话就会有问题。</li>
-<li>Spring 自己的WebRequest 对象。 使用该对象可以访问到存放在HttpServletRequest 和HttpSession 中的属性值。</li>
-<li>InputStream 、OutputStream 、Reader 和Writer 。 InputStream 和Reader 是针对HttpServletRequest 而言的，可以从里面取数据；OutputStream 和Writer 是针对HttpServletResponse 而言的，可以往里面写数据。</li>
-<li>使用<code>@PathVariable</code> 、<code>@RequestParam</code> 、<code>@CookieValue</code> 和 <code>@RequestHeader</code> 标记的参数。</li>
-<li>使用<code>@ModelAttribute</code> 标记的参数。</li>
-<li>java.util.Map 、Spring 封装的Model 和ModelMap 。 这些都可以用来封装模型数据，用来给视图做展示。</li>
-<li>实体类。 可以用来接收上传的参数。</li>
-<li>Spring 封装的MultipartFile 。 用来接收上传文件的。</li>
-<li>Spring 封装的Errors 和BindingResult 对象。 这两个对象参数必须紧接在需要验证的实体对象参数之后，它里面包含了实体对象的验证结果。</li>
-</ol>
-<h1 id="一个参数传多个值"><a href="#一个参数传多个值" class="headerlink" title="一个参数传多个值"></a>一个参数传多个值</h1><p>在浏览器输入此URL<code>http://localhost:8080/admin/login.action?username=geek&amp;password=geek&amp;password=geek</code></p>
-<p>结果得到的对象为 ： <code>Manager{username=&#39;geek&#39;, password=&#39;geek,geek&#39;}</code></p>
-<p><strong>参考文档</strong>:</p>
-<ol>
-<li><a href="http://blog.csdn.net/walkerjong/article/details/7946109" target="_blank" rel="noopener">@RequestParam @RequestBody @PathVariable 等参数绑定注解详解</a></li>
-<li><a href="https://segmentfault.com/a/1190000005670764#articleHeader8" target="_blank" rel="noopener">SpringMVC之Controller常用注解功能全解析</a></li>
-<li><a href="http://wangwengcn.iteye.com/blog/1677024" target="_blank" rel="noopener">@ModelAttribute使用详解</a></li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> SpringMVC </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[SpringMVC 知识整理]]></title>
       <url>https://www.morethink.cn/SpringMVC-Knowledge-finishing/</url>
       <content type="html"><![CDATA[<h1 id="SpringMVC架构设计"><a href="#SpringMVC架构设计" class="headerlink" title="SpringMVC架构设计"></a>SpringMVC架构设计</h1><p><strong>MVC是一种架构模式</strong>，它把业务的实现和展示相分离。</p>
@@ -1612,6 +1501,117 @@
 <li><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html" target="_blank" rel="noopener">Web MVC framework - Part VI. The Web</a></li>
 <li><a href="http://snowolf.iteye.com/blog/1628861" target="_blank" rel="noopener">Spring 注解学习手札（七） 补遗——@ResponseBody，@RequestBody，@PathVariable</a></li>
 <li><a href="https://github.com/kuitos/kuitos.github.io/issues/9" target="_blank" rel="noopener">SpringMVC4.1之Controller层最佳实践</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> SpringMVC </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[SpringMVC 参数绑定注解解析]]></title>
+      <url>https://www.morethink.cn/SpringMVC-Annotation/</url>
+      <content type="html"><![CDATA[<p>本文介绍了用于参数绑定的相关注解。</p>
+<p>绑定：将请求中的字段按照名字匹配的原则填入模型对象。</p>
+<p>SpringMVC就跟Struts2一样，通过拦截器进行参数匹配。</p>
+<p>代码在 <a href="https://github.com/morethink/MySpringMVC" target="_blank" rel="noopener">https://github.com/morethink/MySpringMVC</a></p>
+<h1 id="URI模板变量"><a href="#URI模板变量" class="headerlink" title="URI模板变量"></a>URI模板变量</h1><p>这里指uri template中variable(路径变量)，不含queryString部分<br><a id="more"></a></p>
+<h2 id="PathVariable"><a href="#PathVariable" class="headerlink" title="@PathVariable"></a><code>@PathVariable</code></h2><p>当使用<code>@RequestMapping</code> URI template 样式映射时， 即 someUrl/{paramId}, 这时的paramId可通过 <code>@Pathvariable</code>注解绑定它传过来的值到方法的参数上。</p>
+<p>示例代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/users"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">getUser</span><span class="params">(@PathVariable <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ResultUtil.successResult(<span class="string">"123456"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面代码把URI template 中变量 ownerId的值和petId的值，绑定到方法的参数上。<strong>若方法参数名称和需要绑定的uri template中变量名称不一致，需要在@PathVariable(“name”)指定uri template中的名称</strong>。</p>
+<h1 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h1><h2 id="RequestHeader"><a href="#RequestHeader" class="headerlink" title="@RequestHeader"></a><code>@RequestHeader</code></h2><p><code>@RequestHeader</code> 注解，可以把Request请求header部分的值绑定到方法的参数上。</p>
+<p>示例代码：</p>
+<p>这是一个Request 的header部分：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8</span><br><span class="line">Accept-Encoding:gzip, deflate, br</span><br><span class="line">Accept-Language:zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7</span><br><span class="line">Cache-Control:max-age=0</span><br><span class="line">Connection:keep-alive</span><br><span class="line">Host:localhost:8080</span><br><span class="line">Upgrade-Insecure-Requests:1</span><br><span class="line">User-Agent:Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/getRequestHeader"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">getRequestHeader</span><span class="params">(@RequestHeader(<span class="string">"Accept-Encoding"</span>)</span> String encoding) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(encoding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码，把request header部分的 Accept-Encoding的值，绑定到参数encoding上。</p>
+<h2 id="CookieValue"><a href="#CookieValue" class="headerlink" title="@CookieValue"></a><code>@CookieValue</code></h2><p>可以把Request header中关于cookie的值绑定到方法的参数上。</p>
+<p>例如有如下Cookie值：<br><code>JSESSIONID=588DC770E582A3189B7E6210102EAE02</code><br>参数绑定的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/getCookie"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">getCookie</span><span class="params">(@CookieValue(<span class="string">"JSESSIONID"</span>)</span> String cookie) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(cookie);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即把JSESSIONID的值绑定到参数cookie上。</p>
+<h1 id="请求体"><a href="#请求体" class="headerlink" title="请求体"></a>请求体</h1><h2 id="RequestParam"><a href="#RequestParam" class="headerlink" title="@RequestParam"></a><code>@RequestParam</code></h2><ul>
+<li>常用来处理简单类型的绑定，通过Request.getParameter() 获取的String可直接转换为简单类型的情况（ String–&gt; 简单类型的转换操作由ConversionService配置的转换器来完成）；因为使用request.getParameter()方式获取参数，所以可以处理get 方式中queryString的值，也可以处理post方式中 body data的值；</li>
+<li><strong>用来处理Content-Type: 为 <code>application/x-www-form-urlencoded</code>编码的内容，提交方式GET、POST</strong>；</li>
+<li>该注解有两个属性： value、required； value用来指定要传入值的id名称，required用来指示参数是否必须绑定；</li>
+</ul>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/tesRequestParam"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">tesRequestParam</span><span class="params">(@RequestParam(<span class="string">"username"</span>)</span> String username) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(username);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="RequestBody"><a href="#RequestBody" class="headerlink" title="@RequestBody"></a><code>@RequestBody</code></h2><p>该注解常用来处理Content-Type: 不是application/x-www-form-urlencoded编码的内容，例如application/json, application/xml等；</p>
+<p>它是通过使用HandlerAdapter 配置的HttpMessageConverters来解析post data body，然后绑定到相应的bean上的。</p>
+<p>因为配置有FormHttpMessageConverter，所以也可以用来处理 application/x-www-form-urlencoded的内容，处理完的结果放在一个MultiValueMap<string, string="">里，这种情况在某些特殊需求下使用，详情查看FormHttpMessageConverter api;</string,></p>
+<p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@PostMapping(&quot;/tesRequestBody&quot;)</span><br><span class="line">public Result tesRequestBody(@RequestBody User user) &#123;</span><br><span class="line"></span><br><span class="line">    return ResultUtil.successResult(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果截图：</p>
+<p><img src="https://images.morethink.cn/f918dd11d4630c479a25548cca70acc2.png" alt="" title="Content-Type:application/json"></p>
+<h2 id="RequestBody通过list接收对象数组"><a href="#RequestBody通过list接收对象数组" class="headerlink" title="@RequestBody通过list接收对象数组"></a><code>@RequestBody</code>通过list接收对象数组</h2><p>在我们传递对象的时候，无论<code>Content-Type</code>是<code>x-www-form-urlencoded</code>还是<code>application/json</code>其实没有多大的关系，可是当我们需要传递对象数组的时候，表单编码就不行了，这时我们是可以采用json传递，然后后台使用<code>@RequestBody</code>注解，通过list接收来对象数组。</p>
+<p>前端代码：</p>
+<p>index.html<br><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//打开页面时运行</span></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> users = [];</span><br><span class="line">    <span class="keyword">var</span> user1 = &#123;<span class="string">"username"</span>: <span class="string">"dd"</span>, <span class="string">"password"</span>: <span class="string">"123"</span>&#125;;</span><br><span class="line">    <span class="keyword">var</span> user2 = &#123;<span class="string">"username"</span>: <span class="string">"gg"</span>, <span class="string">"password"</span>: <span class="string">"123"</span>&#125;;</span><br><span class="line">    users.push(user1);</span><br><span class="line">    users.push(user2);</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: <span class="string">"POST"</span>,</span><br><span class="line">        url: <span class="string">"users/saveUsers"</span>,</span><br><span class="line">        timeout: <span class="number">30000</span>,</span><br><span class="line">        dataType: <span class="string">"json"</span>,</span><br><span class="line">        contentType: <span class="string">"application/json"</span>,</span><br><span class="line">        data: <span class="built_in">JSON</span>.stringify(users),</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">            <span class="comment">//将返回的数据展示成table</span></span><br><span class="line">            showTable(data);</span><br><span class="line">        &#125;,</span><br><span class="line">        error: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">//请求出错的处理</span></span><br><span class="line">            $(<span class="string">"#result"</span>).text(<span class="string">"请求出错"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>后台代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"saveUsers"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">saveUsers</span><span class="params">(@RequestBody List&lt;User&gt; users)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(users);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果截图：</p>
+<p><img src="https://images.morethink.cn/2161af7bd2378ca110347dd73a4ecf94.png" alt="" title="表格展示数据"></p>
+<h1 id="SessionAttribute"><a href="#SessionAttribute" class="headerlink" title="@SessionAttribute"></a><code>@SessionAttribute</code></h1><p>该注解用来绑定HttpSession中的attribute对象的值，便于在方法中的参数里使用。该注解有value、types两个属性，可以通过名字和类型指定要使用的attribute 对象</p>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/setSessionAttribute"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">setSessionAttribute</span><span class="params">(HttpSession session, String attribute)</span> </span>&#123;</span><br><span class="line">    session.setAttribute(<span class="string">"attribute"</span>, attribute);</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.SUCCESS_RESULT;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/getSessionAttribute"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">getSessionAttribute</span><span class="params">(@SessionAttribute(<span class="string">"attribute"</span>)</span> String attribute) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(attribute);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们首先给session添加一个attribute，然后再取出这个attribute。</p>
+<p><img src="https://images.morethink.cn/03f2cfd9da78e5abd39254a7cc7c21d7.png" alt="" title="添加属性"></p>
+<p><img src="https://images.morethink.cn/6d17bbc4aeb10b48e4593ca5e82f3ca9.png" alt="" title="得到属性"></p>
+<h1 id="ModelAttribute"><a href="#ModelAttribute" class="headerlink" title="@ModelAttribute"></a><code>@ModelAttribute</code></h1><p>@ModelAttribute标注可被应用在方法或方法参数上。</p>
+<h2 id="方法使用-ModelAttribute标注"><a href="#方法使用-ModelAttribute标注" class="headerlink" title="方法使用@ModelAttribute标注"></a>方法使用@ModelAttribute标注</h2><p>标注在方法上的<code>@ModelAttribute</code>说明方法是用于添加一个或多个属性到model上。这样的方法能接受与<code>@RequestMapping</code>标注相同的参数类型，只不过不能直接被映射到具体的请求上。</p>
+<p>在同一个控制器中，标注了<code>@ModelAttribute</code>的方法实际上会在<code>@RequestMapping</code>方法之前被调用。</p>
+<p>以下是示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Add one attribute</span></span><br><span class="line"><span class="comment">// The return value of the method is added to the model under the name "account"</span></span><br><span class="line"><span class="comment">// You can customize the name via @ModelAttribute("myAccount")</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@ModelAttribute</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Account <span class="title">addAccount</span><span class="params">(@RequestParam String number)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> accountManager.findAccount(number);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add multiple attributes</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@ModelAttribute</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">populateModel</span><span class="params">(@RequestParam String number, Model model)</span> </span>&#123;</span><br><span class="line">    model.addAttribute(accountManager.findAccount(number));</span><br><span class="line">    <span class="comment">// add more ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><code>@ModelAttribute</code>方法通常被用来填充一些公共需要的属性或数据</strong>，比如一个下拉列表所预设的几种状态，或者宠物的几种类型，或者去取得一个HTML表单渲染所需要的命令对象，比如Account等。</p>
+<p>@ModelAttribute标注方法有两种风格：</p>
+<ul>
+<li>在第一种写法中，方法通过返回值的方式默认地将添加一个属性；</li>
+<li>在第二种写法中，方法接收一个Model对象，然后可以向其中添加任意数量的属性。</li>
+</ul>
+<p>可以在根据需要，在两种风格中选择合适的一种。</p>
+<p><strong>一个控制器可以拥有多个<code>@ModelAttribute</code>方法。同个控制器内的所有这些方法，都会在<code>@RequestMapping</code>方法之前被调用。</strong></p>
+<p><code>@ModelAttribute</code>方法也可以定义在<code>@ControllerAdvice</code>标注的类中，并且这些<code>@ModelAttribute</code>可以同时对许多控制器生效。</p>
+<p>属性名没有被显式指定的时候又当如何呢？在这种情况下，框架将根据属性的类型给予一个默认名称。举个例子，若方法返回一个Account类型的对象，则默认的属性名为”account”。可以通过设置@ModelAttribute标注的值来改变默认值。当向Model中直接添加属性时，请使用合适的重载方法addAttribute(..)-即带或不带属性名的方法。</p>
+<p>@ModelAttribute标注也可以被用在<code>@RequestMapping</code>方法上。这种情况下，<code>@RequestMapping</code>方法的返回值将会被解释为model的一个属性，而非一个视图名，此时视图名将以视图命名约定来方式来确定。</p>
+<h2 id="方法参数使用-ModelAttribute标注"><a href="#方法参数使用-ModelAttribute标注" class="headerlink" title="方法参数使用@ModelAttribute标注"></a>方法参数使用<code>@ModelAttribute</code>标注</h2><p><strong>标注在方法参数上的<code>@ModelAttribute</code>说明了该方法参数的值将由model中取得。如果model中找不到，那么该参数会先被实例化，然后被添加到model中。在model中存在以后，请求中所有名称匹配的参数都会填充到该参数中。</strong></p>
+<p>这在Spring MVC中被称为数据绑定，一个非常有用的特性，我们不用每次都手动从表格数据中转换这些字段数据。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">saveUser</span><span class="params">(@ModelAttribute User user)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ResultUtil.successResult(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上面的代码为例，这个User类型的实例可能来自哪里呢？有几种可能:</p>
+<ul>
+<li>它可能因为<code>@SessionAttributes</code>标注的使用已经存在于model中</li>
+<li>它可能因为在同个控制器中使用了<code>@ModelAttribute</code>方法已经存在于model中，正如上一小节所叙述的</li>
+<li>它可能是由URI模板变量和类型转换中取得的</li>
+<li>它可能是调用了自身的默认构造器被实例化出来的</li>
+</ul>
+<p>@ModelAttribute方法常用于从数据库中取一个属性值，该值可能通过<code>@SessionAttributes</code>标注在请求中间传递。在一些情况下，使用URI模板变量和类型转换的方式来取得一个属性是更方便的方式。</p>
+<h1 id="在不给定注解的情况下，参数是怎样绑定的？"><a href="#在不给定注解的情况下，参数是怎样绑定的？" class="headerlink" title="在不给定注解的情况下，参数是怎样绑定的？"></a>在不给定注解的情况下，参数是怎样绑定的？</h1><p>通过分析<code>AnnotationMethodHandlerAdapter</code>和<code>RequestMappingHandlerAdapter</code>的源代码发现，方法的参数在不给定参数的情况下：</p>
+<ul>
+<li>若要绑定的对象时简单类型：调用<code>@RequestParam</code>来处理的。<br>这里的简单类型指Java的原始类型(boolean, int 等)、原始类型对象（Boolean, Int等）、String、Date等ConversionService里可以直接String转换成目标对象的类型。也就是说没有特别需求，不推荐使用<code>@RequestParam</code>。</li>
+<li>若要绑定的对象时复杂类型：调用<code>@ModelAttribute</code>来处理的。也就是说如果不需要从model或者session中得到数据，@ModelAttribute可以不使用。</li>
+</ul>
+<h1 id="RequestMapping支持的方法参数"><a href="#RequestMapping支持的方法参数" class="headerlink" title="@RequestMapping支持的方法参数"></a><code>@RequestMapping</code>支持的方法参数</h1><p>下面这些参数Spring在调用请求方法的时候会自动给它们赋值，所以当在请求方法中需要使用到这些对象的时候，可以直接在方法上给定一个方法参数的申明，然后在方法体里面直接用就可以了。</p>
+<ol>
+<li>HttpServlet 对象，主要包括HttpServletRequest 、HttpServletResponse 和HttpSession 对象。 但是有一点需要注意的是在使用HttpSession 对象的时候，如果此时HttpSession 对象还没有建立起来的话就会有问题。</li>
+<li>Spring 自己的WebRequest 对象。 使用该对象可以访问到存放在HttpServletRequest 和HttpSession 中的属性值。</li>
+<li>InputStream 、OutputStream 、Reader 和Writer 。 InputStream 和Reader 是针对HttpServletRequest 而言的，可以从里面取数据；OutputStream 和Writer 是针对HttpServletResponse 而言的，可以往里面写数据。</li>
+<li>使用<code>@PathVariable</code> 、<code>@RequestParam</code> 、<code>@CookieValue</code> 和 <code>@RequestHeader</code> 标记的参数。</li>
+<li>使用<code>@ModelAttribute</code> 标记的参数。</li>
+<li>java.util.Map 、Spring 封装的Model 和ModelMap 。 这些都可以用来封装模型数据，用来给视图做展示。</li>
+<li>实体类。 可以用来接收上传的参数。</li>
+<li>Spring 封装的MultipartFile 。 用来接收上传文件的。</li>
+<li>Spring 封装的Errors 和BindingResult 对象。 这两个对象参数必须紧接在需要验证的实体对象参数之后，它里面包含了实体对象的验证结果。</li>
+</ol>
+<h1 id="一个参数传多个值"><a href="#一个参数传多个值" class="headerlink" title="一个参数传多个值"></a>一个参数传多个值</h1><p>在浏览器输入此URL<code>http://localhost:8080/admin/login.action?username=geek&amp;password=geek&amp;password=geek</code></p>
+<p>结果得到的对象为 ： <code>Manager{username=&#39;geek&#39;, password=&#39;geek,geek&#39;}</code></p>
+<p><strong>参考文档</strong>:</p>
+<ol>
+<li><a href="http://blog.csdn.net/walkerjong/article/details/7946109" target="_blank" rel="noopener">@RequestParam @RequestBody @PathVariable 等参数绑定注解详解</a></li>
+<li><a href="https://segmentfault.com/a/1190000005670764#articleHeader8" target="_blank" rel="noopener">SpringMVC之Controller常用注解功能全解析</a></li>
+<li><a href="http://wangwengcn.iteye.com/blog/1677024" target="_blank" rel="noopener">@ModelAttribute使用详解</a></li>
 </ol>
 ]]></content>
       
@@ -2523,6 +2523,52 @@
     </entry>
     
     <entry>
+      <title><![CDATA[Win和Linux查看端口和杀死进程]]></title>
+      <url>https://www.morethink.cn/Win-and-Linux-view-the-port-and-kill-the-process/</url>
+      <content type="html"><![CDATA[<p>本文介绍Windows和Linux下查看端口和杀死进程的知识。</p>
+<a id="more"></a>
+<h1 id="Windows下查看端口和杀死进程"><a href="#Windows下查看端口和杀死进程" class="headerlink" title="Windows下查看端口和杀死进程"></a>Windows下查看端口和杀死进程</h1><ol>
+<li>查看占用端口号的进程号<br> netstat –ano | findstr “指定端口号”</li>
+<li><p>通过进程号杀死进程<br> taskkill /pid 进程号</p>
+<ul>
+<li>通过进程号强制杀死进程<br>taskkill /f /pid 进程号</li>
+<li>通过进程号查看进程<br>tasklist | findstr “进程号”</li>
+</ul>
+</li>
+</ol>
+<h1 id="Linux下查看端口和杀死进程"><a href="#Linux下查看端口和杀死进程" class="headerlink" title="Linux下查看端口和杀死进程"></a>Linux下查看端口和杀死进程</h1><p><strong>Linux下查看端口号所使用的进程号</strong></p>
+<p>使用lsof命令： lsof -i:端口号</p>
+<p><strong>杀死进程</strong></p>
+<ul>
+<li>kill -9 PID</li>
+<li>Linux下还提供了一个killall命令，可以直接使用进程的名字而不是进程标识号，例如： killall -9 name</li>
+</ul>
+<p><strong>通过端口号查看进程号</strong></p>
+<ol>
+<li><p>查看程序对应进程号</p>
+<ul>
+<li>ps -ef | grep 进程名</li>
+</ul>
+</li>
+<li><p>查看进程号所占用的端口号</p>
+<ul>
+<li>REDHAT: netstat -nltp|grep pid</li>
+<li>ubuntu: netstat -anp|grep pid</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Linux学习笔记一]]></title>
       <url>https://www.morethink.cn/Linux-note1/</url>
       <content type="html"><![CDATA[<p>本文记录了Linux中常用的一些东西。</p>
@@ -2599,52 +2645,6 @@
 <p><strong>参考文档</strong></p>
 <ol>
 <li><a href="http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html" target="_blank" rel="noopener">Linux的五个查找命令</a></li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Win和Linux查看端口和杀死进程]]></title>
-      <url>https://www.morethink.cn/Win-and-Linux-view-the-port-and-kill-the-process/</url>
-      <content type="html"><![CDATA[<p>本文介绍Windows和Linux下查看端口和杀死进程的知识。</p>
-<a id="more"></a>
-<h1 id="Windows下查看端口和杀死进程"><a href="#Windows下查看端口和杀死进程" class="headerlink" title="Windows下查看端口和杀死进程"></a>Windows下查看端口和杀死进程</h1><ol>
-<li>查看占用端口号的进程号<br> netstat –ano | findstr “指定端口号”</li>
-<li><p>通过进程号杀死进程<br> taskkill /pid 进程号</p>
-<ul>
-<li>通过进程号强制杀死进程<br>taskkill /f /pid 进程号</li>
-<li>通过进程号查看进程<br>tasklist | findstr “进程号”</li>
-</ul>
-</li>
-</ol>
-<h1 id="Linux下查看端口和杀死进程"><a href="#Linux下查看端口和杀死进程" class="headerlink" title="Linux下查看端口和杀死进程"></a>Linux下查看端口和杀死进程</h1><p><strong>Linux下查看端口号所使用的进程号</strong></p>
-<p>使用lsof命令： lsof -i:端口号</p>
-<p><strong>杀死进程</strong></p>
-<ul>
-<li>kill -9 PID</li>
-<li>Linux下还提供了一个killall命令，可以直接使用进程的名字而不是进程标识号，例如： killall -9 name</li>
-</ul>
-<p><strong>通过端口号查看进程号</strong></p>
-<ol>
-<li><p>查看程序对应进程号</p>
-<ul>
-<li>ps -ef | grep 进程名</li>
-</ul>
-</li>
-<li><p>查看进程号所占用的端口号</p>
-<ul>
-<li>REDHAT: netstat -nltp|grep pid</li>
-<li>ubuntu: netstat -anp|grep pid</li>
-</ul>
-</li>
 </ol>
 ]]></content>
       
