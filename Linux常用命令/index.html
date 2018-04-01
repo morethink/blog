@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="本文记录了Linux中常用的一些东西。 命令生效顺序  第一顺位执行绝对路径或者相对路径的命令 第二顺位执行别名 第三顺位执行Bash的内部命令 第四顺位执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
+<meta name="description" content="本文记录一些在Linux系统下比较常用的命令。">
 <meta name="keywords" content="Web,HTML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux学习笔记一">
-<meta property="og:url" content="https://www.morethink.cn/Linux-note1/index.html">
+<meta property="og:title" content="Linux常用命令">
+<meta property="og:url" content="https://www.morethink.cn/Linux常用命令/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="本文记录了Linux中常用的一些东西。 命令生效顺序  第一顺位执行绝对路径或者相对路径的命令 第二顺位执行别名 第三顺位执行Bash的内部命令 第四顺位执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
+<meta property="og:description" content="本文记录一些在Linux系统下比较常用的命令。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.183Z">
+<meta property="og:updated_time" content="2018-04-01T13:29:28.343Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux学习笔记一">
-<meta name="twitter:description" content="本文记录了Linux中常用的一些东西。 命令生效顺序  第一顺位执行绝对路径或者相对路径的命令 第二顺位执行别名 第三顺位执行Bash的内部命令 第四顺位执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
+<meta name="twitter:title" content="Linux常用命令">
+<meta name="twitter:description" content="本文记录一些在Linux系统下比较常用的命令。">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/Linux-note1/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Linux常用命令/"/>
 
 
 
 
 
-  <title>Linux学习笔记一 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Linux常用命令 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -314,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Linux-note1/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Linux常用命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -331,7 +331,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Linux学习笔记一</h2>
+          <h2 class="post-title" itemprop="name headline">Linux常用命令</h2>
         
 
         <div class="post-meta">
@@ -408,48 +408,140 @@
       
 
       
-        <p>本文记录了Linux中常用的一些东西。</p>
-<p><strong>命令生效顺序</strong></p>
-<ol>
-<li>第一顺位执行绝对路径或者相对路径的命令</li>
-<li>第二顺位执行别名</li>
-<li>第三顺位执行Bash的内部命令</li>
-<li>第四顺位执行按照<code>$PATH</code>环境变量设置定义的目录顺序的第一个命令</li>
-</ol>
+        <p>本文记录一些在Linux系统下比较常用的命令。</p>
 <a id="more"></a>
-<h1 id="脚本执行方式"><a href="#脚本执行方式" class="headerlink" title="脚本执行方式"></a>脚本执行方式</h1><p>当我们写完一个脚本的时候，它是不可以直接运行的。</p>
+<p>首先介绍下Linux下命令生效的顺序：</p>
 <ol>
-<li>通过Bash调用执行脚本 <code># bash hello.sh</code></li>
-<li>赋予执行权限，直接运行<ul>
-<li><code># chmod 755 hello.sh</code></li>
-<li>相对路径 <code># ./hello.sh</code> 或者 绝对路径 <code># /root/hello.sh</code></li>
-</ul>
-</li>
+<li>第一顺位：执行绝对路径或者相对路径的命令</li>
+<li>第二顺位：执行别名</li>
+<li>第三顺位：执行Bash的内部命令</li>
+<li>第四顺位：执行按照<code>$PATH</code>环境变量设置定义的目录顺序的第一个命令</li>
 </ol>
-<h1 id="设置PATH环境变量"><a href="#设置PATH环境变量" class="headerlink" title="设置PATH环境变量"></a>设置PATH环境变量</h1><ol>
-<li>直接用export命令 <code># export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
+<p>还有一个问题，编写的shell脚本如何被执行？<br>当我们写完一个脚本的时候，它是不可以被直接运行的。我们可以通过：</p>
+<ol>
+<li>通过Bash调用执行脚本 ：<code>bash hello.sh</code></li>
+<li>首先赋予执行权限：<code>chmod 755 hello.sh</code>，然后就可以通过相对路径 <code>./hello.sh</code> 或者通过绝对路径 <code>/root/hello.sh</code>来执行。</li>
+</ol>
+<h1 id="设置PATH环境变量"><a href="#设置PATH环境变量" class="headerlink" title="设置PATH环境变量"></a>设置PATH环境变量</h1><p>下面的第一种方式关机后会失效，相当于临时环境变量，后面两种都是写进了系统配置，因此会永久生效。</p>
+<ol>
+<li>直接用export命令 <code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
 <li><p>修改profile文件：</p>
 <ul>
-<li><code># vi /etc/profile</code></li>
+<li><code>vi /etc/profile</code></li>
 <li>然后在文件里面加入<code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
-<li>执行命令 <code># source /etc/profile</code> 生效</li>
+<li>执行命令 <code>source /etc/profile</code> 生效</li>
 </ul>
 </li>
 <li><p>修改.bashrc文件</p>
 <ul>
-<li><code># vi /root/.bashrc</code></li>
+<li><code>vi /root/.bashrc</code></li>
 <li>在里面加入 <code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
-<li>执行命令<code># source /root/.bashrc</code> 生效</li>
+<li>执行命令<code>source /root/.bashrc</code> 生效</li>
 </ul>
 </li>
 </ol>
-<p>如果修改了<code>/etc/profile</code>，那么编辑结束后执行<code># source profile</code>(<code># source /etc/profile</code>) 或 执行点命令 <code># . ./profile</code>,PATH的值就会立即生效了。 这个方法的原理就是再执行一次/etc/profile shell脚本，注意如果用sh /etc/profile是不行的，因为sh是在子shell进程中执行的，即使PATH改变了也不会反应到当前环境中，但是source是在当前 shell进程中执行的，所以我们能看到PATH的改变</p>
-<p><strong>PATH环境变量设置错误导致命令失效</strong></p>
+<p>如果修改了<code>/etc/profile</code>，那么编辑结束后执行<code>source profile</code>(<code>source /etc/profile</code>) 或 执行点命令 <code>. ./profile</code>，PATH的值才会立即生效，不然就只有等下一次开机。</p>
+<p>这个方法的原理就是再执行一次/etc/profile shell脚本，注意如果用sh /etc/profile是不行的，因为sh是在子shell进程中执行的，即使PATH改变了也不会反应到当前环境中，但是source是在当前 shell进程中执行的，所以我们能看到PATH的改变。</p>
+<p>有时我们可能不小心将PATH环境变量设置错误导致命令失效，可以参考下面两种方式解决。</p>
 <ol>
 <li>如果是通过命令行设置的，可以通过重启或者离开本次登录(退出本次shell)</li>
-<li>如果是因为修改配置文件导致无法使用，可以执行<code># export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin</code>命令暂时使用这些目录下的命令，如 <code>vi</code>,<code>ls</code>,<code>cd</code>，从新修改配置文件。</li>
+<li>如果是因为修改配置文件导致无法使用，可以执行<code>export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin</code>命令暂时使用这些目录下的命令，如 <code>vi</code>,<code>ls</code>,<code>cd</code>，从新修改配置文件。</li>
 </ol>
-<h1 id="搜索命令"><a href="#搜索命令" class="headerlink" title="搜索命令"></a>搜索命令</h1><h2 id="1-find"><a href="#1-find" class="headerlink" title="1 find"></a>1 find</h2><ol>
+<h1 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h1><p>该命令用于复制文件，copy之意，它还可以把多个文件一次性地复制到一个目录下，它的常用参数如下：</p>
+<ul>
+<li>-a：将文件的特性一起复制  </li>
+<li>-p：连同文件的属性一起复制，而非使用默认方式，与-a相似，常用于备份  </li>
+<li>-i：若目标文件已经存在时，在覆盖时会先询问操作的进行  </li>
+<li>-r：递归持续复制，用于目录的复制行为  </li>
+<li>-u：目标文件与源文件有差异时才会复制  </li>
+</ul>
+<p>例：</p>
+<ul>
+<li><code>cp source dest</code> 复制文件</li>
+<li><code>cp -r sourceFolder targetFolder</code> 递归复制整个文件夹</li>
+</ul>
+<h1 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h1><p>该命令用于移动文件、目录或更名，move之意，它的常用参数如下：</p>
+<ul>
+<li>-f：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖  </li>
+<li>-i：若目标文件已经存在，就会询问是否覆盖  </li>
+<li>-u：若目标文件已经存在，且比目标文件新，才会更新  </li>
+</ul>
+<p>注：该命令可以把一个文件或多个文件一次移动一个文件夹中，但是最后一个目标文件一定要是“目录”。</p>
+<p>例：</p>
+<ul>
+<li><code>mv file1 file2 file3 dir</code>  把文件file1、file2、file3移动到目录dir中  </li>
+<li><code>mv file1 file2</code> 把文件file1重命名为file2  </li>
+</ul>
+<h1 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h1><p>该命令用于删除文件或目录，remove之间，它的常用参数如下：</p>
+<ul>
+<li>-f ：就是force的意思，忽略不存在的文件，不会出现警告消息  </li>
+<li>-i ：互动模式，在删除前会询问用户是否操作  </li>
+<li>-r ：<strong>递归删除，最常用于目录删除，它是一个非常危险的参数</strong>  </li>
+</ul>
+<p>例如：</p>
+<ul>
+<li><code>rm -i file</code> 删除文件file，在删除之前会询问是否进行该操作  </li>
+<li><code>rm -fr dir</code>  强制删除目录dir中的所有文件</li>
+</ul>
+<h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><p>该命令用于将某个时间点的进程运行情况选取下来并输出，process之意，它的常用参数如下：</p>
+<ul>
+<li>-A ：所有的进程均显示出来  </li>
+<li>-a ：不与terminal有关的所有进程  </li>
+<li>-u ：有效用户的相关进程  </li>
+<li>-x ：一般与a参数一起使用，可列出较完整的信息  </li>
+<li>-l ：较长，较详细地将PID的信息列出  </li>
+</ul>
+<p>其实我们只要记住ps一般使用的命令参数搭配即可，它们并不多，如下：</p>
+<ul>
+<li><code>ps aux</code> 查看系统所有的进程数据  </li>
+<li><code>ps ax</code>  查看不与terminal有关的所有进程  </li>
+<li><code>ps -lA</code>  查看系统所有的进程数据  </li>
+<li><code>ps axjf</code> 查看连同一部分进程树状态</li>
+</ul>
+<p>查看某个进程：</p>
+<ul>
+<li><code>ps –ef|grep tomcat</code> 查看所有有关tomcat的进程</li>
+<li><code>ps -ef|grep --color java</code> 高亮要查询的关键字</li>
+</ul>
+<h1 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h1><p>该命令用于向某个工作（jobnumber）或者是某个PID（数字）传送一个信号，它通常与ps和jobs命令一起使用，它的基本语法如下：<br><code>kill -signal PID</code><br>signal的常用参数(最前面的数字为信号的代号，使用时可以用代号代替相应的信号)如下：</p>
+<ul>
+<li>1：SIGHUP，启动被终止的进程  </li>
+<li>2：SIGINT，相当于输入ctrl+c，中断一个程序的进行  </li>
+<li>9：SIGKILL，强制中断一个进程的进行  </li>
+<li>15：SIGTERM，以正常的结束进程方式来终止进程  </li>
+<li>17：SIGSTOP，相当于输入ctrl+z，暂停一个进程的进行  </li>
+</ul>
+<p>例如：</p>
+<ul>
+<li>以正常的结束进程方式来终于第一个后台工作，可用jobs命令查看后台中的第一个工作进程<br><code>kill -SIGTERM %1</code> 或者 <code>kill -15 %1</code></li>
+<li>重新改动进程ID为PID的进程，PID可用ps命令通过管道命令加上grep命令进行筛选获得<br><code>kill -SIGHUP PID</code> 或者 <code>kill -1 PID</code></li>
+<li>终止线程号位19979的进程<br><code>kill -9 19979</code></li>
+</ul>
+<h1 id="killall"><a href="#killall" class="headerlink" title="killall"></a>killall</h1><p>该命令用于向一个命令启动的进程发送一个信号，它的一般语法如下：</p>
+<p><code>killall [-iIe] [command name]</code><br>它的参数如下：</p>
+<ul>
+<li>-i ：交互式的意思，若需要删除时，会询问用户  </li>
+<li>-e ：表示后面接的command name要一致，但command name不能超过15个字符  </li>
+<li>-I ：命令名称忽略大小写  </li>
+</ul>
+<p>例如：<br><code>killall -SIGHUP syslogd</code> 重新启动syslogd  </p>
+<h1 id="file"><a href="#file" class="headerlink" title="file"></a>file</h1><p>该命令用于判断接在file命令后的文件的基本数据，因为在Linux下文件的类型并不是以后缀为分的，所以这个命令对我们来说就很有用了，它的用法非常简单，基本语法如下：<br><code>file filename</code><br>例如：<br><code>file ./test</code></p>
+<h1 id="cat命令"><a href="#cat命令" class="headerlink" title="cat命令"></a>cat命令</h1><p>该命令用于查看文本文件的内容，后接要查看的文件名，通常可用管道与more和less一起使用，从而可以一页页地查看数据。例如：</p>
+<p><code>cat text | less</code>  查看text文件中的内容<br>注：这条命令也可以使用less text来代替  </p>
+<h1 id="chgrp命令"><a href="#chgrp命令" class="headerlink" title="chgrp命令"></a>chgrp命令</h1><p>该命令用于改变文件所属用户组，它的使用非常简单，它的基本用法如下：</p>
+<p><code>chgrp [-R] dirname/filename</code><br>-R ：进行递归的持续对所有文件和子目录更改  </p>
+<p>例如：<br><code>chgrp users -R ./dir</code> 递归地把dir目录下中的所有文件和子目录下所有文件的用户组修改为users  </p>
+<h1 id="chown命令"><a href="#chown命令" class="headerlink" title="chown命令"></a>chown命令</h1><p>该命令用于改变文件的所有者，与chgrp命令的使用方法相同，只是修改的文件属性不同，不再详述。</p>
+<h1 id="chmod命令"><a href="#chmod命令" class="headerlink" title="chmod命令"></a>chmod命令</h1><p>该命令用于改变文件的权限，一般的用法如下：</p>
+<p><code>chmod [-R] xyz 文件或目录</code><br>-R：进行递归的持续更改，即连同子目录下的所有文件都会更改<br>同时，chmod还可以使用u（user）、g（group）、o（other）、a（all）和+（加入）、-（删除）、=（设置）跟rwx搭配来对文件的权限进行更改。</p>
+<p>例如：<br><code>chmod 755 file</code>  把file的文件权限改变为-rxwr-xr-x，r表示读、w表示写、x表示可执行。<br><code>chmod g+w file</code> 向file的文件权限中加入用户组可写权限。<br><code>chmod +x file</code> 让文件可执行。</p>
+<p>权限代号：</p>
+<ul>
+<li>r：读权限，用数字4表示</li>
+<li>w：写权限，用数字2表示</li>
+<li>x：执行权限，用数字1表示</li>
+</ul>
+<h1 id="关于搜索的命令"><a href="#关于搜索的命令" class="headerlink" title="关于搜索的命令"></a>关于搜索的命令</h1><h2 id="1-find"><a href="#1-find" class="headerlink" title="1 find"></a>1 find</h2><ol>
 <li>find是最常见和最强大的查找命令，你可以用它找到任何你想找的文件。（避免大范围的搜索，会非常浪费系统资源，建议不在直接在”/“目录下搜索）</li>
 <li>格式：find [搜索范围] [搜索条件]</li>
 <li><p>例：</p>
@@ -466,22 +558,22 @@
 <p><strong>如果什么参数也不加，find默认搜索当前目录及其子目录，并且不过滤任何结果（也就是返回所有文件），将它们全都显示在屏幕上。</strong></p>
 <h2 id="2-locate"><a href="#2-locate" class="headerlink" title="2 locate"></a>2 locate</h2><p>locate命令其实是”find -name”的另一种写法，但是要比后者快得多，原因在于它不搜索具体目录，而是搜索一个数据库（/var/lib/locatedb），这个数据库中含有本地所有文件信息。Linux系统自动创建这个数据库，并且每天自动更新一次，所以使用locate命令查不到最新变动过的文件。为了避免这种情况，可以在使用locate之前，先使用<strong>updatedb</strong>命令，手动更新数据库。 locate命令的使用实例：</p>
 <ul>
-<li><code># locate /etc/sh</code>,搜索etc目录下所有以sh开头的文件。</li>
-<li><code># locate ~/m</code>,搜索用户主目录下，所有以m开头的文件。</li>
-<li><code># locate -i ~/m</code>,搜索用户主目录下，所有以m开头的文件，并且忽略大小写。</li>
+<li><code>locate /etc/sh</code>,搜索etc目录下所有以sh开头的文件。</li>
+<li><code>locate ~/m</code>,搜索用户主目录下，所有以m开头的文件。</li>
+<li><code>locate -i ~/m</code>,搜索用户主目录下，所有以m开头的文件，并且忽略大小写。</li>
 </ul>
-<h2 id="3-whereis"><a href="#3-whereis" class="headerlink" title="3 whereis"></a>3 whereis</h2><p>whereis命令只能用于<strong>程序名</strong>的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。 whereis命令的使用实例： <code># whereis grep</code></p>
-<h2 id="4-which"><a href="#4-which" class="headerlink" title="4 which"></a>4 which</h2><p>which命令的作用是，<strong>在PATH变量指定的路径中</strong>，搜索某个系统命令的位置，并且返回第一个搜索结果。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。 which命令的使用实例： <code># which grep</code></p>
-<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p>搜索文件中的信息，一般为字符串，与正则表达式结合使用 grep [选项] 字符串 文件名 （字符串使用 “” 包围，结果为行记录） -i 忽略大小写 -v 排除指定字符串</p>
-<p><strong>find与grep的区别</strong></p>
+<h2 id="3-whereis"><a href="#3-whereis" class="headerlink" title="3 whereis"></a>3 whereis</h2><p>whereis命令只能用于<strong>程序名</strong>的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。 whereis命令的使用实例： <code>whereis grep</code></p>
+<h2 id="4-which"><a href="#4-which" class="headerlink" title="4 which"></a>4 which</h2><p>which命令的作用是，<strong>在PATH变量指定的路径中</strong>，搜索某个系统命令的位置，并且返回第一个搜索结果。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。 which命令的使用实例： <code>which grep</code></p>
+<h1 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h1><p>搜索文件中的信息，一般为字符串，与正则表达式结合使用 grep [选项] 字符串 文件名 （字符串使用 “” 包围，结果为行记录） -i 忽略大小写 -v 排除指定字符串</p>
+<p><strong>find与grep的区别</strong>：</p>
 <ul>
 <li>find：在 系统 中搜索符合条件的 文件名，使用 通配符（完全）匹配</li>
 <li>grep：在 文件 当中搜索符合条件的 字符串，使用 正则表达式 （包含）匹配</li>
 </ul>
-<p>#</p>
-<p><strong>参考文档</strong></p>
+<p><strong>参考文档</strong>：</p>
 <ol>
 <li><a href="http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html" target="_blank" rel="noopener">Linux的五个查找命令</a></li>
+<li><a href="https://blog.csdn.net/ljianhui/article/details/11100625" target="_blank" rel="noopener">初窥Linux 之 我最常用的20条命令</a></li>
 </ol>
 
       
@@ -532,7 +624,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/Linux-note1/" title="Linux学习笔记一">https://www.morethink.cn/Linux-note1/</a>
+    <a href="https://www.morethink.cn/Linux常用命令/" title="Linux常用命令">https://www.morethink.cn/Linux常用命令/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -554,8 +646,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/读书/苏东坡传/" rel="next" title="我读东坡">
-                <i class="fa fa-chevron-left"></i> 我读东坡
+              <a href="/Win-and-Linux-view-the-port-and-kill-the-process/" rel="next" title="Win和Linux查看端口和杀死进程">
+                <i class="fa fa-chevron-left"></i> Win和Linux查看端口和杀死进程
               </a>
             
           </div>
@@ -564,8 +656,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Win-and-Linux-view-the-port-and-kill-the-process/" rel="prev" title="Win和Linux查看端口和杀死进程">
-                Win和Linux查看端口和杀死进程 <i class="fa fa-chevron-right"></i>
+              <a href="/读书/wang/" rel="prev" title="罔">
+                罔 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -730,7 +822,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#脚本执行方式"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x811A;&#x672C;&#x6267;&#x884C;&#x65B9;&#x5F0F;" class="headerlink" title="&#x811A;&#x672C;&#x6267;&#x884C;&#x65B9;&#x5F0F;"></a>&#x811A;&#x672C;&#x6267;&#x884C;&#x65B9;&#x5F0F;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置PATH环境变量"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x8BBE;&#x7F6E;PATH&#x73AF;&#x5883;&#x53D8;&#x91CF;" class="headerlink" title="&#x8BBE;&#x7F6E;PATH&#x73AF;&#x5883;&#x53D8;&#x91CF;"></a>&#x8BBE;&#x7F6E;PATH&#x73AF;&#x5883;&#x53D8;&#x91CF;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搜索命令"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x641C;&#x7D22;&#x547D;&#x4EE4;" class="headerlink" title="&#x641C;&#x7D22;&#x547D;&#x4EE4;"></a>&#x641C;&#x7D22;&#x547D;&#x4EE4;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#1-find" class="headerlink" title="1 find"></a>1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#2-locate" class="headerlink" title="2 locate"></a>2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#3-whereis" class="headerlink" title="3 whereis"></a>3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#4-which" class="headerlink" title="4 which"></a>4 which</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grep"><span class="nav-number">3.5.</span> <span class="nav-text"><a href="#grep" class="headerlink" title="grep"></a>grep</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设置PATH环境变量"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x8BBE;&#x7F6E;PATH&#x73AF;&#x5883;&#x53D8;&#x91CF;" class="headerlink" title="&#x8BBE;&#x7F6E;PATH&#x73AF;&#x5883;&#x53D8;&#x91CF;"></a>&#x8BBE;&#x7F6E;PATH&#x73AF;&#x5883;&#x53D8;&#x91CF;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">2.</span> <span class="nav-text"><a href="#cp" class="headerlink" title="cp"></a>cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">3.</span> <span class="nav-text"><a href="#mv" class="headerlink" title="mv"></a>mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">4.</span> <span class="nav-text"><a href="#rm" class="headerlink" title="rm"></a>rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">5.</span> <span class="nav-text"><a href="#ps" class="headerlink" title="ps"></a>ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">6.</span> <span class="nav-text"><a href="#kill" class="headerlink" title="kill"></a>kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">7.</span> <span class="nav-text"><a href="#killall" class="headerlink" title="killall"></a>killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">8.</span> <span class="nav-text"><a href="#file" class="headerlink" title="file"></a>file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">9.</span> <span class="nav-text"><a href="#cat&#x547D;&#x4EE4;" class="headerlink" title="cat&#x547D;&#x4EE4;"></a>cat&#x547D;&#x4EE4;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">10.</span> <span class="nav-text"><a href="#chgrp&#x547D;&#x4EE4;" class="headerlink" title="chgrp&#x547D;&#x4EE4;"></a>chgrp&#x547D;&#x4EE4;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">11.</span> <span class="nav-text"><a href="#chown&#x547D;&#x4EE4;" class="headerlink" title="chown&#x547D;&#x4EE4;"></a>chown&#x547D;&#x4EE4;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">12.</span> <span class="nav-text"><a href="#chmod&#x547D;&#x4EE4;" class="headerlink" title="chmod&#x547D;&#x4EE4;"></a>chmod&#x547D;&#x4EE4;</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">13.</span> <span class="nav-text"><a href="#&#x5173;&#x4E8E;&#x641C;&#x7D22;&#x7684;&#x547D;&#x4EE4;" class="headerlink" title="&#x5173;&#x4E8E;&#x641C;&#x7D22;&#x7684;&#x547D;&#x4EE4;"></a>&#x5173;&#x4E8E;&#x641C;&#x7D22;&#x7684;&#x547D;&#x4EE4;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">13.1.</span> <span class="nav-text"><a href="#1-find" class="headerlink" title="1 find"></a>1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">13.2.</span> <span class="nav-text"><a href="#2-locate" class="headerlink" title="2 locate"></a>2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">13.3.</span> <span class="nav-text"><a href="#3-whereis" class="headerlink" title="3 whereis"></a>3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">13.4.</span> <span class="nav-text"><a href="#4-which" class="headerlink" title="4 which"></a>4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">14.</span> <span class="nav-text"><a href="#grep" class="headerlink" title="grep"></a>grep</span></a></li></ol></div>
             
 
           </div>
