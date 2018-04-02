@@ -357,8 +357,8 @@ han: false
 
 # Disqus
 disqus:
-  enable: false
-  shortname:
+  enable: true
+  shortname: disqus_wE8nHS9zfF
   count: true
 
 # Hypercomments
@@ -392,7 +392,7 @@ valine:
 
 # Support for LiveRe comments system.
 # You can get your uid from https://livere.com/insight/myCode (General web site)
-livere_uid: MTAyMC8yOTk4NC82NTQ5
+# livere_uid: MTAyMC8yOTk4NC82NTQ5
 
 # Gitment
 # Introduction: https://imsun.net/posts/gitment-introduction/
