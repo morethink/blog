@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.morethink.cn/"/>
-  <updated>2018-04-01T09:29:00.106Z</updated>
+  <updated>2018-04-02T16:34:56.720Z</updated>
   <id>https://www.morethink.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git同时push到多个远程仓库</title>
+    <link href="https://www.morethink.cn/Git%E5%90%8C%E6%97%B6push%E5%88%B0%E5%A4%9A%E4%B8%AA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/"/>
+    <id>https://www.morethink.cn/Git同时push到多个远程仓库/</id>
+    <published>2018-04-02T16:00:00.000Z</published>
+    <updated>2018-04-02T16:34:56.720Z</updated>
+    
+    <content type="html"><![CDATA[<p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p><p>查看远程分支：<code>git remote -v</code></p><a id="more"></a><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origingit@git.coding.net:morethink/programming.git (fetch)</span><br><span class="line">origingit@git.coding.net:morethink/programming.git (push)</span><br><span class="line">originhexo@MyHost2:/var/repo/gitbook.git (push)</span><br></pre></td></tr></table></figure><p>也可以同时 push 到多个远程地址：<code>git push origin master</code></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Everything up-to-date</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;添加第二个远程地址时使用以下命令：&lt;br&gt;&lt;code&gt;git remote set-url --add origin git@github.com:morethink/programming.git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看远程分支：&lt;code&gt;git remote -v&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>二叉树从右边看到的节点</title>
@@ -225,30 +248,6 @@
   </entry>
   
   <entry>
-    <title>Nginx Https配置不带www跳转www</title>
-    <link href="https://www.morethink.cn/Nginx-Https-no-www-jump-www/"/>
-    <id>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</id>
-    <published>2017-12-26T16:00:00.000Z</published>
-    <updated>2018-03-23T03:03:50.183Z</updated>
-    
-    <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p><a id="more"></a><p>配置如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>参考文档</strong>：</p><ol><li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li><li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。&lt;br&gt;然后将 &lt;a href=&quot;https://morethink.cn&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://morethink.cn&lt;/a&gt; 转到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 去。不过要在配置文件的 &lt;code&gt;server&lt;/code&gt; &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt;&lt;br&gt;上配置default_server ssl;。&lt;br&gt;301永久重定向可以把搜索引擎的权重全部集中到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 上。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="服务器" scheme="https://www.morethink.cn/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-    
-      <category term="Https" scheme="https://www.morethink.cn/tags/Https/"/>
-    
-      <category term="Nginx" scheme="https://www.morethink.cn/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
     <title>面试中的Https</title>
     <link href="https://www.morethink.cn/Https/"/>
     <id>https://www.morethink.cn/Https/</id>
@@ -273,6 +272,30 @@
     
     
       <category term="Https" scheme="https://www.morethink.cn/tags/Https/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx Https配置不带www跳转www</title>
+    <link href="https://www.morethink.cn/Nginx-Https-no-www-jump-www/"/>
+    <id>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</id>
+    <published>2017-12-26T16:00:00.000Z</published>
+    <updated>2018-03-23T03:03:50.183Z</updated>
+    
+    <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p><a id="more"></a><p>配置如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>参考文档</strong>：</p><ol><li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li><li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。&lt;br&gt;然后将 &lt;a href=&quot;https://morethink.cn&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://morethink.cn&lt;/a&gt; 转到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 去。不过要在配置文件的 &lt;code&gt;server&lt;/code&gt; &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt;&lt;br&gt;上配置default_server ssl;。&lt;br&gt;301永久重定向可以把搜索引擎的权重全部集中到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 上。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="服务器" scheme="https://www.morethink.cn/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+      <category term="Https" scheme="https://www.morethink.cn/tags/Https/"/>
+    
+      <category term="Nginx" scheme="https://www.morethink.cn/tags/Nginx/"/>
     
   </entry>
   
@@ -491,29 +514,6 @@
     
       <category term="SpringMVC" scheme="https://www.morethink.cn/categories/SpringMVC/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>查询在一张表不在另外一张表的记录及效率探究</title>
-    <link href="https://www.morethink.cn/records-in-a-table-but-not-in-another-table/"/>
-    <id>https://www.morethink.cn/records-in-a-table-but-not-in-another-table/</id>
-    <published>2017-11-15T16:00:00.000Z</published>
-    <updated>2018-03-23T03:03:50.190Z</updated>
-    
-    <content type="html"><![CDATA[<p>在我做项目的时候遇到一个需求，要将存在于表ta而不存在于表tb中的数据查询出来。</p><p>记录使用的方法和探讨效率。</p><a id="more"></a><h1 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h1><p>创建表ta，并且使用存储过程插入13000条数据，在我的机器上运行时间: 346.719s。如果觉得插入的速度比较慢,可以直接导入我建好的表，百度云地址 <a href="http://pan.baidu.com/s/1dFtovg1" target="_blank" rel="noopener">http://pan.baidu.com/s/1dFtovg1</a> ，里面已经有数据了，直接导入sql执行即可，这样比用存储过程要快很多。</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> ta;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`ta`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">13000</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> ta_insert;</span><br><span class="line"></span><br><span class="line">DELIMITER $$</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> ta_insert()</span><br><span class="line"> MODIFIES <span class="keyword">SQL</span> <span class="keyword">DATA</span></span><br><span class="line"> <span class="keyword">BEGIN</span></span><br><span class="line"> <span class="keyword">SET</span> @i=<span class="number">1</span>;</span><br><span class="line"> <span class="keyword">SET</span> @<span class="keyword">max</span>=<span class="number">13000</span>;</span><br><span class="line"> WHILE @i&lt;@max DO</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`ta`</span> <span class="keyword">VALUES</span> ();</span><br><span class="line"> <span class="keyword">SET</span> @i = @i + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">WHILE</span>;</span><br><span class="line"><span class="keyword">end</span> $$</span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> ta_insert();</span><br></pre></td></tr></table></figure><p>创建表tb，并且使用存储过程插入10000条数据，在我的机器上运行时间:  224.102s。</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> tb;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`tb`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> AUTO_INCREMENT=<span class="number">8000</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">PROCEDURE</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> tb_insert;</span><br><span class="line"></span><br><span class="line">DELIMITER $$</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PROCEDURE</span> tb_insert()</span><br><span class="line"> MODIFIES <span class="keyword">SQL</span> <span class="keyword">DATA</span></span><br><span class="line"> <span class="keyword">BEGIN</span></span><br><span class="line"> <span class="keyword">SET</span> @i=<span class="number">1</span>;</span><br><span class="line"> <span class="keyword">SET</span> @<span class="keyword">max</span>=<span class="number">8000</span>;</span><br><span class="line"> WHILE @i&lt;@max DO</span><br><span class="line"> <span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`tb`</span> <span class="keyword">VALUES</span> ();</span><br><span class="line"> <span class="keyword">SET</span> @i = @i + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">END</span> <span class="keyword">WHILE</span>;</span><br><span class="line"><span class="keyword">end</span> $$</span><br><span class="line"></span><br><span class="line"><span class="keyword">CALL</span> tb_insert();</span><br></pre></td></tr></table></figure><h1 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h1><p>使用<code>NOT IN</code>，ta表中的每一个id值都要去与tb表中的id匹配，匹配到就停止，也就是说，存在于ta表而不存在于tb表的id值需要与所有tb表中的id值进行匹配。</p><p>执行子查询时，MYSQL需要创建临时表，查询完毕后再删除这些临时表，所以，子查询的速度会受到一定的影响，这里多了一个创建和销毁临时表的过程。</p><p>平均时间为 0.04s。<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ta.id <span class="keyword">FROM</span> ta <span class="keyword">WHERE</span> ta.id <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> tb)</span><br></pre></td></tr></table></figure></p><h1 id="左连接"><a href="#左连接" class="headerlink" title="左连接"></a>左连接</h1><p>使用 <code>LEFT JOIN</code>，ta表左连接tb表，而存在于ta表不存在于tb表中的字段为<code>NULL</code>，于是我们可以通过判断<code>WHERE tb.id IS NULL</code>来找到存在于ta表而不存在于tb表的id值。</p><p>平均时间是 0.06s。<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ta.id <span class="keyword">FROM</span> ta <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> tb <span class="keyword">ON</span> ta.id = tb.id <span class="keyword">WHERE</span> tb.id <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure></p><h1 id="效率之谜"><a href="#效率之谜" class="headerlink" title="效率之谜"></a>效率之谜</h1><h2 id="版本问题？"><a href="#版本问题？" class="headerlink" title="版本问题？"></a>版本问题？</h2><p>按理来说，连接应该比子查询要快，但是在我进行试验的时候发现却不是这样的，子查询居然还比连接要快。</p><p><img src="https://images.morethink.cn/20ef641be3a9a9aa899e5e373e05eef9.png" alt="" title="疑惑"></p><p>搜索了解到</p><blockquote><p>对于类似NOT IN这样的子查询，也能受益于subquery materialize，将子查询的结果集cache到临时表里，使用hashindex来进行检索；物化的子查询可以看到select_type字段为SUBQUERY，而在MySQL5.5里为DEPENDENT SUBQUERY</p></blockquote><p>可能是版本原因，我用的是mysql5.7，可能做了优化。</p><p>于是使用mysql5.5再次测试。</p><p>发现子查询和左连接的查询时间都在0.12s附近，还是不能说明连接比子查询高效。进一步猜测，我的数据组织格式是否出现了问题，于是使用上面百度云盘连接中的mm_member表和mm_log表(这是 <a href="https://www.cnblogs.com/cdf-opensource-007/p/6540521.html" target="_blank" rel="noopener">mysql（4）—— 表连接查询与where后使用子查询的性能分析。</a> 提供的数据) 。</p><h2 id="猜测验证"><a href="#猜测验证" class="headerlink" title="猜测验证"></a>猜测验证</h2><p><strong>子查询</strong></p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> mm_member.id <span class="keyword">FROM</span> mm_member <span class="keyword">WHERE</span> mm_member.id <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> mm_log.member_id <span class="keyword">FROM</span> mm_log)</span><br></pre></td></tr></table></figure><p><strong>左连接</strong></p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> mm_member.id <span class="keyword">FROM</span> mm_member <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> mm_log.member_id <span class="keyword">FROM</span> mm_log ) <span class="keyword">AS</span> mm</span><br><span class="line"><span class="keyword">ON</span> mm.member_id = mm_member.id <span class="keyword">WHERE</span> mm.member_id <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure><p><strong>mysql5.7</strong></p><p>子查询为1.1s左右，左连接为1.55s，子查询依然速度较快。</p><p><strong>mysql5.5</strong></p><p>子查询为48s左右，左连接为1.4s，将近34倍的差距，由此印证上面引用的那部分，<strong>mysql5.7确实已经多子查询做了优化，使其达到了逼近左连接的效率</strong>。</p><p><strong>那为什么我自己所建立的表无法体现版本的这种性能差别？</strong></p><p>猜测应该是数据类型的原因，可能int类型的查询效率已经都优化好了。</p><h1 id="网传最高效"><a href="#网传最高效" class="headerlink" title="网传最高效"></a>网传最高效</h1><p>不太清楚其中的原理，并且在我的测试中性能跟连接差不多。</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> ta <span class="keyword">WHERE</span> (<span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="number">1</span>) <span class="keyword">AS</span> <span class="keyword">num</span> <span class="keyword">FROM</span> tb <span class="keyword">WHERE</span> ta.id = tb.id) = <span class="number">0</span></span><br></pre></td></tr></table></figure><blockquote><p>而且网上流传的版本(<a href="http://blog.csdn.net/windren06/article/details/8188136" target="_blank" rel="noopener">(数据库篇) SQL查询~ 存在一个表而不在另一个表中的数据</a>)为</p><p>select <em> from B where (select count(1) as num from A where A.ID = B.ID) = 0<br>应该是<br>select </em> from A where (select count(1) as num from  B where A.ID = B.ID) = 0<br>大表在前，小表在后。</p></blockquote><p><strong>注意</strong>：</p><ol><li>存储过程循环插入比普通方式插入数据慢很多倍。</li><li>索引可以有效提高搜索效率。</li><li>不是所有的子查询都比连接慢的。</li></ol><p><strong>参考文档</strong>：</p><ol><li><a href="http://mysqllover.com/?p=919" target="_blank" rel="noopener">MySQL 5.6的优化器改进</a></li><li><a href="https://www.cnblogs.com/cdf-opensource-007/p/6540521.html" target="_blank" rel="noopener">mysql（4）—— 表连接查询与where后使用子查询的性能分析。</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在我做项目的时候遇到一个需求，要将存在于表ta而不存在于表tb中的数据查询出来。&lt;/p&gt;
-&lt;p&gt;记录使用的方法和探讨效率。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据库" scheme="https://www.morethink.cn/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-      <category term="MySQL" scheme="https://www.morethink.cn/tags/MySQL/"/>
     
   </entry>
   

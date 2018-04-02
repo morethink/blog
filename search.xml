@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title><![CDATA[Git同时push到多个远程仓库]]></title>
+      <url>https://www.morethink.cn/Git%E5%90%8C%E6%97%B6push%E5%88%B0%E5%A4%9A%E4%B8%AA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/</url>
+      <content type="html"><![CDATA[<p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p>
+<p>查看远程分支：<code>git remote -v</code></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origin	git@git.coding.net:morethink/programming.git (fetch)</span><br><span class="line">origin	git@git.coding.net:morethink/programming.git (push)</span><br><span class="line">origin	hexo@MyHost2:/var/repo/gitbook.git (push)</span><br></pre></td></tr></table></figure>
+<p>也可以同时 push 到多个远程地址：<code>git push origin master</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Everything up-to-date</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 工具 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[二叉树从右边看到的节点]]></title>
       <url>https://www.morethink.cn/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BB%8E%E5%8F%B3%E8%BE%B9%E7%9C%8B%E5%88%B0%E7%9A%84%E8%8A%82%E7%82%B9/</url>
       <content type="html"><![CDATA[<p>本文是对 LeetCode <a href="https://leetcode.com/problems/binary-tree-right-side-view/description/" target="_blank" rel="noopener">Binary Tree Right Side View</a> 解法的探讨。</p>
@@ -870,37 +896,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Nginx Https配置不带www跳转www]]></title>
-      <url>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</url>
-      <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p>
-<a id="more"></a>
-<p>配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>参考文档</strong>：</p>
-<ol>
-<li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li>
-<li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> 服务器 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Https </tag>
-            
-            <tag> Nginx </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[面试中的Https]]></title>
       <url>https://www.morethink.cn/Https/</url>
       <content type="html"><![CDATA[<p>在Http协议中有可能存在信息窃听或身份伪装的安全问题。使用HTTPS通信机制可以有效地防止这些问题。</p>
@@ -1019,6 +1014,37 @@
         <tags>
             
             <tag> Https </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nginx Https配置不带www跳转www]]></title>
+      <url>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</url>
+      <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p>
+<a id="more"></a>
+<p>配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li>
+<li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 服务器 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Https </tag>
+            
+            <tag> Nginx </tag>
             
         </tags>
         
@@ -2469,31 +2495,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[罔]]></title>
-      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/wang/</url>
-      <content type="html"><![CDATA[<p>尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。</p>
-<p>诗中有大道，我手写我心。</p>
-<a id="more"></a>
-<p><strong>罔</strong></p>
-<p>惘时伤悲望月明，群星闪闪似笑我。<br>姣姣月光人已变，所思所感无不同。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 读书 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 诗 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）]]></title>
       <url>https://www.morethink.cn/binary-tree/</url>
       <content type="html"><![CDATA[<p>二叉树是一种非常重要的数据结构，很多其它数据结构都是基于二叉树的基础演变而来的。对于二叉树，有前序、中序以及后序三种遍历方法。因为树的定义本身就是递归定义，因此采用递归的方法去实现树的三种遍历不仅容易理解而且代码很简洁。而对于树的遍历若采用非递归的方法，就要采用栈去模拟实现。在三种遍历中，前序和中序遍历的非递归算法都很容易实现，非递归后序遍历实现起来相对来说要难一点。</p>
@@ -2519,6 +2520,77 @@
             <tag> 二叉树 </tag>
             
         </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[罔]]></title>
+      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/wang/</url>
+      <content type="html"><![CDATA[<p>尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。</p>
+<p>诗中有大道，我手写我心。</p>
+<a id="more"></a>
+<p><strong>罔</strong></p>
+<p>惘时伤悲望月明，群星闪闪似笑我。<br>姣姣月光人已变，所思所感无不同。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 读书 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 诗 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Win和Linux查看端口和杀死进程]]></title>
+      <url>https://www.morethink.cn/Win-and-Linux-view-the-port-and-kill-the-process/</url>
+      <content type="html"><![CDATA[<p>本文介绍Windows和Linux下查看端口和杀死进程的知识。</p>
+<a id="more"></a>
+<h1 id="Windows下查看端口和杀死进程"><a href="#Windows下查看端口和杀死进程" class="headerlink" title="Windows下查看端口和杀死进程"></a>Windows下查看端口和杀死进程</h1><ol>
+<li>查看占用端口号的进程号<br> netstat –ano | findstr “指定端口号”</li>
+<li><p>通过进程号杀死进程<br> taskkill /pid 进程号</p>
+<ul>
+<li>通过进程号强制杀死进程<br>taskkill /f /pid 进程号</li>
+<li>通过进程号查看进程<br>tasklist | findstr “进程号”</li>
+</ul>
+</li>
+</ol>
+<h1 id="Linux下查看端口和杀死进程"><a href="#Linux下查看端口和杀死进程" class="headerlink" title="Linux下查看端口和杀死进程"></a>Linux下查看端口和杀死进程</h1><p><strong>Linux下查看端口号所使用的进程号</strong></p>
+<p>使用lsof命令： lsof -i:端口号</p>
+<p><strong>杀死进程</strong></p>
+<ul>
+<li>kill -9 PID</li>
+<li>Linux下还提供了一个killall命令，可以直接使用进程的名字而不是进程标识号，例如： killall -9 name</li>
+</ul>
+<p><strong>通过端口号查看进程号</strong></p>
+<ol>
+<li><p>查看程序对应进程号</p>
+<ul>
+<li>ps -ef | grep 进程名</li>
+</ul>
+</li>
+<li><p>查看进程号所占用的端口号</p>
+<ul>
+<li>REDHAT: netstat -nltp|grep pid</li>
+<li>ubuntu: netstat -anp|grep pid</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Linux </category>
+            
+        </categories>
+        
         
     </entry>
     
@@ -2704,52 +2776,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Win和Linux查看端口和杀死进程]]></title>
-      <url>https://www.morethink.cn/Win-and-Linux-view-the-port-and-kill-the-process/</url>
-      <content type="html"><![CDATA[<p>本文介绍Windows和Linux下查看端口和杀死进程的知识。</p>
-<a id="more"></a>
-<h1 id="Windows下查看端口和杀死进程"><a href="#Windows下查看端口和杀死进程" class="headerlink" title="Windows下查看端口和杀死进程"></a>Windows下查看端口和杀死进程</h1><ol>
-<li>查看占用端口号的进程号<br> netstat –ano | findstr “指定端口号”</li>
-<li><p>通过进程号杀死进程<br> taskkill /pid 进程号</p>
-<ul>
-<li>通过进程号强制杀死进程<br>taskkill /f /pid 进程号</li>
-<li>通过进程号查看进程<br>tasklist | findstr “进程号”</li>
-</ul>
-</li>
-</ol>
-<h1 id="Linux下查看端口和杀死进程"><a href="#Linux下查看端口和杀死进程" class="headerlink" title="Linux下查看端口和杀死进程"></a>Linux下查看端口和杀死进程</h1><p><strong>Linux下查看端口号所使用的进程号</strong></p>
-<p>使用lsof命令： lsof -i:端口号</p>
-<p><strong>杀死进程</strong></p>
-<ul>
-<li>kill -9 PID</li>
-<li>Linux下还提供了一个killall命令，可以直接使用进程的名字而不是进程标识号，例如： killall -9 name</li>
-</ul>
-<p><strong>通过端口号查看进程号</strong></p>
-<ol>
-<li><p>查看程序对应进程号</p>
-<ul>
-<li>ps -ef | grep 进程名</li>
-</ul>
-</li>
-<li><p>查看进程号所占用的端口号</p>
-<ul>
-<li>REDHAT: netstat -nltp|grep pid</li>
-<li>ubuntu: netstat -anp|grep pid</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> Linux </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[我读东坡]]></title>
       <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/%E8%8B%8F%E4%B8%9C%E5%9D%A1%E4%BC%A0/</url>
       <content type="html"><![CDATA[<p>每当我一提起苏东坡来，大家总会不自觉的微笑，这句话最能概括苏东坡的一切。<br>有诗云：<br>人生所处应何似，应是飞鸿踏雪泥。<br>泥上偶然留指爪，鸿飞哪复计东西。</p>
@@ -2902,6 +2928,24 @@
     </entry>
     
     <entry>
+      <title><![CDATA[有一种斜落下来的幽光]]></title>
+      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
+      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
+<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
+<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
+<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 读书 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[怎么使用IDEA]]></title>
       <url>https://www.morethink.cn/how-to-use-IDEA/</url>
       <content type="html"><![CDATA[<h1 id="war-和-war-exploded"><a href="#war-和-war-exploded" class="headerlink" title="war 和 war exploded"></a>war 和 war exploded</h1><ol>
@@ -2938,24 +2982,6 @@
             <tag> IDEA </tag>
             
         </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[有一种斜落下来的幽光]]></title>
-      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
-      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
-<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
-<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
-<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 读书 </category>
-            
-        </categories>
-        
         
     </entry>
     
