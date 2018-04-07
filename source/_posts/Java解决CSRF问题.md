@@ -46,7 +46,7 @@ CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也�
 ## 你有权限删除1号帖子
 
 `http://localhost:8081/deletePost.html`:
-![](https://images.morethink.cn/b8fc74747a493946fe9684ad4db6f546.png)
+![](https://images.morethink.cn/897d358f2677d053bb9555ff69d112ac.png)
 
 
 ## 登录有CSRF攻击A网站的B网站
@@ -84,7 +84,7 @@ Synchronizer Tokens： 在表单里隐藏一个随机变化的 csrf_token csrf_t
 
 前端向后台传递hash之后的csrf_token值和cookie中的csrf_token值，后台拿到cookie中的csrf_token值后得到hashCode值然后与前端传过来的值进行比较，一样则通过。
 
-### 你有权限删除1号帖子
+### 你有权限删除3号帖子
 `http://localhost:8081/deletePost.html`
 
 ![](https://images.morethink.cn/2ac5eab98780646c6c36dcdc98fa50c7.png)
@@ -95,6 +95,8 @@ Synchronizer Tokens： 在表单里隐藏一个随机变化的 csrf_token csrf_t
 
 `http://localhost:8082/deletePost.html`:
 ![](https://images.morethink.cn/csrf-attack-fail-failure.gif)
+
+攻击者不能删除4号帖子。
 
 前端代码：
 
