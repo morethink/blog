@@ -385,8 +385,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/Win-and-Linux-view-the-port-and-kill-the-process/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="Win-and-Linux-view-the-port-and-kill-the-process/" itemprop="commentCount"></span>
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Win-and-Linux-view-the-port-and-kill-the-process/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -522,8 +521,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/读书/苏东坡传/" rel="next" title="我读东坡">
-                <i class="fa fa-chevron-left"></i> 我读东坡
+              <a href="/Linux常用命令/" rel="next" title="Linux常用命令">
+                <i class="fa fa-chevron-left"></i> Linux常用命令
               </a>
             
           </div>
@@ -532,8 +531,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Linux常用命令/" rel="prev" title="Linux常用命令">
-                Linux常用命令 <i class="fa fa-chevron-right"></i>
+              <a href="/读书/wang/" rel="prev" title="罔">
+                罔 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -565,12 +564,9 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+      
+        <div id="gitment-container"></div>
+      
     </div>
 
   
@@ -894,26 +890,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://disqus_wE8nHS9zfF.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://www.morethink.cn/Win-and-Linux-view-the-port-and-kill-the-process/';
-          this.page.identifier = 'Win-and-Linux-view-the-port-and-kill-the-process/';
-          this.page.title = 'Win和Linux查看端口和杀死进程';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://disqus_wE8nHS9zfF.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -929,8 +905,49 @@
 
 
 
+  
 
 
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'morethink',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '08854952e38df7965142646ffb127bd37dc9baf2',
+            
+                client_id: '2cf694e06b6dcf0e5264'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 

@@ -385,8 +385,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/Linux常用命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="Linux常用命令/" itemprop="commentCount"></span>
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Linux常用命令/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -657,8 +656,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Win-and-Linux-view-the-port-and-kill-the-process/" rel="next" title="Win和Linux查看端口和杀死进程">
-                <i class="fa fa-chevron-left"></i> Win和Linux查看端口和杀死进程
+              <a href="/读书/苏东坡传/" rel="next" title="我读东坡">
+                <i class="fa fa-chevron-left"></i> 我读东坡
               </a>
             
           </div>
@@ -667,8 +666,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/binary-tree/" rel="prev" title="Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）">
-                Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归） <i class="fa fa-chevron-right"></i>
+              <a href="/Win-and-Linux-view-the-port-and-kill-the-process/" rel="prev" title="Win和Linux查看端口和杀死进程">
+                Win和Linux查看端口和杀死进程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -700,12 +699,9 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+      
+        <div id="gitment-container"></div>
+      
     </div>
 
   
@@ -1029,26 +1025,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://disqus_wE8nHS9zfF.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'https://www.morethink.cn/Linux常用命令/';
-          this.page.identifier = 'Linux常用命令/';
-          this.page.title = 'Linux常用命令';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://disqus_wE8nHS9zfF.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -1064,8 +1040,49 @@
 
 
 
+  
 
 
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'morethink',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '08854952e38df7965142646ffb127bd37dc9baf2',
+            
+                client_id: '2cf694e06b6dcf0e5264'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
 
 
 
