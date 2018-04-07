@@ -43,17 +43,17 @@
   </entry>
   
   <entry>
-    <title>Git同时push到多个远程仓库</title>
+    <title>Git常用操作</title>
     <link href="https://www.morethink.cn/Git%E5%90%8C%E6%97%B6push%E5%88%B0%E5%A4%9A%E4%B8%AA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/"/>
     <id>https://www.morethink.cn/Git同时push到多个远程仓库/</id>
     <published>2018-04-02T16:00:00.000Z</published>
-    <updated>2018-04-02T16:34:56.720Z</updated>
+    <updated>2018-04-07T11:16:22.446Z</updated>
     
-    <content type="html"><![CDATA[<p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p><p>查看远程分支：<code>git remote -v</code></p><a id="more"></a><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origingit@git.coding.net:morethink/programming.git (fetch)</span><br><span class="line">origingit@git.coding.net:morethink/programming.git (push)</span><br><span class="line">originhexo@MyHost2:/var/repo/gitbook.git (push)</span><br></pre></td></tr></table></figure><p>也可以同时 push 到多个远程地址：<code>git push origin master</code></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Everything up-to-date</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h1 id="Git同时push到多个远程仓库"><a href="#Git同时push到多个远程仓库" class="headerlink" title="Git同时push到多个远程仓库"></a>Git同时push到多个远程仓库</h1><p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p><p>查看远程分支：<code>git remote -v</code></p><a id="more"></a><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origingit@git.coding.net:morethink/programming.git (fetch)</span><br><span class="line">origingit@git.coding.net:morethink/programming.git (push)</span><br><span class="line">originhexo@MyHost2:/var/repo/gitbook.git (push)</span><br></pre></td></tr></table></figure><p>也可以同时 push 到多个远程地址：<code>git push origin master</code></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Everything up-to-date</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure><h1 id="GitHub-更新已经-fork-的项目"><a href="#GitHub-更新已经-fork-的项目" class="headerlink" title="GitHub 更新已经 fork 的项目"></a>GitHub 更新已经 fork 的项目</h1><ol><li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li><li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure></li><li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p></li><li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li><li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li></ol>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;添加第二个远程地址时使用以下命令：&lt;br&gt;&lt;code&gt;git remote set-url --add origin git@github.com:morethink/programming.git&lt;/code&gt;&lt;/p&gt;
+      &lt;h1 id=&quot;Git同时push到多个远程仓库&quot;&gt;&lt;a href=&quot;#Git同时push到多个远程仓库&quot; class=&quot;headerlink&quot; title=&quot;Git同时push到多个远程仓库&quot;&gt;&lt;/a&gt;Git同时push到多个远程仓库&lt;/h1&gt;&lt;p&gt;添加第二个远程地址时使用以下命令：&lt;br&gt;&lt;code&gt;git remote set-url --add origin git@github.com:morethink/programming.git&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;查看远程分支：&lt;code&gt;git remote -v&lt;/code&gt;&lt;/p&gt;
     
     </summary>
@@ -133,9 +133,9 @@
       <category term="算法" scheme="https://www.morethink.cn/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="链表" scheme="https://www.morethink.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
       <category term="排序" scheme="https://www.morethink.cn/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="链表" scheme="https://www.morethink.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
