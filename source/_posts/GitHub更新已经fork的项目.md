@@ -5,9 +5,12 @@ tags: Git
 categories: 工具
 ---
 
+<!-- more -->
+
 1. clone 自己的 fork 分支到本地
 可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：
 `$ git clone  git@github.com:morethink/git-recipes.git`
+<!-- more -->
 2. 进入仓库，增加源分支地址到你项目远程分支列表中
 此处是关键，先得将原来的仓库指定为 upstream，命令为：
 `$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git`
