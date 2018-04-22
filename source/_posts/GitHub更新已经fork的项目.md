@@ -5,7 +5,10 @@ tags: Git
 categories: 工具
 ---
 
+当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。
+
 <!-- more -->
+
 1. clone 自己的 fork 分支到本地
 可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：
 `$ git clone  git@github.com:morethink/git-recipes.git`
