@@ -88,19 +88,19 @@
 
 
 
-<meta name="description" content="在前面写的一篇文章SpringMVC 跨域，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如何通过">
+<meta name="description" content="在前面写的一篇文章SpringMVC解决跨域问题，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如">
 <meta name="keywords" content="Nginx,跨域,反向代理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端通过Nginx反向代理解决跨域问题">
 <meta property="og:url" content="https://www.morethink.cn/Nginx-Cross-Domain/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="在前面写的一篇文章SpringMVC 跨域，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如何通过">
+<meta property="og:description" content="在前面写的一篇文章SpringMVC解决跨域问题，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.morethink.cn/reverse-proxy.jpg">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.183Z">
+<meta property="og:updated_time" content="2018-04-12T07:51:30.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端通过Nginx反向代理解决跨域问题">
-<meta name="twitter:description" content="在前面写的一篇文章SpringMVC 跨域，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如何通过">
+<meta name="twitter:description" content="在前面写的一篇文章SpringMVC解决跨域问题，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:  JSONP CORS WebSocket  可是这几种方式都是基于服务器配置的，即对于自己的网站是可以通过这几种方式解决的，可是现在遇到另一个需求(前面提到过，写扇贝插件，我们不能更改扇贝的服务器配置，也不能发短信叫他们给我配置一下)。 本文探讨了前端如">
 <meta name="twitter:image" content="https://images.morethink.cn/reverse-proxy.jpg">
 
 
@@ -420,7 +420,7 @@
       
 
       
-        <p>在前面写的一篇文章<a href="https://www.morethink.cn/2017/03/09/SpringMVC-Cross-Domain/">SpringMVC 跨域</a>，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:</p>
+        <p>在前面写的一篇文章<a href="http://www.cnblogs.com/morethink/p/6525216.html" target="_blank" rel="noopener">SpringMVC解决跨域问题</a>，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:</p>
 <ol>
 <li>JSONP</li>
 <li>CORS</li>
@@ -441,9 +441,9 @@
 <p><img src="https://images.morethink.cn/reverse-proxy.jpg" alt="" title="反向代理"></p>
 <p><strong>反向代理隐藏了真实的服务器</strong>。</p>
 <p>Nginx 就是一个很好的反向代理服务器，当然apache也可以实现此功能。</p>
-<p>windows下Apache配置参考这篇文章：  <a href="https://www.morethink.cn/2017/09/19/Windows-apache-Server/">Windows Apache服务器配置</a></p>
+<p>windows下Apache配置参考这篇文章：  <a href="http://www.cnblogs.com/morethink/p/7551877.html" target="_blank" rel="noopener">Windows Apache服务器配置</a></p>
 <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><p>Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。该软件由 Igor Sysoev 创建，并于2004年首次公开发布。同名公司成立于2011年，以提供支持。</p>
-<p>我在<a href="https://www.morethink.cn/2017/02/11/Nginx-Load-Balancing-under-Windows/">Windows下实现Nginx负载均衡</a>提到过Windows下Nginx命令使用。</p>
+<p>我在<a href="http://www.cnblogs.com/morethink/p/6390072.html" target="_blank" rel="noopener">Windows下实现Nginx负载均衡</a>提到过Windows下Nginx命令使用。</p>
 <h2 id="Nginx-反向代理模块-proxy-pass"><a href="#Nginx-反向代理模块-proxy-pass" class="headerlink" title="Nginx 反向代理模块 proxy_pass"></a>Nginx 反向代理模块 proxy_pass</h2><p><code>proxy_pass</code> 后面跟着一个 URL，用来将请求反向代理到 URL 参数指定的服务器上。例如我们上面例子中的 <code>proxy_pass https://api.shanbay.com</code>，则将匹配的请求反向代理到 <a href="https://api.shanbay.com。" target="_blank" rel="noopener">https://api.shanbay.com。</a></p>
 <p>通过在配置文件中增加<code>proxy_pass 你的服务器ip</code>,例如这里的扇贝服务器地址，就可以完成反向代理。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        ## 用户访问 localhost，则反向代理到https://api.shanbay.com</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">            proxy_pass https://api.shanbay.com;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -557,7 +557,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/SpringMVC-Cross-Domain/" rel="next" title="SpringMVC解决跨域问题">
+              <a href="/SpringMVC解决跨域问题/" rel="next" title="SpringMVC解决跨域问题">
                 <i class="fa fa-chevron-left"></i> SpringMVC解决跨域问题
               </a>
             
@@ -657,7 +657,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

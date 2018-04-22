@@ -314,6 +314,385 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Cron表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/Cron表达式/" itemprop="url">Cron表达式</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T00:00:00+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Cron表达式范例：</strong></p>
+<ul>
+<li><code>*/5 * * * * ?</code>  ：每隔5<code>秒</code>执行一次</li>
+<li><code>0 */1 * * * ?</code>  ：每隔1分钟执行一次</li>
+<li><code>0 0 23 * * ?</code>   ：每天23点执行一次</li>
+<li><code>0 0 1 * * ?</code>    ：每天凌晨1点执行一次：</li>
+<li><code>0 0 1 1 * ?</code>  ：每月1号凌晨1点执行一次</li>
+<li><code>0 0 23 L * ?</code> ： 每月最后一天23点执行一次</li>
+<li><code>0 0 1 ? * L</code>  ：每周星期天凌晨1点实行一次</li>
+<li><code>0 26,29,33 * * * ?</code> ： 在26分、29分、33分执行一次</li>
+<li><code>0 0 0,13,18,21 * * ?</code> ： 每天的0点、13点、18点、21点都执行一次</li>
+</ul>
+<h1 id="Cron表达式"><a href="#Cron表达式" class="headerlink" title="Cron表达式"></a>Cron表达式</h1><p>Cron表达式由7个部分组成，各部分用空格隔开，Cron表达式的7个部分从左到右代表的含义如下：</p>
+<p><code>秒</code> <code>分</code> <code>时</code> <code>日</code> <code>月</code> <code>周</code> <code>年</code><br>其中 <code>年</code>是可选的。</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>允许的值</th>
+<th>允许的特殊字符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>秒</code></td>
+<td>0-59</td>
+<td>,- * /</td>
+<td></td>
+</tr>
+<tr>
+<td><code>分</code></td>
+<td>0-59</td>
+<td>,- * /</td>
+<td></td>
+</tr>
+<tr>
+<td><code>时</code></td>
+<td>0-23</td>
+<td>,- * /</td>
+<td></td>
+</tr>
+<tr>
+<td><code>日</code></td>
+<td>1-31</td>
+<td>,- * ? / L W C</td>
+<td></td>
+</tr>
+<tr>
+<td><code>月</code></td>
+<td>1-12 or JAN-DEC</td>
+<td>,- * /</td>
+<td></td>
+</tr>
+<tr>
+<td><code>周</code></td>
+<td>1-7 or SUN-SAT</td>
+<td>,- * ? / L C #</td>
+<td></td>
+</tr>
+<tr>
+<td><code>年</code> (可选字段)</td>
+<td>empty，1970-2099</td>
+<td>,- * /</td>
+</tr>
+</tbody>
+</table>
+<h1 id="符号说明"><a href="#符号说明" class="headerlink" title="符号说明"></a>符号说明</h1><ul>
+<li><code>,</code>：表示列出枚举值值。例如在<code>分</code>使用5,20，则意味着在5和20分每分钟触发一次。</li>
+<li><code>-</code>：表示范围。例如在<code>分</code>使用5-20，表示从5分到20分钟每分钟触发一次。</li>
+<li><code>*</code> ：表示匹配该域的任意值。假如在<code>分</code>域使用<code>*</code>，即表示每分钟都会触发事件。</li>
+<li><code>/</code> ：表示起始时间开始触发，然后每隔固定时间触发一次，例如在Minutes域使用5/20,则意味着5分钟触发一次，而25，45等分别触发一次。</li>
+<li><code>?</code> ：只能用在<code>周</code>和<code>日</code>。它也匹配域的任意值，但实际不会。因为<code>周</code>和<code>日</code>会相互影响。例如想在每月的20日触发调度，不管20日到底是星期几，则只能使用如下写法： 13 13 15 20 <em> ?,其中最后一位只能用？，而不能使用</em>，如果使用*表示不管星期几都会触发，实际上并不是这样。    </li>
+<li><code>L</code> ： 表示最后，只能出现在<code>日</code>和<code>周</code>，如果在<code>日</code>使用5L,意味着在最后的一个星期四触发。  </li>
+<li><code>W</code>：表示有效工作日(周一到周五),只能出现在<code>周</code>域，系统将在离指定日期的最近的有效工作日触发事件。例如：在<code>日</code>使用5W，如果5日是星期六，则将在最近的工作日：星期五，即4日触发。如果5日是星期天，则在6日触发；如果5日在星期一到星期五中的一天，则就在5日触发。另外一点，W的最近寻找不会跨过月份。</li>
+<li><code>#</code>：用于确定每个月第几个星期几，只能出现在<code>周</code>。例如在4#2，表示某月的第二个星期三。</li>
+</ul>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="http://Cron.qqe2.com/" target="_blank" rel="noopener">在线Cron表达式生成器</a></li>
+<li><a href="https://www.jianshu.com/p/f03b1497122a" target="_blank" rel="noopener">QuartZ Cron表达式详解</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/GitHub更新已经fork的项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/GitHub更新已经fork的项目/" itemprop="url">GitHub更新已经fork的项目</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T00:00:00+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li>
+<li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p>
+</li>
+<li>切换到本地master分支<br><code>$ git checkout master</code></li>
+<li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li>
+<li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li>
+</ol>
+<p><strong>参考文档：</strong></p>
+<ol>
+<li>添加远程分支<br><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/configuring-a-remote-for-a-fork/</a></li>
+<li>完成同步<br><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/syncing-a-fork/</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/常见web攻击总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -485,7 +864,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/Git同时push到多个远程仓库/" itemprop="url">Git常用操作</a></h2>
+                <a class="post-title-link" href="/Git同时push到多个远程仓库/" itemprop="url">Git同时push到多个远程仓库</a></h2>
         
 
         <div class="post-meta">
@@ -558,7 +937,7 @@
 
       
         
-          <h1 id="Git同时push到多个远程仓库"><a href="#Git同时push到多个远程仓库" class="headerlink" title="Git同时push到多个远程仓库"></a>Git同时push到多个远程仓库</h1><p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p>
+          <p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p>
 <p>查看远程分支：<code>git remote -v</code></p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1498,302 +1877,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Nginx-several-load-balancing-algorithm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李文浩">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="More Think">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Nginx-several-load-balancing-algorithm/" itemprop="url">Nginx几种负载均衡算法及配置实例</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:00:00+08:00">
-                2018-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/服务器/" itemprop="url" rel="index">
-                    <span itemprop="name">服务器</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文装载自： <a href="https://yq.aliyun.com/articles/114683" target="_blank" rel="noopener">https://yq.aliyun.com/articles/114683</a></p>
-<p>Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。</p>
-<p>Nginx的几种负载均衡算法：<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Nginx-several-load-balancing-algorithm/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Java解决CSRF问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李文浩">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="More Think">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Java解决CSRF问题/" itemprop="url">Java解决CSRF问题</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T00:00:00+08:00">
-                2018-01-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Web安全/" itemprop="url" rel="index">
-                    <span itemprop="name">Web安全</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>项目地址： <a href="https://github.com/morethink/web-security-csrf" target="_blank" rel="noopener">https://github.com/morethink/web-security-csrf</a></p>
-<h1 id="CSRF是什么？"><a href="#CSRF是什么？" class="headerlink" title="CSRF是什么？"></a>CSRF是什么？</h1><p>CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。</p>
-<h1 id="CSRF可以做什么？"><a href="#CSRF可以做什么？" class="headerlink" title="CSRF可以做什么？"></a>CSRF可以做什么？</h1><p>你这可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账……造成的问题包括：个人隐私泄露以及财产安全。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Java解决CSRF问题/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1848,7 +1931,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

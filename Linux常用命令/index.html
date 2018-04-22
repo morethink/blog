@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="本文记录一些在Linux系统下比较常用的命令。">
+<meta name="description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
 <meta name="keywords" content="Web,HTML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux常用命令">
 <meta property="og:url" content="https://www.morethink.cn/Linux常用命令/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="本文记录一些在Linux系统下比较常用的命令。">
+<meta property="og:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-01T13:29:28.343Z">
+<meta property="og:updated_time" content="2018-04-22T07:50:00.935Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
-<meta name="twitter:description" content="本文记录一些在Linux系统下比较常用的命令。">
+<meta name="twitter:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
 
 
 
@@ -419,43 +419,13 @@
 
       
         <p>本文记录一些在Linux系统下比较常用的命令。</p>
-<a id="more"></a>
 <p>首先介绍下Linux下命令生效的顺序：</p>
 <ol>
 <li>第一顺位：执行绝对路径或者相对路径的命令</li>
 <li>第二顺位：执行别名</li>
 <li>第三顺位：执行Bash的内部命令</li>
-<li>第四顺位：执行按照<code>$PATH</code>环境变量设置定义的目录顺序的第一个命令</li>
-</ol>
-<p>还有一个问题，编写的shell脚本如何被执行？<br>当我们写完一个脚本的时候，它是不可以被直接运行的。我们可以通过：</p>
-<ol>
-<li>通过Bash调用执行脚本 ：<code>bash hello.sh</code></li>
-<li>首先赋予执行权限：<code>chmod 755 hello.sh</code>，然后就可以通过相对路径 <code>./hello.sh</code> 或者通过绝对路径 <code>/root/hello.sh</code>来执行。</li>
-</ol>
-<h1 id="设置PATH环境变量"><a href="#设置PATH环境变量" class="headerlink" title="设置PATH环境变量"></a>设置PATH环境变量</h1><p>下面的第一种方式关机后会失效，相当于临时环境变量，后面两种都是写进了系统配置，因此会永久生效。</p>
-<ol>
-<li>直接用export命令 <code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
-<li><p>修改profile文件：</p>
-<ul>
-<li><code>vi /etc/profile</code></li>
-<li>然后在文件里面加入<code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
-<li>执行命令 <code>source /etc/profile</code> 生效</li>
-</ul>
+<li>第四顺位：执行按照<code>$PATH</code>环境变量设置定义的目录顺序的第一个命令<a id="more"></a>
 </li>
-<li><p>修改.bashrc文件</p>
-<ul>
-<li><code>vi /root/.bashrc</code></li>
-<li>在里面加入 <code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
-<li>执行命令<code>source /root/.bashrc</code> 生效</li>
-</ul>
-</li>
-</ol>
-<p>如果修改了<code>/etc/profile</code>，那么编辑结束后执行<code>source profile</code>(<code>source /etc/profile</code>) 或 执行点命令 <code>. ./profile</code>，PATH的值才会立即生效，不然就只有等下一次开机。</p>
-<p>这个方法的原理就是再执行一次/etc/profile shell脚本，注意如果用sh /etc/profile是不行的，因为sh是在子shell进程中执行的，即使PATH改变了也不会反应到当前环境中，但是source是在当前 shell进程中执行的，所以我们能看到PATH的改变。</p>
-<p>有时我们可能不小心将PATH环境变量设置错误导致命令失效，可以参考下面两种方式解决。</p>
-<ol>
-<li>如果是通过命令行设置的，可以通过重启或者离开本次登录(退出本次shell)</li>
-<li>如果是因为修改配置文件导致无法使用，可以执行<code>export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin</code>命令暂时使用这些目录下的命令，如 <code>vi</code>,<code>ls</code>,<code>cd</code>，从新修改配置文件。</li>
 </ol>
 <h1 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h1><p>该命令用于复制文件，copy之意，它还可以把多个文件一次性地复制到一个目录下，它的常用参数如下：</p>
 <ul>
@@ -580,6 +550,76 @@
 <li>find：在 系统 中搜索符合条件的 文件名，使用 通配符（完全）匹配</li>
 <li>grep：在 文件 当中搜索符合条件的 字符串，使用 正则表达式 （包含）匹配</li>
 </ul>
+<h1 id="time"><a href="#time" class="headerlink" title="time"></a>time</h1><p>time 可以统计命令执行的时间，包括程序的实际运行时间(real time)，以及程序运行在用户态的时间(user time)和内核态的时间(sys time)。<br>例如：<code>time git pull</code> 则是统计更新代码花费多长时间</p>
+<h1 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h1><p>alias命令用来设置指令的别名。我们可以使用该命令可以将一些较长的命令进行简化。使用alias时，用户必须使用单引号’’将原来的命令引起来，防止特殊字符导致错误。</p>
+<p>alias命令的作用只局限于该次登入的操作。若要每次登入都能够使用这些命令别名，则可将相应的alias命令存放到bash的初始化文件<code>/etc/bashrc</code>中。</p>
+<p>alias 的基本使用方法为：<code>alias 新的命令=&#39;原命令 -选项/参数&#39;</code><br>例如：<code>alias l=‘ls -lsh&#39;</code>将重新定义ls命令，现在只需输入l就可以列目录了。直接输入 alias 命令会列出当前系统中所有已经定义的命令别名。</p>
+<p>要删除一个别名，可以使用 unalias 命令，如 unalias l。</p>
+<p><strong>查看系统已经设置的别名：</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alias egrep='egrep --color'</span><br><span class="line">alias fgrep='fgrep --color'</span><br><span class="line">alias grep='grep --color'</span><br><span class="line">alias hpush='bash /Users/liwenhao/Desktop/github/hpush.sh'</span><br><span class="line">alias ll='ls -l'</span><br><span class="line">alias ls='ls -F --show-control-chars --color=auto'</span><br><span class="line">alias vi='vim'</span><br></pre></td></tr></table></figure>
+<h1 id="执行shell脚本"><a href="#执行shell脚本" class="headerlink" title="执行shell脚本"></a>执行shell脚本</h1><p>当我们写完一个脚本的时候，它是不可以被直接运行的。我们可以通过：</p>
+<ol>
+<li>通过Bash调用执行脚本 ：<code>bash hello.sh</code></li>
+<li>首先赋予执行权限：<code>chmod 755 hello.sh</code>，然后就可以通过相对路径 <code>./hello.sh</code> 或者通过绝对路径 <code>/root/hello.sh</code>来执行。</li>
+</ol>
+<h1 id="PATH环境变量"><a href="#PATH环境变量" class="headerlink" title="PATH环境变量"></a>PATH环境变量</h1><p>下面的第一种方式关机后会失效，相当于临时环境变量，后面两种都是写进了系统配置，因此会永久生效。</p>
+<ol>
+<li>直接用export命令 <code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
+<li><p>修改profile文件：</p>
+<ul>
+<li><code>vi /etc/profile</code></li>
+<li>然后在文件里面加入<code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
+<li>执行命令 <code>source /etc/profile</code> 生效</li>
+</ul>
+</li>
+<li><p>修改.bashrc文件</p>
+<ul>
+<li><code>vi /root/.bashrc</code></li>
+<li>在里面加入 <code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
+<li>执行命令<code>source /root/.bashrc</code> 生效</li>
+</ul>
+</li>
+</ol>
+<p>如果修改了<code>/etc/profile</code>，那么编辑结束后执行<code>source profile</code>(<code>source /etc/profile</code>) 或 执行点命令 <code>. ./profile</code>，PATH的值才会立即生效，不然就只有等下一次开机。</p>
+<p>这个方法的原理就是再执行一次/etc/profile shell脚本，注意如果用sh /etc/profile是不行的，因为sh是在子shell进程中执行的，即使PATH改变了也不会反应到当前环境中，但是source是在当前 shell进程中执行的，所以我们能看到PATH的改变。</p>
+<p>有时我们可能不小心将PATH环境变量设置错误导致命令失效，可以参考下面两种方式解决。</p>
+<ol>
+<li>如果是通过命令行设置的，可以通过重启或者离开本次登录(退出本次shell)</li>
+<li>如果是因为修改配置文件导致无法使用，可以执行<code>export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin</code>命令暂时使用这些目录下的命令，如 <code>vi</code>,<code>ls</code>,<code>cd</code>，从新修改配置文件。</li>
+</ol>
+<h1 id="命令行快捷键"><a href="#命令行快捷键" class="headerlink" title="命令行快捷键"></a>命令行快捷键</h1><ol>
+<li>光标移动<ul>
+<li><strong>Ctrl + f – 向右移动一个字符，当然多数人用→</strong></li>
+<li><strong>Ctrl + b – 向左移动一个字符， 多数人用←</strong></li>
+<li>ESC + f – 向右移动一个单词，MAC下建议用ALT + →</li>
+<li>ESC + b – 向左移动一个单词，MAC下建议用ALT + ←</li>
+<li><strong>Ctrl + a – 跳到行首</strong></li>
+<li><strong>Ctrl + e – 跳到行尾</strong></li>
+</ul>
+</li>
+<li>删除<ul>
+<li>Ctrl + d – 向右删除一个字符</li>
+<li><strong>Ctrl + h – 向左删除一个字符</strong></li>
+<li><strong>Ctrl + u – 删除当前位置字符至行首（输入密码错误的时候多用下这个）</strong></li>
+<li>Ctrl + k – 删除当前位置字符至行尾</li>
+<li>Ctrl + w – 删除从光标到当前单词开头</li>
+</ul>
+</li>
+<li>命令切换<ul>
+<li><strong>Ctrl + p – 上一个命令，也可以用↑</strong></li>
+<li><strong>Ctrl + n – 下一个命令，也可以用↓</strong></li>
+</ul>
+</li>
+<li>其他快捷键<ul>
+<li>Ctrl + y – 插入最近删除的单词</li>
+<li>Ctrl + c – 终止操作</li>
+<li>Ctrl + d – 当前操作转到后台</li>
+<li><strong>Ctrl + l – 清屏 （有时候为了好看）</strong></li>
+<li>ctrl + z - 把命令放入后台，这个命令谨慎使用</li>
+<li><strong>ctrl + r - 历史命令搜索</strong></li>
+</ul>
+</li>
+</ol>
 <p><strong>参考文档</strong>：</p>
 <ol>
 <li><a href="http://www.ruanyifeng.com/blog/2009/10/5_ways_to_search_for_files_using_the_terminal.html" target="_blank" rel="noopener">Linux的五个查找命令</a></li>
@@ -666,8 +706,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/binary-tree/" rel="prev" title="Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）">
-                Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归） <i class="fa fa-chevron-right"></i>
+              <a href="/读书/wang/" rel="prev" title="罔">
+                罔 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -756,7 +796,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -834,7 +874,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设置PATH环境变量"><span class="nav-number">1.</span> <span class="nav-text">设置PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">2.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">3.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">4.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">5.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">6.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">7.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">8.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">9.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">10.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">11.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">12.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">13.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">13.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">13.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">13.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">13.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">14.</span> <span class="nav-text">grep</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">1.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">2.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">3.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">4.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">5.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">6.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">7.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">8.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">9.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">10.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">11.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">12.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">12.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">12.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">12.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">12.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">13.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">14.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">15.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行shell脚本"><span class="nav-number">16.</span> <span class="nav-text">执行shell脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATH环境变量"><span class="nav-number">17.</span> <span class="nav-text">PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行快捷键"><span class="nav-number">18.</span> <span class="nav-text">命令行快捷键</span></a></li></ol></div>
             
 
           </div>

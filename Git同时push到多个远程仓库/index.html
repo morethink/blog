@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="Git同时push到多个远程仓库添加第二个远程地址时使用以下命令：git remote set-url --add origin git@github.com:morethink/programming.git 查看远程分支：git remote -v">
+<meta name="description" content="添加第二个远程地址时使用以下命令：git remote set-url --add origin git@github.com:morethink/programming.git 查看远程分支：git remote -v">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git常用操作">
+<meta property="og:title" content="Git同时push到多个远程仓库">
 <meta property="og:url" content="https://www.morethink.cn/Git同时push到多个远程仓库/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="Git同时push到多个远程仓库添加第二个远程地址时使用以下命令：git remote set-url --add origin git@github.com:morethink/programming.git 查看远程分支：git remote -v">
+<meta property="og:description" content="添加第二个远程地址时使用以下命令：git remote set-url --add origin git@github.com:morethink/programming.git 查看远程分支：git remote -v">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-07T11:16:22.446Z">
+<meta property="og:updated_time" content="2018-04-22T08:32:16.423Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git常用操作">
-<meta name="twitter:description" content="Git同时push到多个远程仓库添加第二个远程地址时使用以下命令：git remote set-url --add origin git@github.com:morethink/programming.git 查看远程分支：git remote -v">
+<meta name="twitter:title" content="Git同时push到多个远程仓库">
+<meta name="twitter:description" content="添加第二个远程地址时使用以下命令：git remote set-url --add origin git@github.com:morethink/programming.git 查看远程分支：git remote -v">
 
 
 
@@ -135,7 +135,7 @@
 
 
 
-  <title>Git常用操作 | More Think</title>
+  <title>Git同时push到多个远程仓库 | More Think</title>
   
 
 
@@ -331,7 +331,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Git常用操作</h2>
+          <h2 class="post-title" itemprop="name headline">Git同时push到多个远程仓库</h2>
         
 
         <div class="post-meta">
@@ -418,22 +418,12 @@
       
 
       
-        <h1 id="Git同时push到多个远程仓库"><a href="#Git同时push到多个远程仓库" class="headerlink" title="Git同时push到多个远程仓库"></a>Git同时push到多个远程仓库</h1><p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p>
+        <p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p>
 <p>查看远程分支：<code>git remote -v</code></p>
 <a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origin	git@git.coding.net:morethink/programming.git (fetch)</span><br><span class="line">origin	git@git.coding.net:morethink/programming.git (push)</span><br><span class="line">origin	hexo@MyHost2:/var/repo/gitbook.git (push)</span><br></pre></td></tr></table></figure>
 <p>也可以同时 push 到多个远程地址：<code>git push origin master</code></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Everything up-to-date</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure>
-<h1 id="GitHub-更新已经-fork-的项目"><a href="#GitHub-更新已经-fork-的项目" class="headerlink" title="GitHub 更新已经 fork 的项目"></a>GitHub 更新已经 fork 的项目</h1><ol>
-<li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li>
-<li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p>
-</li>
-<li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li>
-<li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li>
-</ol>
 
       
     </div>
@@ -483,7 +473,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/Git同时push到多个远程仓库/" title="Git常用操作">https://www.morethink.cn/Git同时push到多个远程仓库/</a>
+    <a href="https://www.morethink.cn/Git同时push到多个远程仓库/" title="Git同时push到多个远程仓库">https://www.morethink.cn/Git同时push到多个远程仓库/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -582,17 +572,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -611,7 +592,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -679,22 +660,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git同时push到多个远程仓库"><span class="nav-number">1.</span> <span class="nav-text">Git同时push到多个远程仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GitHub-更新已经-fork-的项目"><span class="nav-number">2.</span> <span class="nav-text">GitHub 更新已经 fork 的项目</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
