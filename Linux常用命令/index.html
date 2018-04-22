@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="More Think">
 <meta property="og:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-22T07:50:00.935Z">
+<meta property="og:updated_time" content="2018-04-22T12:06:17.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
 <meta name="twitter:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
@@ -557,6 +557,12 @@
 <p>要删除一个别名，可以使用 unalias 命令，如 unalias l。</p>
 <p><strong>查看系统已经设置的别名：</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alias egrep='egrep --color'</span><br><span class="line">alias fgrep='fgrep --color'</span><br><span class="line">alias grep='grep --color'</span><br><span class="line">alias hpush='bash /Users/liwenhao/Desktop/github/hpush.sh'</span><br><span class="line">alias ll='ls -l'</span><br><span class="line">alias ls='ls -F --show-control-chars --color=auto'</span><br><span class="line">alias vi='vim'</span><br></pre></td></tr></table></figure>
+<h1 id="执行多个命令"><a href="#执行多个命令" class="headerlink" title="执行多个命令"></a>执行多个命令</h1><ul>
+<li>后一个命令依赖于前一个命令的输出，可以是用管道(|)<br><code>ls | wc -l</code> :当前目录文件个数</li>
+<li>后一个命令必须等前一个命令运行成功后在运行，可以使用双与号(&amp;&amp;)<br><code>aa &amp;&amp; ls</code> ：只运行aa，ls不运行</li>
+<li>后一个命令必须等前一个命令运行完，不关心是否成功，使用单与号(&amp;)<br><code>aa &amp; ls</code> ：aa和ls都运行，但是ls必须等aa运行完。</li>
+<li>并行执行多个命令，使用两个竖号(||)<br><code>aa || ls</code>：aa和ls并行执行，互不影响。</li>
+</ul>
 <h1 id="执行shell脚本"><a href="#执行shell脚本" class="headerlink" title="执行shell脚本"></a>执行shell脚本</h1><p>当我们写完一个脚本的时候，它是不可以被直接运行的。我们可以通过：</p>
 <ol>
 <li>通过Bash调用执行脚本 ：<code>bash hello.sh</code></li>
@@ -696,8 +702,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/读书/苏东坡传/" rel="next" title="我读东坡">
-                <i class="fa fa-chevron-left"></i> 我读东坡
+              <a href="/Win-and-Linux-view-the-port-and-kill-the-process/" rel="next" title="Win和Linux查看端口和杀死进程">
+                <i class="fa fa-chevron-left"></i> Win和Linux查看端口和杀死进程
               </a>
             
           </div>
@@ -706,8 +712,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Win-and-Linux-view-the-port-and-kill-the-process/" rel="prev" title="Win和Linux查看端口和杀死进程">
-                Win和Linux查看端口和杀死进程 <i class="fa fa-chevron-right"></i>
+              <a href="/binary-tree/" rel="prev" title="Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）">
+                Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -874,7 +880,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">1.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">2.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">3.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">4.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">5.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">6.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">7.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">8.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">9.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">10.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">11.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">12.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">12.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">12.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">12.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">12.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">13.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">14.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">15.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行shell脚本"><span class="nav-number">16.</span> <span class="nav-text">执行shell脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATH环境变量"><span class="nav-number">17.</span> <span class="nav-text">PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行快捷键"><span class="nav-number">18.</span> <span class="nav-text">命令行快捷键</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">1.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">2.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">3.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">4.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">5.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">6.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">7.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">8.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">9.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">10.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">11.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">12.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">12.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">12.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">12.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">12.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">13.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">14.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">15.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行多个命令"><span class="nav-number">16.</span> <span class="nav-text">执行多个命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行shell脚本"><span class="nav-number">17.</span> <span class="nav-text">执行shell脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATH环境变量"><span class="nav-number">18.</span> <span class="nav-text">PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行快捷键"><span class="nav-number">19.</span> <span class="nav-text">命令行快捷键</span></a></li></ol></div>
             
 
           </div>
