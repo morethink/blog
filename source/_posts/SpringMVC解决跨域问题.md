@@ -106,7 +106,7 @@ XMLHttpRequest cannot load http://localhost/home/allProductions. No 'Access-Cont
 4. window.name + iframe跨域
 5. postMessage跨域
 6. 跨域资源共享（CORS）
-7. [前端通过Nginx解决跨域问题](http://www.morethink.cn/2017/03/27/Nginx-Cross-Domain/)
+7. [前端通过Nginx解决跨域问题](http://www.cnblogs.com/morethink/p/6628757.html)
 8. nodejs中间件代理跨域
 9. WebSocket协议跨域
 

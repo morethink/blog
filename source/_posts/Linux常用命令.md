@@ -7,42 +7,12 @@ categories: Linux
 
 本文记录一些在Linux系统下比较常用的命令。
 
-
-<!-- more -->
-
 首先介绍下Linux下命令生效的顺序：
 1. 第一顺位：执行绝对路径或者相对路径的命令
 2. 第二顺位：执行别名
 3. 第三顺位：执行Bash的内部命令
 4. 第四顺位：执行按照`$PATH`环境变量设置定义的目录顺序的第一个命令
-
-还有一个问题，编写的shell脚本如何被执行？
-当我们写完一个脚本的时候，它是不可以被直接运行的。我们可以通过：
-1. 通过Bash调用执行脚本 ：`bash hello.sh`
-2. 首先赋予执行权限：`chmod 755 hello.sh`，然后就可以通过相对路径 `./hello.sh` 或者通过绝对路径 ` /root/hello.sh`来执行。
-
-# 设置PATH环境变量
-
-下面的第一种方式关机后会失效，相当于临时环境变量，后面两种都是写进了系统配置，因此会永久生效。
-1. 直接用export命令 `export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin`
-2. 修改profile文件：
-    - `vi /etc/profile`
-    - 然后在文件里面加入`export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin`
-    - 执行命令 `source /etc/profile` 生效
-
-3. 修改.bashrc文件
-    - `vi /root/.bashrc`
-    - 在里面加入 `export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin`
-    - 执行命令`source /root/.bashrc` 生效
-
-如果修改了`/etc/profile`，那么编辑结束后执行` source profile`(`source /etc/profile`) 或 执行点命令 `. ./profile`，PATH的值才会立即生效，不然就只有等下一次开机。
-
-这个方法的原理就是再执行一次/etc/profile shell脚本，注意如果用sh /etc/profile是不行的，因为sh是在子shell进程中执行的，即使PATH改变了也不会反应到当前环境中，但是source是在当前 shell进程中执行的，所以我们能看到PATH的改变。
-
-有时我们可能不小心将PATH环境变量设置错误导致命令失效，可以参考下面两种方式解决。
-1. 如果是通过命令行设置的，可以通过重启或者离开本次登录(退出本次shell)
-2. 如果是因为修改配置文件导致无法使用，可以执行`export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin`命令暂时使用这些目录下的命令，如 `vi`,`ls`,`cd`，从新修改配置文件。
-
+<!-- more -->
 
 # cp
 该命令用于复制文件，copy之意，它还可以把多个文件一次性地复制到一个目录下，它的常用参数如下：
@@ -139,6 +109,7 @@ signal的常用参数(最前面的数字为信号的代号，使用时可以用�
 `killall -SIGHUP syslogd` 重新启动syslogd  
 
 # file
+
 该命令用于判断接在file命令后的文件的基本数据，因为在Linux下文件的类型并不是以后缀为分的，所以这个命令对我们来说就很有用了，它的用法非常简单，基本语法如下：
 `file filename`  
 例如：  
@@ -221,6 +192,92 @@ which命令的作用是，**在PATH变量指定的路径中**，搜索某个系�
 **find与grep的区别**：
 - find：在 系统 中搜索符合条件的 文件名，使用 通配符（完全）匹配
 - grep：在 文件 当中搜索符合条件的 字符串，使用 正则表达式 （包含）匹配
+
+# time
+
+time 可以统计命令执行的时间，包括程序的实际运行时间(real time)，以及程序运行在用户态的时间(user time)和内核态的时间(sys time)。
+例如：`time git pull` 则是统计更新代码花费多长时间
+
+# alias
+
+alias命令用来设置指令的别名。我们可以使用该命令可以将一些较长的命令进行简化。使用alias时，用户必须使用单引号''将原来的命令引起来，防止特殊字符导致错误。
+
+alias命令的作用只局限于该次登入的操作。若要每次登入都能够使用这些命令别名，则可将相应的alias命令存放到bash的初始化文件`/etc/bashrc`中。
+
+alias 的基本使用方法为：`alias 新的命令='原命令 -选项/参数'`
+例如：`alias l=‘ls -lsh'`将重新定义ls命令，现在只需输入l就可以列目录了。直接输入 alias 命令会列出当前系统中所有已经定义的命令别名。
+
+要删除一个别名，可以使用 unalias 命令，如 unalias l。
+
+**查看系统已经设置的别名：**
+
+```shell
+alias egrep='egrep --color'
+alias fgrep='fgrep --color'
+alias grep='grep --color'
+alias hpush='bash /Users/liwenhao/Desktop/github/hpush.sh'
+alias ll='ls -l'
+alias ls='ls -F --show-control-chars --color=auto'
+alias vi='vim'
+```
+
+
+# 执行shell脚本
+
+当我们写完一个脚本的时候，它是不可以被直接运行的。我们可以通过：
+1. 通过Bash调用执行脚本 ：`bash hello.sh`
+2. 首先赋予执行权限：`chmod 755 hello.sh`，然后就可以通过相对路径 `./hello.sh` 或者通过绝对路径 ` /root/hello.sh`来执行。
+
+
+# PATH环境变量
+
+下面的第一种方式关机后会失效，相当于临时环境变量，后面两种都是写进了系统配置，因此会永久生效。
+1. 直接用export命令 `export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin`
+2. 修改profile文件：
+    - `vi /etc/profile`
+    - 然后在文件里面加入`export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin`
+    - 执行命令 `source /etc/profile` 生效
+
+3. 修改.bashrc文件
+    - `vi /root/.bashrc`
+    - 在里面加入 `export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin`
+    - 执行命令`source /root/.bashrc` 生效
+
+如果修改了`/etc/profile`，那么编辑结束后执行` source profile`(`source /etc/profile`) 或 执行点命令 `. ./profile`，PATH的值才会立即生效，不然就只有等下一次开机。
+
+这个方法的原理就是再执行一次/etc/profile shell脚本，注意如果用sh /etc/profile是不行的，因为sh是在子shell进程中执行的，即使PATH改变了也不会反应到当前环境中，但是source是在当前 shell进程中执行的，所以我们能看到PATH的改变。
+
+有时我们可能不小心将PATH环境变量设置错误导致命令失效，可以参考下面两种方式解决。
+1. 如果是通过命令行设置的，可以通过重启或者离开本次登录(退出本次shell)
+2. 如果是因为修改配置文件导致无法使用，可以执行`export PATH=/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin`命令暂时使用这些目录下的命令，如 `vi`,`ls`,`cd`，从新修改配置文件。
+
+
+# 命令行快捷键
+
+1. 光标移动
+    - **Ctrl + f – 向右移动一个字符，当然多数人用→**
+    - **Ctrl + b – 向左移动一个字符， 多数人用←**
+    - ESC + f – 向右移动一个单词，MAC下建议用ALT + →
+    - ESC + b – 向左移动一个单词，MAC下建议用ALT + ←
+    - **Ctrl + a – 跳到行首**
+    - **Ctrl + e – 跳到行尾**
+2. 删除
+    - Ctrl + d – 向右删除一个字符
+    - **Ctrl + h – 向左删除一个字符**
+    - **Ctrl + u – 删除当前位置字符至行首（输入密码错误的时候多用下这个）**
+    - Ctrl + k – 删除当前位置字符至行尾
+    - Ctrl + w – 删除从光标到当前单词开头
+3. 命令切换
+    - **Ctrl + p – 上一个命令，也可以用↑**
+    - **Ctrl + n – 下一个命令，也可以用↓**
+4. 其他快捷键
+    - Ctrl + y – 插入最近删除的单词
+    - Ctrl + c – 终止操作
+    - Ctrl + d – 当前操作转到后台
+    - **Ctrl + l – 清屏 （有时候为了好看）**
+    - ctrl + z - 把命令放入后台，这个命令谨慎使用
+    - **ctrl + r - 历史命令搜索**
+
 
 
 **参考文档**：

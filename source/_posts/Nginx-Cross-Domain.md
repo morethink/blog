@@ -5,7 +5,7 @@ tags: [Nginx,跨域,反向代理]
 categories: 服务器
 ---
 
-在前面写的一篇文章[SpringMVC 跨域](https://www.morethink.cn/2017/03/09/SpringMVC-Cross-Domain/)，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:
+在前面写的一篇文章[SpringMVC解决跨域问题](http://www.cnblogs.com/morethink/p/6525216.html)，我们探讨了什么是跨域问题以及SpringMVC怎么解决跨域问题，解决方式主要有如下三种方式:
 1. JSONP
 2. CORS
 3. WebSocket
@@ -46,13 +46,13 @@ categories: 服务器
 
 Nginx 就是一个很好的反向代理服务器，当然apache也可以实现此功能。
 
-windows下Apache配置参考这篇文章：  [Windows Apache服务器配置](https://www.morethink.cn/2017/09/19/Windows-apache-Server/)
+windows下Apache配置参考这篇文章：  [Windows Apache服务器配置](http://www.cnblogs.com/morethink/p/7551877.html)
 
 # Nginx
 
 Nginx（发音同engine x）是一个 Web服务器，也可以用作反向代理，负载平衡器和 HTTP缓存。该软件由 Igor Sysoev 创建，并于2004年首次公开发布。同名公司成立于2011年，以提供支持。
 
-我在[Windows下实现Nginx负载均衡](https://www.morethink.cn/2017/02/11/Nginx-Load-Balancing-under-Windows/)提到过Windows下Nginx命令使用。
+我在[Windows下实现Nginx负载均衡](http://www.cnblogs.com/morethink/p/6390072.html)提到过Windows下Nginx命令使用。
 
 ## Nginx 反向代理模块 proxy_pass
 
