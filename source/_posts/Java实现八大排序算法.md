@@ -22,8 +22,9 @@ categories: 算法
 
 
 它们都属于内部排序，也就是只考虑数据量较小仅需要使用内存的排序算法，他们之间关系如下：
-
-![](https://images.morethink.cn/3d3cc5f92a9b88b9def40b8aeab71af2.png)
+$$\begin{cases}内部排序 \begin{cases}插入排序\begin{cases}直接插入排序\\希尔排序\end{cases}\\选择排序\begin{cases}简单选择排序\\堆排序\end{cases}\\交换排序\begin{cases}冒泡排序\\快速排序 \end{cases}\\归并排序\\
+基数排序\end{cases}\\外部排序 \end{cases}
+$$
 
 **稳定与非稳定**:
 
@@ -333,7 +334,7 @@ public static void max_heapify(int[] a, int n) {
 
 | 平均时间复杂度          | 最好情况             | 最坏情况             | 空间复杂度 |
 | ---------------- | ---------------- | ---------------- | ----- |
-| $O(n \log_{2}n)$ | $O(n \log_{2}n)$ | $O(n \log_{2}n)$ | O(1)  |
+| $O(n \log_{2}n)$ | $O(n \log_{2}n)$ | $O(n \log_{2}n)$ | $O(1)$  |
 
 ## 总结与思考
 
