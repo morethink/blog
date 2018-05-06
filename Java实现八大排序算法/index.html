@@ -96,7 +96,6 @@
 <meta property="og:site_name" content="More Think">
 <meta property="og:description" content="本文对常见的排序算法进行了总结。 常见排序算法如下：  直接插入排序 希尔排序 简单选择排序 堆排序 冒泡排序 快速排序 归并排序 基数排序">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://images.morethink.cn/3d3cc5f92a9b88b9def40b8aeab71af2.png">
 <meta property="og:image" content="https://images.morethink.cn/28749729-ca072084-7503-11e7-881c-92aa915ce369.gif">
 <meta property="og:image" content="https://images.morethink.cn/4697893fd8a952d01956e192640c1c3c.png">
 <meta property="og:image" content="https://images.morethink.cn/28749720-90304278-7503-11e7-9bc8-e3b56539d8bf.gif">
@@ -109,11 +108,11 @@
 <meta property="og:image" content="https://images.morethink.cn/merging-sort.gif">
 <meta property="og:image" content="https://images.morethink.cn/radix-sort_sample.gif">
 <meta property="og:image" content="https://images.morethink.cn/sort-comparison.png">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.181Z">
+<meta property="og:updated_time" content="2018-04-26T02:12:22.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java实现八大排序算法">
 <meta name="twitter:description" content="本文对常见的排序算法进行了总结。 常见排序算法如下：  直接插入排序 希尔排序 简单选择排序 堆排序 冒泡排序 快速排序 归并排序 基数排序">
-<meta name="twitter:image" content="https://images.morethink.cn/3d3cc5f92a9b88b9def40b8aeab71af2.png">
+<meta name="twitter:image" content="https://images.morethink.cn/28749729-ca072084-7503-11e7-881c-92aa915ce369.gif">
 
 
 
@@ -445,8 +444,7 @@
 <li><a href="#基数排序">基数排序</a></li>
 </ol>
 <a id="more"></a>
-<p>它们都属于内部排序，也就是只考虑数据量较小仅需要使用内存的排序算法，他们之间关系如下：</p>
-<p><img src="https://images.morethink.cn/3d3cc5f92a9b88b9def40b8aeab71af2.png" alt=""></p>
+<p>它们都属于内部排序，也就是只考虑数据量较小仅需要使用内存的排序算法，他们之间关系如下：<br>$$\begin{cases}内部排序 \begin{cases}插入排序\begin{cases}直接插入排序\希尔排序\end{cases}\选择排序\begin{cases}简单选择排序\堆排序\end{cases}\交换排序\begin{cases}冒泡排序\快速排序 \end{cases}\归并排序\<br>基数排序\end{cases}\外部排序 \end{cases}<br>$$</p>
 <p><strong>稳定与非稳定</strong>:</p>
 <p>如果一个排序算法能够保留数组中重复元素的相对位置则可以被称为是 <strong>稳定</strong> 的。反之，则是 <strong>非稳定</strong> 的。</p>
 <h1 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h1><h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>通常人们整理桥牌的方法是一张一张的来，将每一张牌插入到其他已经有序的牌中的适当位置。在计算机的实现中，为了要给插入的元素腾出空间，我们需要将其余所有元素在插入之前都向右移动一位。</p>
@@ -600,7 +598,7 @@
 <td>$O(n \log_{2}n)$</td>
 <td>$O(n \log_{2}n)$</td>
 <td>$O(n \log_{2}n)$</td>
-<td>O(1)</td>
+<td>$O(1)$</td>
 </tr>
 </tbody>
 </table>
@@ -1109,7 +1107,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
