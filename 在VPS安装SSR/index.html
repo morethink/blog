@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Nginx,负载均衡," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="本文装载自： https://yq.aliyun.com/articles/114683 Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。 Nginx的几种负载均衡算法：">
-<meta name="keywords" content="Nginx,负载均衡">
+<meta name="description" content="本文参考 『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本，对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。 安装SSR简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！">
+<meta name="keywords" content="Web,HTML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx几种负载均衡算法及配置实例">
-<meta property="og:url" content="https://www.morethink.cn/Nginx-several-load-balancing-algorithm/index.html">
+<meta property="og:title" content="在VPS安装SSR">
+<meta property="og:url" content="https://www.morethink.cn/在VPS安装SSR/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="本文装载自： https://yq.aliyun.com/articles/114683 Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。 Nginx的几种负载均衡算法：">
+<meta property="og:description" content="本文参考 『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本，对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。 安装SSR简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.184Z">
+<meta property="og:updated_time" content="2018-05-12T11:51:36.788Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx几种负载均衡算法及配置实例">
-<meta name="twitter:description" content="本文装载自： https://yq.aliyun.com/articles/114683 Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。 Nginx的几种负载均衡算法：">
+<meta name="twitter:title" content="在VPS安装SSR">
+<meta name="twitter:description" content="本文参考 『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本，对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。 安装SSR简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/Nginx-several-load-balancing-algorithm/"/>
+  <link rel="canonical" href="https://www.morethink.cn/在VPS安装SSR/"/>
 
 
 
 
 
-  <title>Nginx几种负载均衡算法及配置实例 | More Think</title>
+  <title>在VPS安装SSR | More Think</title>
   
 
 
@@ -314,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Nginx-several-load-balancing-algorithm/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/在VPS安装SSR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -331,7 +331,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Nginx几种负载均衡算法及配置实例</h2>
+          <h2 class="post-title" itemprop="name headline">在VPS安装SSR</h2>
         
 
         <div class="post-meta">
@@ -343,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:00:00+08:00">
-                2018-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T00:00:00+08:00">
+                2018-05-12
               </time>
             
 
@@ -366,8 +366,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/服务器/" itemprop="url" rel="index">
-                    <span itemprop="name">服务器</span>
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
                   </a>
                 </span>
 
@@ -384,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Nginx-several-load-balancing-algorithm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/Nginx-several-load-balancing-algorithm/" itemprop="commentsCount"></span>
+                <a href="/在VPS安装SSR/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/在VPS安装SSR/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -418,27 +418,65 @@
       
 
       
-        <p>本文装载自： <a href="https://yq.aliyun.com/articles/114683" target="_blank" rel="noopener">https://yq.aliyun.com/articles/114683</a></p>
-<p>Nginx负载均衡（工作在七层“应用层”）功能主要是通过upstream模块实现，Nginx负载均衡默认对后端服务器有健康检测的能力，仅限于端口检测，在后端服务器比较少的情况下负载均衡能力表现突出。</p>
-<p>Nginx的几种负载均衡算法：<br><a id="more"></a></p>
-<ol>
-<li>轮询（默认）：每个请求按时间顺序逐一分配到不同的后端服务器，如果后端某台服务器宕机，则自动剔除故障机器，使用户访问不受影响。</li>
-<li>weight：指定轮询权重，weight值越大，分配到的几率就越高，主要用于后端每台服务器性能不均衡的情况。</li>
-<li>ip_hash：每个请求按访问IP的哈希结果分配，这样每个访客固定访问一个后端服务器，可以有效的解决动态网页存在的session共享问题。</li>
-<li>fair（第三方）：更智能的一个负载均衡算法，此算法可以根据页面大小和加载时间长短智能地进行负载均衡，也就是根据后端服务器的响应时间来分配请求，响应时间短的优先分配。如果想要使用此调度算法，需要Nginx的upstream_fair模块。</li>
-<li>url_hash（第三方）：按访问URL的哈希结果来分配请求，使每个URL定向到同一台后端服务器，可以进一步提高后端缓存服务器的效率。如果想要使用此调度算法，需要Nginx的hash软件包。</li>
-</ol>
-<p>在upstream模块中，可以通过server命令指定后端服务器的IP地址和端口，同时还可以设置每台后端服务器在负载均衡调度中的状态，常用的状态有以下几种：</p>
-<ol>
-<li>down：表示当前server暂时不参与负载均衡。</li>
-<li>backup：预留的备份机，当其他所有非backup机器出现故障或者繁忙的时候，才会请求backup机器，这台机器的访问压力最轻。</li>
-<li>max_fails：允许请求的失败次数，默认为1，配合fail_timeout一起使用</li>
-<li>fail_timeout：经历max_fails次失败后，暂停服务的时间，默认为10s（某个server连接失败了max_fails次，则nginx会认为该server不工作了。同时，在接下来的 fail_timeout时间内，nginx不再将请求分发给失效的server。）</li>
-</ol>
-<p>下面是一个负载均衡的配置示例，这里只列出http配置段，省略了其他部分配置：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    upstream whsirserver &#123;</span><br><span class="line">    server 192.168.0.120:80 weight=5 max_fails=3 fail_timeout=20s;</span><br><span class="line">    server 192.168.0.121:80 weight=1 max_fails=3 fail_timeout=20s;</span><br><span class="line">    server 192.168.0.122:80 weight=3 max_fails=3 fail_timeout=20s;</span><br><span class="line">    server 192.168.0.123:80 weight=4 max_fails=3 fail_timeout=20s;</span><br><span class="line">    &#125;</span><br><span class="line">    server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name blog.whsir.com;</span><br><span class="line">    index index.html index.htm;</span><br><span class="line">    root /data/www;</span><br><span class="line">        location / &#123;</span><br><span class="line">        proxy_pass http://whsirserver;</span><br><span class="line">        proxy_next_upstream http_500 http_502 error timeout invalid_header;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>upstream负载均衡开始，通过upstream指定了一个负载均衡器的名称为whsirserver，这个名称可以自己定义，在后面proxy_pass直接调用即可。</p>
-<p>proxy_next_upstream参数用来定义故障转移策略，当后端服务器节点返回500、502和执行超时等错误时，自动将请求转发到upstream负载均衡器中的另一台服务器，实现故障转移。</p>
+        <p>本文参考 <a href="https://doub.io/ss-jc42" target="_blank" rel="noopener">『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本</a>，对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。</p>
+<h1 id="安装SSR"><a href="#安装SSR" class="headerlink" title="安装SSR"></a>安装SSR</h1><p>简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！<br><a id="more"></a><br>本脚本需要Linux root账户权限才能正常安装运行，所以 <strong>如果不是 root账号，请先切换为root，如果是 root账号，那么请跳过</strong>！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+<p>输入上面代码回车后会提示你输入当前用户的密码，输入并回车后，没有报错就继续下面的步骤安装ShadowsocksR。</p>
+<p>v2.0.0 版本以后的脚本，请先卸载旧脚本ShadowsocksR服务端，再重新安装！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://softs.fun/Bash/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
+<p>备用下载地址（上面的链接无法下载，就用这个）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure></p>
+<p>下载运行后会提示你输入数字来选择要做什么。</p>
+<p>运行脚本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure>
+<p>输入对应的数字来执行相应的命令。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  请输入一个数字来选择菜单选项</span><br><span class="line"></span><br><span class="line"> 1. 安装 ShadowsocksR</span><br><span class="line"> 2. 更新 ShadowsocksR</span><br><span class="line"> 3. 卸载 ShadowsocksR</span><br><span class="line"> 4. 安装 libsodium(chacha20)</span><br><span class="line">————————————</span><br><span class="line"> 5. 查看 账号信息</span><br><span class="line"> 6. 显示 连接信息</span><br><span class="line"> 7. 设置 用户配置</span><br><span class="line"> 8. 手动 修改配置</span><br><span class="line"> 9. 切换 端口模式</span><br><span class="line">————————————</span><br><span class="line"> 10. 启动 ShadowsocksR</span><br><span class="line"> 11. 停止 ShadowsocksR</span><br><span class="line"> 12. 重启 ShadowsocksR</span><br><span class="line"> 13. 查看 ShadowsocksR 日志</span><br><span class="line">————————————</span><br><span class="line"> 14. 其他功能</span><br><span class="line"> 15. 升级脚本</span><br><span class="line"></span><br><span class="line"> 当前状态: 已安装 并 已启动</span><br><span class="line"> 当前模式: 单端口</span><br><span class="line"></span><br><span class="line">请输入数字(1-15)：</span><br></pre></td></tr></table></figure></p>
+<h1 id="文件位置"><a href="#文件位置" class="headerlink" title="文件位置"></a>文件位置</h1><p>安装目录：<code>/usr/local/shadowsocksr</code></p>
+<p>配置文件：<code>/etc/shadowsocksr/user-config.json</code></p>
+<p>其他说明<br>ShadowsocksR 安装后，自动设置为 系统服务，所以支持使用服务来启动/停止等操作，同时支持开机启动。</p>
+<p>启动 ShadowsocksR：<code>/etc/init.d/ssr start</code><br>停止 ShadowsocksR：<code>/etc/init.d/ssr stop</code><br>重启 ShadowsocksR：<code>/etc/init.d/ssr restart</code><br>查看 ShadowsocksR状态：<code>/etc/init.d/ssr status</code><br>ShadowsocksR 默认支持UDP转发，服务端无需任何设置。</p>
+<h1 id="定时重启"><a href="#定时重启" class="headerlink" title="定时重启"></a>定时重启</h1><p>一些人可能需要定时重启ShadowsocksR服务端来保证稳定性等，所以这里用 crontab 定时。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l</span><br><span class="line"># 输入这个命令可以查看当前配置的定时任务，如果提示命令不存在，那么安装crontab：</span><br><span class="line"># CentOS系统：</span><br><span class="line">yum update</span><br><span class="line">yum install -y crond</span><br><span class="line"># Debian/Ubuntu系统：</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y cron</span><br></pre></td></tr></table></figure>
+<p>安装 crontab 后，我们就能开始添加定时任务了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l &gt; &quot;crontab.bak&quot;</span><br><span class="line">sed -i &quot;/ssr restart/d&quot; &quot;crontab.bak&quot;</span><br><span class="line">echo -e &quot;\n10 3 * * * /etc/init.d/ssr restart&quot; &gt;&gt; &quot;crontab.bak&quot;</span><br><span class="line">crontab &quot;crontab.bak&quot;</span><br><span class="line">rm -r &quot;crontab.bak&quot;</span><br></pre></td></tr></table></figure>
+<p>下面是定时时间规则(代码前面的 <em> </em> <em> </em> * 分别对应：分钟 小时 日 月 星期)参考：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10 2 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每天2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 2 */2 * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔2天的2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 */4 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔4小时的第10分重启一次 ShadowsocksR</span><br></pre></td></tr></table></figure>
+<h1 id="BBR和锐速"><a href="#BBR和锐速" class="headerlink" title="BBR和锐速"></a>BBR和锐速</h1><ul>
+<li><p>启动脚本：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择<code>14. 其他功能</code></p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  1. 配置 BBR</span><br><span class="line">  2. 配置 锐速(ServerSpeeder)</span><br><span class="line">  3. 配置 LotServer(锐速母公司)</span><br><span class="line">  注意： 锐速/LotServer/BBR 不支持 OpenVZ！</span><br><span class="line">  注意： 锐速/LotServer/BBR 不能共存！</span><br><span class="line">————————————</span><br><span class="line">  4. 一键封禁 BT/PT/SPAM (iptables)</span><br><span class="line">  5. 一键解封 BT/PT/SPAM (iptables)</span><br><span class="line">  6. 切换 ShadowsocksR日志输出模式</span><br><span class="line">  ——说明：SSR默认只输出错误日志，此项可切换为输出详细的访问日志</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装BBR或者锐速</p>
+</li>
+</ul>
+<h1 id="TCP优化"><a href="#TCP优化" class="headerlink" title="TCP优化"></a>TCP优化</h1><ul>
+<li><p>增加TCP连接数量</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加两行：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* soft nofile 51200</span><br><span class="line">* hard nofile 51200</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置ulimit：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ulimit -n 51200</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加一些优化内容</p>
+<ul>
+<li><p>修改sysctl.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi  /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#TCP配置优化(不然你自己根本不知道你在干什么)</span><br><span class="line">fs.file-max = 51200</span><br><span class="line">#提高整个系统的文件限制</span><br><span class="line">net.core.rmem_max = 67108864</span><br><span class="line">net.core.wmem_max = 67108864</span><br><span class="line">net.core.netdev_max_backlog = 250000</span><br><span class="line">net.core.somaxconn = 4096</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.ipv4.tcp_tw_recycle = 0</span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br><span class="line">net.ipv4.tcp_keepalive_time = 1200</span><br><span class="line">net.ipv4.ip_local_port_range = 10000 65000</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 8192</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line">net.ipv4.tcp_fastopen = 3</span><br><span class="line">net.ipv4.tcp_mem = 25600 51200 102400</span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</span><br><span class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</span><br><span class="line">net.ipv4.tcp_mtu_probing = 1</span><br><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br><span class="line">#END OF LINE</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启SSR</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks restart</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>参考文档</strong>：<br><a href="https://jasper-1024.github.io/2016/06/26/VPS%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%95%99%E7%A8%8B%E7%B3%BB%E5%88%97/" target="_blank" rel="noopener">科学上网教程（一）——VPS上搭建SSR</a></p>
 
       
     </div>
@@ -488,7 +526,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/Nginx-several-load-balancing-algorithm/" title="Nginx几种负载均衡算法及配置实例">https://www.morethink.cn/Nginx-several-load-balancing-algorithm/</a>
+    <a href="https://www.morethink.cn/在VPS安装SSR/" title="在VPS安装SSR">https://www.morethink.cn/在VPS安装SSR/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -501,14 +539,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
-          
-            <a href="/tags/负载均衡/" rel="tag"># 负载均衡</a>
-          
-        </div>
-      
 
       
       
@@ -518,8 +548,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Java解决CSRF问题/" rel="next" title="Java解决CSRF问题">
-                <i class="fa fa-chevron-left"></i> Java解决CSRF问题
+              <a href="/MAC安装RabbitMQ/" rel="next" title="MAC安装RabbitMQ">
+                <i class="fa fa-chevron-left"></i> MAC安装RabbitMQ
               </a>
             
           </div>
@@ -527,10 +557,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Win10-through-the-IIS-debugging-ASP-program/" rel="prev" title="Win10下通过IIS调试ASP程序遇到的问题和解决方案">
-                Win10下通过IIS调试ASP程序遇到的问题和解决方案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,8 +615,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -677,6 +712,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装SSR"><span class="nav-number">1.</span> <span class="nav-text">安装SSR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件位置"><span class="nav-number">2.</span> <span class="nav-text">文件位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定时重启"><span class="nav-number">3.</span> <span class="nav-text">定时重启</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BBR和锐速"><span class="nav-number">4.</span> <span class="nav-text">BBR和锐速</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP优化"><span class="nav-number">5.</span> <span class="nav-text">TCP优化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -4,6 +4,79 @@
   
     
     <entry>
+      <title><![CDATA[在VPS安装SSR]]></title>
+      <url>https://www.morethink.cn/%E5%9C%A8VPS%E5%AE%89%E8%A3%85SSR/</url>
+      <content type="html"><![CDATA[<p>本文参考 <a href="https://doub.io/ss-jc42" target="_blank" rel="noopener">『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本</a>，对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。</p>
+<h1 id="安装SSR"><a href="#安装SSR" class="headerlink" title="安装SSR"></a>安装SSR</h1><p>简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！<br><a id="more"></a><br>本脚本需要Linux root账户权限才能正常安装运行，所以 <strong>如果不是 root账号，请先切换为root，如果是 root账号，那么请跳过</strong>！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+<p>输入上面代码回车后会提示你输入当前用户的密码，输入并回车后，没有报错就继续下面的步骤安装ShadowsocksR。</p>
+<p>v2.0.0 版本以后的脚本，请先卸载旧脚本ShadowsocksR服务端，再重新安装！</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://softs.fun/Bash/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure>
+<p>备用下载地址（上面的链接无法下载，就用这个）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure></p>
+<p>下载运行后会提示你输入数字来选择要做什么。</p>
+<p>运行脚本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure>
+<p>输入对应的数字来执行相应的命令。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  请输入一个数字来选择菜单选项</span><br><span class="line"></span><br><span class="line"> 1. 安装 ShadowsocksR</span><br><span class="line"> 2. 更新 ShadowsocksR</span><br><span class="line"> 3. 卸载 ShadowsocksR</span><br><span class="line"> 4. 安装 libsodium(chacha20)</span><br><span class="line">————————————</span><br><span class="line"> 5. 查看 账号信息</span><br><span class="line"> 6. 显示 连接信息</span><br><span class="line"> 7. 设置 用户配置</span><br><span class="line"> 8. 手动 修改配置</span><br><span class="line"> 9. 切换 端口模式</span><br><span class="line">————————————</span><br><span class="line"> 10. 启动 ShadowsocksR</span><br><span class="line"> 11. 停止 ShadowsocksR</span><br><span class="line"> 12. 重启 ShadowsocksR</span><br><span class="line"> 13. 查看 ShadowsocksR 日志</span><br><span class="line">————————————</span><br><span class="line"> 14. 其他功能</span><br><span class="line"> 15. 升级脚本</span><br><span class="line"></span><br><span class="line"> 当前状态: 已安装 并 已启动</span><br><span class="line"> 当前模式: 单端口</span><br><span class="line"></span><br><span class="line">请输入数字(1-15)：</span><br></pre></td></tr></table></figure></p>
+<h1 id="文件位置"><a href="#文件位置" class="headerlink" title="文件位置"></a>文件位置</h1><p>安装目录：<code>/usr/local/shadowsocksr</code></p>
+<p>配置文件：<code>/etc/shadowsocksr/user-config.json</code></p>
+<p>其他说明<br>ShadowsocksR 安装后，自动设置为 系统服务，所以支持使用服务来启动/停止等操作，同时支持开机启动。</p>
+<p>启动 ShadowsocksR：<code>/etc/init.d/ssr start</code><br>停止 ShadowsocksR：<code>/etc/init.d/ssr stop</code><br>重启 ShadowsocksR：<code>/etc/init.d/ssr restart</code><br>查看 ShadowsocksR状态：<code>/etc/init.d/ssr status</code><br>ShadowsocksR 默认支持UDP转发，服务端无需任何设置。</p>
+<h1 id="定时重启"><a href="#定时重启" class="headerlink" title="定时重启"></a>定时重启</h1><p>一些人可能需要定时重启ShadowsocksR服务端来保证稳定性等，所以这里用 crontab 定时。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l</span><br><span class="line"># 输入这个命令可以查看当前配置的定时任务，如果提示命令不存在，那么安装crontab：</span><br><span class="line"># CentOS系统：</span><br><span class="line">yum update</span><br><span class="line">yum install -y crond</span><br><span class="line"># Debian/Ubuntu系统：</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y cron</span><br></pre></td></tr></table></figure>
+<p>安装 crontab 后，我们就能开始添加定时任务了：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l &gt; &quot;crontab.bak&quot;</span><br><span class="line">sed -i &quot;/ssr restart/d&quot; &quot;crontab.bak&quot;</span><br><span class="line">echo -e &quot;\n10 3 * * * /etc/init.d/ssr restart&quot; &gt;&gt; &quot;crontab.bak&quot;</span><br><span class="line">crontab &quot;crontab.bak&quot;</span><br><span class="line">rm -r &quot;crontab.bak&quot;</span><br></pre></td></tr></table></figure>
+<p>下面是定时时间规则(代码前面的 <em> </em> <em> </em> * 分别对应：分钟 小时 日 月 星期)参考：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10 2 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每天2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 2 */2 * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔2天的2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 */4 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔4小时的第10分重启一次 ShadowsocksR</span><br></pre></td></tr></table></figure>
+<h1 id="BBR和锐速"><a href="#BBR和锐速" class="headerlink" title="BBR和锐速"></a>BBR和锐速</h1><ul>
+<li><p>启动脚本：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择<code>14. 其他功能</code></p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  1. 配置 BBR</span><br><span class="line">  2. 配置 锐速(ServerSpeeder)</span><br><span class="line">  3. 配置 LotServer(锐速母公司)</span><br><span class="line">  注意： 锐速/LotServer/BBR 不支持 OpenVZ！</span><br><span class="line">  注意： 锐速/LotServer/BBR 不能共存！</span><br><span class="line">————————————</span><br><span class="line">  4. 一键封禁 BT/PT/SPAM (iptables)</span><br><span class="line">  5. 一键解封 BT/PT/SPAM (iptables)</span><br><span class="line">  6. 切换 ShadowsocksR日志输出模式</span><br><span class="line">  ——说明：SSR默认只输出错误日志，此项可切换为输出详细的访问日志</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装BBR或者锐速</p>
+</li>
+</ul>
+<h1 id="TCP优化"><a href="#TCP优化" class="headerlink" title="TCP优化"></a>TCP优化</h1><ul>
+<li><p>增加TCP连接数量</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加两行：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* soft nofile 51200</span><br><span class="line">* hard nofile 51200</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置ulimit：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ulimit -n 51200</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加一些优化内容</p>
+<ul>
+<li><p>修改sysctl.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi  /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#TCP配置优化(不然你自己根本不知道你在干什么)</span><br><span class="line">fs.file-max = 51200</span><br><span class="line">#提高整个系统的文件限制</span><br><span class="line">net.core.rmem_max = 67108864</span><br><span class="line">net.core.wmem_max = 67108864</span><br><span class="line">net.core.netdev_max_backlog = 250000</span><br><span class="line">net.core.somaxconn = 4096</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.ipv4.tcp_tw_recycle = 0</span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br><span class="line">net.ipv4.tcp_keepalive_time = 1200</span><br><span class="line">net.ipv4.ip_local_port_range = 10000 65000</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 8192</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line">net.ipv4.tcp_fastopen = 3</span><br><span class="line">net.ipv4.tcp_mem = 25600 51200 102400</span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</span><br><span class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</span><br><span class="line">net.ipv4.tcp_mtu_probing = 1</span><br><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br><span class="line">#END OF LINE</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启SSR</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks restart</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>参考文档</strong>：<br><a href="https://jasper-1024.github.io/2016/06/26/VPS%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%95%99%E7%A8%8B%E7%B3%BB%E5%88%97/" target="_blank" rel="noopener">科学上网教程（一）——VPS上搭建SSR</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 工具 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[MAC安装RabbitMQ]]></title>
       <url>https://www.morethink.cn/MAC%E5%AE%89%E8%A3%85RabbitMQ/</url>
       <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install rabbitmq</span><br></pre></td></tr></table></figure>
@@ -496,9 +569,9 @@
         
         <tags>
             
-            <tag> 链表 </tag>
-            
             <tag> 排序 </tag>
+            
+            <tag> 链表 </tag>
             
         </tags>
         
@@ -1234,37 +1307,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Nginx Https配置不带www跳转www]]></title>
-      <url>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</url>
-      <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p>
-<a id="more"></a>
-<p>配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>参考文档</strong>：</p>
-<ol>
-<li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li>
-<li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> 服务器 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Https </tag>
-            
-            <tag> Nginx </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[面试中的Https]]></title>
       <url>https://www.morethink.cn/Https/</url>
       <content type="html"><![CDATA[<p>在Http协议中有可能存在信息窃听或身份伪装的安全问题。使用HTTPS通信机制可以有效地防止这些问题。</p>
@@ -1383,6 +1425,37 @@
         <tags>
             
             <tag> Https </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Nginx Https配置不带www跳转www]]></title>
+      <url>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</url>
+      <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p>
+<a id="more"></a>
+<p>配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li>
+<li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 服务器 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Https </tag>
+            
+            <tag> Nginx </tag>
             
         </tags>
         
@@ -3313,6 +3386,24 @@
     </entry>
     
     <entry>
+      <title><![CDATA[有一种斜落下来的幽光]]></title>
+      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
+      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
+<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
+<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
+<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 读书 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[怎么使用IDEA]]></title>
       <url>https://www.morethink.cn/how-to-use-IDEA/</url>
       <content type="html"><![CDATA[<h1 id="war-和-war-exploded"><a href="#war-和-war-exploded" class="headerlink" title="war 和 war exploded"></a>war 和 war exploded</h1><ol>
@@ -3349,24 +3440,6 @@
             <tag> IDEA </tag>
             
         </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[有一种斜落下来的幽光]]></title>
-      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
-      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
-<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
-<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
-<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 读书 </category>
-            
-        </categories>
-        
         
     </entry>
     
