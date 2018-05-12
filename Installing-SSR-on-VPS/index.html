@@ -91,14 +91,14 @@
 <meta name="description" content="本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。 安装SSR简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！">
 <meta name="keywords" content="Web,HTML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在VPS安装SSR">
-<meta property="og:url" content="https://www.morethink.cn/在VPS安装SSR/index.html">
+<meta property="og:title" content="科学上网之在VPS上安装SSR">
+<meta property="og:url" content="https://www.morethink.cn/Installing-SSR-on-VPS/index.html">
 <meta property="og:site_name" content="More Think">
 <meta property="og:description" content="本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。 安装SSR简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-12T11:57:35.979Z">
+<meta property="og:updated_time" content="2018-05-12T12:57:27.199Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在VPS安装SSR">
+<meta name="twitter:title" content="科学上网之在VPS上安装SSR">
 <meta name="twitter:description" content="本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。 安装SSR简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！">
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/在VPS安装SSR/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Installing-SSR-on-VPS/"/>
 
 
 
 
 
-  <title>在VPS安装SSR | More Think</title>
+  <title>科学上网之在VPS上安装SSR | More Think</title>
   
 
 
@@ -314,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/在VPS安装SSR/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Installing-SSR-on-VPS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -331,7 +331,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">在VPS安装SSR</h2>
+          <h2 class="post-title" itemprop="name headline">科学上网之在VPS上安装SSR</h2>
         
 
         <div class="post-meta">
@@ -384,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/在VPS安装SSR/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/在VPS安装SSR/" itemprop="commentsCount"></span>
+                <a href="/Installing-SSR-on-VPS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Installing-SSR-on-VPS/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -429,24 +429,35 @@
 <p>运行脚本：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure>
 <p>输入对应的数字来执行相应的命令。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  请输入一个数字来选择菜单选项</span><br><span class="line"></span><br><span class="line"> 1. 安装 ShadowsocksR</span><br><span class="line"> 2. 更新 ShadowsocksR</span><br><span class="line"> 3. 卸载 ShadowsocksR</span><br><span class="line"> 4. 安装 libsodium(chacha20)</span><br><span class="line">————————————</span><br><span class="line"> 5. 查看 账号信息</span><br><span class="line"> 6. 显示 连接信息</span><br><span class="line"> 7. 设置 用户配置</span><br><span class="line"> 8. 手动 修改配置</span><br><span class="line"> 9. 切换 端口模式</span><br><span class="line">————————————</span><br><span class="line"> 10. 启动 ShadowsocksR</span><br><span class="line"> 11. 停止 ShadowsocksR</span><br><span class="line"> 12. 重启 ShadowsocksR</span><br><span class="line"> 13. 查看 ShadowsocksR 日志</span><br><span class="line">————————————</span><br><span class="line"> 14. 其他功能</span><br><span class="line"> 15. 升级脚本</span><br><span class="line"></span><br><span class="line"> 当前状态: 已安装 并 已启动</span><br><span class="line"> 当前模式: 单端口</span><br><span class="line"></span><br><span class="line">请输入数字(1-15)：</span><br></pre></td></tr></table></figure></p>
-<h1 id="文件位置"><a href="#文件位置" class="headerlink" title="文件位置"></a>文件位置</h1><p>安装目录：<code>/usr/local/shadowsocksr</code></p>
-<p>配置文件：<code>/etc/shadowsocksr/user-config.json</code></p>
-<p>其他说明<br>ShadowsocksR 安装后，自动设置为 系统服务，所以支持使用服务来启动/停止等操作，同时支持开机启动。</p>
-<p>启动 ShadowsocksR：<code>/etc/init.d/ssr start</code><br>停止 ShadowsocksR：<code>/etc/init.d/ssr stop</code><br>重启 ShadowsocksR：<code>/etc/init.d/ssr restart</code><br>查看 ShadowsocksR状态：<code>/etc/init.d/ssr status</code><br>ShadowsocksR 默认支持UDP转发，服务端无需任何设置。</p>
+<h1 id="文件位置"><a href="#文件位置" class="headerlink" title="文件位置"></a>文件位置</h1><ul>
+<li>安装目录：<code>/usr/local/shadowsocksr</code></li>
+<li>配置文件：<code>/etc/shadowsocksr/user-config.json</code></li>
+</ul>
+<h1 id="设置为系统服务"><a href="#设置为系统服务" class="headerlink" title="设置为系统服务"></a>设置为系统服务</h1><p>ShadowsocksR 安装后，自动设置为 系统服务，所以支持使用服务来启动/停止等操作，同时支持开机启动。</p>
+<ul>
+<li>启动 ShadowsocksR：<code>/etc/init.d/ssr start</code></li>
+<li>停止 ShadowsocksR：<code>/etc/init.d/ssr stop</code></li>
+<li>重启 ShadowsocksR：<code>/etc/init.d/ssr restart</code></li>
+<li>查看 ShadowsocksR状态：<code>/etc/init.d/ssr status</code></li>
+</ul>
+<p>ShadowsocksR 默认支持UDP转发，服务端无需任何设置。</p>
 <h1 id="定时重启"><a href="#定时重启" class="headerlink" title="定时重启"></a>定时重启</h1><p>一些人可能需要定时重启ShadowsocksR服务端来保证稳定性等，所以这里用 crontab 定时。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l</span><br><span class="line"># 输入这个命令可以查看当前配置的定时任务，如果提示命令不存在，那么安装crontab：</span><br><span class="line"># CentOS系统：</span><br><span class="line">yum update</span><br><span class="line">yum install -y crond</span><br><span class="line"># Debian/Ubuntu系统：</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y cron</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 输入这个命令可以查看当前配置的定时任务</span><br><span class="line">crontab -l</span><br><span class="line"># 如果提示命令不存在，下面是安装命令</span><br><span class="line"># CentOS系统：</span><br><span class="line">yum update</span><br><span class="line">yum install -y crond</span><br><span class="line"># Debian/Ubuntu系统：</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y cron</span><br></pre></td></tr></table></figure>
 <p>安装 crontab 后，我们就能开始添加定时任务了：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l &gt; &quot;crontab.bak&quot;</span><br><span class="line">sed -i &quot;/ssr restart/d&quot; &quot;crontab.bak&quot;</span><br><span class="line">echo -e &quot;\n10 3 * * * /etc/init.d/ssr restart&quot; &gt;&gt; &quot;crontab.bak&quot;</span><br><span class="line">crontab &quot;crontab.bak&quot;</span><br><span class="line">rm -r &quot;crontab.bak&quot;</span><br></pre></td></tr></table></figure>
-<p>下面是定时时间规则(代码前面的 <em> </em> <em> </em> * 分别对应：分钟 小时 日 月 星期)参考：</p>
+<p>下面是定时任务规则(代码前面的 <em> </em> <em> </em> * 分别对应：分钟 小时 日 月 星期)参考：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10 2 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每天2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 2 */2 * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔2天的2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 */4 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔4小时的第10分重启一次 ShadowsocksR</span><br></pre></td></tr></table></figure>
-<h1 id="BBR和锐速"><a href="#BBR和锐速" class="headerlink" title="BBR和锐速"></a>BBR和锐速</h1><ul>
+<h1 id="BBR和锐速"><a href="#BBR和锐速" class="headerlink" title="BBR和锐速"></a>BBR和锐速</h1><p>BBR和锐速都是用来提高翻墙速度的。</p>
+<p>BBR是来自于Google的黑科技，目的是通过优化和控制TCP的拥塞，充分利用带宽并降低延迟，其目的就是要尽量跑满带宽，并且尽量不要有排队的情况。<br>BBR 这个特性其实是在 Linux 内核 4.9 才计划加入的。所以，要开启BBR，需要内核版本在Linux kernel 4.9以上，脚本会帮助我们安装。</p>
+<p>在BBR之前，比较有名的就是国产的锐速了，不过，由于锐速是个国产的闭源软件，可能存在安全性问题，因此 <strong>推荐使用安装BBR</strong>。</p>
+<ul>
 <li><p>启动脚本：</p>
   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>选择<code>14. 其他功能</code></p>
   <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  1. 配置 BBR</span><br><span class="line">  2. 配置 锐速(ServerSpeeder)</span><br><span class="line">  3. 配置 LotServer(锐速母公司)</span><br><span class="line">  注意： 锐速/LotServer/BBR 不支持 OpenVZ！</span><br><span class="line">  注意： 锐速/LotServer/BBR 不能共存！</span><br><span class="line">————————————</span><br><span class="line">  4. 一键封禁 BT/PT/SPAM (iptables)</span><br><span class="line">  5. 一键解封 BT/PT/SPAM (iptables)</span><br><span class="line">  6. 切换 ShadowsocksR日志输出模式</span><br><span class="line">  ——说明：SSR默认只输出错误日志，此项可切换为输出详细的访问日志</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>安装BBR或者锐速</p>
+<li><p>安装BBR或者锐速(推荐BBR)</p>
 </li>
 </ul>
 <h1 id="TCP优化"><a href="#TCP优化" class="headerlink" title="TCP优化"></a>TCP优化</h1><ul>
@@ -471,7 +482,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>重启SSR</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/init.d/shadowsocks restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/init.d/ssr restart</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -530,7 +541,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/在VPS安装SSR/" title="在VPS安装SSR">https://www.morethink.cn/在VPS安装SSR/</a>
+    <a href="https://www.morethink.cn/Installing-SSR-on-VPS/" title="科学上网之在VPS上安装SSR">https://www.morethink.cn/Installing-SSR-on-VPS/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -552,8 +563,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/MAC安装RabbitMQ/" rel="next" title="MAC安装RabbitMQ">
-                <i class="fa fa-chevron-left"></i> MAC安装RabbitMQ
+              <a href="/给你的博客园图片添加标题/" rel="next" title="给你的博客园图片添加标题">
+                <i class="fa fa-chevron-left"></i> 给你的博客园图片添加标题
               </a>
             
           </div>
@@ -561,6 +572,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/MAC安装RabbitMQ/" rel="prev" title="MAC安装RabbitMQ">
+                MAC安装RabbitMQ <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -726,7 +741,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装SSR"><span class="nav-number">1.</span> <span class="nav-text">安装SSR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件位置"><span class="nav-number">2.</span> <span class="nav-text">文件位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定时重启"><span class="nav-number">3.</span> <span class="nav-text">定时重启</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BBR和锐速"><span class="nav-number">4.</span> <span class="nav-text">BBR和锐速</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP优化"><span class="nav-number">5.</span> <span class="nav-text">TCP优化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装SSR"><span class="nav-number">1.</span> <span class="nav-text">安装SSR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件位置"><span class="nav-number">2.</span> <span class="nav-text">文件位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置为系统服务"><span class="nav-number">3.</span> <span class="nav-text">设置为系统服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定时重启"><span class="nav-number">4.</span> <span class="nav-text">定时重启</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BBR和锐速"><span class="nav-number">5.</span> <span class="nav-text">BBR和锐速</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP优化"><span class="nav-number">6.</span> <span class="nav-text">TCP优化</span></a></li></ol></div>
             
 
           </div>
