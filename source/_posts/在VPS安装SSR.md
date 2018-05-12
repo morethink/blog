@@ -5,7 +5,7 @@ tags:
 categories: 工具
 ---
 
-本文参考 [『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本](https://doub.io/ss-jc42)，对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。
+本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。
 
 # 安装SSR
 
@@ -195,4 +195,5 @@ rm -r "crontab.bak"
     ```
 
 **参考文档**：
-[科学上网教程（一）——VPS上搭建SSR](https://jasper-1024.github.io/2016/06/26/VPS%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%95%99%E7%A8%8B%E7%B3%BB%E5%88%97/)
+1. [科学上网教程（一）——VPS上搭建SSR](https://jasper-1024.github.io/2016/06/26/VPS%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%95%99%E7%A8%8B%E7%B3%BB%E5%88%97/)
+2. [『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本](https://doub.io/ss-jc42)
