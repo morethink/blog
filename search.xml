@@ -4,77 +4,8 @@
   
     
     <entry>
-      <title><![CDATA[MAC安装RabbitMQ]]></title>
-      <url>https://www.morethink.cn/MAC%E5%AE%89%E8%A3%85RabbitMQ/</url>
-      <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install rabbitmq</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ol>
-<li>添加环境变量<ul>
-<li>打开配置文件<code>$ vi ~/.bash_profile</code></li>
-<li>添加 <code>export PATH=$PATH:/usr/local/sbin</code><br>到末尾，编辑完后:wq保存退出。</li>
-<li>使环境变量立即生效 <code>$ source ~/.bash_profile</code></li>
-</ul>
-</li>
-<li>启动RabbitMQ服务<br>上面配置完成后，需要关闭终端窗口，重新打开，然后输入下面命令即可启动RabbitMQ服务：<code>rabbitmq-server</code></li>
-<li>登录Web管理界面<br>浏览器输入localhost：15672，账号密码全输入guest即可登录。</li>
-</ol>
-<p>这里需要注意下，从3.3.1版本开始，RabbitMQ默认不允许远程ip登录，即只能使用localhost登录。如果希望远程登录，需要添加用户权限。</p>
-<h1 id="设置RabbitMQ远程ip登录"><a href="#设置RabbitMQ远程ip登录" class="headerlink" title="设置RabbitMQ远程ip登录"></a>设置RabbitMQ远程ip登录</h1><p>由于账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用，并建议修改guest用户的密码以及新建其他账号管理使用rabbitmq。<br>这里我们以创建个test帐号，密码123456为例，创建一个账号并支持远程ip访问。</p>
-<ul>
-<li><p>创建账号</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl add_user test 123456</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置用户角色</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  set_user_tags  test  administrator</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置用户权限</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl set_permissions -p &quot;/&quot; test &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设置完成后可以查看当前用户和角色(需要开启服务)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl list_users</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这是你就可以通过其他主机的访问RabbitMQ的Web管理界面了，访问方式，浏览器输入：serverip:15672。其中serverip是RabbitMQ-Server所在主机的ip。</p>
-<h1 id="RabbitMQ常用操作"><a href="#RabbitMQ常用操作" class="headerlink" title="RabbitMQ常用操作"></a>RabbitMQ常用操作</h1><ol>
-<li><p>用户管理<br>用户管理包括增加用户，删除用户，查看用户列表，修改用户密码。</p>
-<ul>
-<li><p>新增一个用户</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  add_user  Username  Password</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除一个用户</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  delete_user  Username</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改用户的密码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  change_password  Username  Newpassword</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看当前用户列表</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  list_users</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> 工具 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> MQ </tag>
-            
-            <tag> MAC </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[科学上网之在VPS上安装SSR]]></title>
-      <url>https://www.morethink.cn/Installing-SSR-on-VPS/</url>
+      <url>https://www.morethink.cn/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E4%B9%8B%E5%9C%A8VPS%E4%B8%8A%E5%AE%89%E8%A3%85SSR/</url>
       <content type="html"><![CDATA[<p>本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。</p>
 <h1 id="安装SSR"><a href="#安装SSR" class="headerlink" title="安装SSR"></a>安装SSR</h1><p>简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！<br><a id="more"></a><br>本脚本需要Linux root账户权限才能正常安装运行，所以 <strong>如果不是 root账号，请先切换为root，如果是 root账号，那么请跳过</strong>！</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
@@ -157,6 +88,75 @@
             
         </categories>
         
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[MAC安装RabbitMQ]]></title>
+      <url>https://www.morethink.cn/MAC%E5%AE%89%E8%A3%85RabbitMQ/</url>
+      <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install rabbitmq</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ol>
+<li>添加环境变量<ul>
+<li>打开配置文件<code>$ vi ~/.bash_profile</code></li>
+<li>添加 <code>export PATH=$PATH:/usr/local/sbin</code><br>到末尾，编辑完后:wq保存退出。</li>
+<li>使环境变量立即生效 <code>$ source ~/.bash_profile</code></li>
+</ul>
+</li>
+<li>启动RabbitMQ服务<br>上面配置完成后，需要关闭终端窗口，重新打开，然后输入下面命令即可启动RabbitMQ服务：<code>rabbitmq-server</code></li>
+<li>登录Web管理界面<br>浏览器输入localhost：15672，账号密码全输入guest即可登录。</li>
+</ol>
+<p>这里需要注意下，从3.3.1版本开始，RabbitMQ默认不允许远程ip登录，即只能使用localhost登录。如果希望远程登录，需要添加用户权限。</p>
+<h1 id="设置RabbitMQ远程ip登录"><a href="#设置RabbitMQ远程ip登录" class="headerlink" title="设置RabbitMQ远程ip登录"></a>设置RabbitMQ远程ip登录</h1><p>由于账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用，并建议修改guest用户的密码以及新建其他账号管理使用rabbitmq。<br>这里我们以创建个test帐号，密码123456为例，创建一个账号并支持远程ip访问。</p>
+<ul>
+<li><p>创建账号</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl add_user test 123456</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置用户角色</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  set_user_tags  test  administrator</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置用户权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl set_permissions -p &quot;/&quot; test &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置完成后可以查看当前用户和角色(需要开启服务)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl list_users</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这是你就可以通过其他主机的访问RabbitMQ的Web管理界面了，访问方式，浏览器输入：serverip:15672。其中serverip是RabbitMQ-Server所在主机的ip。</p>
+<h1 id="RabbitMQ常用操作"><a href="#RabbitMQ常用操作" class="headerlink" title="RabbitMQ常用操作"></a>RabbitMQ常用操作</h1><ol>
+<li><p>用户管理<br>用户管理包括增加用户，删除用户，查看用户列表，修改用户密码。</p>
+<ul>
+<li><p>新增一个用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  add_user  Username  Password</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除一个用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  delete_user  Username</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改用户的密码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  change_password  Username  Newpassword</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前用户列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  list_users</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 工具 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> MQ </tag>
+            
+            <tag> MAC </tag>
+            
+        </tags>
         
     </entry>
     
@@ -584,9 +584,9 @@
         
         <tags>
             
-            <tag> 排序 </tag>
-            
             <tag> 链表 </tag>
+            
+            <tag> 排序 </tag>
             
         </tags>
         
@@ -2921,31 +2921,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[罔]]></title>
-      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/wang/</url>
-      <content type="html"><![CDATA[<p>尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。</p>
-<p>诗中有大道，我手写我心。</p>
-<a id="more"></a>
-<p><strong>罔</strong></p>
-<p>惘时伤悲望月明，群星闪闪似笑我。<br>姣姣月光人已变，所思所感无不同。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 读书 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 诗 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）]]></title>
       <url>https://www.morethink.cn/binary-tree/</url>
       <content type="html"><![CDATA[<p>二叉树是一种非常重要的数据结构，很多其它数据结构都是基于二叉树的基础演变而来的。对于二叉树，有前序、中序以及后序三种遍历方法。因为树的定义本身就是递归定义，因此采用递归的方法去实现树的三种遍历不仅容易理解而且代码很简洁。而对于树的遍历若采用非递归的方法，就要采用栈去模拟实现。在三种遍历中，前序和中序遍历的非递归算法都很容易实现，非递归后序遍历实现起来相对来说要难一点。</p>
@@ -2969,6 +2944,31 @@
         <tags>
             
             <tag> 二叉树 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[罔]]></title>
+      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/wang/</url>
+      <content type="html"><![CDATA[<p>尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。</p>
+<p>诗中有大道，我手写我心。</p>
+<a id="more"></a>
+<p><strong>罔</strong></p>
+<p>惘时伤悲望月明，群星闪闪似笑我。<br>姣姣月光人已变，所思所感无不同。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 读书 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 诗 </tag>
             
         </tags>
         
@@ -3401,6 +3401,24 @@
     </entry>
     
     <entry>
+      <title><![CDATA[有一种斜落下来的幽光]]></title>
+      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
+      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
+<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
+<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
+<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 读书 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[怎么使用IDEA]]></title>
       <url>https://www.morethink.cn/how-to-use-IDEA/</url>
       <content type="html"><![CDATA[<h1 id="war-和-war-exploded"><a href="#war-和-war-exploded" class="headerlink" title="war 和 war exploded"></a>war 和 war exploded</h1><ol>
@@ -3437,24 +3455,6 @@
             <tag> IDEA </tag>
             
         </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[有一种斜落下来的幽光]]></title>
-      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
-      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
-<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
-<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
-<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 读书 </category>
-            
-        </categories>
-        
         
     </entry>
     
@@ -3947,9 +3947,9 @@
         
         <tags>
             
-            <tag> Nginx </tag>
-            
             <tag> 反向代理 </tag>
+            
+            <tag> Nginx </tag>
             
             <tag> 跨域 </tag>
             
@@ -4383,9 +4383,9 @@
         
         <tags>
             
-            <tag> Nginx </tag>
-            
             <tag> 反向代理 </tag>
+            
+            <tag> Nginx </tag>
             
         </tags>
         
