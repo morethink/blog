@@ -5,6 +5,7 @@ tags:
   - MQ
   - MAC
 categories: 工具
+photo: https://images.morethink.cn/rabbitmq-logo.png
 ---
 
 # 安装

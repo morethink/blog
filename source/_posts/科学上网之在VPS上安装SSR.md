@@ -3,6 +3,7 @@ title: 科学上网之在VPS上安装SSR
 date: 2018-05-12
 tags:
 categories: 工具
+photo: https://images.morethink.cn/touch-google.png
 ---
 
 本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。
