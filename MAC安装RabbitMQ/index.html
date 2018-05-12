@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="诗," />
+  <meta name="keywords" content="MQ,MAC," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。 诗中有大道，我手写我心。">
-<meta name="keywords" content="诗">
+<meta name="description" content="安装brew updatebrew install rabbitmq">
+<meta name="keywords" content="MQ,MAC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="罔">
-<meta property="og:url" content="https://www.morethink.cn/读书/wang/index.html">
+<meta property="og:title" content="MAC安装RabbitMQ">
+<meta property="og:url" content="https://www.morethink.cn/MAC安装RabbitMQ/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。 诗中有大道，我手写我心。">
+<meta property="og:description" content="安装brew updatebrew install rabbitmq">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.192Z">
+<meta property="og:updated_time" content="2018-05-12T10:47:26.992Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="罔">
-<meta name="twitter:description" content="尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。 诗中有大道，我手写我心。">
+<meta name="twitter:title" content="MAC安装RabbitMQ">
+<meta name="twitter:description" content="安装brew updatebrew install rabbitmq">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/读书/wang/"/>
+  <link rel="canonical" href="https://www.morethink.cn/MAC安装RabbitMQ/"/>
 
 
 
 
 
-  <title>罔 | More Think</title>
+  <title>MAC安装RabbitMQ | More Think</title>
   
 
 
@@ -314,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/读书/wang/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/MAC安装RabbitMQ/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -331,7 +331,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">罔</h2>
+          <h2 class="post-title" itemprop="name headline">MAC安装RabbitMQ</h2>
         
 
         <div class="post-meta">
@@ -343,8 +343,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T00:00:00+08:00">
-                2017-07-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T00:00:00+08:00">
+                2018-05-12
               </time>
             
 
@@ -366,8 +366,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书/" itemprop="url" rel="index">
-                    <span itemprop="name">读书</span>
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
                   </a>
                 </span>
 
@@ -384,8 +384,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/读书/wang/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/读书/wang/" itemprop="commentsCount"></span>
+                <a href="/MAC安装RabbitMQ/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/MAC安装RabbitMQ/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -418,11 +418,53 @@
       
 
       
-        <p>尼采说，我爱以血书者。所思所感，皆可成诗，诗者，书真情也。</p>
-<p>诗中有大道，我手写我心。</p>
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install rabbitmq</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<p><strong>罔</strong></p>
-<p>惘时伤悲望月明，群星闪闪似笑我。<br>姣姣月光人已变，所思所感无不同。</p>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><ol>
+<li>添加环境变量<ul>
+<li>打开配置文件<code>$ vi ~/.bash_profile</code></li>
+<li>添加 <code>export PATH=$PATH:/usr/local/sbin</code><br>到末尾，编辑完后:wq保存退出。</li>
+<li>使环境变量立即生效 <code>$ source ~/.bash_profile</code></li>
+</ul>
+</li>
+<li>启动RabbitMQ服务<br>上面配置完成后，需要关闭终端窗口，重新打开，然后输入下面命令即可启动RabbitMQ服务：<code>rabbitmq-server</code></li>
+<li>登录Web管理界面<br>浏览器输入localhost：15672，账号密码全输入guest即可登录。</li>
+</ol>
+<p>这里需要注意下，从3.3.1版本开始，RabbitMQ默认不允许远程ip登录，即只能使用localhost登录。如果希望远程登录，需要添加用户权限。</p>
+<h1 id="设置RabbitMQ远程ip登录"><a href="#设置RabbitMQ远程ip登录" class="headerlink" title="设置RabbitMQ远程ip登录"></a>设置RabbitMQ远程ip登录</h1><p>由于账号guest具有所有的操作权限，并且又是默认账号，出于安全因素的考虑，guest用户只能通过localhost登陆使用，并建议修改guest用户的密码以及新建其他账号管理使用rabbitmq。<br>这里我们以创建个test帐号，密码123456为例，创建一个账号并支持远程ip访问。</p>
+<ul>
+<li><p>创建账号</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl add_user test 123456</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置用户角色</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  set_user_tags  test  administrator</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置用户权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl set_permissions -p &quot;/&quot; test &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置完成后可以查看当前用户和角色(需要开启服务)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl list_users</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这是你就可以通过其他主机的访问RabbitMQ的Web管理界面了，访问方式，浏览器输入：serverip:15672。其中serverip是RabbitMQ-Server所在主机的ip。</p>
+<h1 id="RabbitMQ常用操作"><a href="#RabbitMQ常用操作" class="headerlink" title="RabbitMQ常用操作"></a>RabbitMQ常用操作</h1><ol>
+<li><p>用户管理<br>用户管理包括增加用户，删除用户，查看用户列表，修改用户密码。</p>
+<ul>
+<li><p>新增一个用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  add_user  Username  Password</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除一个用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  delete_user  Username</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改用户的密码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  change_password  Username  Newpassword</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前用户列表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rabbitmqctl  list_users</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
@@ -472,7 +514,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/读书/wang/" title="罔">https://www.morethink.cn/读书/wang/</a>
+    <a href="https://www.morethink.cn/MAC安装RabbitMQ/" title="MAC安装RabbitMQ">https://www.morethink.cn/MAC安装RabbitMQ/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -487,7 +529,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/诗/" rel="tag"># 诗</a>
+            <a href="/tags/MQ/" rel="tag"># MQ</a>
+          
+            <a href="/tags/MAC/" rel="tag"># MAC</a>
           
         </div>
       
@@ -500,8 +544,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/binary-tree/" rel="next" title="Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）">
-                <i class="fa fa-chevron-left"></i> Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）
+              <a href="/给你的博客园图片添加标题/" rel="next" title="给你的博客园图片添加标题">
+                <i class="fa fa-chevron-left"></i> 给你的博客园图片添加标题
               </a>
             
           </div>
@@ -509,10 +553,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Java迭代实现斐波那契数列/" rel="prev" title="Java迭代实现斐波那契数列">
-                Java迭代实现斐波那契数列 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -571,8 +611,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -659,6 +708,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置RabbitMQ远程ip登录"><span class="nav-number">3.</span> <span class="nav-text">设置RabbitMQ远程ip登录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RabbitMQ常用操作"><span class="nav-number">4.</span> <span class="nav-text">RabbitMQ常用操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

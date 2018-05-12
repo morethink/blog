@@ -96,10 +96,12 @@
 <meta property="og:site_name" content="More Think">
 <meta property="og:description" content="二分查找（binary search），也称折半搜索，是一种在 有序数组 中 查找某一特定元素 的搜索算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束；如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组为空，则代表找不到。这种搜索算法每一次比较都使搜索范围缩小一半。  时间复杂度:折">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.180Z">
+<meta property="og:image" content="https://images.morethink.cn/binary-search.gif">
+<meta property="og:updated_time" content="2018-05-11T11:39:42.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java实现二分查找算法">
 <meta name="twitter:description" content="二分查找（binary search），也称折半搜索，是一种在 有序数组 中 查找某一特定元素 的搜索算法。搜索过程从数组的中间元素开始，如果中间元素正好是要查找的元素，则搜索过程结束；如果某一特定元素大于或者小于中间元素，则在数组大于或小于中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。如果在某一步骤数组为空，则代表找不到。这种搜索算法每一次比较都使搜索范围缩小一半。  时间复杂度:折">
+<meta name="twitter:image" content="https://images.morethink.cn/binary-search.gif">
 
 
 
@@ -424,6 +426,7 @@
 <li><strong>空间复杂度</strong>: O(1)。虽以递归形式定义，但是尾递归，可改写为循环。</li>
 </ul>
 <a id="more"></a>
+<h1 id="动图演示"><a href="#动图演示" class="headerlink" title="动图演示"></a>动图演示</h1><p><img src="https://images.morethink.cn/binary-search.gif" alt="binary-search" title="二分查找"></p>
 <h1 id="代码描述"><a href="#代码描述" class="headerlink" title="代码描述"></a>代码描述</h1><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarysearch</span><span class="params">(<span class="keyword">int</span> array[], <span class="keyword">int</span> low, <span class="keyword">int</span> high, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (low &gt; high) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (array[mid] &gt; target)</span><br><span class="line">        <span class="keyword">return</span> binarysearch(array, low, mid - <span class="number">1</span>, target);</span><br><span class="line">    <span class="keyword">if</span> (array[mid] &lt; target)</span><br><span class="line">        <span class="keyword">return</span> binarysearch(array, mid + <span class="number">1</span>, high, target);</span><br><span class="line">    <span class="keyword">return</span> mid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearchWithoutRecursion</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> high = a.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (a[mid] &gt; key)</span><br><span class="line">            high = mid - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (a[mid] &lt; key)</span><br><span class="line">            low = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="二分查找法的缺陷"><a href="#二分查找法的缺陷" class="headerlink" title="二分查找法的缺陷"></a>二分查找法的缺陷</h1><p>二分查找法的O(log n)让它成为十分高效的算法。不过它的缺陷却也是那么明显的。就在它的限定之上：必须有序，我们很难保证我们的数组都是有序的。当然可以在构建数组的时候进行排序，可是又落到了第二个瓶颈上：它必须是数组。</p>
@@ -610,7 +613,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -632,7 +635,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -688,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码描述"><span class="nav-number">1.</span> <span class="nav-text">代码描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">1.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归"><span class="nav-number">1.2.</span> <span class="nav-text">非递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分查找法的缺陷"><span class="nav-number">2.</span> <span class="nav-text">二分查找法的缺陷</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动图演示"><span class="nav-number">1.</span> <span class="nav-text">动图演示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码描述"><span class="nav-number">2.</span> <span class="nav-text">代码描述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">2.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非递归"><span class="nav-number">2.2.</span> <span class="nav-text">非递归</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分查找法的缺陷"><span class="nav-number">3.</span> <span class="nav-text">二分查找法的缺陷</span></a></li></ol></div>
             
 
           </div>
