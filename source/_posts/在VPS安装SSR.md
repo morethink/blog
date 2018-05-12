@@ -1,5 +1,5 @@
 ---
-title: 在VPS安装SSR
+title: 科学上网之在VPS上安装SSR
 date: 2018-05-12
 tags:
 categories: 工具
@@ -66,17 +66,18 @@ bash ssr.sh
 
 # 文件位置
 
-安装目录：`/usr/local/shadowsocksr`
+- 安装目录：`/usr/local/shadowsocksr`
+- 配置文件：`/etc/shadowsocksr/user-config.json`
 
-配置文件：`/etc/shadowsocksr/user-config.json`
+# 设置为系统服务
 
-其他说明
 ShadowsocksR 安装后，自动设置为 系统服务，所以支持使用服务来启动/停止等操作，同时支持开机启动。
 
-启动 ShadowsocksR：`/etc/init.d/ssr start`
-停止 ShadowsocksR：`/etc/init.d/ssr stop`
-重启 ShadowsocksR：`/etc/init.d/ssr restart`
-查看 ShadowsocksR状态：`/etc/init.d/ssr status`
+- 启动 ShadowsocksR：`/etc/init.d/ssr start`
+- 停止 ShadowsocksR：`/etc/init.d/ssr stop`
+- 重启 ShadowsocksR：`/etc/init.d/ssr restart`
+- 查看 ShadowsocksR状态：`/etc/init.d/ssr status`
+
 ShadowsocksR 默认支持UDP转发，服务端无需任何设置。
 
 # 定时重启
@@ -85,8 +86,9 @@ ShadowsocksR 默认支持UDP转发，服务端无需任何设置。
 
 
 ```
+# 输入这个命令可以查看当前配置的定时任务
 crontab -l
-# 输入这个命令可以查看当前配置的定时任务，如果提示命令不存在，那么安装crontab：
+# 如果提示命令不存在，下面是安装命令
 # CentOS系统：
 yum update
 yum install -y crond
@@ -105,7 +107,7 @@ crontab "crontab.bak"
 rm -r "crontab.bak"
 ```
 
-下面是定时时间规则(代码前面的 * * * * * 分别对应：分钟 小时 日 月 星期)参考：
+下面是定时任务规则(代码前面的 * * * * * 分别对应：分钟 小时 日 月 星期)参考：
 
 ```
 10 2 * * * /etc/init.d/ssr restart
@@ -119,6 +121,13 @@ rm -r "crontab.bak"
 ```
 
 # BBR和锐速
+
+BBR和锐速都是用来提高翻墙速度的。
+
+BBR是来自于Google的黑科技，目的是通过优化和控制TCP的拥塞，充分利用带宽并降低延迟，其目的就是要尽量跑满带宽，并且尽量不要有排队的情况。
+BBR 这个特性其实是在 Linux 内核 4.9 才计划加入的。所以，要开启BBR，需要内核版本在Linux kernel 4.9以上，脚本会帮助我们安装。
+
+在BBR之前，比较有名的就是国产的锐速了，不过，由于锐速是个国产的闭源软件，可能存在安全性问题，因此 **推荐使用安装BBR**。
 
 - 启动脚本：
     ```
@@ -137,7 +146,7 @@ rm -r "crontab.bak"
       6. 切换 ShadowsocksR日志输出模式
       ——说明：SSR默认只输出错误日志，此项可切换为输出详细的访问日志
     ```
-- 安装BBR或者锐速
+- 安装BBR或者锐速(推荐BBR)
 
 
 # TCP优化
@@ -191,7 +200,7 @@ rm -r "crontab.bak"
     ```
     - 重启SSR
     ```
-    /etc/init.d/shadowsocks restart
+    /etc/init.d/ssr restart
     ```
 
 **参考文档**：
