@@ -14,6 +14,10 @@ keywords: 二分查找
 
 <!-- more -->
 
+# 动图演示
+
+![binary-search](https://images.morethink.cn/binary-search.gif "二分查找")
+
 # 代码描述
 
 ## 递归
