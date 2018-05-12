@@ -1,8 +1,7 @@
 ---
-title: VPS上搭建SSR
+title: 在VPS安装SSR
 date: 2018-05-12
 tags:
-  - 科学上网
 categories: 工具
 ---
 
