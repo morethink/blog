@@ -184,44 +184,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[GitHub更新已经fork的项目]]></title>
-      <url>https://www.morethink.cn/GitHub%E6%9B%B4%E6%96%B0%E5%B7%B2%E7%BB%8Ffork%E7%9A%84%E9%A1%B9%E7%9B%AE/</url>
-      <content type="html"><![CDATA[<p>当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。</p>
-<a id="more"></a>
-<ol>
-<li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li>
-<li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p>
-</li>
-<li>切换到本地master分支<br><code>$ git checkout master</code></li>
-<li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li>
-<li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li>
-</ol>
-<p><strong>参考文档：</strong></p>
-<ol>
-<li>添加远程分支<br><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/configuring-a-remote-for-a-fork/</a></li>
-<li>完成同步<br><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/syncing-a-fork/</a></li>
-</ol>
-]]></content>
-      
-        <categories>
-            
-            <category> 工具 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Git </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Cron表达式]]></title>
       <url>https://www.morethink.cn/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
       <content type="html"><![CDATA[<p><strong>Cron表达式范例：</strong></p>
@@ -314,6 +276,44 @@
             
         </categories>
         
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[GitHub更新已经fork的项目]]></title>
+      <url>https://www.morethink.cn/GitHub%E6%9B%B4%E6%96%B0%E5%B7%B2%E7%BB%8Ffork%E7%9A%84%E9%A1%B9%E7%9B%AE/</url>
+      <content type="html"><![CDATA[<p>当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。</p>
+<a id="more"></a>
+<ol>
+<li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li>
+<li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origin	git@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstream	git@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p>
+</li>
+<li>切换到本地master分支<br><code>$ git checkout master</code></li>
+<li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li>
+<li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li>
+</ol>
+<p><strong>参考文档：</strong></p>
+<ol>
+<li>添加远程分支<br><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/configuring-a-remote-for-a-fork/</a></li>
+<li>完成同步<br><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/syncing-a-fork/</a></li>
+</ol>
+]]></content>
+      
+        <categories>
+            
+            <category> 工具 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
         
     </entry>
     
@@ -3401,24 +3401,6 @@
     </entry>
     
     <entry>
-      <title><![CDATA[有一种斜落下来的幽光]]></title>
-      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
-      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
-<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
-<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
-<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
-]]></content>
-      
-        <categories>
-            
-            <category> 读书 </category>
-            
-        </categories>
-        
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[怎么使用IDEA]]></title>
       <url>https://www.morethink.cn/how-to-use-IDEA/</url>
       <content type="html"><![CDATA[<h1 id="war-和-war-exploded"><a href="#war-和-war-exploded" class="headerlink" title="war 和 war exploded"></a>war 和 war exploded</h1><ol>
@@ -3455,6 +3437,24 @@
             <tag> IDEA </tag>
             
         </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[有一种斜落下来的幽光]]></title>
+      <url>https://www.morethink.cn/%E8%AF%BB%E4%B9%A6/There-is-a-light-that-falls-down/</url>
+      <content type="html"><![CDATA[<p>By:Emily Dickinson<br>译:余光中</p>
+<p>冬日的下午往往有一种<br>斜落下来的幽光，<br>压迫着我们，那重量如同<br>大教堂中的琴响。<br><a id="more"></a><br>它给我们以神圣的创伤；<br>我们找不到斑痕。<br>只有内心所引起的变化，<br>将它的意义蕴存。</p>
+<p>没人能够使它感悟；<br>它是绝望的烙印，<br>一种无比美妙的痛苦，<br>借大气传给我们。</p>
+<p>当它来时，四野都倾听，<br>阴影全屏住呼吸；<br>当去时，远得像我们<br>遥望死亡的距离。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 读书 </category>
+            
+        </categories>
+        
         
     </entry>
     
@@ -3947,9 +3947,9 @@
         
         <tags>
             
-            <tag> 反向代理 </tag>
-            
             <tag> Nginx </tag>
+            
+            <tag> 反向代理 </tag>
             
             <tag> 跨域 </tag>
             
@@ -4383,9 +4383,9 @@
         
         <tags>
             
-            <tag> 反向代理 </tag>
-            
             <tag> Nginx </tag>
+            
+            <tag> 反向代理 </tag>
             
         </tags>
         
