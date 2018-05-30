@@ -74,14 +74,7 @@ canvas_nest: false
 
 douban:
     user: 14660354
-
-algolia:
-  applicationID: '0UOQC1TXOW'
-  indexName: 'getstarted_actors'
-  chunkSize: 5000
-
-
-
+# local search
 search:
   path: search.xml
   field: post

@@ -3,6 +3,7 @@ title: Linux常用命令
 date: 2017-07-30
 tags:
 categories: Linux
+photo: https://images.morethink.cn/Command-Line.webp
 ---
 
 本文记录一些在Linux系统下比较常用的命令。
@@ -53,6 +54,42 @@ categories: Linux
 - `rm -i file` 删除文件file，在删除之前会询问是否进行该操作  
 - `rm -fr dir`  强制删除目录dir中的所有文件
 
+# tar
+
+tar是linux上常用的打包、压缩、解压缩工具，它的参数很多，这里列举常用的压缩与解压缩参数。
+
+参数：
+
+- `-c`： **建立压缩档案的参数**
+- `-x`： **解压缩压缩档案的参数**
+- `-z`： 是否需要用`gzip`压缩
+- `-v`： 压缩的过程中显示档案
+- `-f`： 置顶文档名，在`-f`后面立即接文件名，不能再加参数
+
+## 打包与解包
+- 将整个/home/www/images 目录下的文件全部打包
+    ```shell
+    tar -cvf /home/www/images.tar /home/www/images ← 仅打包，不压缩
+    ```
+- 解包到指定的目录
+    ```shell
+    tar xvf filename.tar -C /specific dir
+    ```
+## 压缩与解压缩
+
+- 打包后，以gzip压缩，在参数f后面的压缩文件名是自己取的，习惯上用tar来做，如果加z参数，则以tar.gz 或tgz来代表gzip压缩过的tar file文件
+    ```shell
+    tar -zcvf /home/www/images.tar.gz /home/www/images
+    ```
+- 将 /home/www/images.tar.gz 解压到/home/www下面
+    ```shell
+    cd /home/www
+    tar -zxvf /home/images.tar.gz
+    ```
+- 解压缩到指定的目录
+    ```shell
+    tar -zxvf /home/images.tar.gz -C /specific dir
+    ```
 
 # ps
 该命令用于将某个时间点的进程运行情况选取下来并输出，process之意，它的常用参数如下：
@@ -237,6 +274,140 @@ alias vi='vim'
 1. 通过Bash调用执行脚本 ：`bash hello.sh`
 2. 首先赋予执行权限：`chmod 755 hello.sh`，然后就可以通过相对路径 `./hello.sh` 或者通过绝对路径 ` /root/hello.sh`来执行。
 
+## Shell特殊变量：`$0`, `$#`, `$*`, `$@`, `$?`, `$$`和命令行参数
+变量名只能包含数字、字母和下划线，因为某些包含其他字符的变量有特殊含义，这样的变量被称为特殊变量。
+
+例如，`$$` 表示当前Shell进程的ID，即pid，看下面的代码：
+```Shell
+$echo $$
+```
+运行结果
+```
+29949
+```
+
+**特殊变量列表**：
+
+
+| 变量 | 含义 |
+|:----:|--------------------------------------------------------------------------------------------|
+| `$0` | 当前脚本的文件名 |
+| `$n` | 传递给脚本或函数的参数。n 是一个数字，表示第几个参数。 |
+| `$#` | 传递给脚本或函数的参数个数。 |
+| `$*` | 传递给脚本或函数的所有参数。 |
+| `$@` | 传递给脚本或函数的所有参数。被双引号(" ")包含时，与 $* 稍有不同，下面将会讲到。 |
+| `$?` | 上个命令的退出状态，或函数的返回值。 |
+| `$$` | 当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。 |
+
+## 命令行参数
+
+运行脚本时传递给脚本的参数称为命令行参数。命令行参数用 `$n` 表示，例如，`$1` 表示第一个参数，`$2` 表示第二个参数，依次类推。
+
+请看下面的脚本：
+```Shell
+#!/bin/bash
+echo "File Name: $0"
+echo "First Parameter : $1"
+echo "First Parameter : $2"
+echo "Quoted Values: $@"
+echo "Quoted Values: $*"
+echo "Total Number of Parameters : $#"
+```
+
+运行结果：
+
+```
+$./test.sh Zara Ali
+```
+
+```
+File Name : ./test.sh
+First Parameter : Zara
+Second Parameter : Ali
+Quoted Values: Zara Ali
+Quoted Values: Zara Ali
+Total Number of Parameters : 2
+```
+
+## `$*` 和 `$@` 的区别
+`$*`和 `$@` 都表示传递给函数或脚本的所有参数，不被双引号(" ")包含时，都以`"$1"` `"$2"` … `"$n"` 的形式输出所有参数。
+
+但是当它们被双引号(" ")包含时，`"$*"` 会将所有的参数作为一个整体，以"`$1` `$2` … `$n`"的形式输出所有参数；`"$@"` 会将各个参数分开，以`"$1"` `"$2"` … `"$n"` 的形式输出所有参数。
+
+下面的例子可以清楚的看到 `$*` 和 `$@`的区别：
+```Shell
+#!/bin/bash
+echo "\$*=" $*
+echo "\"\$*\"=" "$*"
+echo "\$@=" $@
+echo "\"\$@\"=" "$@"
+echo "print each param from \$*"
+for var in $*
+do
+    echo "$var"
+done
+echo "print each param from \$@"
+for var in $@
+do
+    echo "$var"
+done
+echo "print each param from \"\$*\""
+for var in "$*"
+do
+    echo "$var"
+done
+echo "print each param from \"\$@\""
+for var in "$@"
+do
+    echo "$var"
+done
+```
+
+执行 ./test.sh "a" "b" "c" "d"，看到下面的结果：
+```
+$*=  a b c d
+"$*"= a b c d
+$@=  a b c d
+"$@"= a b c d
+print each param from $*
+a
+b
+c
+d
+print each param from $@
+a
+b
+c
+d
+print each param from "$*"
+a b c d
+print each param from "$@"
+a
+b
+c
+d
+```
+## 退出状态
+`$?` 可以获取上一个命令的退出状态。所谓退出状态，就是上一个命令执行后的返回结果。
+
+退出状态是一个数字，一般情况下，大部分命令执行成功会返回 0，失败返回 1。
+
+不过，也有一些命令返回其他值，表示不同类型的错误。
+
+下面例子中，命令`$./test.sh Zara Ali`成功执行输出：
+```
+File Name : ./test.sh
+First Parameter : Zara
+Second Parameter : Ali
+Quoted Values: Zara Ali
+Quoted Values: Zara Ali
+Total Number of Parameters : 2
+$echo $?
+0
+$
+```
+
+**`$?` 也可以表示函数的返回值**。
 
 # PATH环境变量
 
@@ -286,6 +457,11 @@ alias vi='vim'
     - **Ctrl + l – 清屏 （有时候为了好看）**
     - ctrl + z - 把命令放入后台，这个命令谨慎使用
     - **ctrl + r - 历史命令搜索**
+    - Alt + f - 光标向前（Forward）移动到下一个单词
+    - Alt + b - 光标往回（Backward）移动到前一个单词
+    - **Ctrl + w - 删除从光标位置前到当前所处单词（Word）的开头**
+    - Alt + d - 删除从光标位置到当前所处单词的末尾
+    - Ctrl + y - 粘贴最后一次被删除的单词
 
 
 
