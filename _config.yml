@@ -73,7 +73,7 @@ theme: next
 canvas_nest: false
 
 douban:
-    user: 14660354
+  user: 14660354
 # local search
 search:
   path: search.xml

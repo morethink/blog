@@ -25,7 +25,7 @@ keywords: 二分查找
 ```java
 int binarysearch(int array[], int low, int high, int target) {
     if (low > high) return -1;
-    int mid = (low + high) / 2;
+    int mid = low + (high - low) / 2;
     if (array[mid] > target)
         return binarysearch(array, low, mid - 1, target);
     if (array[mid] < target)
@@ -41,7 +41,7 @@ int bsearchWithoutRecursion(int a[], int key) {
     int low = 0;
     int high = a.length - 1;
     while (low <= high) {
-        int mid = (low + high) / 2;
+        int mid = low + (high - low) / 2;
         if (a[mid] > key)
             high = mid - 1;
         else if (a[mid] < key)
@@ -52,6 +52,14 @@ int bsearchWithoutRecursion(int a[], int key) {
     return -1;
 }
 ```
+
+# 二分查找中值的计算
+
+这是一个经典的话题，如何计算二分查找中的中值？大家一般给出了两种计算方法：
+- 算法一： `mid = (low + high) / 2`
+- 算法二： `mid = low + (high – low)/2`
+
+乍看起来，算法一简洁，算法二提取之后，跟算法一没有什么区别。但是实际上，区别是存在的。算法一的做法，在极端情况下，(low + high)存在着溢出的风险，进而得到错误的mid结果，导致程序错误。而算法二能够保证计算出来的mid，一定大于low，小于high，不存在溢出的问题。
 
 # 二分查找法的缺陷
 
@@ -64,3 +72,4 @@ int bsearchWithoutRecursion(int a[], int key) {
 
 **参考资料**：
 1. [二分查找法的实现和应用汇总](http://www.cnblogs.com/ider/archive/2012/04/01/binary_search.html)
+2. [二分查找(Binary Search)需要注意的问题，以及在数据库内核中的实现](http://hedengcheng.com/?p=595)

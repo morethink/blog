@@ -3,9 +3,9 @@ title: Linux常用命令
 date: 2017-07-30
 tags:
 categories: Linux
-photo: https://images.morethink.cn/Command-Line.webp
 ---
 
+![](https://images.morethink.cn/4115ca16f89d5c1d13146cd19e6ad6d5.png)
 本文记录一些在Linux系统下比较常用的命令。
 
 首先介绍下Linux下命令生效的顺序：
