@@ -82,6 +82,28 @@
   </entry>
   
   <entry>
+    <title>GitHub更新已经fork的项目</title>
+    <link href="https://www.morethink.cn/GitHub%E6%9B%B4%E6%96%B0%E5%B7%B2%E7%BB%8Ffork%E7%9A%84%E9%A1%B9%E7%9B%AE/"/>
+    <id>https://www.morethink.cn/GitHub更新已经fork的项目/</id>
+    <published>2018-04-21T16:00:00.000Z</published>
+    <updated>2018-05-23T16:31:20.473Z</updated>
+    
+    <content type="html"><![CDATA[<p>当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。</p><a id="more"></a><ol><li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li><li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure></li><li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p></li><li>切换到本地master分支<br><code>$ git checkout master</code></li><li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li><li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li></ol><p><strong>参考文档：</strong></p><ol><li>添加远程分支<br><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/configuring-a-remote-for-a-fork/</a></li><li>完成同步<br><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/syncing-a-fork/</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Cron表达式</title>
     <link href="https://www.morethink.cn/Cron%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     <id>https://www.morethink.cn/Cron表达式/</id>
@@ -108,28 +130,6 @@
     
       <category term="Linux" scheme="https://www.morethink.cn/categories/Linux/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>GitHub更新已经fork的项目</title>
-    <link href="https://www.morethink.cn/GitHub%E6%9B%B4%E6%96%B0%E5%B7%B2%E7%BB%8Ffork%E7%9A%84%E9%A1%B9%E7%9B%AE/"/>
-    <id>https://www.morethink.cn/GitHub更新已经fork的项目/</id>
-    <published>2018-04-21T16:00:00.000Z</published>
-    <updated>2018-05-23T16:31:20.473Z</updated>
-    
-    <content type="html"><![CDATA[<p>当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。</p><a id="more"></a><ol><li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li><li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure></li><li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p></li><li>切换到本地master分支<br><code>$ git checkout master</code></li><li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li><li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li></ol><p><strong>参考文档：</strong></p><ol><li>添加远程分支<br><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/configuring-a-remote-for-a-fork/</a></li><li>完成同步<br><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/syncing-a-fork/</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
     
   </entry>
   
@@ -250,9 +250,9 @@
       <category term="算法" scheme="https://www.morethink.cn/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="排序" scheme="https://www.morethink.cn/tags/%E6%8E%92%E5%BA%8F/"/>
-    
       <category term="链表" scheme="https://www.morethink.cn/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="排序" scheme="https://www.morethink.cn/tags/%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   
@@ -391,30 +391,6 @@
   </entry>
   
   <entry>
-    <title>Nginx Https配置不带www跳转www</title>
-    <link href="https://www.morethink.cn/Nginx-Https-no-www-jump-www/"/>
-    <id>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</id>
-    <published>2017-12-26T16:00:00.000Z</published>
-    <updated>2018-03-23T03:03:50.183Z</updated>
-    
-    <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p><a id="more"></a><p>配置如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>参考文档</strong>：</p><ol><li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li><li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。&lt;br&gt;然后将 &lt;a href=&quot;https://morethink.cn&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://morethink.cn&lt;/a&gt; 转到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 去。不过要在配置文件的 &lt;code&gt;server&lt;/code&gt; &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt;&lt;br&gt;上配置default_server ssl;。&lt;br&gt;301永久重定向可以把搜索引擎的权重全部集中到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 上。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="服务器" scheme="https://www.morethink.cn/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-    
-      <category term="Https" scheme="https://www.morethink.cn/tags/Https/"/>
-    
-      <category term="Nginx" scheme="https://www.morethink.cn/tags/Nginx/"/>
-    
-  </entry>
-  
-  <entry>
     <title>面试中的Https</title>
     <link href="https://www.morethink.cn/Https/"/>
     <id>https://www.morethink.cn/Https/</id>
@@ -439,6 +415,30 @@
     
     
       <category term="Https" scheme="https://www.morethink.cn/tags/Https/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nginx Https配置不带www跳转www</title>
+    <link href="https://www.morethink.cn/Nginx-Https-no-www-jump-www/"/>
+    <id>https://www.morethink.cn/Nginx-Https-no-www-jump-www/</id>
+    <published>2017-12-26T16:00:00.000Z</published>
+    <updated>2018-03-23T03:03:50.183Z</updated>
+    
+    <content type="html"><![CDATA[<p>把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。<br>然后将 <a href="https://morethink.cn" target="_blank" rel="noopener">https://morethink.cn</a> 转到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 去。不过要在配置文件的 <code>server</code> <a href="https://www.morethink.cn">https://www.morethink.cn</a><br>上配置default_server ssl;。<br>301永久重定向可以把搜索引擎的权重全部集中到 <a href="https://www.morethink.cn">https://www.morethink.cn</a> 上。</p><a id="more"></a><p>配置如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name morethink.cn,www.morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name morethink.cn;</span><br><span class="line">    return 301 https://www.morethink.cn$request_uri;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen 443 default_server ssl;</span><br><span class="line">    server_name  www.morethink.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate 1_www.morethink.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key 2_www.morethink.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    root         /var/www/hexo;</span><br><span class="line">    include /etc/nginx/default.d/*.conf;</span><br><span class="line">    error_page 404 /404.html;</span><br><span class="line">        location = /40x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page 500 502 503 504 /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>参考文档</strong>：</p><ol><li><a href="https://cloud.tencent.com/document/product/400/4143" target="_blank" rel="noopener">腾讯云 Nginx Https 证书安装指引</a></li><li><a href="https://docs.lvrui.io/2017/04/01/nginx%E9%85%8D%E7%BD%AEhttp%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BD%AChttps/" target="_blank" rel="noopener">nginx配置http强制跳转https</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;把 morethink.cn和www.morethink.cn合并到一个server上去，使用301永久重定向。&lt;br&gt;然后将 &lt;a href=&quot;https://morethink.cn&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://morethink.cn&lt;/a&gt; 转到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 去。不过要在配置文件的 &lt;code&gt;server&lt;/code&gt; &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt;&lt;br&gt;上配置default_server ssl;。&lt;br&gt;301永久重定向可以把搜索引擎的权重全部集中到 &lt;a href=&quot;https://www.morethink.cn&quot;&gt;https://www.morethink.cn&lt;/a&gt; 上。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="服务器" scheme="https://www.morethink.cn/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+    
+      <category term="Https" scheme="https://www.morethink.cn/tags/Https/"/>
+    
+      <category term="Nginx" scheme="https://www.morethink.cn/tags/Nginx/"/>
     
   </entry>
   
