@@ -7,7 +7,7 @@
 
 <html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -96,10 +96,12 @@
 <meta property="og:site_name" content="More Think">
 <meta property="og:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-22T12:06:17.639Z">
+<meta property="og:image" content="https://images.morethink.cn/4115ca16f89d5c1d13146cd19e6ad6d5.png">
+<meta property="og:updated_time" content="2018-05-31T04:24:03.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
 <meta name="twitter:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
+<meta name="twitter:image" content="https://images.morethink.cn/4115ca16f89d5c1d13146cd19e6ad6d5.png">
 
 
 
@@ -135,7 +137,7 @@
 
 
 
-  <title>Linux常用命令 | More Think</title>
+  <title>Linux常用命令 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -154,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 <a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -414,7 +416,7 @@
       
 
       
-        <p>本文记录一些在Linux系统下比较常用的命令。</p>
+        <p><img src="https://images.morethink.cn/4115ca16f89d5c1d13146cd19e6ad6d5.png" alt=""><br>本文记录一些在Linux系统下比较常用的命令。</p>
 <p>首先介绍下Linux下命令生效的顺序：</p>
 <ol>
 <li>第一顺位：执行绝对路径或者相对路径的命令</li>
@@ -458,6 +460,34 @@
 <ul>
 <li><code>rm -i file</code> 删除文件file，在删除之前会询问是否进行该操作  </li>
 <li><code>rm -fr dir</code>  强制删除目录dir中的所有文件</li>
+</ul>
+<h1 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h1><p>tar是linux上常用的打包、压缩、解压缩工具，它的参数很多，这里列举常用的压缩与解压缩参数。</p>
+<p>参数：</p>
+<ul>
+<li><code>-c</code>： <strong>建立压缩档案的参数</strong></li>
+<li><code>-x</code>： <strong>解压缩压缩档案的参数</strong></li>
+<li><code>-z</code>： 是否需要用<code>gzip</code>压缩</li>
+<li><code>-v</code>： 压缩的过程中显示档案</li>
+<li><code>-f</code>： 置顶文档名，在<code>-f</code>后面立即接文件名，不能再加参数</li>
+</ul>
+<h2 id="打包与解包"><a href="#打包与解包" class="headerlink" title="打包与解包"></a>打包与解包</h2><ul>
+<li><p>将整个/home/www/images 目录下的文件全部打包</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -cvf /home/www/images.tar /home/www/images ← 仅打包，不压缩</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解包到指定的目录</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar xvf filename.tar -C /specific dir</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="压缩与解压缩"><a href="#压缩与解压缩" class="headerlink" title="压缩与解压缩"></a>压缩与解压缩</h2><ul>
+<li><p>打包后，以gzip压缩，在参数f后面的压缩文件名是自己取的，习惯上用tar来做，如果加z参数，则以tar.gz 或tgz来代表gzip压缩过的tar file文件</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zcvf /home/www/images.tar.gz /home/www/images</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将 /home/www/images.tar.gz 解压到/home/www下面</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /home/www</span><br><span class="line">tar -zxvf /home/images.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压缩到指定的目录</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf /home/images.tar.gz -C /specific dir</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><p>该命令用于将某个时间点的进程运行情况选取下来并输出，process之意，它的常用参数如下：</p>
 <ul>
@@ -564,6 +594,62 @@
 <li>通过Bash调用执行脚本 ：<code>bash hello.sh</code></li>
 <li>首先赋予执行权限：<code>chmod 755 hello.sh</code>，然后就可以通过相对路径 <code>./hello.sh</code> 或者通过绝对路径 <code>/root/hello.sh</code>来执行。</li>
 </ol>
+<h2 id="Shell特殊变量：-0-和命令行参数"><a href="#Shell特殊变量：-0-和命令行参数" class="headerlink" title="Shell特殊变量：$0, $#, $*, $@, $?, $$和命令行参数"></a>Shell特殊变量：<code>$0</code>, <code>$#</code>, <code>$*</code>, <code>$@</code>, <code>$?</code>, <code>$$</code>和命令行参数</h2><p>变量名只能包含数字、字母和下划线，因为某些包含其他字符的变量有特殊含义，这样的变量被称为特殊变量。</p>
+<p>例如，<code>$$</code> 表示当前Shell进程的ID，即pid，看下面的代码：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span>echo $$</span><br></pre></td></tr></table></figure></p>
+<p>运行结果<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">29949</span><br></pre></td></tr></table></figure></p>
+<p><strong>特殊变量列表</strong>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">变量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>$0</code></td>
+<td>当前脚本的文件名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$n</code></td>
+<td>传递给脚本或函数的参数。n 是一个数字，表示第几个参数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$#</code></td>
+<td>传递给脚本或函数的参数个数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$*</code></td>
+<td>传递给脚本或函数的所有参数。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$@</code></td>
+<td>传递给脚本或函数的所有参数。被双引号(“ “)包含时，与 $* 稍有不同，下面将会讲到。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$?</code></td>
+<td>上个命令的退出状态，或函数的返回值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>$$</code></td>
+<td>当前Shell进程ID。对于 Shell 脚本，就是这些脚本所在的进程ID。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h2><p>运行脚本时传递给脚本的参数称为命令行参数。命令行参数用 <code>$n</code> 表示，例如，<code>$1</code> 表示第一个参数，<code>$2</code> 表示第二个参数，依次类推。</p>
+<p>请看下面的脚本：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">echo "File Name: $0"</span><br><span class="line">echo "First Parameter : $1"</span><br><span class="line">echo "First Parameter : $2"</span><br><span class="line">echo "Quoted Values: $@"</span><br><span class="line">echo "Quoted Values: $*"</span><br><span class="line">echo "Total Number of Parameters : $#"</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$./test.sh Zara Ali</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">File Name : ./test.sh</span><br><span class="line">First Parameter : Zara</span><br><span class="line">Second Parameter : Ali</span><br><span class="line">Quoted Values: Zara Ali</span><br><span class="line">Quoted Values: Zara Ali</span><br><span class="line">Total Number of Parameters : 2</span><br></pre></td></tr></table></figure>
+<h2 id="和-的区别"><a href="#和-的区别" class="headerlink" title="$* 和 $@ 的区别"></a><code>$*</code> 和 <code>$@</code> 的区别</h2><p><code>$*</code>和 <code>$@</code> 都表示传递给函数或脚本的所有参数，不被双引号(“ “)包含时，都以<code>&quot;$1&quot;</code> <code>&quot;$2&quot;</code> … <code>&quot;$n&quot;</code> 的形式输出所有参数。</p>
+<p>但是当它们被双引号(“ “)包含时，<code>&quot;$*&quot;</code> 会将所有的参数作为一个整体，以”<code>$1</code> <code>$2</code> … <code>$n</code>“的形式输出所有参数；<code>&quot;$@&quot;</code> 会将各个参数分开，以<code>&quot;$1&quot;</code> <code>&quot;$2&quot;</code> … <code>&quot;$n&quot;</code> 的形式输出所有参数。</p>
+<p>下面的例子可以清楚的看到 <code>$*</code> 和 <code>$@</code>的区别：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">echo "\$*=" $*</span><br><span class="line">echo "\"\$*\"=" "$*"</span><br><span class="line">echo "\$@=" $@</span><br><span class="line">echo "\"\$@\"=" "$@"</span><br><span class="line">echo "print each param from \$*"</span><br><span class="line">for var in $*</span><br><span class="line">do</span><br><span class="line">    echo "$var"</span><br><span class="line">done</span><br><span class="line">echo "print each param from \$@"</span><br><span class="line">for var in $@</span><br><span class="line">do</span><br><span class="line">    echo "$var"</span><br><span class="line">done</span><br><span class="line">echo "print each param from \"\$*\""</span><br><span class="line">for var in "$*"</span><br><span class="line">do</span><br><span class="line">    echo "$var"</span><br><span class="line">done</span><br><span class="line">echo "print each param from \"\$@\""</span><br><span class="line">for var in "$@"</span><br><span class="line">do</span><br><span class="line">    echo "$var"</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>执行 ./test.sh “a” “b” “c” “d”，看到下面的结果：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$*=  a b c d</span><br><span class="line">&quot;$*&quot;= a b c d</span><br><span class="line">$@=  a b c d</span><br><span class="line">&quot;$@&quot;= a b c d</span><br><span class="line">print each param from $*</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br><span class="line">print each param from $@</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br><span class="line">print each param from &quot;$*&quot;</span><br><span class="line">a b c d</span><br><span class="line">print each param from &quot;$@&quot;</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">c</span><br><span class="line">d</span><br></pre></td></tr></table></figure></p>
+<h2 id="退出状态"><a href="#退出状态" class="headerlink" title="退出状态"></a>退出状态</h2><p><code>$?</code> 可以获取上一个命令的退出状态。所谓退出状态，就是上一个命令执行后的返回结果。</p>
+<p>退出状态是一个数字，一般情况下，大部分命令执行成功会返回 0，失败返回 1。</p>
+<p>不过，也有一些命令返回其他值，表示不同类型的错误。</p>
+<p>下面例子中，命令<code>$./test.sh Zara Ali</code>成功执行输出：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">File Name : ./test.sh</span><br><span class="line">First Parameter : Zara</span><br><span class="line">Second Parameter : Ali</span><br><span class="line">Quoted Values: Zara Ali</span><br><span class="line">Quoted Values: Zara Ali</span><br><span class="line">Total Number of Parameters : 2</span><br><span class="line">$echo $?</span><br><span class="line">0</span><br><span class="line">$</span><br></pre></td></tr></table></figure></p>
+<p><strong><code>$?</code> 也可以表示函数的返回值</strong>。</p>
 <h1 id="PATH环境变量"><a href="#PATH环境变量" class="headerlink" title="PATH环境变量"></a>PATH环境变量</h1><p>下面的第一种方式关机后会失效，相当于临时环境变量，后面两种都是写进了系统配置，因此会永久生效。</p>
 <ol>
 <li>直接用export命令 <code>export PATH=$PATH:/usr/local/src/node-v0.10.24/node_modules/node-sass/bin</code></li>
@@ -619,6 +705,11 @@
 <li><strong>Ctrl + l – 清屏 （有时候为了好看）</strong></li>
 <li>ctrl + z - 把命令放入后台，这个命令谨慎使用</li>
 <li><strong>ctrl + r - 历史命令搜索</strong></li>
+<li>Alt + f - 光标向前（Forward）移动到下一个单词</li>
+<li>Alt + b - 光标往回（Backward）移动到前一个单词</li>
+<li><strong>Ctrl + w - 删除从光标位置前到当前所处单词（Word）的开头</strong></li>
+<li>Alt + d - 删除从光标位置到当前所处单词的末尾</li>
+<li>Ctrl + y - 粘贴最后一次被删除的单词</li>
 </ul>
 </li>
 </ol>
@@ -876,7 +967,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">1.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">2.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">3.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">4.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">5.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">6.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">7.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">8.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">9.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">10.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">11.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">12.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">12.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">12.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">12.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">12.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">13.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">14.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">15.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行多个命令"><span class="nav-number">16.</span> <span class="nav-text">执行多个命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行shell脚本"><span class="nav-number">17.</span> <span class="nav-text">执行shell脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATH环境变量"><span class="nav-number">18.</span> <span class="nav-text">PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行快捷键"><span class="nav-number">19.</span> <span class="nav-text">命令行快捷键</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">1.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">2.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">3.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar"><span class="nav-number">4.</span> <span class="nav-text">tar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打包与解包"><span class="nav-number">4.1.</span> <span class="nav-text">打包与解包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩与解压缩"><span class="nav-number">4.2.</span> <span class="nav-text">压缩与解压缩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">5.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">6.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">7.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">8.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">9.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">10.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">11.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">12.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">13.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">13.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">13.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">13.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">13.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">14.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">15.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">16.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行多个命令"><span class="nav-number">17.</span> <span class="nav-text">执行多个命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行shell脚本"><span class="nav-number">18.</span> <span class="nav-text">执行shell脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell特殊变量：-0-和命令行参数"><span class="nav-number">18.1.</span> <span class="nav-text">Shell特殊变量：$0, $#, $*, $@, $?, $$和命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行参数"><span class="nav-number">18.2.</span> <span class="nav-text">命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和-的区别"><span class="nav-number">18.3.</span> <span class="nav-text">$* 和 $@ 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#退出状态"><span class="nav-number">18.4.</span> <span class="nav-text">退出状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATH环境变量"><span class="nav-number">19.</span> <span class="nav-text">PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行快捷键"><span class="nav-number">20.</span> <span class="nav-text">命令行快捷键</span></a></li></ol></div>
             
 
           </div>
@@ -1505,7 +1596,24 @@
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
   
