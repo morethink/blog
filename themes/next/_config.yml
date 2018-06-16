@@ -89,7 +89,8 @@ menu:
   tags: /tags/ || tags
   archives: /archives/ || archive
   about: /about/ || user
-  book: /douban/
+  books: /books/
+  movies: /movies/
   resume: https://resume.morethink.cn
   # schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap

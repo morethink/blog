@@ -72,8 +72,20 @@ theme: next
 # see detail from https://github.com/hustcc/canvas-nest.js
 canvas_nest: false
 
+# douban:
+#   user: 14660354
+
 douban:
   user: 14660354
+  builtin: true
+  book:
+    title: '读书'
+    quote: '读书是一种生活态度，明辨，笃行。'
+  movie:
+    title: '电影'
+    quote: '看看别人的生活'
+  timeout: 10000
+
 # local search
 search:
   path: search.xml
