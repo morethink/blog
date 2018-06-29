@@ -22,7 +22,8 @@ categories: 算法
 
 
 它们都属于内部排序，也就是只考虑数据量较小仅需要使用内存的排序算法，他们之间关系如下：
-$$\begin{cases}内部排序 \begin{cases}插入排序\begin{cases}直接插入排序\\希尔排序\end{cases}\\选择排序\begin{cases}简单选择排序\\堆排序\end{cases}\\交换排序\begin{cases}冒泡排序\\快速排序 \end{cases}\\归并排序\\
+$$
+\begin{cases}内部排序 \begin{cases}插入排序\begin{cases}直接插入排序\\希尔排序\end{cases}\\选择排序\begin{cases}简单选择排序\\堆排序\end{cases}\\交换排序\begin{cases}冒泡排序\\快速排序 \end{cases}\\归并排序\\
 基数排序\end{cases}\\外部排序 \end{cases}
 $$
 

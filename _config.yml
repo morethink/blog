@@ -80,7 +80,7 @@ douban:
   builtin: true
   book:
     title: '读书'
-    quote: '读书是一种生活态度，明辨，笃行。'
+    quote: 'It’s not over until I win.'
   movie:
     title: '电影'
     quote: '看看别人的生活'
