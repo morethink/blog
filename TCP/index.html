@@ -100,7 +100,7 @@
 <meta property="og:image" content="https://images.morethink.cn/cf6a1ce659c9b81d49a4ae3ccc3c2df5.png">
 <meta property="og:image" content="https://images.morethink.cn/13101915439696.jpg">
 <meta property="og:image" content="https://images.morethink.cn/c6f967f1bbd18ddafcfef14669c8fca7.png">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.187Z">
+<meta property="og:updated_time" content="2018-06-27T13:24:42.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试中的TCP协议">
 <meta name="twitter:description" content="TCP的三次握手和四次挥手三次握手TCP连接是通过三次握手来连接的。 第一次握手 当客户端向服务器发起连接请求时，客户端会发送同步序列标号SYN到服务器，在这里我们设SYN为x，等待服务器确认，这时客户端的状态为SYN_SENT。">
@@ -450,14 +450,24 @@
 <p>A端收到B端发送的<code>FIN</code>后，会向B端发送确认<code>ACK</code>，然后经过两个MSL时长后断开连接。</p>
 <p>MSL是Maximum Segment Lifetime，最大报文段生存时间，2个MSL是报文段发送和接收的最长时间。</p>
 <h2 id="两次握手可以么？"><a href="#两次握手可以么？" class="headerlink" title="两次握手可以么？"></a>两次握手可以么？</h2><p>TCP连接时是三次握手，那么两次握手可行吗？</p>
-<p>在《计算机网络》中是这样解释的：已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送<code>ACK</code>包。这样就会白白浪费资源。</p>
+<p>在谢希仁著《计算机网络》第六版中讲”三次握手”的目的是”为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误”。</p>
+<p>假定出现一种异常情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送<code>ACK</code>包。这样就会白白浪费资源。</p>
 <p>而经过三次握手，客户端和服务器都有应有答，这样可以确保TCP正确连接。</p>
 <h2 id="为什么TCP连接是三次，挥手确是四次？"><a href="#为什么TCP连接是三次，挥手确是四次？" class="headerlink" title="为什么TCP连接是三次，挥手确是四次？"></a>为什么TCP连接是三次，挥手确是四次？</h2><p>在TCP连接中，服务器端的<code>SYN</code>和<code>ACK</code>向客户端发送是一次性发送的，而在断开连接的过程中，B端向A端发送的<code>ACK</code>和<code>FIN</code>是是分两次发送的。因为在B端接收到A端的<code>FIN</code>后，B端可能还有数据要传输，所以先发送<code>ACK</code>，等B端处理完自己的事情后就可以发送<code>FIN</code>断开连接了。</p>
 <h2 id="为什么在第四次挥手后会有2个MSL的延时？"><a href="#为什么在第四次挥手后会有2个MSL的延时？" class="headerlink" title="为什么在第四次挥手后会有2个MSL的延时？"></a>为什么在第四次挥手后会有2个MSL的延时？</h2><p>前文说到:<br>MSL是Maximum Segment Lifetime，最大报文段生存时间，2个MSL是报文段发送和接收的最长时间。</p>
 <p>假定网络不可靠，那么第四次发送的<code>ACK</code>可能丢失，即B端无法收到这个<code>ACK</code>，如果B端收不到这个确认<code>ACK</code>，B端会定时向A端重复发送<code>FIN</code>，直到B端收到A的确认<code>ACK</code>。所以这个2MSL就是用来处理这个可能丢失的<code>ACK</code>的。</p>
-<h1 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h1><p>滑动窗口协议是传输层进行流控的一种措施，接收方通过通告发送方自己的窗口大小，从而控制发送方的发送速度，从而达到防止发送方发送速度过快而导致自己被淹没的目的。</p>
-<p>ack通常被理解为收到数据后给出的一个确认，事实上该确认是指接收端已经收到确认帧以前的所有的帧。举个例子，假如接收端收到 1-1024字节，它会发送一个确认号为1025的ACK，但是接下来收到的是2049-3072，它是不会发送确认号为3072的ACK,而依旧发送 1025的ACK。</p>
-<p>滑动窗口协议如图所示：<br><img src="https://images.morethink.cn/cf6a1ce659c9b81d49a4ae3ccc3c2df5.png" alt="" title="滑动窗口协议"></p>
+<h1 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h1><p>一般说来，我们总是希望数据传输得更快一些。但如果发送方把数据发送得过快，接收方可能来不及接收，这就会造成数据的丢失。所谓 <strong>流量控制(flow contrl)</strong> 就是 <strong>让发送方的发送速率不要太快，要让接收方来得及接收</strong> 。</p>
+<p>TCP利用滑动窗口机制实现对发送方的流量控制，发送方的发送窗口不可以大于接收方给出的接收窗口的大小。窗口两个边沿的相对运动增加或减少了窗口的大小。当接收方没有缓存可用，会发送零窗口大小的报文，此时发送方不能够发送任何数据。</p>
+<p>TCP的窗口单位是字节，不是报文段。</p>
+<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>滑动窗口协议是传输层进行流控的一种措施，接收方通过通告发送方自己的窗口大小，从而控制发送方的发送速度，从而达到防止发送方发送速度过快而导致自己被淹没的目的。</p>
+<p>TCP滑动窗口分为接受窗口，发送窗口。</p>
+<p>对ACK的再认识，ack通常被理解为收到数据后给出的一个确认ACK，ACK包含两个非常重要的信息：</p>
+<ol>
+<li>期望接收到的下一字节的序号n，该n代表接收方已经接收到了前n-1字节数据，此时如果接收方收到第n+1字节数据而不是第n字节数据，接收方是不会发送序号为n+2的ACK的。举个例子，假如接收端收到1-1024字节，它会发送一个确认号为1025的ACK,但是接下来收到的是2049-3072，它是不会发送确认号为3072的ACK,而依旧发送1025的ACK。</li>
+<li>是当前的窗口大小m，如此发送方在接收到ACK包含的这两个数据后就可以计算出还可以发送多少字节的数据给对方，假定当前发送方已发送到第x字节，则可以发送的字节数就是y=m-(x-n).</li>
+</ol>
+<p>重点：<br>发送方根据收到ACK当中的期望收到的下一个字节的序号n以及窗口m，还有当前已经发送的字节序号x，算出还可以发送的字节数。</p>
+<p>滑动窗口协议如图所示：<br><img src="https://images.morethink.cn/cf6a1ce659c9b81d49a4ae3ccc3c2df5.png" alt=""></p>
 <p>在这个图中，我们将字节从1至11进行标号。接收方通告的窗口称为提出的窗口，它覆盖了从第4字节到第9字节的区域，表明接收方已经确认了包括第3字节在内的数据，且通告窗口大小为6。我们知道窗口大小是与确认序号相对应的。发送方计算它的可用窗口，该窗口表明多少数据可以立即被发送。当接收方确认数据后，这个滑动窗口不时地向右移动。窗口两个边沿的相对运动增加或减少了窗口的大小。我们使用三个术语来描述窗口左右边沿的运动：</p>
 <ul>
 <li>窗口左边沿向右边沿靠近为窗口合拢。这种现象发生在数据被发送和确认时。</li>
@@ -467,9 +477,6 @@
 <p>每个TCP连接有发送窗口和接收窗口这两个窗口。</p>
 <p>TCP是双工的协议，会话的双方都可以同时接收、发送数据。</p>
 <p>TCP会话的双方都各自维护一个“发送窗口”和一个“接收窗口”。其中各自的“接收窗口”大小取决于应用、系统、硬件的限制（TCP传输速率不能大于应用的数据处理速率）。各自的“发送窗口”则要求取决于对端通告的“接收窗口”，要求相同。</p>
-<h1 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h1><p>一般说来，我们总是希望数据传输得更快一些。但如果发送方把数据发送得过快，接收方可能来不及接收，这就会造成数据的丢失。所谓 <strong>流量控制(flow contrl)</strong> 就是 <strong>让发送方的发送速率不要太快，要让接收方来得及接收</strong> 。</p>
-<p>TCP利用滑动窗口机制实现对发送方的流量控制，发送方的发送窗口不可以大于接收方给出的接收窗口的大小。窗口两个边沿的相对运动增加或减少了窗口的大小。当接收方没有缓存可用，会发送零窗口大小的报文，此时发送方不能够发送任何数据。</p>
-<p>TCP的窗口单位是字节，不是报文段。</p>
 <h1 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h1><p>在计算机网络中的链路容量(即带宽)、交换节点中的缓存和处理机等，都是网络中的资源。在某段时间，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络的性能就会变坏。这种情况就叫做 <strong>拥塞</strong>。</p>
 <p><strong>拥塞控制</strong> 就是 <strong>防止过多的数据注入网络中，这样可以使网络中的路由器或链路不致过载</strong>。</p>
 <p>拥塞控制是一个全局性的过程，和流量控制不同，流量控制指点对点通信量的控制。</p>
@@ -510,6 +517,17 @@
 </ul>
 <p><strong>注意</strong>：</p>
 <p>TCP 并不能保证数据一定会被对方接收到，因为这是不可能的。TCP 能够做到的是，如果有可能，就把数据递送到接收方，否则就（通过放弃重传并且中断连接这一手段）通知用户。因此准确说 TCP 也不是 100% 可靠的协议，它所能提供的是数据的可靠递送或故障的可靠通知。</p>
+<p>TCP的可靠性应该是相对于UDP不可靠传输来说的，因为UDP提供的是不可靠的数据报服务，不保证数据报能到达接收端，可能会有丢失；另外处于传输层之下的IP层也是不可靠的，仅提供尽力而为的端到端数据传输服务（best-effort delivery service），不作任何保证。所以TCP的可靠性是指基于不可靠的IP层在传输层提供可靠的数据传输服务，主要是指传输数据不会损坏或丢失，而且所有数据都是按照发送顺序进行传送。</p>
+<p>实现TCP的可靠传输有以下机制：</p>
+<ol>
+<li>校验和（校验数据是否损坏</li>
+<li>定时器（分组丢失则重传）</li>
+<li>序号（用于检测丢失的分组和冗余的分组）</li>
+<li>确认（接收方告知发送方正确接收分组以及期望的下一个分组）</li>
+<li>否定确认（接收方通知发送方未被正确接收的分组）</li>
+<li>窗口和流水线（用于增加信道的吞吐量）。</li>
+</ol>
+<p>至于数据是否在中途被修改或者被窃听，这应该是属于安全性问题。提高安全性最根本的办法就是加密数据，比如远程登录用ssh而非telnet。</p>
 <h1 id="TCP、UDP对应的协议"><a href="#TCP、UDP对应的协议" class="headerlink" title="TCP、UDP对应的协议"></a>TCP、UDP对应的协议</h1><h2 id="TCP对应的协议"><a href="#TCP对应的协议" class="headerlink" title="TCP对应的协议"></a>TCP对应的协议</h2><ol>
 <li>FTP：定义了文件传输协议，使用21端口。</li>
 <li>Telnet：一种用于远程登陆的端口，使用23端口，用户可以以自己的身份远程连接到计算机上，可提供基于DOS模式下的通信服务。</li>
@@ -610,8 +628,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/sso/" rel="next" title="单点登录原理与简单实现">
-                <i class="fa fa-chevron-left"></i> 单点登录原理与简单实现
+              <a href="/SpringMVC-Knowledge-finishing/" rel="next" title="SpringMVC 知识整理">
+                <i class="fa fa-chevron-left"></i> SpringMVC 知识整理
               </a>
             
           </div>
@@ -620,8 +638,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Java-openoffice-pdf/" rel="prev" title="Java使用Openoffice将word、ppt转换为PDF">
-                Java使用Openoffice将word、ppt转换为PDF <i class="fa fa-chevron-right"></i>
+              <a href="/sso/" rel="prev" title="单点登录原理与简单实现">
+                单点登录原理与简单实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -710,7 +728,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -721,7 +739,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -732,7 +750,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -788,7 +806,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP的三次握手和四次挥手"><span class="nav-number">1.</span> <span class="nav-text">TCP的三次握手和四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三次握手"><span class="nav-number">1.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四次挥手"><span class="nav-number">1.2.</span> <span class="nav-text">四次挥手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两次握手可以么？"><span class="nav-number">1.3.</span> <span class="nav-text">两次握手可以么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么TCP连接是三次，挥手确是四次？"><span class="nav-number">1.4.</span> <span class="nav-text">为什么TCP连接是三次，挥手确是四次？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么在第四次挥手后会有2个MSL的延时？"><span class="nav-number">1.5.</span> <span class="nav-text">为什么在第四次挥手后会有2个MSL的延时？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#滑动窗口"><span class="nav-number">2.</span> <span class="nav-text">滑动窗口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP流量控制"><span class="nav-number">3.</span> <span class="nav-text">TCP流量控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP拥塞控制"><span class="nav-number">4.</span> <span class="nav-text">TCP拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#慢开始和拥塞避免"><span class="nav-number">4.1.</span> <span class="nav-text">慢开始和拥塞避免</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快重传和快恢复"><span class="nav-number">4.2.</span> <span class="nav-text">快重传和快恢复</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP和UDP的区别"><span class="nav-number">5.</span> <span class="nav-text">TCP和UDP的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP、UDP对应的协议"><span class="nav-number">6.</span> <span class="nav-text">TCP、UDP对应的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP对应的协议"><span class="nav-number">6.1.</span> <span class="nav-text">TCP对应的协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP对应的协议"><span class="nav-number">6.2.</span> <span class="nav-text">UDP对应的协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SYN攻击"><span class="nav-number">7.</span> <span class="nav-text">SYN攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-SYN-攻击（SYN-Flood）？"><span class="nav-number">7.1.</span> <span class="nav-text">什么是 SYN 攻击（SYN Flood）？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测-SYN-攻击？"><span class="nav-number">7.2.</span> <span class="nav-text">如何检测 SYN 攻击？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何防御-SYN-攻击？"><span class="nav-number">7.3.</span> <span class="nav-text">如何防御 SYN 攻击？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP的三次握手和四次挥手"><span class="nav-number">1.</span> <span class="nav-text">TCP的三次握手和四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#三次握手"><span class="nav-number">1.1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四次挥手"><span class="nav-number">1.2.</span> <span class="nav-text">四次挥手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两次握手可以么？"><span class="nav-number">1.3.</span> <span class="nav-text">两次握手可以么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么TCP连接是三次，挥手确是四次？"><span class="nav-number">1.4.</span> <span class="nav-text">为什么TCP连接是三次，挥手确是四次？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么在第四次挥手后会有2个MSL的延时？"><span class="nav-number">1.5.</span> <span class="nav-text">为什么在第四次挥手后会有2个MSL的延时？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP流量控制"><span class="nav-number">2.</span> <span class="nav-text">TCP流量控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口"><span class="nav-number">2.1.</span> <span class="nav-text">滑动窗口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP拥塞控制"><span class="nav-number">3.</span> <span class="nav-text">TCP拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#慢开始和拥塞避免"><span class="nav-number">3.1.</span> <span class="nav-text">慢开始和拥塞避免</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快重传和快恢复"><span class="nav-number">3.2.</span> <span class="nav-text">快重传和快恢复</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP和UDP的区别"><span class="nav-number">4.</span> <span class="nav-text">TCP和UDP的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP、UDP对应的协议"><span class="nav-number">5.</span> <span class="nav-text">TCP、UDP对应的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP对应的协议"><span class="nav-number">5.1.</span> <span class="nav-text">TCP对应的协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP对应的协议"><span class="nav-number">5.2.</span> <span class="nav-text">UDP对应的协议</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SYN攻击"><span class="nav-number">6.</span> <span class="nav-text">SYN攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-SYN-攻击（SYN-Flood）？"><span class="nav-number">6.1.</span> <span class="nav-text">什么是 SYN 攻击（SYN Flood）？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何检测-SYN-攻击？"><span class="nav-number">6.2.</span> <span class="nav-text">如何检测 SYN 攻击？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何防御-SYN-攻击？"><span class="nav-number">6.3.</span> <span class="nav-text">如何防御 SYN 攻击？</span></a></li></ol></li></ol></div>
             
 
           </div>
