@@ -100,7 +100,7 @@
 <meta property="og:image" content="https://images.morethink.cn/cf6a1ce659c9b81d49a4ae3ccc3c2df5.png">
 <meta property="og:image" content="https://images.morethink.cn/13101915439696.jpg">
 <meta property="og:image" content="https://images.morethink.cn/c6f967f1bbd18ddafcfef14669c8fca7.png">
-<meta property="og:updated_time" content="2018-06-27T13:24:42.154Z">
+<meta property="og:updated_time" content="2018-06-29T16:06:35.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试中的TCP协议">
 <meta name="twitter:description" content="TCP的三次握手和四次挥手三次握手TCP连接是通过三次握手来连接的。 第一次握手 当客户端向服务器发起连接请求时，客户端会发送同步序列标号SYN到服务器，在这里我们设SYN为x，等待服务器确认，这时客户端的状态为SYN_SENT。">
@@ -516,11 +516,12 @@
 <li>TCP数据传输慢，UDP数据传输快。</li>
 </ul>
 <p><strong>注意</strong>：</p>
-<p>TCP 并不能保证数据一定会被对方接收到，因为这是不可能的。TCP 能够做到的是，如果有可能，就把数据递送到接收方，否则就（通过放弃重传并且中断连接这一手段）通知用户。因此准确说 TCP 也不是 100% 可靠的协议，它所能提供的是数据的可靠递送或故障的可靠通知。</p>
-<p>TCP的可靠性应该是相对于UDP不可靠传输来说的，因为UDP提供的是不可靠的数据报服务，不保证数据报能到达接收端，可能会有丢失；另外处于传输层之下的IP层也是不可靠的，仅提供尽力而为的端到端数据传输服务（best-effort delivery service），不作任何保证。所以TCP的可靠性是指基于不可靠的IP层在传输层提供可靠的数据传输服务，主要是指传输数据不会损坏或丢失，而且所有数据都是按照发送顺序进行传送。</p>
+<p>TCP 并不能保证数据一定会被对方接收到，因为这是不可能的。</p>
+<p>TCP的可靠性应该是相对于UDP不可靠传输来说的，因为UDP提供的是不可靠的数据报服务，不保证数据报能到达接收端，可能会有丢失；另外处于传输层之下的IP层也是不可靠的，仅提供尽力而为的端到端数据传输服务（best-effort delivery service），不作任何保证。</p>
+<p>所以TCP的可靠性是指基于不可靠的IP层在传输层提供可靠的数据传输服务，如果有可能，就把数据递送到接收方，否则就（通过放弃重传并且中断连接这一手段）通知用户。因此准确说 TCP 也不是 100% 可靠的协议，它所能提供的是数据的可靠递送或故障的可靠通知。</p>
 <p>实现TCP的可靠传输有以下机制：</p>
 <ol>
-<li>校验和（校验数据是否损坏</li>
+<li>校验和（校验数据是否损坏）</li>
 <li>定时器（分组丢失则重传）</li>
 <li>序号（用于检测丢失的分组和冗余的分组）</li>
 <li>确认（接收方告知发送方正确接收分组以及期望的下一个分组）</li>
@@ -628,8 +629,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/SpringMVC-Knowledge-finishing/" rel="next" title="SpringMVC 知识整理">
-                <i class="fa fa-chevron-left"></i> SpringMVC 知识整理
+              <a href="/sso/" rel="next" title="单点登录原理与简单实现">
+                <i class="fa fa-chevron-left"></i> 单点登录原理与简单实现
               </a>
             
           </div>
@@ -638,8 +639,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/sso/" rel="prev" title="单点登录原理与简单实现">
-                单点登录原理与简单实现 <i class="fa fa-chevron-right"></i>
+              <a href="/Java-openoffice-pdf/" rel="prev" title="Java使用Openoffice将word、ppt转换为PDF">
+                Java使用Openoffice将word、ppt转换为PDF <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -728,7 +729,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -750,7 +751,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
