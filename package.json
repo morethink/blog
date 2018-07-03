@@ -23,7 +23,7 @@
     "hexo-math": "^3.0.4",
     "hexo-pdf": "^1.1.1",
     "hexo-renderer-ejs": "^0.2.0",
-    "hexo-renderer-marked": "^0.2.10",
+    "hexo-renderer-marked": "^0.3.2",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0",
     "hexo-util": "^0.6.2",

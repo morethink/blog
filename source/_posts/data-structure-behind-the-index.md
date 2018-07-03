@@ -1,5 +1,5 @@
 ---
-title: 索引背后的数据结构(B-/+Tree)
+title: 数据库索引背后的数据结构(B-/+Tree)
 date: 2018-07-01
 tags:
     - 索引
@@ -164,7 +164,7 @@ B-Tree中一次检索最多需要h-1次I/O（根节点常驻内存），渐进�
 上文还说过，B+Tree更适合外存索引，原因和内节点出度d有关。从上面分析可以看到，d越大索引的性能越好，而出度的上限取决于节点内key和data的大小：
 
 $$
-d_{max}=floor(pagesize/(keysize+datasize+pointsize))
+d_{max}=floor({pagesize \over keysize+datasize+pointsize})
 $$
 
 floor表示向下取整。
