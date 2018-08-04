@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="More Think">
 <meta property="og:description" content="国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。 下面通过更改Git配置文件对不同的域名使用不同的代理配置。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-04T05:01:21.842Z">
+<meta property="og:updated_time" content="2018-08-04T09:51:45.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git为某个域名设置代理">
 <meta name="twitter:description" content="国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。 下面通过更改Git配置文件对不同的域名使用不同的代理配置。">
@@ -426,10 +426,10 @@
 <p>下面通过更改Git配置文件对不同的域名使用不同的代理配置。<br><br><a id="more"></a></p>
 <ol>
 <li><p>打开Git 配置文件</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>添加如下配置：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -519,6 +519,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/Java-unzip/" rel="prev" title="Java解压缩.zip、.tar.gz、.tar.bz2(支持中文)">
+                Java解压缩.zip、.tar.gz、.tar.bz2(支持中文) <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -596,7 +600,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

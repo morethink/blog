@@ -88,17 +88,18 @@
 
 
 
-<meta name="description" content="经史子集，了然于胸。谈笑之间，代码写就。">
+<meta name="description" content="本文介绍Java解压缩.zip、.tar.gz、.tar.bz2的方式。  对于zip文件：使用java.util.zip.ZipEntry 和 java.util.zip.ZipFile，通过设置Charset为StandardCharsets.UTF_8支持中文。 对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用commons-compress包的TarAr">
 <meta name="keywords" content="Web,HTML">
-<meta property="og:type" content="website">
-<meta property="og:title" content="More Think">
-<meta property="og:url" content="https://www.morethink.cn/archives/page/6/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java解压缩.zip、.tar.gz、.tar.bz2(支持中文)">
+<meta property="og:url" content="https://www.morethink.cn/Java-unzip/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="经史子集，了然于胸。谈笑之间，代码写就。">
+<meta property="og:description" content="本文介绍Java解压缩.zip、.tar.gz、.tar.bz2的方式。  对于zip文件：使用java.util.zip.ZipEntry 和 java.util.zip.ZipFile，通过设置Charset为StandardCharsets.UTF_8支持中文。 对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用commons-compress包的TarAr">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-04T10:11:27.997Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="More Think">
-<meta name="twitter:description" content="经史子集，了然于胸。谈笑之间，代码写就。">
+<meta name="twitter:title" content="Java解压缩.zip、.tar.gz、.tar.bz2(支持中文)">
+<meta name="twitter:description" content="本文介绍Java解压缩.zip、.tar.gz、.tar.bz2的方式。  对于zip文件：使用java.util.zip.ZipEntry 和 java.util.zip.ZipFile，通过设置Charset为StandardCharsets.UTF_8支持中文。 对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用commons-compress包的TarAr">
 
 
 
@@ -128,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/archives/page/6/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Java-unzip/"/>
 
 
 
 
 
-  <title>归档 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Java解压缩.zip、.tar.gz、.tar.bz2(支持中文) | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -153,7 +154,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-archive">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 <a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -303,415 +304,238 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      <span class="archive-page-counter">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Java-unzip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h2 class="post-title" itemprop="name headline">Java解压缩.zip、.tar.gz、.tar.bz2(支持中文)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T00:00:00+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        好! 目前共计 60 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2017">2017</h2>
-          </div>
-        
-        
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/Linux-Java/" itemprop="url">
-              
-                <span itemprop="name">CentOS7下 Java、Tomcat、MySQL、Maven热部署</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-25T00:00:00+08:00"
-              content="2017-04-25" >
-          04-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/Nginx-Cross-Domain/" itemprop="url">
-              
-                <span itemprop="name">前端通过Nginx反向代理解决跨域问题</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-27T00:00:00+08:00"
-              content="2017-03-27" >
-          03-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SpringMVC解决跨域问题/" itemprop="url">
-              
-                <span itemprop="name">SpringMVC解决跨域问题</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-09T00:00:00+08:00"
-              content="2017-03-09" >
-          03-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SpringMVC-Empty-String-To-Null/" itemprop="url">
-              
-                <span itemprop="name">SpringMVC空字符串转为null</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-02-23T00:00:00+08:00"
-              content="2017-02-23" >
-          02-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/什么是优秀的程序员/" itemprop="url">
-              
-                <span itemprop="name">什么是优秀的程序员</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-02-20T00:00:00+08:00"
-              content="2017-02-20" >
-          02-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/Nginx-Load-Balancing-under-Windows/" itemprop="url">
-              
-                <span itemprop="name">Windows下Nginx实现负载均衡</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-02-11T00:00:00+08:00"
-              content="2017-02-11" >
-          02-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/SpringMVC-Achieve-RESTful-And-Put-With-File-Upload/" itemprop="url">
-              
-                <span itemprop="name">SpringMVC实现PUT请求上传文件</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-02-08T00:00:00+08:00"
-              content="2017-02-08" >
-          02-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2016">2016</h2>
-          </div>
-        
-        
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Java-unzip/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Java-unzip/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
 
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/Servlet/" itemprop="url">
-              
-                <span itemprop="name">Servlet 浅析</span>
-              
-            </a>
-        
-      </h3>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-12-11T00:00:00+08:00"
-              content="2016-12-11" >
-          12-11
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/JSP与HTML及前后分离/" itemprop="url">
-              
-                <span itemprop="name">JSP与HTML及前后分离</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-21T00:00:00+08:00"
-              content="2016-10-21" >
-          10-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/String/" itemprop="url">
-              
-                <span itemprop="name">String解析</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-09-16T00:00:00+08:00"
-              content="2016-09-16" >
-          09-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <p>本文介绍Java解压缩.zip、.tar.gz、.tar.bz2的方式。</p>
+<ol>
+<li>对于zip文件：使用<code>java.util.zip.ZipEntry</code> 和 <code>java.util.zip.ZipFile</code>，通过设置<code>Charset</code>为<code>StandardCharsets.UTF_8</code>支持中文。</li>
+<li>对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>GzipCompressorInputStream</code>。</li>
+<li>对于.tar.bz2文件：可以看做先用tar打包，再使用bz2进行压缩。使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>BZip2CompressorInputStream</code>。</li>
+</ol>
+<p>在这里有个问题如果使用<code>TarInputStream</code>搭配jdk的 <code>GZIPInputStream</code>会产生乱码。而使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>GzipCompressorInputStream</code>则可解决乱码问题。</p>
+<a id="more"></a>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZipUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOG = LoggerFactory.getLogger(ZipUtil.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BUFFER_SIZE = <span class="number">1024</span> * <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ZipUtil</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">decompress</span><span class="params">(String filePath, String outputDir, <span class="keyword">boolean</span> isDeleted)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(filePath);</span><br><span class="line">        <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">            LOG.error(<span class="string">"decompress file not exist."</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (filePath.endsWith(<span class="string">".zip"</span>)) &#123;</span><br><span class="line">                unZip(file, outputDir);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (filePath.endsWith(<span class="string">".tar.gz"</span>) || filePath.endsWith(<span class="string">".tgz"</span>)) &#123;</span><br><span class="line">                decompressTarGz(file, outputDir);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (filePath.endsWith(<span class="string">".tar.bz2"</span>)) &#123;</span><br><span class="line">                decompressTarBz2(file, outputDir);</span><br><span class="line">            &#125;</span><br><span class="line">            filterFile(<span class="keyword">new</span> File(outputDir));</span><br><span class="line">            <span class="keyword">if</span> (isDeleted) &#123;</span><br><span class="line">                FileUtils.deleteQuietly(file);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            LOG.error(<span class="string">"decompress occur error."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解压 .zip 文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file      要解压的zip文件对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outputDir 要解压到某个指定的目录下</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">unZip</span><span class="params">(File file, String outputDir)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (ZipFile zipFile = <span class="keyword">new</span> ZipFile(file, StandardCharsets.UTF_8)) &#123;</span><br><span class="line">            <span class="comment">//创建输出目录</span></span><br><span class="line">            createDirectory(outputDir, <span class="keyword">null</span>);</span><br><span class="line">            Enumeration&lt;?&gt; enums = zipFile.entries();</span><br><span class="line">            <span class="keyword">while</span> (enums.hasMoreElements()) &#123;</span><br><span class="line">                ZipEntry entry = (ZipEntry) enums.nextElement();</span><br><span class="line">                <span class="keyword">if</span> (entry.isDirectory()) &#123;</span><br><span class="line">                    <span class="comment">//创建空目录</span></span><br><span class="line">                    createDirectory(outputDir, entry.getName());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">try</span> (InputStream in = zipFile.getInputStream(entry)) &#123;</span><br><span class="line">                        <span class="keyword">try</span> (OutputStream out = <span class="keyword">new</span> FileOutputStream(</span><br><span class="line">                                <span class="keyword">new</span> File(outputDir + File.separator + entry.getName())))&#123;</span><br><span class="line">                            writeFile(in, out);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">decompressTarGz</span><span class="params">(File file, String outputDir)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (TarArchiveInputStream tarIn = <span class="keyword">new</span> TarArchiveInputStream(</span><br><span class="line">                <span class="keyword">new</span> GzipCompressorInputStream(</span><br><span class="line">                        <span class="keyword">new</span> BufferedInputStream(</span><br><span class="line">                                <span class="keyword">new</span> FileInputStream(file))))) &#123;</span><br><span class="line">            <span class="comment">//创建输出目录</span></span><br><span class="line">            createDirectory(outputDir, <span class="keyword">null</span>);</span><br><span class="line">            TarArchiveEntry entry = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> ((entry = tarIn.getNextTarEntry()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//是目录</span></span><br><span class="line">                <span class="keyword">if</span> (entry.isDirectory()) &#123;</span><br><span class="line">                    <span class="comment">//创建空目录</span></span><br><span class="line">                    createDirectory(outputDir, entry.getName());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//是文件</span></span><br><span class="line">                    <span class="keyword">try</span> (OutputStream out = <span class="keyword">new</span> FileOutputStream(</span><br><span class="line">                            <span class="keyword">new</span> File(outputDir + File.separator + entry.getName()))) &#123;</span><br><span class="line">                        writeFile(tarIn, out);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解压缩tar.bz2文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file      压缩包文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outputDir 目标文件夹</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">decompressTarBz2</span><span class="params">(File file, String outputDir)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (TarArchiveInputStream tarIn =</span><br><span class="line">                     <span class="keyword">new</span> TarArchiveInputStream(</span><br><span class="line">                             <span class="keyword">new</span> BZip2CompressorInputStream(</span><br><span class="line">                                     <span class="keyword">new</span> FileInputStream(file)))) &#123;</span><br><span class="line">            createDirectory(outputDir, <span class="keyword">null</span>);</span><br><span class="line">            TarArchiveEntry entry;</span><br><span class="line">            <span class="keyword">while</span> ((entry = tarIn.getNextTarEntry()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (entry.isDirectory()) &#123;</span><br><span class="line">                    createDirectory(outputDir, entry.getName());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">try</span> (OutputStream out = <span class="keyword">new</span> FileOutputStream(</span><br><span class="line">                            <span class="keyword">new</span> File(outputDir + File.separator + entry.getName()))) &#123;</span><br><span class="line">                        writeFile(tarIn, out);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> in</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> out</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeFile</span><span class="params">(InputStream in, OutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length;</span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[BUFFER_SIZE];</span><br><span class="line">        <span class="keyword">while</span> ((length = in.read(b)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            out.write(b, <span class="number">0</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建目录</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outputDir</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subDir</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createDirectory</span><span class="params">(String outputDir, String subDir)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(outputDir);</span><br><span class="line">        <span class="comment">//子目录不为空</span></span><br><span class="line">        <span class="keyword">if</span> (!(subDir == <span class="keyword">null</span> || subDir.trim().equals(<span class="string">""</span>))) &#123;</span><br><span class="line">            file = <span class="keyword">new</span> File(outputDir + File.separator + subDir);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!file.getParentFile().exists()) &#123;</span><br><span class="line">                file.getParentFile().mkdirs();</span><br><span class="line">            &#125;</span><br><span class="line">            file.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除Mac压缩再解压产生的 __MACOSX 文件夹和 .开头的其他文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> filteredFile</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">filterFile</span><span class="params">(File filteredFile)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (filteredFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">            File[] files = filteredFile.listFiles();</span><br><span class="line">            <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">                <span class="keyword">if</span> (file.getName().startsWith(<span class="string">"."</span>) ||</span><br><span class="line">                        (file.isDirectory() &amp;&amp; file.getName().equals(<span class="string">"__MACOSX"</span>))) &#123;</span><br><span class="line">                    FileUtils.deleteQuietly(file);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="https://www.programcreek.com/java-api-examples/?api=org.apache.commons.compress.archivers.tar.TarArchiveInputStream" target="_blank" rel="noopener">commons-compress官方实例</a></li>
+</ol>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/Java-unzip/" title="Java解压缩.zip、.tar.gz、.tar.bz2(支持中文)">https://www.morethink.cn/Java-unzip/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Git-set-proxy-for-a-domain/" rel="next" title="Git为某个域名设置代理">
+                <i class="fa fa-chevron-left"></i> Git为某个域名设置代理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/5/">5</a><span class="page-number current">6</span>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -719,6 +543,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -995,6 +830,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -1041,6 +880,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'morethink',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '08854952e38df7965142646ffb127bd37dc9baf2',
+            
+                client_id: '2cf694e06b6dcf0e5264'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
