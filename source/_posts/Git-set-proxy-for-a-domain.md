@@ -12,15 +12,17 @@ categories: 工具
 <!-- more -->
 
 1. 打开Git 配置文件
-```shell
-vi ~/.gitconfig
-```
+
+    ```shell
+    vi ~/.gitconfig
+    ```
 2. 添加如下配置：
-```shell
-[http "https://github.com/"]
-    proxy = http://127.0.0.1:1081
-[https "https://github.com/"]
-    proxy = http://127.0.0.1:1081
-[http "https://my.comapnyserver.com/"]
-    proxy = ""
-```
+
+    ```shell
+    [http "https://github.com/"]
+        proxy = http://127.0.0.1:1081
+    [https "https://github.com/"]
+        proxy = http://127.0.0.1:1081
+    [http "https://my.comapnyserver.com/"]
+        proxy = ""
+    ```
