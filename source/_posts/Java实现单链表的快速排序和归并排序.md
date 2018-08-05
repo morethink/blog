@@ -165,7 +165,7 @@ private ListNode mergeSort(ListNode head1, ListNode head2) {
 
 
 完整代码放在：
-https://github.com/morethink/algorithm/blob/master/src/algorithm/leetcode/SortList.java
+https://github.com/morethink/algorithm/blob/master/src/main/java/algorithm/leetcode/L_148_SortList.java
 
 
 **参考文档**：

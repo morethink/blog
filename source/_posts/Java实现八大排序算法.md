@@ -859,7 +859,7 @@ public static void sort(int[] arr) {
 
 
 
-代码放在 https://github.com/morethink/algorithm/tree/master/src/algorithm/sort
+[代码地址](https://github.com/morethink/algorithm/tree/master/src/main/java/algorithm/sort)
 
 
 

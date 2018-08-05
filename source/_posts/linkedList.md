@@ -335,8 +335,7 @@ public static void doubleBubblesort(Node start, Node end) {
 ```
 
 
-全部代码放在
- https://github.com/morethink/algorithm/blob/master/src/algorithm/list/LinkedList.java
+全部代码放在 https://github.com/morethink/algorithm/blob/master/src/main/java/algorithm/list/LinkedList.java
 
 
 **参考文档**
