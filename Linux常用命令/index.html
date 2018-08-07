@@ -97,7 +97,7 @@
 <meta property="og:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.morethink.cn/4115ca16f89d5c1d13146cd19e6ad6d5.png">
-<meta property="og:updated_time" content="2018-05-31T04:24:03.908Z">
+<meta property="og:updated_time" content="2018-08-06T12:25:38.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
 <meta name="twitter:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
@@ -474,29 +474,53 @@
 <ul>
 <li><code>-c</code>： <strong>建立压缩档案的参数</strong></li>
 <li><code>-x</code>： <strong>解压缩压缩档案的参数</strong></li>
-<li><code>-z</code>： 是否需要用<code>gzip</code>压缩</li>
+<li><code>-z</code>： 用<code>gzip</code>压缩</li>
+<li><code>-j</code>： 用<code>bzip2</code>解压文件</li>
+<li><code>-Z</code>： 用<code>compress</code>解压文件</li>
 <li><code>-v</code>： 压缩的过程中显示档案</li>
 <li><code>-f</code>： 置顶文档名，在<code>-f</code>后面立即接文件名，不能再加参数</li>
 </ul>
 <h2 id="打包与解包"><a href="#打包与解包" class="headerlink" title="打包与解包"></a>打包与解包</h2><ul>
 <li><p>将整个/home/www/images 目录下的文件全部打包</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -cvf /home/www/images.tar /home/www/images ← 仅打包，不压缩</span><br></pre></td></tr></table></figure>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -cvf images.tar images ← 仅打包，不压缩</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>解包到指定的目录</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar xvf filename.tar -C /specific dir</span><br></pre></td></tr></table></figure>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -xvf filename.tar -C 指定目录</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="压缩与解压缩"><a href="#压缩与解压缩" class="headerlink" title="压缩与解压缩"></a>压缩与解压缩</h2><ul>
-<li><p>打包后，以gzip压缩，在参数f后面的压缩文件名是自己取的，习惯上用tar来做，如果加z参数，则以tar.gz 或tgz来代表gzip压缩过的tar file文件</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zcvf /home/www/images.tar.gz /home/www/images</span><br></pre></td></tr></table></figure>
+<h2 id="压缩与解压缩"><a href="#压缩与解压缩" class="headerlink" title="压缩与解压缩"></a>压缩与解压缩</h2><h3 id="gzip压缩"><a href="#gzip压缩" class="headerlink" title="gzip压缩"></a>gzip压缩</h3><ul>
+<li><p>打包后，以gzip压缩，在参数f后面的压缩文件名是自己取的，习惯上用tar来做，如果加z参数，则以tar.gz 或tgz来代表gzip压缩过的tar文件</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zcvf images.tar.gz images</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>将 /home/www/images.tar.gz 解压到/home/www下面</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd /home/www</span><br><span class="line">tar -zxvf /home/images.tar.gz</span><br></pre></td></tr></table></figure>
+<li><p>将 images.tar.gz 解压</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf images.tar.gz</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>解压缩到指定的目录</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf /home/images.tar.gz -C /specific dir</span><br></pre></td></tr></table></figure>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -zxvf images.tar.gz -C 指定的目录</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h3 id="bzip2压缩"><a href="#bzip2压缩" class="headerlink" title="bzip2压缩"></a>bzip2压缩</h3><ul>
+<li><p>打包后，以bzip2压缩</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -jcvf images.tar.bz2 images</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将 images.tar.bz2 解压</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -jxvf images.tar.bz2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压缩到指定的目录</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">tar -jxvf images.tar.bz2 -C 指定的目录</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="不同压缩方式的压缩率比较"><a href="#不同压缩方式的压缩率比较" class="headerlink" title="不同压缩方式的压缩率比较"></a>不同压缩方式的压缩率比较</h2><ul>
+<li><code>tar -zcvf test.tar.gz test</code></li>
+<li><code>tar -jcvf test.tar.bz2 test</code></li>
+<li><code>zip -ry test.zip test</code><br>  zip命令要加上两个选项<ul>
+<li><code>-r</code>：表示递归目录，不然只压出来一个空目录。</li>
+<li><code>-y</code>：表示保持符号链接，而不用把符号链接指向的文件也压进来。</li>
+</ul>
+</li>
+</ul>
+<p>结果比较：<code>ll -h test.*</code><br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-rw-r--r-- 1 liwenhao staff 45M  8  6 20:12 test.tar.bz2</span><br><span class="line">-rw-r--r-- 1 liwenhao staff 47M  8  6 20:12 test.tar.gz</span><br><span class="line">-rw-r--r-- 1 liwenhao staff 50M  8  6 20:13 test.zip</span><br></pre></td></tr></table></figure></p>
+<p>可以看到：<br>压缩率：bzip2 &gt; gzip &gt; zip</p>
 <h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><p>该命令用于将某个时间点的进程运行情况选取下来并输出，process之意，它的常用参数如下：</p>
 <ul>
 <li>-A ：所有的进程均显示出来  </li>
@@ -543,9 +567,15 @@
 <h1 id="cat命令"><a href="#cat命令" class="headerlink" title="cat命令"></a>cat命令</h1><p>该命令用于查看文本文件的内容，后接要查看的文件名，通常可用管道与more和less一起使用，从而可以一页页地查看数据。例如：</p>
 <p><code>cat text | less</code>  查看text文件中的内容<br>注：这条命令也可以使用less text来代替  </p>
 <h1 id="chgrp命令"><a href="#chgrp命令" class="headerlink" title="chgrp命令"></a>chgrp命令</h1><p>该命令用于改变文件所属用户组，它的使用非常简单，它的基本用法如下：</p>
-<p><code>chgrp [-R] dirname/filename</code><br>-R ：进行递归的持续对所有文件和子目录更改  </p>
-<p>例如：<br><code>chgrp users -R ./dir</code> 递归地把dir目录下中的所有文件和子目录下所有文件的用户组修改为users  </p>
-<h1 id="chown命令"><a href="#chown命令" class="headerlink" title="chown命令"></a>chown命令</h1><p>该命令用于改变文件的所有者，与chgrp命令的使用方法相同，只是修改的文件属性不同，不再详述。</p>
+<p><code>chgrp [选项] [组] [文件]</code></p>
+<ul>
+<li><code>-R</code>：处理指定目录以及其子目录下的所有文件</li>
+<li><code>-v</code>：运行时显示详细的处理信息</li>
+<li><code>--dereference</code>：作用于符号链接的指向，而不是符号链接本身</li>
+<li><code>--no-dereference</code>：作用于符号链接本身</li>
+</ul>
+<p>例如：<br><code>chgrp -vR users ./dir</code> 递归地把dir目录下中的所有文件和子目录下所有文件的用户组修改为users  </p>
+<h1 id="chown命令"><a href="#chown命令" class="headerlink" title="chown命令"></a>chown命令</h1><p>该命令用于改变文件的所有者，与chgrp命令的使用方法相同，只是修改的文件属性不同。</p>
 <h1 id="chmod命令"><a href="#chmod命令" class="headerlink" title="chmod命令"></a>chmod命令</h1><p>该命令用于改变文件的权限，一般的用法如下：</p>
 <p><code>chmod [-R] xyz 文件或目录</code><br>-R：进行递归的持续更改，即连同子目录下的所有文件都会更改<br>同时，chmod还可以使用u（user）、g（group）、o（other）、a（all）和+（加入）、-（删除）、=（设置）跟rwx搭配来对文件的权限进行更改。</p>
 <p>例如：<br><code>chmod 755 file</code>  把file的文件权限改变为-rxwr-xr-x，r表示读、w表示写、x表示可执行。<br><code>chmod g+w file</code> 向file的文件权限中加入用户组可写权限。<br><code>chmod +x file</code> 让文件可执行。</p>
@@ -975,7 +1005,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">1.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">2.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">3.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar"><span class="nav-number">4.</span> <span class="nav-text">tar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打包与解包"><span class="nav-number">4.1.</span> <span class="nav-text">打包与解包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩与解压缩"><span class="nav-number">4.2.</span> <span class="nav-text">压缩与解压缩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">5.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">6.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">7.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">8.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">9.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">10.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">11.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">12.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">13.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">13.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">13.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">13.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">13.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">14.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">15.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">16.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行多个命令"><span class="nav-number">17.</span> <span class="nav-text">执行多个命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行shell脚本"><span class="nav-number">18.</span> <span class="nav-text">执行shell脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell特殊变量：-0-和命令行参数"><span class="nav-number">18.1.</span> <span class="nav-text">Shell特殊变量：$0, $#, $*, $@, $?, $$和命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行参数"><span class="nav-number">18.2.</span> <span class="nav-text">命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和-的区别"><span class="nav-number">18.3.</span> <span class="nav-text">$* 和 $@ 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#退出状态"><span class="nav-number">18.4.</span> <span class="nav-text">退出状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATH环境变量"><span class="nav-number">19.</span> <span class="nav-text">PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行快捷键"><span class="nav-number">20.</span> <span class="nav-text">命令行快捷键</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cp"><span class="nav-number">1.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mv"><span class="nav-number">2.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rm"><span class="nav-number">3.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tar"><span class="nav-number">4.</span> <span class="nav-text">tar</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打包与解包"><span class="nav-number">4.1.</span> <span class="nav-text">打包与解包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩与解压缩"><span class="nav-number">4.2.</span> <span class="nav-text">压缩与解压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gzip压缩"><span class="nav-number">4.2.1.</span> <span class="nav-text">gzip压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzip2压缩"><span class="nav-number">4.2.2.</span> <span class="nav-text">bzip2压缩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同压缩方式的压缩率比较"><span class="nav-number">4.3.</span> <span class="nav-text">不同压缩方式的压缩率比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ps"><span class="nav-number">5.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kill"><span class="nav-number">6.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#killall"><span class="nav-number">7.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#file"><span class="nav-number">8.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cat命令"><span class="nav-number">9.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chgrp命令"><span class="nav-number">10.</span> <span class="nav-text">chgrp命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chown命令"><span class="nav-number">11.</span> <span class="nav-text">chown命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chmod命令"><span class="nav-number">12.</span> <span class="nav-text">chmod命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于搜索的命令"><span class="nav-number">13.</span> <span class="nav-text">关于搜索的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-find"><span class="nav-number">13.1.</span> <span class="nav-text">1 find</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-locate"><span class="nav-number">13.2.</span> <span class="nav-text">2 locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-whereis"><span class="nav-number">13.3.</span> <span class="nav-text">3 whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-which"><span class="nav-number">13.4.</span> <span class="nav-text">4 which</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#grep"><span class="nav-number">14.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">15.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#alias"><span class="nav-number">16.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行多个命令"><span class="nav-number">17.</span> <span class="nav-text">执行多个命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行shell脚本"><span class="nav-number">18.</span> <span class="nav-text">执行shell脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell特殊变量：-0-和命令行参数"><span class="nav-number">18.1.</span> <span class="nav-text">Shell特殊变量：$0, $#, $*, $@, $?, $$和命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行参数"><span class="nav-number">18.2.</span> <span class="nav-text">命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和-的区别"><span class="nav-number">18.3.</span> <span class="nav-text">$* 和 $@ 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#退出状态"><span class="nav-number">18.4.</span> <span class="nav-text">退出状态</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PATH环境变量"><span class="nav-number">19.</span> <span class="nav-text">PATH环境变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行快捷键"><span class="nav-number">20.</span> <span class="nav-text">命令行快捷键</span></a></li></ol></div>
             
 
           </div>
