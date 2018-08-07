@@ -62,34 +62,69 @@ tar是linux上常用的打包、压缩、解压缩工具，它的参数很多，
 
 - `-c`： **建立压缩档案的参数**
 - `-x`： **解压缩压缩档案的参数**
-- `-z`： 是否需要用`gzip`压缩
+- `-z`： 用`gzip`压缩
+- `-j`： 用`bzip2`解压文件
+- `-Z`： 用`compress`解压文件
 - `-v`： 压缩的过程中显示档案
 - `-f`： 置顶文档名，在`-f`后面立即接文件名，不能再加参数
 
 ## 打包与解包
 - 将整个/home/www/images 目录下的文件全部打包
     ```shell
-    tar -cvf /home/www/images.tar /home/www/images ← 仅打包，不压缩
+    tar -cvf images.tar images ← 仅打包，不压缩
     ```
 - 解包到指定的目录
     ```shell
-    tar xvf filename.tar -C /specific dir
+    tar -xvf filename.tar -C 指定目录
     ```
+
 ## 压缩与解压缩
 
-- 打包后，以gzip压缩，在参数f后面的压缩文件名是自己取的，习惯上用tar来做，如果加z参数，则以tar.gz 或tgz来代表gzip压缩过的tar file文件
+### gzip压缩
+- 打包后，以gzip压缩，在参数f后面的压缩文件名是自己取的，习惯上用tar来做，如果加z参数，则以tar.gz 或tgz来代表gzip压缩过的tar文件
     ```shell
-    tar -zcvf /home/www/images.tar.gz /home/www/images
+    tar -zcvf images.tar.gz images
     ```
-- 将 /home/www/images.tar.gz 解压到/home/www下面
+- 将 images.tar.gz 解压
     ```shell
-    cd /home/www
-    tar -zxvf /home/images.tar.gz
+    tar -zxvf images.tar.gz
     ```
 - 解压缩到指定的目录
     ```shell
-    tar -zxvf /home/images.tar.gz -C /specific dir
+    tar -zxvf images.tar.gz -C 指定的目录
     ```
+
+### bzip2压缩
+- 打包后，以bzip2压缩
+    ```shell
+    tar -jcvf images.tar.bz2 images
+    ```
+- 将 images.tar.bz2 解压
+    ```shell
+    tar -jxvf images.tar.bz2
+    ```
+- 解压缩到指定的目录
+    ```shell
+    tar -jxvf images.tar.bz2 -C 指定的目录
+    ```
+
+## 不同压缩方式的压缩率比较
+
+- `tar -zcvf test.tar.gz test`
+- `tar -jcvf test.tar.bz2 test`
+- `zip -ry test.zip test`
+    zip命令要加上两个选项
+    - `-r`：表示递归目录，不然只压出来一个空目录。
+    - `-y`：表示保持符号链接，而不用把符号链接指向的文件也压进来。
+
+结果比较：`ll -h test.*`
+```shell
+-rw-r--r-- 1 liwenhao staff 45M  8  6 20:12 test.tar.bz2
+-rw-r--r-- 1 liwenhao staff 47M  8  6 20:12 test.tar.gz
+-rw-r--r-- 1 liwenhao staff 50M  8  6 20:13 test.zip
+```
+可以看到：
+压缩率：bzip2 > gzip > zip
 
 # ps
 该命令用于将某个时间点的进程运行情况选取下来并输出，process之意，它的常用参数如下：
@@ -162,15 +197,18 @@ signal的常用参数(最前面的数字为信号的代号，使用时可以用�
 
 该命令用于改变文件所属用户组，它的使用非常简单，它的基本用法如下：
 
-`chgrp [-R] dirname/filename `
--R ：进行递归的持续对所有文件和子目录更改  
+`chgrp [选项] [组] [文件]`
+- `-R`：处理指定目录以及其子目录下的所有文件
+- `-v`：运行时显示详细的处理信息
+- `--dereference`：作用于符号链接的指向，而不是符号链接本身
+- `--no-dereference`：作用于符号链接本身
 
 例如：  
-`chgrp users -R ./dir ` 递归地把dir目录下中的所有文件和子目录下所有文件的用户组修改为users  
+`chgrp -vR users ./dir ` 递归地把dir目录下中的所有文件和子目录下所有文件的用户组修改为users  
 
 # chown命令
 
-该命令用于改变文件的所有者，与chgrp命令的使用方法相同，只是修改的文件属性不同，不再详述。
+该命令用于改变文件的所有者，与chgrp命令的使用方法相同，只是修改的文件属性不同。
 
 # chmod命令
 该命令用于改变文件的权限，一般的用法如下：
