@@ -88,18 +88,20 @@
 
 
 
-<meta name="description" content="问题使人痛苦，亦使人成长。编程使人疲惫，亦使人兴奋。 木心有一句话：”那个成就是你是十倍的人，下的功夫是你的百倍”。">
+<meta name="description" content="const ap = new APlayer({         container: document.getElementById(&apos;aplayer&apos;),         mini: false,         autoplay: false,         theme: &apos;#242424&apos;,         loop: &apos;all&apos;,         order: &apos;">
 <meta name="keywords" content="Web,HTML">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
 <meta property="og:url" content="https://www.morethink.cn/about/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="问题使人痛苦，亦使人成长。编程使人疲惫，亦使人兴奋。 木心有一句话：”那个成就是你是十倍的人，下的功夫是你的百倍”。">
+<meta property="og:description" content="const ap = new APlayer({         container: document.getElementById(&apos;aplayer&apos;),         mini: false,         autoplay: false,         theme: &apos;#242424&apos;,         loop: &apos;all&apos;,         order: &apos;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.193Z">
+<meta property="og:image" content="https://images.morethink.cn/alasijia.jpg">
+<meta property="og:updated_time" content="2018-08-08T12:14:24.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="about">
-<meta name="twitter:description" content="问题使人痛苦，亦使人成长。编程使人疲惫，亦使人兴奋。 木心有一句话：”那个成就是你是十倍的人，下的功夫是你的百倍”。">
+<meta name="twitter:description" content="const ap = new APlayer({         container: document.getElementById(&apos;aplayer&apos;),         mini: false,         autoplay: false,         theme: &apos;#242424&apos;,         loop: &apos;all&apos;,         order: &apos;">
+<meta name="twitter:image" content="https://images.morethink.cn/alasijia.jpg">
 
 
 
@@ -323,8 +325,40 @@
       <div class="post-body">
         
         
-          <p>问题使人痛苦，亦使人成长。<br>编程使人疲惫，亦使人兴奋。</p>
-<p>木心有一句话：”那个成就是你是十倍的人，下的功夫是你的百倍”。</p>
+          <hr>
+<p><img src="https://images.morethink.cn/alasijia.jpg" alt="alasijia"></p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+
+<p><div id="aplayer"></div></p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+<script>
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        mini: false,
+        autoplay: false,
+        theme: '#242424',
+        loop: 'all',
+        order: 'random',
+        preload: 'auto',
+        volume: 0.7,
+        mutex: true,
+        listFolded: false,
+        listMaxHeight: 90,
+        lrcType: 3,
+        audio: [
+            {
+                name: 'Something Just Like This',
+                artist: 'The Chainsmokers / Coldplay',
+                url: 'http://music.morethink.cn///Something%20Just%20Like%20This.mp3',
+                cover: 'http://music.morethink.cn//Something%20Just%20Like%20This.jpeg',
+                lrc: 'http://music.morethink.cn//Something%20Just%20Like%20This.lrc',
+                theme: '#242424'
+            }
+        ]
+    });
+    ap.init();
+
+</script>
 
         
       </div>
