@@ -6,7 +6,10 @@ type: "about"
 ---
 ![alasijia](https://images.morethink.cn/alasijia.jpg)
 
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+
+#### Something Just Like This
 
 <div id="aplayer"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
@@ -38,3 +41,16 @@ type: "about"
     ap.init();
 
 </script>
+
+#### 韩雪：积极的悲观主义者
+
+<object width="640" height="360">
+        <param name="movie" value="http://swf.ws.126.net/openplayer/v01/-0-2_MCP76PT9B_MCP789R9M-vimg1_ws_126_net//image/snapshot_movie/2017/7/S/K/MCP78ARSK-1430711943278.swf">
+        </param>
+        <param name="allowScriptAccess" value="always">
+        </param>
+        <param name="wmode" value="transparent">
+        </param>
+        <embed src="http://swf.ws.126.net/openplayer/v01/-0-2_MCP76PT9B_MCP789R9M-vimg1_ws_126_net//image/snapshot_movie/2017/7/S/K/MCP78ARSK-1430711943278.swf"
+            type="application/x-shockwave-flash" width="640" height="360" allowFullScreen="true" wmode="transparent" allowScriptAccess="always"></embed>
+    </object>
