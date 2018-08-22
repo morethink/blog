@@ -1,5 +1,5 @@
 ---
-title: 数据库索引背后的数据结构(B-/+Tree)
+title: MongoDB 及 Mysql 背后的 B/B+树
 date: 2018-07-01
 tags:
     - 索引
