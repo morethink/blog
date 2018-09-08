@@ -84,7 +84,7 @@ xhr.onreadystatechange=function() {
 Mixed Content: The page at 'https://www.zhihu.com/question/26376773' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint 'http://localhost/home/allProductions'. This request has been blocked; the content must be served over HTTPS.
 ```
 
-![](https://images.morethink.cn/zhihu-https-cross-domain.jpg)
+![](https://images.morethink.cn/zhihu-https-cross-domain.jpg "模拟跨域请求")
 
 因为知乎是https，报错与普通的http协议不同。
 
@@ -126,28 +126,31 @@ XMLHttpRequest cannot load http://localhost/home/allProductions. No 'Access-Cont
 
 就是当服务器接受到名为`jsonp`或者`callback`的参数时，返回`Content-Type: application/javascript`的结果，从而避免浏览器的同源策略检测。
 
-1. 在控制台中直接进行测试你的jsonp是否配置成功
-```javascript
-            function println(data) {
-                console.log(data);
-            }
+**在控制台中直接进行测试你的jsonp是否配置成功：**
 
-            var url = "http://localhost:80/home/allProductions?&callback=println";
-            // 创建script标签，设置其属性
-            var script = document.createElement('script');
-            script.setAttribute('src', url);
-            // 把script标签加入head，此时调用开始
-            document.getElementsByTagName('head')[0].appendChild(script);
+```javascript
+function println(data) {
+    console.log(data);
+}
+
+var url = "http://localhost:80/home/allProductions?&callback=println";
+// 创建script标签，设置其属性
+var script = document.createElement('script');
+script.setAttribute('src', url);
+// 把script标签加入head，此时调用开始
+document.getElementsByTagName('head')[0].appendChild(script);
 ```
-![](https://images.morethink.cn/jsonp-success.jpg)
-2. 使用JQuery测试你的jsonp是否配置成功(需要自己添加jQuery.js)
+![](https://images.morethink.cn/jsonp-success.jpg "jsonp success")
+
+**使用JQuery测试你的jsonp是否配置成功，因为控制台不能直接加载JQuery，需要自己建立html文件来进行测试：**
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript">
         function println(data) {
             console.log(data);
@@ -198,11 +201,11 @@ CORS与JSONP相比
 源码如下：
 
 ```java
-    @CrossOrigin(origins = "http://www.zhihu.com")
-    @RequestMapping(value = "/allProductions", method = RequestMethod.GET)
-    public Result getAllOldProductions() {
+@CrossOrigin(origins = "http://www.zhihu.com")
+@RequestMapping(value = "/allProductions", method = RequestMethod.GET)
+public Result getAllOldProductions() {
 
-    }
+}
 ```
 
 `@CrossOrigin`注解既可注解在方法上，也可注解在类上。

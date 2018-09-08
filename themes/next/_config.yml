@@ -91,7 +91,7 @@ menu:
   about: /about/ || user
   books: /books/
   movies: /movies/
-  resume: https://resume.morethink.cn
+  # resume: https://resume.morethink.cn
   # schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
