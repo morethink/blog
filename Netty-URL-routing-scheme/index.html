@@ -75,12 +75,10 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Netty," />
 
 
 
-
-  
 
 
   <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
@@ -90,20 +88,22 @@
 
 
 
-<meta name="description" content="Something Just Like This       const ap = new APlayer({         container: document.getElementById(&apos;aplayer&apos;),         mini: false,         autoplay: false,         theme: &apos;#242424&apos;,         loop">
-<meta name="keywords" content="Web,HTML">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://www.morethink.cn/about/index.html">
+<meta name="description" content="最近在用Netty做开发，需要提供一个http web server，供调用方调用。采用Netty本身提供的HttpServerCodec handler进行Http协议的解析，但是需要自己提供路由。 最开始是通过对Http method及uri 采用多层if else 嵌套判断的方法路由到真正的controller类：String uri = request.uri();HttpMethod m">
+<meta name="keywords" content="Netty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty URL路由方案探讨">
+<meta property="og:url" content="https://www.morethink.cn/Netty-URL-routing-scheme/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="Something Just Like This       const ap = new APlayer({         container: document.getElementById(&apos;aplayer&apos;),         mini: false,         autoplay: false,         theme: &apos;#242424&apos;,         loop">
+<meta property="og:description" content="最近在用Netty做开发，需要提供一个http web server，供调用方调用。采用Netty本身提供的HttpServerCodec handler进行Http协议的解析，但是需要自己提供路由。 最开始是通过对Http method及uri 采用多层if else 嵌套判断的方法路由到真正的controller类：String uri = request.uri();HttpMethod m">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://images.morethink.cn/alasijia.jpg">
-<meta property="og:updated_time" content="2018-08-23T02:20:19.949Z">
+<meta property="og:image" content="https://images.morethink.cn/time-for-change.jpg">
+<meta property="og:image" content="https://images.morethink.cn/e1a6f2bd638f0baf5aba0d7a63e77230.png">
+<meta property="og:image" content="https://images.morethink.cn/5166aac96c36b6fca7645a5aca07f630.png">
+<meta property="og:updated_time" content="2018-09-26T16:23:29.811Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="Something Just Like This       const ap = new APlayer({         container: document.getElementById(&apos;aplayer&apos;),         mini: false,         autoplay: false,         theme: &apos;#242424&apos;,         loop">
-<meta name="twitter:image" content="https://images.morethink.cn/alasijia.jpg">
+<meta name="twitter:title" content="Netty URL路由方案探讨">
+<meta name="twitter:description" content="最近在用Netty做开发，需要提供一个http web server，供调用方调用。采用Netty本身提供的HttpServerCodec handler进行Http协议的解析，但是需要自己提供路由。 最开始是通过对Http method及uri 采用多层if else 嵌套判断的方法路由到真正的controller类：String uri = request.uri();HttpMethod m">
+<meta name="twitter:image" content="https://images.morethink.cn/time-for-change.jpg">
 
 
 
@@ -133,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/about/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Netty-URL-routing-scheme/"/>
 
 
 
 
 
-  <title>about | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Netty URL路由方案探讨 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -302,70 +302,254 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Netty-URL-routing-scheme/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h2 class="post-title" itemprop="name headline">about</h2>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <hr>
-<p><img src="https://images.morethink.cn/alasijia.jpg" alt="alasijia"></p>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
-
-
-<h4 id="Something-Just-Like-This"><a href="#Something-Just-Like-This" class="headerlink" title="Something Just Like This"></a>Something Just Like This</h4><p><div id="aplayer"></div></p>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
-<script>
-    const ap = new APlayer({
-        container: document.getElementById('aplayer'),
-        mini: false,
-        autoplay: false,
-        theme: '#242424',
-        loop: 'all',
-        order: 'random',
-        preload: 'auto',
-        volume: 0.7,
-        mutex: true,
-        listFolded: false,
-        listMaxHeight: 90,
-        lrcType: 3,
-        audio: [
-            {
-                name: 'Something Just Like This',
-                artist: 'The Chainsmokers / Coldplay',
-                url: 'http://music.morethink.cn///Something%20Just%20Like%20This.mp3',
-                cover: 'http://music.morethink.cn//Something%20Just%20Like%20This.jpeg',
-                lrc: 'http://music.morethink.cn//Something%20Just%20Like%20This.lrc',
-                theme: '#242424'
-            }
-        ]
-    });
-    ap.init();
-
-</script>
-
-<h4 id="韩雪：积极的悲观主义者"><a href="#韩雪：积极的悲观主义者" class="headerlink" title="韩雪：积极的悲观主义者"></a>韩雪：积极的悲观主义者</h4><object width="640" height="360"><br><param name="movie" value="https://swf.ws.126.net/openplayer/v01/-0-2_MCP76PT9B_MCP789R9M-vimg1_ws_126_net//image/snapshot_movie/2017/7/S/K/MCP78ARSK-1430711943278.swf"><br><br><param name="allowScriptAccess" value="always"><br><br><param name="wmode" value="transparent"><br><br><embed src="https://swf.ws.126.net/openplayer/v01/-0-2_MCP76PT9B_MCP789R9M-vimg1_ws_126_net//image/snapshot_movie/2017/7/S/K/MCP78ARSK-1430711943278.swf" type="application/x-shockwave-flash" width="640" height="360" allowfullscreen="true" wmode="transparent" allowscriptaccess="always"><br></object>
-
+          <h2 class="post-title" itemprop="name headline">Netty URL路由方案探讨</h2>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T00:00:00+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Netty-URL-routing-scheme/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Netty-URL-routing-scheme/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>最近在用Netty做开发，需要提供一个http web server，供调用方调用。采用Netty本身提供的<code>HttpServerCodec</code> handler进行Http协议的解析，但是需要自己提供路由。</p>
+<p>最开始是通过对Http method及uri 采用多层if else 嵌套判断的方法路由到真正的controller类：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String uri = request.uri();</span><br><span class="line">HttpMethod method = request.method();</span><br><span class="line"><span class="keyword">if</span> (method == HttpMethod.POST) &#123;</span><br><span class="line">    <span class="keyword">if</span> (uri.startsWith(<span class="string">"/login"</span>)) &#123;</span><br><span class="line">        <span class="comment">//url参数解析，调用controller的方法</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (uri.startsWith(<span class="string">"/logout"</span>)) &#123;</span><br><span class="line">        <span class="comment">//同上</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (method == HttpMethod.GET) &#123;</span><br><span class="line">    <span class="keyword">if</span> (uri.startsWith(<span class="string">"/"</span>)) &#123;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (uri.startsWith(<span class="string">"/status"</span>)) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>在只需提供<code>login</code>及<code>logout</code>API时，代码可以完成功能，可是随着API的数量越来越多，需要支持的方法及uri越来越多，<code>else if</code> 越来越多，代码越来越复杂。</p>
+<p><img src="https://images.morethink.cn/time-for-change.jpg" alt="time-for-change" title="是时候考虑重构了"></p>
+<p>在阿里开发手册中也提到过：</p>
+<p><img src="https://images.morethink.cn/e1a6f2bd638f0baf5aba0d7a63e77230.png" alt="" title="重构多层else if"></p>
+<p>因此首先考虑采用状态设计模式及策略设计模式重构。</p>
+<h1 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h1><h2 id="状态模式的角色："><a href="#状态模式的角色：" class="headerlink" title="状态模式的角色："></a>状态模式的角色：</h2><ul>
+<li>state状态<br>表示状态，定义了根据不同状态进行不同处理的接口，该接口是那些处理内容依赖于状态的方法集合，对应实例的state类</li>
+<li>具体的状态<br>实现了state接口，对应daystate和nightstate</li>
+<li>context<br>context持有当前状态的具体状态的实例，此外，他还定义了供外部调用者使用的状态模式的接口。</li>
+</ul>
+<p>首先我们知道每个http请求都是由method及uri来唯一标识的，所谓路由就是通过这个唯一标识定位到controller类的中的某个方法。</p>
+<p>因此把HttpLabel作为状态<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpLabel</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String uri;</span><br><span class="line">    <span class="keyword">private</span> HttpMethod method;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>状态接口：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Route</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 路由</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">GeneralResponse <span class="title">call</span><span class="params">(FullHttpRequest request)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为每个状态添加状态实现：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">route</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//单例controller类</span></span><br><span class="line">    <span class="keyword">final</span> DemoController demoController = DemoController.getInstance();</span><br><span class="line">    Map&lt;HttpLabel, Route&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    map.put(<span class="keyword">new</span> HttpLabel(<span class="string">"/login"</span>, HttpMethod.POST), demoController::login);</span><br><span class="line">    map.put(<span class="keyword">new</span> HttpLabel(<span class="string">"/logout"</span>, HttpMethod.POST), demoController::login);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接到请求，判断状态，调用不同接口：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServerHandler</span> <span class="keyword">extends</span> <span class="title">SimpleChannelInboundHandler</span>&lt;<span class="title">FullHttpRequest</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelRead0</span><span class="params">(ChannelHandlerContext ctx, FullHttpRequest request)</span> </span>&#123;</span><br><span class="line">        String uri = request.uri();</span><br><span class="line">        GeneralResponse generalResponse;</span><br><span class="line">        <span class="keyword">if</span> (uri.contains(<span class="string">"?"</span>)) &#123;</span><br><span class="line">            uri = uri.substring(<span class="number">0</span>, uri.indexOf(<span class="string">"?"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        Route route = map.get(<span class="keyword">new</span> HttpLabel(uri, request.method()));</span><br><span class="line">        <span class="keyword">if</span> (route != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ResponseUtil.response(ctx, request, route.call(request));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            generalResponse = <span class="keyword">new</span> GeneralResponse(HttpResponseStatus.BAD_REQUEST, <span class="string">"请检查你的请求方法及url"</span>, <span class="keyword">null</span>);</span><br><span class="line">            ResponseUtil.response(ctx, request, generalResponse);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用状态设计模式重构代码，在增加url时只需要网map里面put一个值就行了。</p>
+<h1 id="类似SpringMVC路由功能"><a href="#类似SpringMVC路由功能" class="headerlink" title="类似SpringMVC路由功能"></a>类似SpringMVC路由功能</h1><p>后来看了 <a href="https://yuerblog.cc/2018/03/08/java-router-with-annotation/" target="_blank" rel="noopener">JAVA反射+运行时注解实现URL路由</a> 发现反射+注解的方式很优雅，代码也不复杂。</p>
+<p>下面介绍Netty使用反射实现URL路由。</p>
+<p>路由注解：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestMapping &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 路由的uri</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">String <span class="title">uri</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 路由的方法</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">String <span class="title">method</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>扫描classpath下带有<code>@RequestMapping</code>注解的方法，将这个方法放进一个路由Map：<code>Map&lt;HttpLabel, Action&lt;GeneralResponse&gt;&gt; httpRouterAction</code>，key为上面提到过的Http唯一标识  <code>HttpLabel</code>，value为通过反射调用的方法：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpRouter</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;HttpLabel, Action&lt;GeneralResponse&gt;&gt; httpRouterAction = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String classpath = <span class="keyword">this</span>.getClass().getResource(<span class="string">""</span>).getPath();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Object&gt; controllerBeans = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        String path = classpath + name.replaceAll(<span class="string">"\\."</span>, <span class="string">"/"</span>);</span><br><span class="line">        <span class="keyword">byte</span>[] bytes;</span><br><span class="line">        <span class="keyword">try</span> (InputStream ins = <span class="keyword">new</span> FileInputStream(path)) &#123;</span><br><span class="line">            <span class="keyword">try</span> (ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream()) &#123;</span><br><span class="line">                <span class="keyword">byte</span>[] buffer = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">5</span>];</span><br><span class="line">                <span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">while</span> ((b = ins.read(buffer)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                    out.write(buffer, <span class="number">0</span>, b);</span><br><span class="line">                &#125;</span><br><span class="line">                bytes = out.toByteArray();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ClassNotFoundException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> defineClass(name, bytes, <span class="number">0</span>, bytes.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addRouter</span><span class="params">(String controllerClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class&lt;?&gt; cls = loadClass(controllerClass);</span><br><span class="line">            Method[] methods = cls.getDeclaredMethods();</span><br><span class="line">            <span class="keyword">for</span> (Method invokeMethod : methods) &#123;</span><br><span class="line">                Annotation[] annotations = invokeMethod.getAnnotations();</span><br><span class="line">                <span class="keyword">for</span> (Annotation annotation : annotations) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (annotation.annotationType() == RequestMapping.class) &#123;</span><br><span class="line">                        RequestMapping requestMapping = (RequestMapping) annotation;</span><br><span class="line">                        String uri = requestMapping.uri();</span><br><span class="line">                        String httpMethod = requestMapping.method().toUpperCase();</span><br><span class="line">                        <span class="comment">// 保存Bean单例</span></span><br><span class="line">                        <span class="keyword">if</span> (!controllerBeans.containsKey(cls.getName())) &#123;</span><br><span class="line">                            controllerBeans.put(cls.getName(), cls.newInstance());</span><br><span class="line">                        &#125;</span><br><span class="line">                        Action action = <span class="keyword">new</span> Action(controllerBeans.get(cls.getName()), invokeMethod);</span><br><span class="line">                        <span class="comment">//如果需要FullHttpRequest，就注入FullHttpRequest对象</span></span><br><span class="line">                        Class[] params = invokeMethod.getParameterTypes();</span><br><span class="line">                        <span class="keyword">if</span> (params.length == <span class="number">1</span> &amp;&amp; params[<span class="number">0</span>] == FullHttpRequest.class) &#123;</span><br><span class="line">                            action.setInjectionFullhttprequest(<span class="keyword">true</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="comment">// 保存映射关系</span></span><br><span class="line">                        httpRouterAction.put(<span class="keyword">new</span> HttpLabel(uri, <span class="keyword">new</span> HttpMethod(httpMethod)), action);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.warn(<span class="string">"&#123;&#125;"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Action <span class="title">getRoute</span><span class="params">(HttpLabel httpLabel)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> httpRouterAction.get(httpLabel);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过反射调用<code>controller</code> 类中的方法：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Action</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@NonNull</span></span><br><span class="line">    <span class="keyword">private</span> Object object;</span><br><span class="line">    <span class="meta">@NonNull</span></span><br><span class="line">    <span class="keyword">private</span> Method method;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> injectionFullhttprequest;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">call</span><span class="params">(Object... args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (T) method.invoke(object, args);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalAccessException | InvocationTargetException e) &#123;</span><br><span class="line">            log.warn(<span class="string">"&#123;&#125;"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>ServerHandler.java</code>处理如下：<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="comment">//根据不同的请求API做不同的处理(路由分发)</span></span><br><span class="line">Action&lt;GeneralResponse&gt; action = httpRouter.getRoute(<span class="keyword">new</span> HttpLabel(uri, request.method()));</span><br><span class="line"><span class="keyword">if</span> (action != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (action.isInjectionFullhttprequest()) &#123;</span><br><span class="line">        ResponseUtil.response(ctx, request, action.call(request));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ResponseUtil.response(ctx, request, action.call());</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//错误处理</span></span><br><span class="line">    generalResponse = <span class="keyword">new</span> GeneralResponse(HttpResponseStatus.BAD_REQUEST, <span class="string">"请检查你的请求方法及url"</span>, <span class="keyword">null</span>);</span><br><span class="line">    ResponseUtil.response(ctx, request, generalResponse);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试结果如下：<br><img src="https://images.morethink.cn/5166aac96c36b6fca7645a5aca07f630.png" alt="" title="测试结果"></p>
+<p>完整代码在 <a href="https://github.com/morethink/Netty-Route" target="_blank" rel="noopener">https://github.com/morethink/Netty-Route</a></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/Netty-URL-routing-scheme/" title="Netty URL路由方案探讨">https://www.morethink.cn/Netty-URL-routing-scheme/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Netty/" rel="tag"># Netty</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Java-USES-InfluxDB-UDP-sending-data/" rel="next" title="Java使用UDP发送数据到InfluxDB">
+                <i class="fa fa-chevron-left"></i> Java使用UDP发送数据到InfluxDB
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -512,7 +696,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Something-Just-Like-This"><span class="nav-number">1.</span> <span class="nav-text">Something Just Like This</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#韩雪：积极的悲观主义者"><span class="nav-number">2.</span> <span class="nav-text">韩雪：积极的悲观主义者</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#状态模式"><span class="nav-number">1.</span> <span class="nav-text">状态模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#状态模式的角色："><span class="nav-number">1.1.</span> <span class="nav-text">状态模式的角色：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类似SpringMVC路由功能"><span class="nav-number">2.</span> <span class="nav-text">类似SpringMVC路由功能</span></a></li></ol></div>
             
 
           </div>
