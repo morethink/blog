@@ -239,6 +239,17 @@ if (action != null) {
     ResponseUtil.response(ctx, request, generalResponse);
 }
 ```
+
+`DemoController` 方法配置：
+```
+@RequestMapping(uri = "/login", method = "POST")
+public GeneralResponse login(FullHttpRequest request) {
+    User user = JsonUtil.fromJson(request, User.class);
+    log.info("/login called,user: {}", user);
+    return new GeneralResponse(null);
+}
+```
+
 测试结果如下：
 ![](https://images.morethink.cn/5166aac96c36b6fca7645a5aca07f630.png "测试结果")
 
