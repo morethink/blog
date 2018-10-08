@@ -97,7 +97,7 @@
 <meta property="og:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images.morethink.cn/4115ca16f89d5c1d13146cd19e6ad6d5.png">
-<meta property="og:updated_time" content="2018-08-15T11:33:18.580Z">
+<meta property="og:updated_time" content="2018-09-29T12:03:17.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux常用命令">
 <meta name="twitter:description" content="本文记录一些在Linux系统下比较常用的命令。 首先介绍下Linux下命令生效的顺序：  第一顺位：执行绝对路径或者相对路径的命令 第二顺位：执行别名 第三顺位：执行Bash的内部命令 第四顺位：执行按照$PATH环境变量设置定义的目录顺序的第一个命令">
@@ -516,10 +516,12 @@
 <h1 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h1><p>该命令用于将某个时间点的进程运行情况选取下来并输出，process之意，它的常用参数如下：</p>
 <ul>
 <li>-A ：所有的进程均显示出来  </li>
-<li>-a ：不与terminal有关的所有进程  </li>
+<li>-a ：显示 <strong>同一终端下</strong> 的所有程序</li>
 <li>-u ：有效用户的相关进程  </li>
 <li>-x ：一般与a参数一起使用，可列出较完整的信息  </li>
 <li>-l ：较长，较详细地将PID的信息列出  </li>
+<li>-e ：等于<code>&quot;-A&quot;</code></li>
+<li>-f ：显示程序间的关系</li>
 </ul>
 <p>其实我们只要记住ps一般使用的命令参数搭配即可，它们并不多，如下：</p>
 <ul>
