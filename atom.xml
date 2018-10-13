@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.morethink.cn/"/>
-  <updated>2018-09-27T09:16:37.473Z</updated>
+  <updated>2018-10-11T02:30:06.036Z</updated>
   <id>https://www.morethink.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jenkins在Docker中执行Shell出现乱码</title>
+    <link href="https://www.morethink.cn/Jenkins%E5%9C%A8Docker%E4%B8%AD%E6%89%A7%E8%A1%8Cshell%E5%87%BA%E7%8E%B0%E4%B9%B1%E7%A0%81/"/>
+    <id>https://www.morethink.cn/Jenkins在Docker中执行shell出现乱码/</id>
+    <published>2018-10-09T16:00:00.000Z</published>
+    <updated>2018-10-11T02:30:06.036Z</updated>
+    
+    <content type="html"><![CDATA[<p>一直以来都觉得在图片下面添加一个标题可以更加清晰的表示这张图片的含义，可是博客园原生并不支持这种渲染方式，再加上博客园可以自己写js来更改主题，于是通过搜索资料完成给博客园图片添加标题的功能。</p><a id="more"></a><p>问题说明：<br>Jenkins里直接执行shell脚本，会出现中文乱码的问题。但是单独执行shell脚本又是没问题。这个怎么办呢？</p><p>解决办法：<br>在shell脚本开始的时候加上命令:</p><p>export LANG=”en_US.UTF-8”</p><p>中文乱码的问题就解决了。 此问题是crontab执行shell脚本乱码是同一个问题。</p><p>问题原因：<br>此问题是因此执行定时任务时没有去获取系统的环境变量，导致了中文乱码。</p><p><a href="https://my.oschina.net/mrpei123/blog/1821380" target="_blank" rel="noopener">Jenkins执行shell无法读取环境变量问题</a></p><p><a href="https://blog.csdn.net/wisgood/article/details/52043522" target="_blank" rel="noopener">交互式SHELL和非交互式SHELL、登录SHELL和非登录SHELL的区别</a></p><h1 id="常见的shell变量"><a href="#常见的shell变量" class="headerlink" title="常见的shell变量"></a>常见的shell变量</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PATH：决定了shell将到哪些目录中寻找命令或程序</span><br><span class="line">HOME：当前用户主目录</span><br><span class="line">MAIL：是指当前用户的邮件存放目录。</span><br><span class="line">SHELL：是指当前用户用的是哪种Shell。</span><br><span class="line">HISTSIZE：是指保存历史命令记录的条数</span><br><span class="line">LOGNAME：是指当前用户的登录名。</span><br><span class="line">HOSTNAME：是指主机的名称，许多应用程序如果要用到主机名的话，通常是从这个环境变量中来取得的。</span><br><span class="line">LANG/LANGUGE：是和语言相关的环境变量，使用多种语言的用户可以修改此环境变量。</span><br><span class="line">PS1：是基本提示符，对于root用户是#，对于普通用户是$。</span><br><span class="line">PS2：是附属提示符，默认是&quot;&gt;&quot;。</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一直以来都觉得在图片下面添加一个标题可以更加清晰的表示这张图片的含义，可是博客园原生并不支持这种渲染方式，再加上博客园可以自己写js来更改主题，于是通过搜索资料完成给博客园图片添加标题的功能。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="https://www.morethink.cn/categories/Linux/"/>
+    
+    
+      <category term="Jenkins" scheme="https://www.morethink.cn/tags/Jenkins/"/>
+    
+      <category term="Docker" scheme="https://www.morethink.cn/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Netty URL路由方案探讨</title>
@@ -66,6 +90,29 @@
   </entry>
   
   <entry>
+    <title>Git为某个域名设置代理</title>
+    <link href="https://www.morethink.cn/Git-set-proxy-for-a-domain/"/>
+    <id>https://www.morethink.cn/Git-set-proxy-for-a-domain/</id>
+    <published>2018-08-03T16:00:00.000Z</published>
+    <updated>2018-08-04T09:51:45.987Z</updated>
+    
+    <content type="html"><![CDATA[<p>国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。</p><p>下面通过更改Git配置文件对不同的域名使用不同的代理配置。<br><br><a id="more"></a></p><ol><li><p>打开Git 配置文件</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure></li><li><p>添加如下配置：</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。&lt;/p&gt;
+&lt;p&gt;下面通过更改Git配置文件对不同的域名使用不同的代理配置。&lt;br&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java解压缩.zip、.tar.gz、.tar.bz2(支持中文)</title>
     <link href="https://www.morethink.cn/Java-unzip/"/>
     <id>https://www.morethink.cn/Java-unzip/</id>
@@ -88,29 +135,6 @@
     
       <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Git为某个域名设置代理</title>
-    <link href="https://www.morethink.cn/Git-set-proxy-for-a-domain/"/>
-    <id>https://www.morethink.cn/Git-set-proxy-for-a-domain/</id>
-    <published>2018-08-03T16:00:00.000Z</published>
-    <updated>2018-08-04T09:51:45.987Z</updated>
-    
-    <content type="html"><![CDATA[<p>国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。</p><p>下面通过更改Git配置文件对不同的域名使用不同的代理配置。<br><br><a id="more"></a></p><ol><li><p>打开Git 配置文件</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure></li><li><p>添加如下配置：</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。&lt;/p&gt;
-&lt;p&gt;下面通过更改Git配置文件对不同的域名使用不同的代理配置。&lt;br&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
     
   </entry>
   
@@ -138,9 +162,9 @@
       <category term="算法" scheme="https://www.morethink.cn/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="树" scheme="https://www.morethink.cn/tags/%E6%A0%91/"/>
-    
       <category term="索引" scheme="https://www.morethink.cn/tags/%E7%B4%A2%E5%BC%95/"/>
+    
+      <category term="树" scheme="https://www.morethink.cn/tags/%E6%A0%91/"/>
     
   </entry>
   
@@ -378,9 +402,9 @@
       <category term="算法" scheme="https://www.morethink.cn/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="排序" scheme="https://www.morethink.cn/tags/%E6%8E%92%E5%BA%8F/"/>
-    
       <category term="链表" scheme="https://www.morethink.cn/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="排序" scheme="https://www.morethink.cn/tags/%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   
@@ -491,30 +515,6 @@
       <category term="Nginx" scheme="https://www.morethink.cn/tags/Nginx/"/>
     
       <category term="负载均衡" scheme="https://www.morethink.cn/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java解决CSRF问题</title>
-    <link href="https://www.morethink.cn/Java%E8%A7%A3%E5%86%B3CSRF%E9%97%AE%E9%A2%98/"/>
-    <id>https://www.morethink.cn/Java解决CSRF问题/</id>
-    <published>2018-01-03T16:00:00.000Z</published>
-    <updated>2018-04-04T06:33:50.274Z</updated>
-    
-    <content type="html"><![CDATA[<p>项目地址： <a href="https://github.com/morethink/web-security-csrf" target="_blank" rel="noopener">https://github.com/morethink/web-security-csrf</a></p><h1 id="CSRF是什么？"><a href="#CSRF是什么？" class="headerlink" title="CSRF是什么？"></a>CSRF是什么？</h1><p>CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。</p><h1 id="CSRF可以做什么？"><a href="#CSRF可以做什么？" class="headerlink" title="CSRF可以做什么？"></a>CSRF可以做什么？</h1><p>你这可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账……造成的问题包括：个人隐私泄露以及财产安全。</p><a id="more"></a><h1 id="CSRF的原理"><a href="#CSRF的原理" class="headerlink" title="CSRF的原理"></a>CSRF的原理</h1><p>下图简单阐述了CSRF攻击的思<br><img src="https://images.morethink.cn/138ad4f05b47533bf46904dc165167cc.png" alt=""></p><p>从上图可以看出，要完成一次CSRF攻击，受害者必须依次完成两个步骤：</p><ol><li>登录受信任网站A，并在本地生成Cookie。</li><li>在不登出A的情况下，访问危险网站B。</li></ol><p>看到这里，你也许会说：“如果我不满足以上两个条件中的一个，我就不会受到CSRF的攻击”。是的，确实如此，但你不能保证以下情况不会发生：</p><ol><li>你不能保证你登录了一个网站后，不再打开一个tab页面并访问另外的网站。</li><li>你不能保证你关闭浏览器了后，你本地的Cookie立刻过期，你上次的会话已经结束。（事实上，关闭浏览器不能结束一个会话，但大多数人都会错误的认为关闭浏览器就等于退出登录/结束会话了……）</li><li>上图中所谓的攻击网站，可能是一个存在其他漏洞的可信任的经常被人访问的网站。</li></ol><p>下面讲一讲java解决CSRF攻击的方式。</p><h1 id="模拟CSRF攻击"><a href="#模拟CSRF攻击" class="headerlink" title="模拟CSRF攻击"></a>模拟CSRF攻击</h1><h2 id="登录A网站"><a href="#登录A网站" class="headerlink" title="登录A网站"></a>登录A网站</h2><p>用户名和密码都是admin。</p><p><code>http://localhost:8081/login.html</code>:<br><img src="https://images.morethink.cn/e298f8ef08869557b8fb60034f06bb80.png" alt=""></p><h2 id="你有权限删除1号帖子"><a href="#你有权限删除1号帖子" class="headerlink" title="你有权限删除1号帖子"></a>你有权限删除1号帖子</h2><p><code>http://localhost:8081/deletePost.html</code>:<br><img src="https://images.morethink.cn/897d358f2677d053bb9555ff69d112ac.png" alt=""></p><h2 id="登录有CSRF攻击A网站的B网站"><a href="#登录有CSRF攻击A网站的B网站" class="headerlink" title="登录有CSRF攻击A网站的B网站"></a>登录有CSRF攻击A网站的B网站</h2><p><code>http://localhost:8082/deletePost.html</code>:</p><p><img src="https://images.morethink.cn/csrf-attack.gif" alt=""></p><p>明显看到B网站是8082端口，A网站是8081端口，但是B网站的删除2号帖子功能依然实现。</p><h1 id="预防CSRF攻击"><a href="#预防CSRF攻击" class="headerlink" title="预防CSRF攻击"></a>预防CSRF攻击</h1><p>简单来说，CSRF 就是网站 A 对用户建立信任关系后，在网站 B 上利用这种信任关系，跨站点向网站 A 发起一些伪造的用户操作请求，以达到攻击的目的。</p><p>而之所以可以完成攻击是因为B向A发起攻击的时候会把A网站的cookie带给A网站，也就是说cookie已经不安全了。</p><h2 id="通过Synchronizer-Tokens"><a href="#通过Synchronizer-Tokens" class="headerlink" title="通过Synchronizer Tokens"></a>通过Synchronizer Tokens</h2><p>Synchronizer Tokens： 在表单里隐藏一个随机变化的 csrf_token csrf_token 提交到后台进行验证，如果验证通过则可以继续执行操作。这种情况有效的主要原因是网站 B 拿不到网站 A 表单里的 csrf_token</p><p>这种方式的使用条件是PHP和JSP等。因为cookie已经不安全了，因此把csrf_token值存储在session中，然后每次表单提交时都从session取出来放到form表单的隐藏域中，这样B网站不可以得到这个存储到session中的值。</p><p>下面是JSP的：<br><figure class="highlight"><table><tr><td class="code"><pre><span class="line">&lt;input type="hidden" name="random_form" value=&lt;%=random%&gt;&gt;&lt;/input&gt;</span><br></pre></td></tr></table></figure></p><p>但是我现在的情况是html，不是JSP，并不能动态的从session中取出csrf_token值。只能采用加密的方式了。</p><h2 id="Hash加密cookie中csrf-token值"><a href="#Hash加密cookie中csrf-token值" class="headerlink" title="Hash加密cookie中csrf_token值"></a>Hash加密cookie中csrf_token值</h2><p>这可能是最简单的解决方案了，因为攻击者不能获得第三方的Cookie(理论上)，所以表单中的数据也就构造失败了。</p><p>我采用的hash加密方法是JS实现Java的HashCode方法，得到hash值，这个比较简单。也可以采用其他的hash算法。</p><p>前端向后台传递hash之后的csrf_token值和cookie中的csrf_token值，后台拿到cookie中的csrf_token值后得到hashCode值然后与前端传过来的值进行比较，一样则通过。</p><h3 id="你有权限删除3号帖子"><a href="#你有权限删除3号帖子" class="headerlink" title="你有权限删除3号帖子"></a>你有权限删除3号帖子</h3><p><code>http://localhost:8081/deletePost.html</code></p><p><img src="https://images.morethink.cn/2ac5eab98780646c6c36dcdc98fa50c7.png" alt=""></p><h3 id="B网站的他已经没有权限了"><a href="#B网站的他已经没有权限了" class="headerlink" title="B网站的他已经没有权限了"></a>B网站的他已经没有权限了</h3><p>我们通过UserFilter.java给攻击者返回的是403错误，表示服务器理解用户客户端的请求但拒绝处理。</p><p><code>http://localhost:8082/deletePost.html</code>:<br><img src="https://images.morethink.cn/csrf-attack-fail-failure.gif" alt=""></p><p>攻击者不能删除4号帖子。</p><p>前端代码：</p><p>deletePost.html</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>deletePost<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"js/jquery.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        function deletePost() &#123;</span></span><br><span class="line"><span class="undefined">            var url = '/post/' + document.getElementById("postId").value;</span></span><br><span class="line"><span class="undefined">            var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");</span></span><br><span class="line"><span class="undefined">            console.log('csrf_token=' + csrf_token);</span></span><br><span class="line"><span class="undefined">            $.ajax(&#123;</span></span><br><span class="line"><span class="undefined">                type: "post",//请求方式</span></span><br><span class="line"><span class="undefined">                url: url,  //发送请求地址</span></span><br><span class="line"><span class="undefined">                timeout: 30000,//超时时间：30秒</span></span><br><span class="line"><span class="undefined">                data: &#123;</span></span><br><span class="line"><span class="undefined">                    "_method": "delete",</span></span><br><span class="line"><span class="undefined">                    "csrf_token": hash(csrf_token) // 对csrf_token进行hash加密</span></span><br><span class="line"><span class="undefined">                &#125;,</span></span><br><span class="line"><span class="undefined">                dataType: "json",//设置返回数据的格式</span></span><br><span class="line"><span class="undefined">                success: function (result) &#123;</span></span><br><span class="line"><span class="undefined">                    if (result.message == "success") &#123;</span></span><br><span class="line"><span class="undefined">//                    window.location.href = "index.html";</span></span><br><span class="line"><span class="undefined">                        $("#result").text("删除成功");</span></span><br><span class="line"><span class="undefined">                    &#125; else &#123;</span></span><br><span class="line"><span class="undefined">                        $("#result").text("删除失败");</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                &#125;,</span></span><br><span class="line"><span class="undefined">                error: function () &#123; //请求出错的处理</span></span><br><span class="line"><span class="undefined">                    $("#result").text("请求出错");</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        // javascript的String到int(32位)的hash算法</span></span><br><span class="line"><span class="undefined">        function hash(str) &#123;</span></span><br><span class="line"><span class="undefined">            var hash = 0;</span></span><br><span class="line"><span class="undefined">            if (str.length == 0) return hash;</span></span><br><span class="line"><span class="undefined">            for (i = 0; i &lt; str.length; i++) &#123;</span></span><br><span class="line"><span class="undefined">                char = str.charCodeAt(i);</span></span><br><span class="line"><span class="undefined">                hash = ((hash &lt;&lt; 5) - hash) + char;</span></span><br><span class="line"><span class="undefined">                hash = hash &amp; hash; // Convert to 32bit integer</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">            return hash;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>删除帖子<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">帖子编号 ： <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"postId"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"deletePost();"</span>&gt;</span>deletePost<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"result"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><p>后台代码：</p><p>UserInterceptor.java</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.morethink.interceptor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.morethink.util.JsonUtil;</span><br><span class="line"><span class="keyword">import</span> cn.morethink.util.Result;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.HandlerInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> 李文浩</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/1/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String method = request.getMethod();</span><br><span class="line">        System.out.println(method);</span><br><span class="line">        <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">"POST"</span>) || method.equalsIgnoreCase(<span class="string">"DELETE"</span>)</span><br><span class="line">                || method.equalsIgnoreCase(<span class="string">"PUT"</span>)) &#123;</span><br><span class="line">            String csrf_token = request.getParameter(<span class="string">"csrf_token"</span>);</span><br><span class="line">            System.out.println(csrf_token + <span class="string">"1222222222222222222222222222222222222222222222"</span>);</span><br><span class="line">            Cookie[] cookies = request.getCookies();</span><br><span class="line">            <span class="keyword">if</span> (cookies != <span class="keyword">null</span> &amp;&amp; cookies.length &gt; <span class="number">0</span> &amp;&amp; csrf_token != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (cookie.getName().equals(<span class="string">"csrf_token"</span>)) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (Integer.valueOf(csrf_token) == cookie.getValue().hashCode()) &#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Result result = <span class="keyword">new</span> Result(<span class="string">"403"</span>, <span class="string">"你还想攻击我??????????"</span>, <span class="string">""</span>);</span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">        out.write(JsonUtil.toJson(result));</span><br><span class="line">        out.close();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>注意</strong>：</p><ol><li>cookie必须要设置PATH才可以生效，否则在下一次请求的时候无法带给服务器。</li><li>Spring Boot 出现启动找不到主类的问题时可以mvn clean一下。</li><li>Filter设置response.sendError(403)在Spring Boot没有效果。</li></ol><p><strong>参考文档</strong>：</p><ol><li><a href="https://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html" target="_blank" rel="noopener">浅谈CSRF攻击方式</a></li><li><a href="http://blog.csdn.net/zzhongcy/article/details/20133883" target="_blank" rel="noopener">jQueue 动态设置form表单的action属性的值和方法</a></li><li><a href="https://www.thinksaas.cn/group/topic/304242/" target="_blank" rel="noopener">javascript的String到int(32位)的hash算法</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;项目地址： &lt;a href=&quot;https://github.com/morethink/web-security-csrf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/morethink/web-security-csrf&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;CSRF是什么？&quot;&gt;&lt;a href=&quot;#CSRF是什么？&quot; class=&quot;headerlink&quot; title=&quot;CSRF是什么？&quot;&gt;&lt;/a&gt;CSRF是什么？&lt;/h1&gt;&lt;p&gt;CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。&lt;/p&gt;
-&lt;h1 id=&quot;CSRF可以做什么？&quot;&gt;&lt;a href=&quot;#CSRF可以做什么？&quot; class=&quot;headerlink&quot; title=&quot;CSRF可以做什么？&quot;&gt;&lt;/a&gt;CSRF可以做什么？&lt;/h1&gt;&lt;p&gt;你这可以这么理解CSRF攻击：攻击者盗用了你的身份，以你的名义发送恶意请求。CSRF能够做的事情包括：以你名义发送邮件，发消息，盗取你的账号，甚至于购买商品，虚拟货币转账……造成的问题包括：个人隐私泄露以及财产安全。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Web安全" scheme="https://www.morethink.cn/categories/Web%E5%AE%89%E5%85%A8/"/>
-    
-    
-      <category term="CSRF" scheme="https://www.morethink.cn/tags/CSRF/"/>
     
   </entry>
   
