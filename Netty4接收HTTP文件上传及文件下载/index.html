@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="IDEA," />
+  <meta name="keywords" content="Netty," />
 
 
 
@@ -88,20 +88,18 @@
 
 
 
-<meta name="description" content="war 和 war exploded war部署首先通过IDEA生成.war工程文件，然后将WEB工程以包的形式上传到服务器，因此会替代服务器本来同名的web app项目。 war exploded模式直接将WEB工程以当前文件夹的位置关系上传到服务器。">
-<meta name="keywords" content="IDEA">
+<meta name="description" content="文件上传这个处理器的原理是接收HttpObject对象，按照HttpRequest，HttpContent来做处理，文件内容是在HttpContent消息带来的。 然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，">
+<meta name="keywords" content="Netty">
 <meta property="og:type" content="article">
-<meta property="og:title" content="怎么使用IDEA">
-<meta property="og:url" content="https://www.morethink.cn/how-to-use-IDEA/index.html">
+<meta property="og:title" content="Netty接收HTTP文件上传及文件下载">
+<meta property="og:url" content="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="war 和 war exploded war部署首先通过IDEA生成.war工程文件，然后将WEB工程以包的形式上传到服务器，因此会替代服务器本来同名的web app项目。 war exploded模式直接将WEB工程以当前文件夹的位置关系上传到服务器。">
+<meta property="og:description" content="文件上传这个处理器的原理是接收HttpObject对象，按照HttpRequest，HttpContent来做处理，文件内容是在HttpContent消息带来的。 然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://images.morethink.cn/IDEA-update.jpg">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.189Z">
+<meta property="og:updated_time" content="2018-10-14T10:30:17.871Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="怎么使用IDEA">
-<meta name="twitter:description" content="war 和 war exploded war部署首先通过IDEA生成.war工程文件，然后将WEB工程以包的形式上传到服务器，因此会替代服务器本来同名的web app项目。 war exploded模式直接将WEB工程以当前文件夹的位置关系上传到服务器。">
-<meta name="twitter:image" content="https://images.morethink.cn/IDEA-update.jpg">
+<meta name="twitter:title" content="Netty接收HTTP文件上传及文件下载">
+<meta name="twitter:description" content="文件上传这个处理器的原理是接收HttpObject对象，按照HttpRequest，HttpContent来做处理，文件内容是在HttpContent消息带来的。 然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，">
 
 
 
@@ -131,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/how-to-use-IDEA/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/"/>
 
 
 
 
 
-  <title>怎么使用IDEA | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Netty接收HTTP文件上传及文件下载 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -312,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/how-to-use-IDEA/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -329,7 +327,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">怎么使用IDEA</h2>
+          <h2 class="post-title" itemprop="name headline">Netty接收HTTP文件上传及文件下载</h2>
         
 
         <div class="post-meta">
@@ -341,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-07T00:00:00+08:00">
-                2017-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T00:00:00+08:00">
+                2018-10-14
               </time>
             
 
@@ -364,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -382,8 +380,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/how-to-use-IDEA/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/how-to-use-IDEA/" itemprop="commentsCount"></span>
+                <a href="/Netty4接收HTTP文件上传及文件下载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Netty4接收HTTP文件上传及文件下载/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -416,26 +414,18 @@
       
 
       
-        <h1 id="war-和-war-exploded"><a href="#war-和-war-exploded" class="headerlink" title="war 和 war exploded"></a>war 和 war exploded</h1><ol>
-<li>war部署首先通过IDEA生成.war工程文件，然后将WEB工程以包的形式上传到服务器，因此会替代服务器本来同名的web app项目。</li>
-<li>war exploded模式直接将WEB工程以当前文件夹的位置关系上传到服务器。</li>
-</ol>
-<a id="more"></a>
-<p>使用：</p>
-<ol>
-<li>war模式这种可以称之为是发布模式，看名字也知道，这是先打成war包，再发布；</li>
-<li>war exploded模式是直接把文件夹、jsp页面 、classes等等移到IDEA生成的Tomcat部署文件夹里面，进行加载部署，不会替代本来tomcat中的同名web app项目。因此这种方式支持热部署，一般在开发的时候也是用这种方式。</li>
-<li>在平时开发的时候，使用热部署的话，应该对Tomcat中进行相应的设置,更改图中两处标记为 <code>update classes and resources</code>:<br><img src="https://images.morethink.cn/IDEA-update.jpg" alt=""><br>这样的话修改的html，jsp或者第三方模版框架例如 Freemarker热部署才可以生效。</li>
-</ol>
-<h1 id="热部署插件-JRebel"><a href="#热部署插件-JRebel" class="headerlink" title="热部署插件 JRebel"></a>热部署插件 JRebel</h1><blockquote>
-<p>在 Java Web 开发中， 一般更新了 Java 文件后要手动重启 Tomcat 服务器， 才能生效， 浪费不少生命啊， 自从有了 JRebel 这神器的出现， 不论是更新 class 类还是更新 Spring 配置文件都能做到立马生效，大大提高开发效率。</p>
-</blockquote>
-<p><a href="http://whudoc.qiniudn.com/2016/IntelliJ-IDEA-Tutorial/jrebel-setup.html" target="_blank" rel="noopener">IntelliJ IDEA 的 Java 热部署插件 JRebel 安装及使用</a></p>
-<h1 id="常用插件"><a href="#常用插件" class="headerlink" title="常用插件"></a>常用插件</h1><ol>
-<li>阿里巴巴规约检测</li>
-<li>翻译插件</li>
-<li>wakatime</li>
-</ol>
+        <h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><p>这个处理器的原理是接收HttpObject对象，按照HttpRequest，HttpContent来做处理，文件内容是在HttpContent消息带来的。</p>
+<p>然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，可以将httpDecoder中缓存的文件通过HttpDataFactory写到磁盘上，然后在删除缓存的HttpContent对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttUploadHandler</span> <span class="keyword">extends</span> <span class="title">SimpleChannelInboundHandler</span>&lt;<span class="title">HttpObject</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HttUploadHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> HttpDataFactory factory = <span class="keyword">new</span> DefaultHttpDataFactory(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String FILE_UPLOAD = <span class="string">"/data/"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URI = <span class="string">"/upload"</span>;</span><br><span class="line">    <span class="keyword">private</span> HttpPostRequestDecoder httpDecoder;</span><br><span class="line">    HttpRequest request;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">channelRead0</span><span class="params">(<span class="keyword">final</span> ChannelHandlerContext ctx, <span class="keyword">final</span> HttpObject httpObject)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (httpObject <span class="keyword">instanceof</span> HttpRequest) &#123;</span><br><span class="line">            request = (HttpRequest) httpObject;</span><br><span class="line">            <span class="keyword">if</span> (request.uri().startsWith(URI) &amp;&amp; request.method().equals(HttpMethod.POST)) &#123;</span><br><span class="line">                httpDecoder = <span class="keyword">new</span> HttpPostRequestDecoder(factory, request);</span><br><span class="line">                httpDecoder.setDiscardThreshold(<span class="number">0</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//传递给下一个Handler</span></span><br><span class="line">                ctx.fireChannelRead(httpObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (httpObject <span class="keyword">instanceof</span> HttpContent) &#123;</span><br><span class="line">            <span class="keyword">if</span> (httpDecoder != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">final</span> HttpContent chunk = (HttpContent) httpObject;</span><br><span class="line">                httpDecoder.offer(chunk);</span><br><span class="line">                <span class="keyword">if</span> (chunk <span class="keyword">instanceof</span> LastHttpContent) &#123;</span><br><span class="line">                    writeChunk(ctx);</span><br><span class="line">                    <span class="comment">//关闭httpDecoder</span></span><br><span class="line">                    httpDecoder.destroy();</span><br><span class="line">                    httpDecoder = <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ReferenceCountUtil.release(httpObject);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ctx.fireChannelRead(httpObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeChunk</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (httpDecoder.hasNext()) &#123;</span><br><span class="line">            InterfaceHttpData data = httpDecoder.next();</span><br><span class="line">            <span class="keyword">if</span> (data != <span class="keyword">null</span> &amp;&amp; HttpDataType.FileUpload.equals(data.getHttpDataType())) &#123;</span><br><span class="line">                <span class="keyword">final</span> FileUpload fileUpload = (FileUpload) data;</span><br><span class="line">                <span class="keyword">final</span> File file = <span class="keyword">new</span> File(FILE_UPLOAD + fileUpload.getFilename());</span><br><span class="line">                log.info(<span class="string">"upload file: &#123;&#125;"</span>, file);</span><br><span class="line">                <span class="keyword">try</span> (FileChannel inputChannel = <span class="keyword">new</span> FileInputStream(fileUpload.getFile()).getChannel();</span><br><span class="line">                     FileChannel outputChannel = <span class="keyword">new</span> FileOutputStream(file).getChannel()) &#123;</span><br><span class="line">                    outputChannel.transferFrom(inputChannel, <span class="number">0</span>, inputChannel.size());</span><br><span class="line">                    ResponseUtil.response(ctx, request, <span class="keyword">new</span> GeneralResponse(HttpResponseStatus.OK, <span class="string">"SUCCESS"</span>, <span class="keyword">null</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        log.warn(<span class="string">"&#123;&#125;"</span>, cause);</span><br><span class="line">        ctx.channel().close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelInactive</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (httpDecoder != <span class="keyword">null</span>) &#123;</span><br><span class="line">            httpDecoder.cleanFiles();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h1><p>参考官方demo： <a href="https://github.com/netty/netty/blob/4.1/example/src/main/java/io/netty/example/file/FileServerHandler.java" target="_blank" rel="noopener">https://github.com/netty/netty/blob/4.1/example/src/main/java/io/netty/example/file/FileServerHandler.java</a></p>
+<p>做了改动：</p>
+<ul>
+<li>为了更高效的传输大数据，实例中用到了ChunkedWriteHandler编码器，它提供了以zero-memory-copy方式写文件。</li>
+<li>通过ChannelProgressiveFutureListener对文件下载过程进行监听。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"> <span class="comment">// 新增ChunkedHandler，主要作用是支持异步发送大的码流（例如大文件传输），但是不占用过多的内存，防止发生java内存溢出错误</span></span><br><span class="line">ch.pipeline().addLast(<span class="keyword">new</span> ChunkedWriteHandler());</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpDownloadHandler</span> <span class="keyword">extends</span> <span class="title">SimpleChannelInboundHandler</span>&lt;<span class="title">FullHttpRequest</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HttpDownloadHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 分块大小</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CHUNK_SIZE = <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String filePath = <span class="string">"/data/body.csv"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">channelRead0</span><span class="params">(ChannelHandlerContext ctx, FullHttpRequest request)</span> </span>&#123;</span><br><span class="line">        String uri = request.uri();</span><br><span class="line">        <span class="keyword">if</span> (uri.startsWith(<span class="string">"/download"</span>) &amp;&amp; request.method().equals(HttpMethod.GET)) &#123;</span><br><span class="line">            GeneralResponse generalResponse = <span class="keyword">null</span>;</span><br><span class="line">            File file = <span class="keyword">new</span> File(filePath);</span><br><span class="line">            <span class="keyword">try</span> (RandomAccessFile randomAccessFile = <span class="keyword">new</span> RandomAccessFile(file, <span class="string">"r"</span>)) &#123;</span><br><span class="line">                <span class="keyword">long</span> fileLength = randomAccessFile.length();</span><br><span class="line">                HttpResponse response = <span class="keyword">new</span> DefaultHttpResponse(HTTP_1_1, HttpResponseStatus.OK);</span><br><span class="line">                response.headers().set(HttpHeaderNames.CONTENT_LENGTH, fileLength);</span><br><span class="line">                response.headers().set(HttpHeaderNames.CONTENT_TYPE, <span class="string">"application/octet-stream"</span>);</span><br><span class="line">                response.headers().add(HttpHeaderNames.CONTENT_DISPOSITION, String.format(<span class="string">"attachment; filename=\"%s\""</span>, file.getName()));</span><br><span class="line"></span><br><span class="line">                ctx.write(response);</span><br><span class="line">                ChannelFuture sendFileFuture = <span class="keyword">null</span>;</span><br><span class="line">                sendFileFuture = ctx.write(<span class="keyword">new</span> ChunkedFile(randomAccessFile, <span class="number">0</span>, fileLength, CHUNK_SIZE), ctx.newProgressivePromise());</span><br><span class="line">                sendFileFuture.addListener(<span class="keyword">new</span> ChannelProgressiveFutureListener() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationComplete</span><span class="params">(ChannelProgressiveFuture future)</span></span></span><br><span class="line"><span class="function">                            <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                        log.info(<span class="string">"file &#123;&#125; dowonload complete."</span>, file.getName());</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationProgressed</span><span class="params">(ChannelProgressiveFuture future,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                    <span class="keyword">long</span> progress, <span class="keyword">long</span> total)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                        <span class="keyword">if</span> (total &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                            log.warn(<span class="string">"file &#123;&#125; transfer progress: &#123;&#125;"</span>, file.getName(), progress);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            log.info(<span class="string">"file &#123;&#125; transfer progress: &#123;&#125;/&#123;&#125;"</span>, file.getName(), progress, total);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">                log.warn(<span class="string">"file &#123;&#125; not found"</span>, file.getPath());</span><br><span class="line">                generalResponse = <span class="keyword">new</span> GeneralResponse(HttpResponseStatus.NOT_FOUND, String.format(<span class="string">"file %s not found"</span>, file.getPath()), <span class="keyword">null</span>);</span><br><span class="line">                ResponseUtil.response(ctx, request, generalResponse);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                log.warn(<span class="string">"file &#123;&#125; has a IOException: &#123;&#125;"</span>, file.getName(), e.getMessage());</span><br><span class="line">                generalResponse = <span class="keyword">new</span> GeneralResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR, String.format(<span class="string">"读取 file %s 发生异常"</span>, filePath), <span class="keyword">null</span>);</span><br><span class="line">                ResponseUtil.response(ctx, request, generalResponse);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ctx.fireChannelRead(request);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable e)</span> </span>&#123;</span><br><span class="line">        log.warn(<span class="string">"&#123;&#125;"</span>, e);</span><br><span class="line">        ctx.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码放在： <a href="https://github.com/morethink/code/tree/master/java/netty-example" target="_blank" rel="noopener">https://github.com/morethink/code/tree/master/java/netty-example</a></p>
 
       
     </div>
@@ -485,7 +475,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/how-to-use-IDEA/" title="怎么使用IDEA">https://www.morethink.cn/how-to-use-IDEA/</a>
+    <a href="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/" title="Netty接收HTTP文件上传及文件下载">https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -500,7 +490,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/IDEA/" rel="tag"># IDEA</a>
+            <a href="/tags/Netty/" rel="tag"># Netty</a>
           
         </div>
       
@@ -513,8 +503,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/读书/There-is-a-light-that-falls-down/" rel="next" title="有一种斜落下来的幽光">
-                <i class="fa fa-chevron-left"></i> 有一种斜落下来的幽光
+              <a href="/Docker中执行Shell出现乱码/" rel="next" title="Docker中执行Shell出现乱码">
+                <i class="fa fa-chevron-left"></i> Docker中执行Shell出现乱码
               </a>
             
           </div>
@@ -522,10 +512,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Spring-transaction-no-rollback/" rel="prev" title="Spring事务不回滚原因分析">
-                Spring事务不回滚原因分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -691,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#war-和-war-exploded"><span class="nav-number">1.</span> <span class="nav-text">war 和 war exploded</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#热部署插件-JRebel"><span class="nav-number">2.</span> <span class="nav-text">热部署插件 JRebel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用插件"><span class="nav-number">3.</span> <span class="nav-text">常用插件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文件上传"><span class="nav-number">1.</span> <span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件下载"><span class="nav-number">2.</span> <span class="nav-text">文件下载</span></a></li></ol></div>
             
 
           </div>
