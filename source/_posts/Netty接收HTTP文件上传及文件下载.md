@@ -11,6 +11,8 @@ categories: Java
 
 然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，可以将httpDecoder中缓存的文件通过HttpDataFactory写到磁盘上，然后在删除缓存的HttpContent对象。
 
+<!-- more -->
+
 ```java
 @Slf4j
 public class HttUploadHandler extends SimpleChannelInboundHandler<HttpObject> {
