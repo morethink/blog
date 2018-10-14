@@ -92,11 +92,11 @@
 <meta name="keywords" content="Netty">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netty接收HTTP文件上传及文件下载">
-<meta property="og:url" content="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/index.html">
+<meta property="og:url" content="https://www.morethink.cn/Netty接收HTTP文件上传及文件下载/index.html">
 <meta property="og:site_name" content="More Think">
 <meta property="og:description" content="文件上传这个处理器的原理是接收HttpObject对象，按照HttpRequest，HttpContent来做处理，文件内容是在HttpContent消息带来的。 然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-14T10:30:17.871Z">
+<meta property="og:updated_time" content="2018-10-14T10:33:23.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty接收HTTP文件上传及文件下载">
 <meta name="twitter:description" content="文件上传这个处理器的原理是接收HttpObject对象，按照HttpRequest，HttpContent来做处理，文件内容是在HttpContent消息带来的。 然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，">
@@ -129,7 +129,7 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Netty接收HTTP文件上传及文件下载/"/>
 
 
 
@@ -310,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Netty接收HTTP文件上传及文件下载/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -380,8 +380,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Netty4接收HTTP文件上传及文件下载/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/Netty4接收HTTP文件上传及文件下载/" itemprop="commentsCount"></span>
+                <a href="/Netty接收HTTP文件上传及文件下载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Netty接收HTTP文件上传及文件下载/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -416,6 +416,7 @@
       
         <h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><p>这个处理器的原理是接收HttpObject对象，按照HttpRequest，HttpContent来做处理，文件内容是在HttpContent消息带来的。</p>
 <p>然后在HttpContent中一个chunk一个chunk读，chunk大小可以在初始化HttpServerCodec时设置。将每个chunk交个httpDecoder复制一份，当读到LastHttpContent对象时，表明上传结束，可以将httpDecoder中缓存的文件通过HttpDataFactory写到磁盘上，然后在删除缓存的HttpContent对象。</p>
+<a id="more"></a>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttUploadHandler</span> <span class="keyword">extends</span> <span class="title">SimpleChannelInboundHandler</span>&lt;<span class="title">HttpObject</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HttUploadHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> HttpDataFactory factory = <span class="keyword">new</span> DefaultHttpDataFactory(<span class="keyword">true</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String FILE_UPLOAD = <span class="string">"/data/"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URI = <span class="string">"/upload"</span>;</span><br><span class="line">    <span class="keyword">private</span> HttpPostRequestDecoder httpDecoder;</span><br><span class="line">    HttpRequest request;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">channelRead0</span><span class="params">(<span class="keyword">final</span> ChannelHandlerContext ctx, <span class="keyword">final</span> HttpObject httpObject)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (httpObject <span class="keyword">instanceof</span> HttpRequest) &#123;</span><br><span class="line">            request = (HttpRequest) httpObject;</span><br><span class="line">            <span class="keyword">if</span> (request.uri().startsWith(URI) &amp;&amp; request.method().equals(HttpMethod.POST)) &#123;</span><br><span class="line">                httpDecoder = <span class="keyword">new</span> HttpPostRequestDecoder(factory, request);</span><br><span class="line">                httpDecoder.setDiscardThreshold(<span class="number">0</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//传递给下一个Handler</span></span><br><span class="line">                ctx.fireChannelRead(httpObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (httpObject <span class="keyword">instanceof</span> HttpContent) &#123;</span><br><span class="line">            <span class="keyword">if</span> (httpDecoder != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">final</span> HttpContent chunk = (HttpContent) httpObject;</span><br><span class="line">                httpDecoder.offer(chunk);</span><br><span class="line">                <span class="keyword">if</span> (chunk <span class="keyword">instanceof</span> LastHttpContent) &#123;</span><br><span class="line">                    writeChunk(ctx);</span><br><span class="line">                    <span class="comment">//关闭httpDecoder</span></span><br><span class="line">                    httpDecoder.destroy();</span><br><span class="line">                    httpDecoder = <span class="keyword">null</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                ReferenceCountUtil.release(httpObject);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ctx.fireChannelRead(httpObject);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeChunk</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (httpDecoder.hasNext()) &#123;</span><br><span class="line">            InterfaceHttpData data = httpDecoder.next();</span><br><span class="line">            <span class="keyword">if</span> (data != <span class="keyword">null</span> &amp;&amp; HttpDataType.FileUpload.equals(data.getHttpDataType())) &#123;</span><br><span class="line">                <span class="keyword">final</span> FileUpload fileUpload = (FileUpload) data;</span><br><span class="line">                <span class="keyword">final</span> File file = <span class="keyword">new</span> File(FILE_UPLOAD + fileUpload.getFilename());</span><br><span class="line">                log.info(<span class="string">"upload file: &#123;&#125;"</span>, file);</span><br><span class="line">                <span class="keyword">try</span> (FileChannel inputChannel = <span class="keyword">new</span> FileInputStream(fileUpload.getFile()).getChannel();</span><br><span class="line">                     FileChannel outputChannel = <span class="keyword">new</span> FileOutputStream(file).getChannel()) &#123;</span><br><span class="line">                    outputChannel.transferFrom(inputChannel, <span class="number">0</span>, inputChannel.size());</span><br><span class="line">                    ResponseUtil.response(ctx, request, <span class="keyword">new</span> GeneralResponse(HttpResponseStatus.OK, <span class="string">"SUCCESS"</span>, <span class="keyword">null</span>));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exceptionCaught</span><span class="params">(ChannelHandlerContext ctx, Throwable cause)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        log.warn(<span class="string">"&#123;&#125;"</span>, cause);</span><br><span class="line">        ctx.channel().close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">channelInactive</span><span class="params">(ChannelHandlerContext ctx)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (httpDecoder != <span class="keyword">null</span>) &#123;</span><br><span class="line">            httpDecoder.cleanFiles();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h1><p>参考官方demo： <a href="https://github.com/netty/netty/blob/4.1/example/src/main/java/io/netty/example/file/FileServerHandler.java" target="_blank" rel="noopener">https://github.com/netty/netty/blob/4.1/example/src/main/java/io/netty/example/file/FileServerHandler.java</a></p>
 <p>做了改动：</p>
@@ -475,7 +476,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/" title="Netty接收HTTP文件上传及文件下载">https://www.morethink.cn/Netty4接收HTTP文件上传及文件下载/</a>
+    <a href="https://www.morethink.cn/Netty接收HTTP文件上传及文件下载/" title="Netty接收HTTP文件上传及文件下载">https://www.morethink.cn/Netty接收HTTP文件上传及文件下载/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -503,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Docker中执行Shell出现乱码/" rel="next" title="Docker中执行Shell出现乱码">
-                <i class="fa fa-chevron-left"></i> Docker中执行Shell出现乱码
+              <a href="/Netty-URL-routing-scheme/" rel="next" title="Netty URL路由方案探讨">
+                <i class="fa fa-chevron-left"></i> Netty URL路由方案探讨
               </a>
             
           </div>
@@ -512,6 +513,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Docker中执行Shell出现乱码/" rel="prev" title="Docker中执行Shell出现乱码">
+                Docker中执行Shell出现乱码 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
