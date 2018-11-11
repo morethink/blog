@@ -105,6 +105,7 @@ ch.pipeline().addLast(new ChunkedWriteHandler());
 // 用于下载文件
 ch.pipeline().addLast(new HttpDownloadHandler());
 ```
+
 ```java
 @Slf4j
 public class HttpDownloadHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
@@ -171,5 +172,10 @@ public class HttpDownloadHandler extends SimpleChannelInboundHandler<FullHttpReq
     }
 }
 ```
+
+## 下载文件遇到的坑
+
+由于`RandomAccessFile`是一种文件资源，所以我习惯性的在最后关闭文件资源，采用的是Java7的 `try-with-resources` 语法，于是问题就出现了，由于 `ctx.write(new DefaultFileRegion(raf.getChannel(), 0, fileLength), ctx.newProgressivePromise());` 是异步的，在我关闭`RandomAccessFile`时，文件还未传输完毕，就会导致下载文件停止。
+
 
 代码放在： https://github.com/morethink/code/tree/master/java/netty-example
