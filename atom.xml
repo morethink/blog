@@ -112,6 +112,29 @@
   </entry>
   
   <entry>
+    <title>Git为某个域名设置代理</title>
+    <link href="https://www.morethink.cn/Git-set-proxy-for-a-domain/"/>
+    <id>https://www.morethink.cn/Git-set-proxy-for-a-domain/</id>
+    <published>2018-08-03T16:00:00.000Z</published>
+    <updated>2018-08-04T09:51:45.987Z</updated>
+    
+    <content type="html"><![CDATA[<p>国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。</p><p>下面通过更改Git配置文件对不同的域名使用不同的代理配置。<br><br><a id="more"></a></p><ol><li><p>打开Git 配置文件</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure></li><li><p>添加如下配置：</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。&lt;/p&gt;
+&lt;p&gt;下面通过更改Git配置文件对不同的域名使用不同的代理配置。&lt;br&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)</title>
     <link href="https://www.morethink.cn/Java%E5%8E%8B%E7%BC%A9/%E8%A7%A3%E5%8E%8B%20.zip%E3%80%81.tar.gz%E3%80%81.tar.bz2(%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87)/"/>
     <id>https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/</id>
@@ -134,29 +157,6 @@
     
       <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Git为某个域名设置代理</title>
-    <link href="https://www.morethink.cn/Git-set-proxy-for-a-domain/"/>
-    <id>https://www.morethink.cn/Git-set-proxy-for-a-domain/</id>
-    <published>2018-08-03T16:00:00.000Z</published>
-    <updated>2018-08-04T09:51:45.987Z</updated>
-    
-    <content type="html"><![CDATA[<p>国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。</p><p>下面通过更改Git配置文件对不同的域名使用不同的代理配置。<br><br><a id="more"></a></p><ol><li><p>打开Git 配置文件</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure></li><li><p>添加如下配置：</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。&lt;/p&gt;
-&lt;p&gt;下面通过更改Git配置文件对不同的域名使用不同的代理配置。&lt;br&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
     
   </entry>
   
@@ -184,9 +184,9 @@
       <category term="算法" scheme="https://www.morethink.cn/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="树" scheme="https://www.morethink.cn/tags/%E6%A0%91/"/>
-    
       <category term="索引" scheme="https://www.morethink.cn/tags/%E7%B4%A2%E5%BC%95/"/>
+    
+      <category term="树" scheme="https://www.morethink.cn/tags/%E6%A0%91/"/>
     
   </entry>
   
@@ -424,9 +424,9 @@
       <category term="算法" scheme="https://www.morethink.cn/categories/%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="排序" scheme="https://www.morethink.cn/tags/%E6%8E%92%E5%BA%8F/"/>
-    
       <category term="链表" scheme="https://www.morethink.cn/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="排序" scheme="https://www.morethink.cn/tags/%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   
