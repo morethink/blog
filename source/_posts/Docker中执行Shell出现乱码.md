@@ -8,7 +8,11 @@ categories: Linux
 # 问题描述
 
 最近遇到一个问题：
-执行命令 `docker exec f4af9b sh -c 'bash /tmp/build.sh'` 命令在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在`LANG=en_US.UTF-8`，因此从原理上来说是不应该出现乱码的。
+执行命令
+```shell
+docker exec f4af9b sh -c 'bash /tmp/build.sh'
+```
+在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在`LANG=en_US.UTF-8`，因此从原理上来说是不应该出现乱码的。
 
 但是既然出现了乱码，那么`LANG=en_US.UTF-8`应该就没有读取到，于是在 `build.sh`中运行`env`命令，发现通过`docker exec f4af9b sh -c 'bash /tmp/build.sh'`方式没有`LANG=en_US.UTF-8`环境变量，那么原因是什么？
 
