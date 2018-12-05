@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="问题描述最近遇到一个问题：执行命令 docker exec f4af9b sh -c &amp;#39;bash /tmp/build.sh&amp;#39; 命令在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在LANG=en_US.UTF-8，因此从原理上来说是不应该出现乱码的。 但是既然出现了乱码，那么LANG=en_US.U">
+<meta name="description" content="问题描述最近遇到一个问题：执行命令docker exec f4af9b sh -c &apos;bash /tmp/build.sh&apos; 在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在LANG=en_US.UTF-8，因此从原理上来说是不应该出现乱码的。 但是既然出现了乱码，那么LANG=en_US.UTF-8应该就没有读取">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker中执行Shell出现乱码">
 <meta property="og:url" content="https://www.morethink.cn/Docker中执行Shell出现乱码/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="问题描述最近遇到一个问题：执行命令 docker exec f4af9b sh -c &amp;#39;bash /tmp/build.sh&amp;#39; 命令在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在LANG=en_US.UTF-8，因此从原理上来说是不应该出现乱码的。 但是既然出现了乱码，那么LANG=en_US.U">
+<meta property="og:description" content="问题描述最近遇到一个问题：执行命令docker exec f4af9b sh -c &apos;bash /tmp/build.sh&apos; 在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在LANG=en_US.UTF-8，因此从原理上来说是不应该出现乱码的。 但是既然出现了乱码，那么LANG=en_US.UTF-8应该就没有读取">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-13T17:37:07.267Z">
+<meta property="og:updated_time" content="2018-12-05T06:42:48.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker中执行Shell出现乱码">
-<meta name="twitter:description" content="问题描述最近遇到一个问题：执行命令 docker exec f4af9b sh -c &amp;#39;bash /tmp/build.sh&amp;#39; 命令在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在LANG=en_US.UTF-8，因此从原理上来说是不应该出现乱码的。 但是既然出现了乱码，那么LANG=en_US.U">
+<meta name="twitter:description" content="问题描述最近遇到一个问题：执行命令docker exec f4af9b sh -c &apos;bash /tmp/build.sh&apos; 在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在LANG=en_US.UTF-8，因此从原理上来说是不应该出现乱码的。 但是既然出现了乱码，那么LANG=en_US.UTF-8应该就没有读取">
 
 
 
@@ -414,7 +414,8 @@
       
 
       
-        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>最近遇到一个问题：<br>执行命令 <code>docker exec f4af9b sh -c &#39;bash /tmp/build.sh&#39;</code> 命令在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在<code>LANG=en_US.UTF-8</code>，因此从原理上来说是不应该出现乱码的。</p>
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>最近遇到一个问题：<br>执行命令<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec f4af9b sh -c 'bash /tmp/build.sh'</span><br></pre></td></tr></table></figure></p>
+<p>在docker中执行shell，会出现中文乱码的问题。但是在docker容器中单独执行shell脚本却没有出现乱码。查看环境变量存在<code>LANG=en_US.UTF-8</code>，因此从原理上来说是不应该出现乱码的。</p>
 <p>但是既然出现了乱码，那么<code>LANG=en_US.UTF-8</code>应该就没有读取到，于是在 <code>build.sh</code>中运行<code>env</code>命令，发现通过<code>docker exec f4af9b sh -c &#39;bash /tmp/build.sh&#39;</code>方式没有<code>LANG=en_US.UTF-8</code>环境变量，那么原因是什么？</p>
 <a id="more"></a>
 <h1 id="原因定位"><a href="#原因定位" class="headerlink" title="原因定位"></a>原因定位</h1><p>原因如下：<br><code>docker exec f4af9b sh -c &#39;bash /tmp/build.sh&#39;</code> 对于docker 容器来说是非登录和非交互式shell，这样就不会读取某些配置文件，导致<code>LANG=en_US.UTF-8</code>没有加载成功。</p>
@@ -1346,27 +1347,32 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
   
