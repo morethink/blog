@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="由于在豆瓣发了个租房帖子，发现很快就被其他的帖子淹没，但是手动顶帖实在太累，😭，所以想通过自动顶帖的方式来解放双手！">
+<meta name="keywords" content="Web,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 豆瓣顶帖">
+<meta property="og:url" content="https://www.morethink.cn/Python/douban-ding/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="由于在豆瓣发了个租房帖子，发现很快就被其他的帖子淹没，但是手动顶帖实在太累，😭，所以想通过自动顶帖的方式来解放双手！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/278d71ed0f07f6d1d72a8afa76039cc2.png">
+<meta property="og:image" content="https://images.morethink.cn/4220f35fed72284a44099dfcf27028d8.png">
+<meta property="og:image" content="https://images.morethink.cn/96695d5876d98ca99abc79866020a284.png">
+<meta property="og:image" content="https://images.morethink.cn/8a57550867a8e02b3272d6043632f51b.png">
+<meta property="og:image" content="https://images.morethink.cn/douban-captcha-example1.jpeg">
+<meta property="og:image" content="http://images.morethink.cn/captcha-example1.jpg">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/11/163ecde99a94d224?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/11/163ece17b329ea80?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/11/163ece27d4bc3e76?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://images.morethink.cn/douban-captcha-example1.jpeg">
+<meta property="og:image" content="https://images.morethink.cn/douban-captcha-example2.jpg">
+<meta property="og:image" content="https://images.morethink.cn/douban-captcha-example2.jpg">
+<meta property="og:image" content="https://images.morethink.cn/b9eeaa536e309a201824eac764d11e33.png">
+<meta property="og:image" content="https://images.morethink.cn/douban-ban.jpg">
+<meta property="og:updated_time" content="2018-12-30T10:00:21.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 豆瓣顶帖">
+<meta name="twitter:description" content="由于在豆瓣发了个租房帖子，发现很快就被其他的帖子淹没，但是手动顶帖实在太累，😭，所以想通过自动顶帖的方式来解放双手！">
+<meta name="twitter:image" content="https://images.morethink.cn/278d71ed0f07f6d1d72a8afa76039cc2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/Python/douban-ding/"/>
+
+
+
+
+
+  <title>Python 豆瓣顶帖 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-movies">
+          <a href="/movies/" rel="section">
+            
+            电影
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Python/douban-ding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Python 豆瓣顶帖</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-30T16:17:00+08:00">
+                2018-12-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Python/douban-ding/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Python/douban-ding/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://images.morethink.cn/278d71ed0f07f6d1d72a8afa76039cc2.png" alt="" title="🆙🆙"></p>
+<p>由于在豆瓣发了个租房帖子，发现很快就被其他的帖子淹没，但是手动顶帖实在太累，😭，所以想通过自动顶帖的方式来解放双手！</p>
+<a id="more"></a>
+<h1 id="评论请求分析"><a href="#评论请求分析" class="headerlink" title="评论请求分析"></a>评论请求分析</h1><p>通过Chrome network 分析</p>
+<p><img src="https://images.morethink.cn/4220f35fed72284a44099dfcf27028d8.png" alt="" title="add_comment"></p>
+<ul>
+<li>评论url是<code>https://www.douban.com/group/topic/129122199/add_comment</code></li>
+<li>需要带5个参数，其中 ck 是 cookie 里面的值，rv_comment 是 评论</li>
+<li>返回302代表重定向</li>
+</ul>
+<p>Python 模拟请求：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 豆瓣具体帖子</span></span><br><span class="line">url = <span class="string">"https://www.douban.com/group/topic/129122199/"</span></span><br><span class="line"><span class="comment"># 豆瓣具体帖子回复的接口，格式是帖子链接+/add_comment</span></span><br><span class="line">comment_url = url + <span class="string">"/add_comment"</span></span><br><span class="line">cookie = <span class="string">'cookie'</span></span><br><span class="line">referer = url</span><br><span class="line">agent = <span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">"Host"</span>: <span class="string">"www.douban.com"</span>,</span><br><span class="line">    <span class="string">"Referer"</span>: referer,</span><br><span class="line">    <span class="string">'User-Agent'</span>: agent,</span><br><span class="line">    <span class="string">"Cookie"</span>: cookie</span><br><span class="line">&#125;</span><br><span class="line">params = &#123;</span><br><span class="line">    <span class="string">"rv_comment"</span>: <span class="string">'🆙'</span>,</span><br><span class="line">    <span class="string">"ck"</span>: re.findall(<span class="string">"ck=(.*?);"</span>, headers[<span class="string">"Cookie"</span>])[<span class="number">-1</span>],</span><br><span class="line">    <span class="string">'start'</span>: <span class="string">'0'</span>,</span><br><span class="line">    <span class="string">'submit_btn'</span>: <span class="string">'发送'</span></span><br><span class="line">&#125;</span><br><span class="line">response = requests.post(comment_url, headers=headers, allow_redirects=<span class="keyword">False</span>,</span><br><span class="line">                         data=params, verify=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<p>直接运行即可。</p>
+<p>但是多运行几次就会发现，返回的状态码是200，而且没有顶帖成功。实际上是触发了豆瓣的防爬虫。</p>
+<p><img src="https://images.morethink.cn/96695d5876d98ca99abc79866020a284.png" alt="" title="触发了豆瓣验证码"></p>
+<p>而且在我们顶帖的时候发送请求的时候还带有 captcha-solution 和 captcha-id 字段。</p>
+<p><img src="https://images.morethink.cn/8a57550867a8e02b3272d6043632f51b.png" alt=""></p>
+<p>目前发现，每次评论就算相隔1分钟，只要满3次，就一定会弹出这个验证码进行验证。</p>
+<h1 id="验证码解析"><a href="#验证码解析" class="headerlink" title="验证码解析"></a>验证码解析</h1><p>遇到验证码我们就来破解验证码。</p>
+<h2 id="tesserocr"><a href="#tesserocr" class="headerlink" title="tesserocr"></a>tesserocr</h2><p>识别图形验证码需要安装tesserocr这个库，下面介绍下tesserocr。</p>
+<p>tesserocr是Python的一个OCR识别库，但其实是对tesseract做了一层Python Api的封装，核心还是tesseract，所以在安装tesserocr之前，需要先安装tesseract。<code>Tesseract</code>(/‘tesərækt/) 这个词的意思是”超立方体”，指的是几何学里的四维标准方体，又称”正八胞体”，是一款被广泛使用的开源 <code>OCR</code> 工具。</p>
+<p>在Mac下，使用 brew 安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install tesseract --all-languages</span><br></pre></td></tr></table></figure>
+<p>接下来再安装tesserocr即可：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install imagemagick</span><br><span class="line">pip install tesserocr pillow</span><br></pre></td></tr></table></figure>
+<p>Python 代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tesserocr</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 新建Image对象</span></span><br><span class="line">    image = Image.open(<span class="string">"/Users/liwenhao/Desktop/douban-captcha-example1.jpeg"</span>)</span><br><span class="line">    <span class="comment"># 调用tesserocr的image_to_text()方法，传入image对象完成识别</span></span><br><span class="line">    result = tesserocr.image_to_text(image)</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+<p>验证的图片如下：</p>
+<p><img src="https://images.morethink.cn/douban-captcha-example1.jpeg" alt="douban-captcha-example1" title="douban-captcha-example1"></p>
+<p>结果无法识别。</p>
+<p>换一张简单的图片试试：<br><img src="http://images.morethink.cn/captcha-example1.jpg" alt="captcha-example1.jpg"></p>
+<p>结果如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">5594</span><br></pre></td></tr></table></figure></p>
+<p>看来 Tesseract 只能识别一些简单的验证码，不适合豆瓣验证码识别。</p>
+<p>试试识别验证码平台。</p>
+<h2 id="百度OCR"><a href="#百度OCR" class="headerlink" title="百度OCR"></a>百度OCR</h2><p><strong>官方接入文档</strong>: <a href="https://link.juejin.im?target=https%3A%2F%2Fcloud.baidu.com%2Fdoc%2FOCR%2FOCR-Python-SDK.html%23.E5.BF.AB.E9.80.9F.E5.85.A5.E9.97.A8" target="_blank" rel="noopener">文字识别-Python SDK接入文档</a></p>
+<ul>
+<li><strong>重点：免费</strong>  </li>
+<li>通用识别（包括身份证、银行卡）500次/日，  </li>
+<li>高精度则50次/日，  </li>
+<li>驾驶证，行驶证，车票，营业执照，通用票据均为200次/日  </li>
+</ul>
+<p>注意：<br><strong>支持2.7.+及3.+</strong></p>
+<h3 id="配置流程："><a href="#配置流程：" class="headerlink" title="配置流程："></a>配置流程：</h3><ol>
+<li>先开通个百度的账号；  </li>
+<li>开通<strong>文字识别服务</strong>，打开后点击立即使用：<a href="https://cloud.baidu.com/product/ocr.html" target="_blank" rel="noopener">https://cloud.baidu.com/product/ocr.html</a>  </li>
+<li>点击步骤2，应该有个信息确认的，确认后，会进入到用户个人首页，向下滑动，直接点击文字识别:<br><img src="https://user-gold-cdn.xitu.io/2018/6/11/163ecde99a94d224?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></li>
+<li>点击创建应用，输入一堆内容后，点击确认即可，然后点击我的应用，这里面的<strong>API Key</strong> 跟<strong>Secret Key</strong>需要使用到: <img src="https://user-gold-cdn.xitu.io/2018/6/11/163ece17b329ea80?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></li>
+<li><p>点击右上角，用户中心，用户ID也需要用到:<br><img src="https://user-gold-cdn.xitu.io/2018/6/11/163ece27d4bc3e76?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></p>
+</li>
+<li><p>需要的信息准备好了，<strong>pip</strong> 安装一波</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install baidu-aip</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="测试一波"><a href="#测试一波" class="headerlink" title="测试一波"></a>测试一波</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> aip <span class="keyword">import</span> AipOcr</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    APP_ID = <span class="string">' '</span></span><br><span class="line">    API_KEY = <span class="string">' '</span></span><br><span class="line">    SECRET_KEY = <span class="string">' '</span></span><br><span class="line"></span><br><span class="line">    client = AipOcr(APP_ID, API_KEY, SECRET_KEY)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 读取图片</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_file_content</span><span class="params">(file_path)</span>:</span></span><br><span class="line">        <span class="keyword">with</span> open(file_path, <span class="string">'rb'</span>) <span class="keyword">as</span> fp:</span><br><span class="line">            <span class="keyword">return</span> fp.read()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    image = get_file_content(<span class="string">'/Users/liwenhao/Desktop/douban-captcha-example2.jpg'</span>)</span><br><span class="line">    <span class="string">""" 调用通用文字识别(高精度), 图片参数为本地图片 """</span></span><br><span class="line">    result = json.dumps(client.basicAccurate(image))</span><br><span class="line">    print(result)</span><br></pre></td></tr></table></figure>
+<p>验证的图片如下：</p>
+<p><img src="https://images.morethink.cn/douban-captcha-example1.jpeg" alt="douban-captcha-example1" title="douban-captcha-example1"></p>
+<p>结果走一波：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;log_id&quot;: 3968431492157876638, &quot;words_result_num&quot;: 1, &quot;words_result&quot;: [&#123;&quot;words&quot;: &quot; minute:&quot;&#125;]&#125;</span><br></pre></td></tr></table></figure>
+<p>从结果可以看出识别出了这个验证码。</p>
+<ul>
+<li><code>words_result_num</code> 是识别结果数</li>
+<li><code>words_result</code> 是定位和识别结果数组</li>
+<li><code>words</code> 是识别结果字符串</li>
+</ul>
+<p>再来试试</p>
+<p><img src="https://images.morethink.cn/douban-captcha-example2.jpg" alt="douban-captcha-example2" title="douban-captcha-example2"></p>
+<p>结果如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;log_id&quot;: 5251449865676063710, &quot;words_result_num&quot;: 0, &quot;words_result&quot;: []&#125;</span><br></pre></td></tr></table></figure></p>
+<p>没有识别出来，可以看到对于复杂一些的验证码还是会出现无法识别的情况，但是胜在免费。</p>
+<h2 id="超级鹰"><a href="#超级鹰" class="headerlink" title="超级鹰"></a>超级鹰</h2><p>对于无法识别的情况就需要打码平台了，业界比较出名的是 <a href="https://link.juejin.im?target=http%3A%2F%2Fwww.chaojiying.com%2F" target="_blank" rel="noopener">超级鹰</a> 。</p>
+<p>超级鹰是按量级收费，量大便宜，标准价格:1元=1000题分，不同验证码类型，需要的题分不一样，详情可以到这里查询 <a href="http://www.chaojiying.com/price.html" target="_blank" rel="noopener">http://www.chaojiying.com/price.html</a></p>
+<p>python 代码如下：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过超级鹰识别验证码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recognition_captcha</span><span class="params">(filename, code_type)</span>:</span></span><br><span class="line">    im = open(filename, <span class="string">'rb'</span>).read()</span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">'user'</span>: <span class="string">'账号'</span>,</span><br><span class="line">        <span class="string">'pass2'</span>: md5(<span class="string">'密码'</span>.encode(<span class="string">'utf8'</span>)).hexdigest(),</span><br><span class="line">        <span class="string">'softid'</span>: <span class="string">'softid'</span>,</span><br><span class="line">        <span class="string">'codetype'</span>: code_type</span><br><span class="line">    &#125;</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'Connection'</span>: <span class="string">'Keep-Alive'</span>,</span><br><span class="line">        <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    files = &#123;<span class="string">'userfile'</span>: (<span class="string">'ccc.jpg'</span>, im)&#125;</span><br><span class="line">    resp = requests.post(<span class="string">'http://upload.chaojiying.net/Upload/Processing.php'</span>, data=params, files=files,</span><br><span class="line">                         headers=headers).json()</span><br><span class="line">    <span class="keyword">return</span> resp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用代码</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(json.dumps(recognition_captcha(<span class="string">'/Users/liwenhao/Desktop/douban-captcha-example2.jpg'</span>, <span class="number">1006</span>)))</span><br></pre></td></tr></table></figure></p>
+<p>上传的验证码就是上面百度 OCR 未曾识别的验证码，如下：</p>
+<p><img src="https://images.morethink.cn/douban-captcha-example2.jpg" alt="douban-captcha-example2" title="douban-captcha-example2"><br>结果如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;err_str&quot;: &quot;OK&quot;, &quot;err_no&quot;: 0, &quot;md5&quot;: &quot;0475b05654c376deb409bfef7eee75cd&quot;, &quot;pic_id&quot;: &quot;8054415552001300054&quot;, &quot;pic_str&quot;: &quot;yacvmd&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>发现 验证码 <code>yacvmd</code> 已出来。但是时间花了5s左右。后来测试发现对于豆瓣比较建的验证码花费的时间在1s内，因此从时间和准确性上面，最后还是采用了超级鹰打码平台。</p>
+<h1 id="失败微信通知"><a href="#失败微信通知" class="headerlink" title="失败微信通知"></a>失败微信通知</h1><p>无论采用什么方式，都有可能出现失败的情况，我总不能采取 轮询 的方式，隔几个小时就去看看到底前面几次是否🆙成功，因此需要一个 异步通知 ，最开始想用 邮件，后来发现了 <a href="http://sc.ftqq.com/3.version" target="_blank" rel="noopener">Server酱</a> 这个神器，可以帮助我们发送微信通知，而且特别简单。</p>
+<p>具体可以查看 <a href="http://sc.ftqq.com/3.version" target="_blank" rel="noopener">Server酱</a>。</p>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> urllib3</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> md5</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> html</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig(level=logging.INFO, format=<span class="string">'%(asctime)s.%(msecs)03d %(levelname)s: %(message)s'</span>,</span><br><span class="line">                    datefmt=<span class="string">'%Y-%m-%d %H:%M:%S'</span>)</span><br><span class="line">urllib3.disable_warnings()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载验证码图片</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_captcha</span><span class="params">(captcha_url, agent)</span>:</span></span><br><span class="line">    <span class="comment"># findall返回的是一个列表</span></span><br><span class="line">    captcha_name = re.findall(<span class="string">"id=(.*?):"</span>, captcha_url)</span><br><span class="line">    filename = <span class="string">"douban_%s.jpg"</span> % (str(captcha_name[<span class="number">0</span>]))</span><br><span class="line">    logging.info(<span class="string">"文件名为: "</span> + filename)</span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="comment"># 以二进制写入的模式在本地构建新文件</span></span><br><span class="line">        header = &#123;</span><br><span class="line">            <span class="string">'User-Agent'</span>: agent,</span><br><span class="line">            <span class="string">'Referer'</span>: captcha_url</span><br><span class="line">        &#125;</span><br><span class="line">        f.write(requests.get(captcha_url, headers=header).content)</span><br><span class="line">        logging.info(<span class="string">"%s 下载完成"</span> % filename)</span><br><span class="line">    <span class="keyword">return</span> filename</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过超级鹰识别验证码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">recognition_captcha</span><span class="params">(filename, code_type)</span>:</span></span><br><span class="line">    im = open(filename, <span class="string">'rb'</span>).read()</span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">'user'</span>: <span class="string">'用户'</span>,</span><br><span class="line">        <span class="string">'pass2'</span>: md5(<span class="string">'密码'</span>.encode(<span class="string">'utf8'</span>)).hexdigest(),</span><br><span class="line">        <span class="string">'softid'</span>: <span class="string">'softid'</span>,</span><br><span class="line">        <span class="string">'codetype'</span>: code_type</span><br><span class="line">    &#125;</span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'Connection'</span>: <span class="string">'Keep-Alive'</span>,</span><br><span class="line">        <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    files = &#123;<span class="string">'userfile'</span>: (<span class="string">'ccc.jpg'</span>, im)&#125;</span><br><span class="line">    resp = requests.post(<span class="string">'http://upload.chaojiying.net/Upload/Processing.php'</span>, data=params, files=files,</span><br><span class="line">                         headers=headers).json()</span><br><span class="line">    <span class="comment"># 错误处理</span></span><br><span class="line">    <span class="keyword">if</span> resp.get(<span class="string">'err_no'</span>, <span class="number">0</span>) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> resp.get(<span class="string">'pic_str'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">result_verification</span><span class="params">(response)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> response.status_code == <span class="number">302</span>:</span><br><span class="line">        logging.info(<span class="string">"豆瓣ding成功"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        logging.info(response.status_code)</span><br><span class="line">        logging.info(response)</span><br><span class="line">        url = <span class="string">"https://sc.ftqq.com/你的SCKEY.send?text=douban失败"</span> + \</span><br><span class="line">              str(random.randint(<span class="number">0</span>, <span class="number">1000</span>))</span><br><span class="line">        requests.post(url)</span><br><span class="line">        logging.info(<span class="string">"豆瓣ding失败，发送失败信息到微信"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 豆瓣顶帖</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">douban_ding</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 豆瓣具体帖子</span></span><br><span class="line">    url = <span class="string">"https://www.douban.com/group/topic/129122199/"</span></span><br><span class="line">    <span class="comment"># 豆瓣具体帖子回复的接口，格式是帖子链接+/add_comment</span></span><br><span class="line">    comment_url = url + <span class="string">"/add_comment"</span></span><br><span class="line">    cookie = <span class="string">'cookie'</span></span><br><span class="line">    referer = url</span><br><span class="line">    agent = <span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">"Host"</span>: <span class="string">"www.douban.com"</span>,</span><br><span class="line">        <span class="string">"Referer"</span>: referer,</span><br><span class="line">        <span class="string">'User-Agent'</span>: agent,</span><br><span class="line">        <span class="string">"Cookie"</span>: cookie</span><br><span class="line">    &#125;</span><br><span class="line">    params = &#123;</span><br><span class="line">        <span class="string">"rv_comment"</span>: <span class="string">'🆙'</span>,</span><br><span class="line">        <span class="string">"ck"</span>: re.findall(<span class="string">"ck=(.*?);"</span>, headers[<span class="string">"Cookie"</span>])[<span class="number">-1</span>],</span><br><span class="line">        <span class="string">'start'</span>: <span class="string">'0'</span>,</span><br><span class="line">        <span class="string">'submit_btn'</span>: <span class="string">'发送'</span></span><br><span class="line">    &#125;</span><br><span class="line">    response = requests.get(url, headers=headers, verify=<span class="keyword">False</span>).content.decode(<span class="string">'utf-8'</span>)</span><br><span class="line">    selector = html.fromstring(response)</span><br><span class="line">    captcha_image = selector.xpath(<span class="string">"//img[@id=\"captcha_image\"]/@src"</span>)</span><br><span class="line">    <span class="keyword">if</span> captcha_image:</span><br><span class="line">        logging.info(<span class="string">"发现验证码，下载验证码"</span>)</span><br><span class="line">        captcha_id = selector.xpath(<span class="string">"//input[@name=\"captcha-id\"]/@value"</span>)</span><br><span class="line">        filename = download_captcha(captcha_image[<span class="number">0</span>], agent)</span><br><span class="line">        captcha_solution = recognition_captcha(filename, <span class="number">1006</span>)</span><br><span class="line">        os.remove(filename)</span><br><span class="line">        params[<span class="string">'captcha-solution'</span>] = captcha_solution</span><br><span class="line">        params[<span class="string">'captcha-id'</span>] = captcha_id</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        logging.info(<span class="string">"没有验证码"</span>)</span><br><span class="line">    response = requests.post(comment_url, headers=headers, allow_redirects=<span class="keyword">False</span>,</span><br><span class="line">                             data=params, verify=<span class="keyword">False</span>)</span><br><span class="line">    result_verification(response)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    douban_ding()</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<ol>
+<li><p>第1次：</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2018-12-30 16:09:35.589 INFO: 没有验证码</span><br><span class="line">2018-12-30 16:09:36.436 INFO: 豆瓣ding成功</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第4次：</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">2018-12-30 16:13:02.135 INFO: 发现验证码，下载验证码</span><br><span class="line">2018-12-30 16:13:02.135 INFO: 文件名为: douban_OJGsVa0hST4O2WhFA0VpMnR9.jpg</span><br><span class="line">2018-12-30 16:13:02.554 INFO: douban_OJGsVa0hST4O2WhFA0VpMnR9.jpg 下载完成</span><br><span class="line">2018-12-30 16:13:09.687 INFO: 豆瓣ding成功</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>效果图：</p>
+<p><img src="https://images.morethink.cn/b9eeaa536e309a201824eac764d11e33.png" alt=""></p>
+<p>注：</p>
+<ol>
+<li>顶帖的时候控制好频率，不然容易被禁言。 <img src="https://images.morethink.cn/douban-ban.jpg" alt="" title="豆瓣禁言"></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="李文浩 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="李文浩 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    李文浩
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/Python/douban-ding/" title="Python 豆瓣顶帖">https://www.morethink.cn/Python/douban-ding/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Netty接收HTTP文件上传及文件下载/" rel="next" title="Netty接收HTTP文件上传及文件下载">
+                <i class="fa fa-chevron-left"></i> Netty接收HTTP文件上传及文件下载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="李文浩" />
+            
+              <p class="site-author-name" itemprop="name">李文浩</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#评论请求分析"><span class="nav-number">1.</span> <span class="nav-text">评论请求分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证码解析"><span class="nav-number">2.</span> <span class="nav-text">验证码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tesserocr"><span class="nav-number">2.1.</span> <span class="nav-text">tesserocr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百度OCR"><span class="nav-number">2.2.</span> <span class="nav-text">百度OCR</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置流程："><span class="nav-number">2.2.1.</span> <span class="nav-text">配置流程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试一波"><span class="nav-number">2.2.2.</span> <span class="nav-text">测试一波</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超级鹰"><span class="nav-number">2.3.</span> <span class="nav-text">超级鹰</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#失败微信通知"><span class="nav-number">3.</span> <span class="nav-text">失败微信通知</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码"><span class="nav-number">4.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李文浩</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'morethink',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '08854952e38df7965142646ffb127bd37dc9baf2',
+            
+                client_id: '2cf694e06b6dcf0e5264'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+</body>
+</html>
