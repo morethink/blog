@@ -119,7 +119,7 @@ if __name__ == '__main__':
 ## 百度OCR
 
 
-**官方接入文档**: [文字识别-Python SDK接入文档](https://link.juejin.im?target=https%3A%2F%2Fcloud.baidu.com%2Fdoc%2FOCR%2FOCR-Python-SDK.html%23.E5.BF.AB.E9.80.9F.E5.85.A5.E9.97.A8)
+**官方接入文档**: [文字识别-Python SDK接入文档](https://cloud.baidu.com/doc/OCR/OCR-Python-SDK.html#.E5.BF.AB.E9.80.9F.E5.85.A5.E9.97.A8)
 
 - **重点：免费**  
 - 通用识别（包括身份证、银行卡）500次/日，  
@@ -134,10 +134,10 @@ if __name__ == '__main__':
 1. 先开通个百度的账号；  
 2. 开通**文字识别服务**，打开后点击立即使用：https://cloud.baidu.com/product/ocr.html  
 3. 点击步骤2，应该有个信息确认的，确认后，会进入到用户个人首页，向下滑动，直接点击文字识别:
-![](https://user-gold-cdn.xitu.io/2018/6/11/163ecde99a94d224?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-4. 点击创建应用，输入一堆内容后，点击确认即可，然后点击我的应用，这里面的**API Key** 跟**Secret Key**需要使用到: ![](https://user-gold-cdn.xitu.io/2018/6/11/163ece17b329ea80?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![](https://user-gold-cdn.xitu.io/2018/6/11/163ecde99a94d224)
+4. 点击创建应用，输入一堆内容后，点击确认即可，然后点击我的应用，这里面的**API Key** 跟**Secret Key**需要使用到: ![](https://user-gold-cdn.xitu.io/2018/6/11/163ece17b329ea80)
 5. 点击右上角，用户中心，用户ID也需要用到:
-![](https://user-gold-cdn.xitu.io/2018/6/11/163ece27d4bc3e76?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![](https://user-gold-cdn.xitu.io/2018/6/11/163ece27d4bc3e76)
 
 6. 需要的信息准备好了，**pip** 安装一波
     ```Python
@@ -250,6 +250,9 @@ if __name__ == '__main__':
 具体可以查看 [Server酱](http://sc.ftqq.com/3.version)。
 
 # 完整代码
+
+采用 python2
+
 ```python
 import os
 
