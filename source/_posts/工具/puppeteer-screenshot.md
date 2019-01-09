@@ -72,6 +72,10 @@ function autoScroll(page) {
 }
 ```
 
+动图如下：
+
+![puppeteer-screenshot](https://dev.tencent.com/u/morethink/p/images/git/raw/master/puppeteer-screenshot.gif "puppeteer-screenshot")
+
 
 # puppeteer 实现 html element 截图
 
