@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Servlet," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -88,21 +88,23 @@
 
 
 
-<meta name="description" content="在我们学习Servlet之前，有必要了解一下Web容器的工作模式  我们所有的请求其实都是先到达了web容器，然后才分发给已经注册好的Servlet 请求由Servlet的service方法调用doGet()和doPost()进行反应。">
-<meta name="keywords" content="Servlet">
+<meta name="description" content="当我学了廖大的Python教程后，感觉总得做点什么，正好自己想随时查阅，于是就开始有了制作PDF这个想法。 想要把教程变成PDF有三步：  先生成空html，爬取每一篇教程放进一个新生成的div，这样就生成了包含所有教程的html文件(BeautifulSoup) 将html转换成pdf(wkhtmltopdf) 由于廖大是写教程的，反爬做的比较好，在爬取的过程中还需要代理ip(免">
+<meta name="keywords" content="Web,HTML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Servlet 浅析">
-<meta property="og:url" content="https://www.morethink.cn/Servlet/index.html">
+<meta property="og:title" content="学以致用:Python爬取廖大Python教程制作pdf">
+<meta property="og:url" content="https://www.morethink.cn/Python/python-tutorial-pdf/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="在我们学习Servlet之前，有必要了解一下Web容器的工作模式  我们所有的请求其实都是先到达了web容器，然后才分发给已经注册好的Servlet 请求由Servlet的service方法调用doGet()和doPost()进行反应。">
+<meta property="og:description" content="当我学了廖大的Python教程后，感觉总得做点什么，正好自己想随时查阅，于是就开始有了制作PDF这个想法。 想要把教程变成PDF有三步：  先生成空html，爬取每一篇教程放进一个新生成的div，这样就生成了包含所有教程的html文件(BeautifulSoup) 将html转换成pdf(wkhtmltopdf) 由于廖大是写教程的，反爬做的比较好，在爬取的过程中还需要代理ip(免">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://www.morethink.cn/Servlet/1476700589878.png">
-<meta property="og:image" content="https://www.morethink.cn/Servlet/1476789507228.png">
-<meta property="og:updated_time" content="2018-03-23T03:03:50.185Z">
+<meta property="og:image" content="https://images.morethink.cn/python-tutorial-pdf.jpeg">
+<meta property="og:image" content="https://images.morethink.cn/a7fa858c35a52d0bd1ed89a611546ef1.png">
+<meta property="og:image" content="https://images.morethink.cn/ad8217afdd1d38c665a1a0341ade499e.png">
+<meta property="og:image" content="https://images.morethink.cn/3b24e8815b5e9ac26184a3f1ab96bd1d.png">
+<meta property="og:updated_time" content="2019-01-10T13:36:48.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Servlet 浅析">
-<meta name="twitter:description" content="在我们学习Servlet之前，有必要了解一下Web容器的工作模式  我们所有的请求其实都是先到达了web容器，然后才分发给已经注册好的Servlet 请求由Servlet的service方法调用doGet()和doPost()进行反应。">
-<meta name="twitter:image" content="https://www.morethink.cn/Servlet/1476700589878.png">
+<meta name="twitter:title" content="学以致用:Python爬取廖大Python教程制作pdf">
+<meta name="twitter:description" content="当我学了廖大的Python教程后，感觉总得做点什么，正好自己想随时查阅，于是就开始有了制作PDF这个想法。 想要把教程变成PDF有三步：  先生成空html，爬取每一篇教程放进一个新生成的div，这样就生成了包含所有教程的html文件(BeautifulSoup) 将html转换成pdf(wkhtmltopdf) 由于廖大是写教程的，反爬做的比较好，在爬取的过程中还需要代理ip(免">
+<meta name="twitter:image" content="https://images.morethink.cn/python-tutorial-pdf.jpeg">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/Servlet/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Python/python-tutorial-pdf/"/>
 
 
 
 
 
-  <title>Servlet 浅析 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>学以致用:Python爬取廖大Python教程制作pdf | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -313,7 +315,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Servlet/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Python/python-tutorial-pdf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="李文浩">
@@ -330,7 +332,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Servlet 浅析</h2>
+          <h2 class="post-title" itemprop="name headline">学以致用:Python爬取廖大Python教程制作pdf</h2>
         
 
         <div class="post-meta">
@@ -342,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-11T00:00:00+08:00">
-                2016-12-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T00:00:00+08:00">
+                2019-01-10
               </time>
             
 
@@ -365,8 +367,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -383,8 +385,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Servlet/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/Servlet/" itemprop="commentsCount"></span>
+                <a href="/Python/python-tutorial-pdf/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Python/python-tutorial-pdf/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -417,41 +419,85 @@
       
 
       
-        <p>在我们学习Servlet之前，有必要了解一下Web容器的工作模式</p>
+        <p><img src="https://images.morethink.cn/python-tutorial-pdf.jpeg" alt="python-tutorial-pdf" title="python-tutorial-pdf"></p>
+<p>当我学了廖大的Python教程后，感觉总得做点什么，正好自己想随时查阅，于是就开始有了制作PDF这个想法。</p>
+<p>想要把教程变成PDF有三步：</p>
 <ol>
-<li>我们所有的请求其实都是先到达了web容器，然后才分发给已经注册好的Servlet</li>
-<li>请求由Servlet的service方法调用<code>doGet()</code>和<code>doPost()</code>进行反应。</li>
+<li>先生成空html，爬取每一篇教程放进一个新生成的div，这样就生成了包含所有教程的html文件(<code>BeautifulSoup</code>)</li>
+<li>将html转换成pdf(<code>wkhtmltopdf</code>)</li>
+<li>由于廖大是写教程的，反爬做的比较好，在爬取的过程中还需要代理ip(<code>免费 or 付费</code>)</li>
 </ol>
 <a id="more"></a>
-<h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h1><p>JSP的本质是一个Servlet类，他弥补了Servlet不好做界面的劣势。</p>
-<h1 id="Servlet-工作原理解析"><a href="#Servlet-工作原理解析" class="headerlink" title="Servlet 工作原理解析"></a>Servlet 工作原理解析</h1><h1 id="url匹配和url-pattern"><a href="#url匹配和url-pattern" class="headerlink" title="url匹配和url-pattern"></a>url匹配和url-pattern</h1><p><strong>url的匹配</strong><br>当一个请求发送到servlet容器的时候，容器先会将请求的url减去当前应用上下文的路径作为servlet的映射url，比如我访问的是<a href="http://localhost/test/aaa.html，我的应用上下文是test，容器会将http://localhost/test去掉，剩下的/aaa.html部分拿来做servlet的映射匹配。这个映射匹配过程是有顺序的，而且当有一个servlet匹配成功以后，就不会去理会剩下的servlet了（filter不同，后文会提到）。其匹配规则和顺序如下：" target="_blank" rel="noopener">http://localhost/test/aaa.html，我的应用上下文是test，容器会将http://localhost/test去掉，剩下的/aaa.html部分拿来做servlet的映射匹配。这个映射匹配过程是有顺序的，而且当有一个servlet匹配成功以后，就不会去理会剩下的servlet了（filter不同，后文会提到）。其匹配规则和顺序如下：</a></p>
+<h1 id="BeautifulSoup"><a href="#BeautifulSoup" class="headerlink" title="BeautifulSoup"></a>BeautifulSoup</h1><blockquote>
+<p><a href="http://www.crummy.com/software/BeautifulSoup/" target="_blank" rel="noopener">Beautiful Soup</a> 是一个可以从HTML或XML文件中提取数据的Python库.它能够通过你喜欢的转换器实现惯用的文档导航,查找,修改文档的方式.Beautiful Soup会帮你节省数小时甚至数天的工作时间.</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install BeautifulSoup4</span><br></pre></td></tr></table></figure>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><p>将一段文档传入 <code>BeautifulSoup</code> 的构造方法,就能得到一个文档的对象, 可以传入一段字符串或一个文件句柄.</p>
+<p>如下所示：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">soup = BeautifulSoup(open(<span class="string">"index.html"</span>))</span><br><span class="line">soup = BeautifulSoup(<span class="string">"&lt;html&gt;data&lt;/html&gt;"</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>首先,文档被转换成Unicode,并且HTML的实例都被转换成Unicode编码.</li>
+<li>然后,Beautiful Soup选择最合适的解析器来解析这段文档,如果手动指定解析器那么Beautiful Soup会选择指定的解析器来解析文档.</li>
+</ul>
+<h2 id="对象的种类"><a href="#对象的种类" class="headerlink" title="对象的种类"></a>对象的种类</h2><p><code>Beautiful Soup</code> 将复杂 <code>HTML</code> 文档转换成一个复杂的树形结构,每个节点都是 <code>Python</code> 对象,所有对象可以归纳为 4 种: <code>Tag , NavigableString , BeautifulSoup , Comment .</code></p>
+<ul>
+<li><code>Tag</code>：通俗点讲就是 <code>HTML</code> 中的一个个标签，类似 <code>div，p</code>。</li>
+<li><code>NavigableString</code>：获取标签内部的文字，如，<code>soup.p.string</code>。</li>
+<li><code>BeautifulSoup</code>：表示一个文档的全部内容。</li>
+<li><code>Comment：Comment</code> 对象是一个特殊类型的 <code>NavigableString</code> 对象，其输出的内容不包括注释符号.</li>
+</ul>
+<h2 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h2><p><code>Tag</code>就是<code>html</code>中的一个标签，用<code>BeautifulSoup</code>就能解析出来<code>Tag</code>的具体内容，具体的格式为<code>soup.name</code>,其中<code>name</code>是<code>html</code>下的标签，具体实例如下：</p>
+<ul>
+<li><p><code>print soup.title</code>输出<code>title</code>标签下的内容，包括此标签，这个将会输出</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>The Dormouse's story<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>print soup.head</code>输出<code>head</code>标签下的内容</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;<span class="name">title</span>&gt;</span>The Dormouse's story<span class="tag">&lt;/<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>如果 Tag 对象要获取的标签有多个的话，它只会返回所以内容中第一个符合要求的标签</strong>。</p>
+<h3 id="Tag-属性"><a href="#Tag-属性" class="headerlink" title="Tag 属性"></a>Tag 属性</h3><p>每个 <code>Tag</code> 有两个重要的属性 <code>name</code> 和 <code>attrs</code>：</p>
+<ul>
+<li><code>name</code>：对于<code>Tag</code>，它的<code>name</code>就是其本身，如<code>soup.p.name</code>就是<code>p</code></li>
+<li><code>attrs</code>是一个字典类型的，对应的是属性-值，如<code>print soup.p.attrs</code>,输出的就是<code>{&#39;class&#39;: [&#39;title&#39;], &#39;name&#39;: &#39;dromouse&#39;}</code>,当然你也可以得到具体的值，如<code>print soup.p.attrs[&#39;class&#39;]</code>,输出的就是<code>[title]</code>是一个列表的类型，因为一个属性可能对应多个值,当然你也可以通过get方法得到属性的，如：<code>print soup.p.get(&#39;class&#39;)</code>。还可以直接使用<code>print soup.p[&#39;class&#39;]</code></li>
+</ul>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p><code>get</code>方法用于得到标签下的属性值，注意这是一个重要的方法，在许多场合都能用到，比如你要得到<code>&lt;img src=&quot;#&quot;&gt;</code>标签下的图像<code>url</code>,那么就可以用<code>soup.img.get(&#39;src&#39;)</code>,具体解析如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 得到第一个p标签下的src属性</span></span><br><span class="line"><span class="keyword">print</span> soup.p.get(<span class="string">"class"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="string"><a href="#string" class="headerlink" title="string"></a>string</h3><p>得到标签下的文本内容，只有在此标签下没有子标签，或者只有一个子标签的情况下才能返回其中的内容，否则返回的是<code>None</code>具体实例如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在上面的一段文本中p标签没有子标签，因此能够正确返回文本的内容</span></span><br><span class="line"><span class="keyword">print</span> soup.p.string</span><br><span class="line"><span class="comment"># 这里得到的就是None,因为这里的html中有很多的子标签</span></span><br><span class="line"><span class="keyword">print</span> soup.html.string</span><br></pre></td></tr></table></figure>
+<h3 id="get-text"><a href="#get-text" class="headerlink" title="get_text()"></a><code>get_text()</code></h3><p><strong>可以获得一个标签中的所有文本内容，包括子孙节点的内容，这是最常用的方法</strong>。</p>
+<h2 id="搜索文档树"><a href="#搜索文档树" class="headerlink" title="搜索文档树"></a>搜索文档树</h2><p>BeautifulSoup 主要用来遍历子节点及子节点的属性，通过<code>Tag</code>取属性的方式只能获得当前文档中的第一个 tag，例如，<code>soup.p</code>。如果想要得到所有的<code>&lt;p&gt;</code> 标签,或是通过名字得到比一个 tag 更多的内容的时候,就需要用到 find_all()<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">find_all(name, attrs, recursive, text, **kwargs )</span><br></pre></td></tr></table></figure></p>
+<p>find_all是用于搜索节点中所有符合过滤条件的节点。</p>
+<p><strong>name参数</strong>：是Tag的名字，如p,div,title<br><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 节点名</span></span><br><span class="line">print(soup.find_all(<span class="string">'p'</span>))</span><br><span class="line"><span class="comment"># 2. 正则表达式</span></span><br><span class="line">print(soup.find_all(re.compile(<span class="string">'^p'</span>)))</span><br><span class="line"><span class="comment"># 3. 列表  </span></span><br><span class="line">print(soup.find_all([<span class="string">'p'</span>, <span class="string">'a'</span>]))</span><br></pre></td></tr></table></figure></p>
+<p>另外 attrs 参数可以也作为过滤条件来获取内容，而 limit 参数是限制返回的条数。</p>
+<h2 id="CSS-选择器"><a href="#CSS-选择器" class="headerlink" title="CSS 选择器"></a>CSS 选择器</h2><p>以 CSS 语法为匹配标准找到 Tag。同样也是使用到一个函数，该函数为<code>select()</code>，返回类型是 list。它的具体用法如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 通过 tag 标签查找</span></span><br><span class="line">print(soup.select(head))</span><br><span class="line"><span class="comment"># 2. 通过 id 查找</span></span><br><span class="line">print(soup.select(<span class="string">'#link1'</span>))</span><br><span class="line"><span class="comment"># 3. 通过 class 查找</span></span><br><span class="line">print(soup.select(<span class="string">'.sister'</span>))</span><br><span class="line"><span class="comment"># 4. 通过属性查找</span></span><br><span class="line">print(soup.select(<span class="string">'p[name=dromouse]'</span>))</span><br><span class="line"><span class="comment"># 5. 组合查找</span></span><br><span class="line">print(soup.select(<span class="string">"body p"</span>))</span><br></pre></td></tr></table></figure>
+<h1 id="wkhtmltopdf"><a href="#wkhtmltopdf" class="headerlink" title="wkhtmltopdf"></a>wkhtmltopdf</h1><blockquote>
+<ul>
+<li>wkhtmltopdf主要用于HTML生成PDF。</li>
+<li>pdfkit是基于wkhtmltopdf的python封装，支持URL，本地文件，文本内容到PDF的转换，其最终还是调用wkhtmltopdf命令。</li>
+</ul>
+</blockquote>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><p>先安装wkhtmltopdf，再安装pdfkit。</p>
 <ol>
-<li>精确路径匹配。例子：比如servletA 的url-pattern为 /test，servletB的url-pattern为 /* ，这个时候，如果我访问的url为<a href="http://localhost/test" target="_blank" rel="noopener">http://localhost/test</a> ，这个时候容器就会先进行精确路径匹配，发现/test正好被servletA精确匹配，那么就去调用servletA，也不会去理会其他的servlet了。</li>
-<li>最长路径匹配。例子：servletA的url-pattern为/test/<em>，而servletB的url-pattern为/test/a/</em>，此时访问<a href="http://localhost/test/a时，容器会选择路径最长的servlet来匹配，也就是这里的servletB。" target="_blank" rel="noopener">http://localhost/test/a时，容器会选择路径最长的servlet来匹配，也就是这里的servletB。</a></li>
-<li>扩展匹配，如果url最后一段包含扩展，容器将会根据扩展选择合适的servlet。例子：servletA的url-pattern：*.action</li>
-<li>如果前面三条规则都没有找到一个servlet，容器会根据url选择对应的请求资源。如果应用定义了一个default servlet，则容器会将请求丢给default servlet（什么是default servlet？后面会讲）。<br>根据这个规则表，就能很清楚的知道servlet的匹配过程，所以定义servlet的时候也要考虑url-pattern的写法，以免出错。</li>
-</ol>
-<p><strong>对于filter，不会像servlet那样只匹配一个servlet，因为filter的集合是一个链，所以只会有处理的顺序不同，而不会出现只选择一个filter。</strong>Filter的处理顺序和filter-mapping在web.xml中定义的顺序相同。</p>
-<p><strong>url-pattern详解</strong><br>在web.xml文件中，以下语法用于定义映射：</p>
-<ol>
-<li>以”/’开头和以”/*”结尾的是用来做路径映射的。</li>
-<li>以前缀”*.”开头的是用来做扩展映射的。</li>
-<li>“/” 是用来定义default servlet映射的。</li>
-<li>剩下的都是用来定义详细映射的。比如： /aa/bb/cc.action</li>
-</ol>
-<p>所以，为什么定义”/*.action”这样一个看起来很正常的匹配会错？因为这个匹配即属于路径映射，也属于扩展映射，导致容器无法判断</p>
-<h1 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h1><p><img src="./1476700589878.png" alt="Alt text"></p>
-<h1 id="Servlet装载的三种情况："><a href="#Servlet装载的三种情况：" class="headerlink" title="Servlet装载的三种情况："></a>Servlet装载的三种情况：</h1><ol>
-<li>自动装载：某些Servlet如果需要在Servlet容器启动时就加载，需要在web.xml下它的<code>&lt;Servlet&gt;</code>标签里中，添加优先级代码：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;Servlet&gt;</span><br><span class="line">&lt;load-on-startup&gt;1&lt;load-on-startup&gt;</span><br><span class="line">&lt;/Servlet&gt;</span><br></pre></td></tr></table></figure>
+<li><a href="https://wkhtmltopdf.org/downloads.html" target="_blank" rel="noopener">https://wkhtmltopdf.org/downloads.html</a></li>
+<li>pdfkit <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip3 install pdfkit</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>数字越小表示该servlet的优先级越高，会先于其他自动装载的优先级较低的先装载,<strong>在SpringMVC中有这个配置</strong><br><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.form<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>Servlet容器启动后，客户首次向某个Servlet发送请求时，Tomcat容器会加载它</li>
-<li>当Servlet类文件被更新后，也会重新自动加载<br>Servlet是长期驻留在内存里的。某个Servlet一旦被加载，就会长期存在于服务器的内存里，直到服务器关闭<br>Servlet被装载后，Servlet容器通过反射创建一个Servlet实例并且调用Servlet的init()方法进行初始化。在Servlet的整个生命周期内，init()方法只被调用一次</li>
+<h2 id="转换url-file-string"><a href="#转换url-file-string" class="headerlink" title="转换url/file/string"></a>转换url/file/string</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pdfkit</span><br><span class="line"></span><br><span class="line">pdfkit.from_url(<span class="string">'http://google.com'</span>, <span class="string">'out.pdf'</span>)</span><br><span class="line">pdfkit.from_file(<span class="string">'index.html'</span>, <span class="string">'out.pdf'</span>)</span><br><span class="line">pdfkit.from_string(<span class="string">'Hello!'</span>, <span class="string">'out.pdf'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="转换url或者文件名列表"><a href="#转换url或者文件名列表" class="headerlink" title="转换url或者文件名列表"></a>转换url或者文件名列表</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pdfkit.from_url([<span class="string">'google.com'</span>, <span class="string">'baidu.com'</span>], <span class="string">'out.pdf'</span>)</span><br><span class="line">pdfkit.from_file([<span class="string">'file1.html'</span>, <span class="string">'file2.html'</span>], <span class="string">'out.pdf'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="转换打开文件"><a href="#转换打开文件" class="headerlink" title="转换打开文件"></a>转换打开文件</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'file.html'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    pdfkit.from_file(f, <span class="string">'out.pdf'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="自定义设置"><a href="#自定义设置" class="headerlink" title="自定义设置"></a>自定义设置</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">options = &#123;</span><br><span class="line">    <span class="string">'page-size'</span>: <span class="string">'Letter'</span>,</span><br><span class="line">    <span class="string">'margin-top'</span>: <span class="string">'0.75in'</span>,</span><br><span class="line">    <span class="string">'margin-right'</span>: <span class="string">'0.75in'</span>,</span><br><span class="line">    <span class="string">'margin-bottom'</span>: <span class="string">'0.75in'</span>,</span><br><span class="line">    <span class="string">'margin-left'</span>: <span class="string">'0.75in'</span>,</span><br><span class="line">    <span class="string">'encoding'</span>: <span class="string">"UTF-8"</span>,</span><br><span class="line">    <span class="string">'custom-header'</span> : [</span><br><span class="line">        (<span class="string">'Accept-Encoding'</span>, <span class="string">'gzip'</span>)</span><br><span class="line">    ]</span><br><span class="line">    <span class="string">'cookie'</span>: [</span><br><span class="line">        (<span class="string">'cookie-name1'</span>, <span class="string">'cookie-value1'</span>),</span><br><span class="line">        (<span class="string">'cookie-name2'</span>, <span class="string">'cookie-value2'</span>),</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">'no-outline'</span>: <span class="keyword">None</span>,</span><br><span class="line">    <span class="string">'outline-depth'</span>: <span class="number">10</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pdfkit.from_url(<span class="string">'http://google.com'</span>, <span class="string">'out.pdf'</span>, options=options)</span><br></pre></td></tr></table></figure>
+<h1 id="使用代理ip"><a href="#使用代理ip" class="headerlink" title="使用代理ip"></a>使用代理ip</h1><p>爬取十几篇教程之后触发了这个错误：<br><img src="https://images.morethink.cn/a7fa858c35a52d0bd1ed89a611546ef1.png" alt="503" title="503"></p>
+<p>看来廖大的反爬虫做的很好，于是只好使用代理ip了，尝试了免费的<a href="https://www.xicidaili.com/" target="_blank" rel="noopener">西刺免费代理</a>后，最后选择了付费的 <a href="https://center.abuyun.com" target="_blank" rel="noopener">阿布云</a> ，感觉响应速度和稳定性还OK。</p>
+<h1 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h1><p>运行过程截图：</p>
+<p><img src="https://images.morethink.cn/ad8217afdd1d38c665a1a0341ade499e.png" alt="运行过程" title="运行过程"></p>
+<p>生成的效果图：<br><img src="https://images.morethink.cn/3b24e8815b5e9ac26184a3f1ab96bd1d.png" alt="效果图" title="效果图"></p>
+<p>代码如下：<br><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> pdfkit</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 阿布云代理 </span></span><br><span class="line"><span class="comment"># 可以选择不使用或是其他代理</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_soup</span><span class="params">(target_url)</span>:</span></span><br><span class="line">    proxy_host = <span class="string">"http-dyn.abuyun.com"</span></span><br><span class="line">    proxy_port = <span class="string">"9020"</span></span><br><span class="line">    proxy_user = <span class="string">"你的用户"</span></span><br><span class="line">    proxy_pass = <span class="string">"你的密码"</span></span><br><span class="line">    proxy_meta = <span class="string">"http://%(user)s:%(pass)s@%(host)s:%(port)s"</span> % &#123;</span><br><span class="line">        <span class="string">"host"</span>: proxy_host,</span><br><span class="line">        <span class="string">"port"</span>: proxy_port,</span><br><span class="line">        <span class="string">"user"</span>: proxy_user,</span><br><span class="line">        <span class="string">"pass"</span>: proxy_pass,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    proxies = &#123;</span><br><span class="line">        <span class="string">"http"</span>: proxy_meta,</span><br><span class="line">        <span class="string">"https"</span>: proxy_meta,</span><br><span class="line">    &#125;</span><br><span class="line">    headers = &#123;<span class="string">'User-Agent'</span>:</span><br><span class="line">                   <span class="string">'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'</span>&#125;</span><br><span class="line">    flag = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> flag:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            resp = requests.get(target_url, proxies=proxies, headers=headers)</span><br><span class="line">            flag = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            print(e)</span><br><span class="line">            time.sleep(<span class="number">0.4</span>)</span><br><span class="line"></span><br><span class="line">    soup = BeautifulSoup(resp.text, <span class="string">'html.parser'</span>)</span><br><span class="line">    <span class="keyword">return</span> soup</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_toc</span><span class="params">(url)</span>:</span></span><br><span class="line">    soup = get_soup(url)</span><br><span class="line">    toc = soup.select(<span class="string">"#x-wiki-index a"</span>)</span><br><span class="line">    print(toc[<span class="number">0</span>][<span class="string">'href'</span>])</span><br><span class="line">    <span class="keyword">return</span> toc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># ⬇️教程html</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">download_html</span><span class="params">(url, depth)</span>:</span></span><br><span class="line">    soup = get_soup(url)</span><br><span class="line">    <span class="comment"># 处理目录</span></span><br><span class="line">    <span class="keyword">if</span> int(depth) &lt;= <span class="number">1</span>:</span><br><span class="line">        depth = <span class="string">'1'</span></span><br><span class="line">    <span class="keyword">elif</span> int(depth) &gt;= <span class="number">2</span>:</span><br><span class="line">        depth = <span class="string">'2'</span></span><br><span class="line">    title = soup.select(<span class="string">".x-content h4"</span>)[<span class="number">0</span>]</span><br><span class="line">    new_title = BeautifulSoup(<span class="string">'&lt;h'</span> + depth + <span class="string">'&gt;'</span> + title.string + <span class="string">'&lt;/h'</span> + depth + <span class="string">'&gt;'</span>, <span class="string">'html.parser'</span>)</span><br><span class="line">    print(new_title)</span><br><span class="line">    <span class="comment"># 加载图片</span></span><br><span class="line">    images = soup.find_all(<span class="string">'img'</span>)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> images:</span><br><span class="line">        x[<span class="string">'src'</span>] = x[<span class="string">'data-src'</span>]</span><br><span class="line"></span><br><span class="line">    div_content = soup.find(<span class="string">'div'</span>, class_=<span class="string">'x-wiki-content'</span>)</span><br><span class="line">    <span class="keyword">return</span> new_title, div_content</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_pdf</span><span class="params">(template)</span>:</span></span><br><span class="line">    html_file = <span class="string">"python-tutorial-pdf.html"</span></span><br><span class="line">    <span class="keyword">with</span> open(html_file, mode=<span class="string">"w"</span>, encoding=<span class="string">"utf8"</span>) <span class="keyword">as</span> code:</span><br><span class="line">        code.write(str(template))</span><br><span class="line">    pdfkit.from_file(html_file, <span class="string">'python-tutorial-pdf.pdf'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># html 模板</span></span><br><span class="line">    template = BeautifulSoup(</span><br><span class="line">        <span class="string">'&lt;!DOCTYPE html&gt; &lt;html lang="en"&gt; &lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;link rel="stylesheet" href="https://cdn.liaoxuefeng.com/cdn/static/themes/default/css/all.css?v=bc43d83"&gt; &lt;script src="https://cdn.liaoxuefeng.com/cdn/static/themes/default/js/all.js?v=bc43d83"&gt;&lt;/script&gt; &lt;/head&gt; &lt;body&gt; &lt;/body&gt; &lt;/html&gt;'</span>,</span><br><span class="line">        <span class="string">'html.parser'</span>)</span><br><span class="line">    <span class="comment"># 教程目录</span></span><br><span class="line">    toc = get_toc(<span class="string">'https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000'</span>)</span><br><span class="line">    <span class="keyword">for</span> i, x <span class="keyword">in</span> enumerate(toc):</span><br><span class="line">        url = <span class="string">'https://www.liaoxuefeng.com'</span> + x[<span class="string">'href'</span>]</span><br><span class="line">        <span class="comment"># ⬇️教程html</span></span><br><span class="line">        content = download_html(url, x.parent[<span class="string">'depth'</span>])</span><br><span class="line">        <span class="comment"># 往template添加新的教程</span></span><br><span class="line">        new_div = template.new_tag(<span class="string">'div'</span>, id=i)</span><br><span class="line">        template.body.insert(<span class="number">3</span> + i, new_div)</span><br><span class="line">        new_div.insert(<span class="number">3</span>, content[<span class="number">0</span>])</span><br><span class="line">        new_div.insert(<span class="number">3</span>, content[<span class="number">1</span>])</span><br><span class="line">        time.sleep(<span class="number">0.4</span>)</span><br><span class="line">    convert_pdf(template)</span><br></pre></td></tr></table></figure></p>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="https://beautifulsoup.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">Beautiful Soup 文档</a></li>
+<li><a href="https://www.jianshu.com/p/4d65857ffe5e" target="_blank" rel="noopener">HTML 转 PDF 之 wkhtmltopdf 工具精讲</a></li>
 </ol>
-<h1 id="Servlet得到JSP对象"><a href="#Servlet得到JSP对象" class="headerlink" title="Servlet得到JSP对象"></a>Servlet得到JSP对象</h1><p><img src="./1476789507228.png" alt="Alt text"></p>
-<h1 id="Servlet-3-0"><a href="#Servlet-3-0" class="headerlink" title="Servlet 3.0"></a>Servlet 3.0</h1><p>为什么出现了Servlet3.0，一切的一切都是为了效率的提高，恰如，框架的出现。<br><a href="https://www.ibm.com/developerworks/cn/java/j-lo-servlet30/" target="_blank" rel="noopener">Servlet 3.0 新特性详解</a></p>
 
       
     </div>
@@ -501,7 +547,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/Servlet/" title="Servlet 浅析">https://www.morethink.cn/Servlet/</a>
+    <a href="https://www.morethink.cn/Python/python-tutorial-pdf/" title="学以致用:Python爬取廖大Python教程制作pdf">https://www.morethink.cn/Python/python-tutorial-pdf/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -514,12 +560,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
-          
-        </div>
-      
 
       
       
@@ -529,8 +569,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/JSP与HTML及前后分离/" rel="next" title="JSP与HTML及前后分离">
-                <i class="fa fa-chevron-left"></i> JSP与HTML及前后分离
+              <a href="/工具/puppeteer-screenshot/" rel="next" title="puppeteer截图">
+                <i class="fa fa-chevron-left"></i> puppeteer截图
               </a>
             
           </div>
@@ -538,10 +578,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/SpringMVC-Achieve-RESTful-And-Put-With-File-Upload/" rel="prev" title="SpringMVC实现PUT请求上传文件">
-                SpringMVC实现PUT请求上传文件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -707,7 +743,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP"><span class="nav-number">1.</span> <span class="nav-text">JSP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-工作原理解析"><span class="nav-number">2.</span> <span class="nav-text">Servlet 工作原理解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#url匹配和url-pattern"><span class="nav-number">3.</span> <span class="nav-text">url匹配和url-pattern</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生命周期"><span class="nav-number">4.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet装载的三种情况："><span class="nav-number">5.</span> <span class="nav-text">Servlet装载的三种情况：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet得到JSP对象"><span class="nav-number">6.</span> <span class="nav-text">Servlet得到JSP对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-3-0"><span class="nav-number">7.</span> <span class="nav-text">Servlet 3.0</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BeautifulSoup"><span class="nav-number">1.</span> <span class="nav-text">BeautifulSoup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始使用"><span class="nav-number">1.2.</span> <span class="nav-text">开始使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的种类"><span class="nav-number">1.3.</span> <span class="nav-text">对象的种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tag"><span class="nav-number">1.4.</span> <span class="nav-text">Tag</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tag-属性"><span class="nav-number">1.4.1.</span> <span class="nav-text">Tag 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get"><span class="nav-number">1.4.2.</span> <span class="nav-text">get</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#string"><span class="nav-number">1.4.3.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get-text"><span class="nav-number">1.4.4.</span> <span class="nav-text">get_text()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索文档树"><span class="nav-number">1.5.</span> <span class="nav-text">搜索文档树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-选择器"><span class="nav-number">1.6.</span> <span class="nav-text">CSS 选择器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wkhtmltopdf"><span class="nav-number">2.</span> <span class="nav-text">wkhtmltopdf</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-1"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换url-file-string"><span class="nav-number">2.2.</span> <span class="nav-text">转换url/file/string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换url或者文件名列表"><span class="nav-number">2.3.</span> <span class="nav-text">转换url或者文件名列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换打开文件"><span class="nav-number">2.4.</span> <span class="nav-text">转换打开文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义设置"><span class="nav-number">2.5.</span> <span class="nav-text">自定义设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用代理ip"><span class="nav-number">3.</span> <span class="nav-text">使用代理ip</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行结果"><span class="nav-number">4.</span> <span class="nav-text">运行结果</span></a></li></ol></div>
             
 
           </div>

@@ -310,6 +310,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/HashMap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/HashMap/" itemprop="url">JDK8 HashMap 源码解析</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-24T00:00:00+08:00">
+                2017-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="HashMap中数据结构"><a href="#HashMap中数据结构" class="headerlink" title="HashMap中数据结构"></a>HashMap中数据结构</h1><p>在jdk1.7中，HashMap采用数组+链表(拉链法)。因为数组是一组连续的内存空间，易查询，不易增删，而链表是不连续的内存空间，通过节点相互连接，易删除，不易查询。HashMap结合这两者的优秀之处来提高效率。</p>
+<p>而在jdk1.8时，为了解决当hash碰撞过于频繁，而链表的查询效率(时间复杂度为O(n))过低时，当链表的长度达到一定值(默认是8)时，将链表转换成红黑树(时间复杂度为O(lg n))，极大的提高了查询效率。</p>
+<p>如图所示：<br><img src="https://images.morethink.cn/b3e3671b2edf38a675b5a28587f37ae4.png" alt="" title="JDK8 HashMap"></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/HashMap/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Windows-apache-Server/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -901,6 +1049,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/binary-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李文浩">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/binary-tree/" itemprop="url">Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T00:00:00+08:00">
+                2017-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>二叉树是一种非常重要的数据结构，很多其它数据结构都是基于二叉树的基础演变而来的。对于二叉树，有前序、中序以及后序三种遍历方法。因为树的定义本身就是递归定义，因此采用递归的方法去实现树的三种遍历不仅容易理解而且代码很简洁。而对于树的遍历若采用非递归的方法，就要采用栈去模拟实现。在三种遍历中，前序和中序遍历的非递归算法都很容易实现，非递归后序遍历实现起来相对来说要难一点。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/binary-tree/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/读书/wang/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -998,152 +1292,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/读书/wang/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/binary-tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李文浩">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="More Think">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/binary-tree/" itemprop="url">Java实现二叉树的先序、中序、后序、层序遍历（递归和非递归）</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-31T00:00:00+08:00">
-                2017-07-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>二叉树是一种非常重要的数据结构，很多其它数据结构都是基于二叉树的基础演变而来的。对于二叉树，有前序、中序以及后序三种遍历方法。因为树的定义本身就是递归定义，因此采用递归的方法去实现树的三种遍历不仅容易理解而且代码很简洁。而对于树的遍历若采用非递归的方法，就要采用栈去模拟实现。在三种遍历中，前序和中序遍历的非递归算法都很容易实现，非递归后序遍历实现起来相对来说要难一点。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/binary-tree/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1625,156 +1773,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/to-16-freshman/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="李文浩">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="More Think">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/to-16-freshman/" itemprop="url">给大一的学弟</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-14T00:00:00+08:00">
-                2017-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程思考/" itemprop="url" rel="index">
-                    <span itemprop="name">编程思考</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="我应该编程吗？"><a href="#我应该编程吗？" class="headerlink" title="我应该编程吗？"></a>我应该编程吗？</h1><ol>
-<li><a href="https://www.zhihu.com/question/35256075" target="_blank" rel="noopener">如何确定自己是否适合做程序员？</a></li>
-<li><a href="https://www.zhihu.com/question/19578287" target="_blank" rel="noopener">如何学习编程？</a></li>
-</ol>
-<p><strong>为什么不尝试一下呢？</strong></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/to-16-freshman/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1829,7 +1827,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">66</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
