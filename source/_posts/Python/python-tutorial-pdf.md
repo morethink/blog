@@ -209,7 +209,7 @@ pdfkit.from_url('http://google.com', 'out.pdf', options=options)
 爬取十几篇教程之后触发了这个错误：
 ![503](https://images.morethink.cn/a7fa858c35a52d0bd1ed89a611546ef1.png "503")
 
-看来廖大的反爬虫做的很好，于是只好使用代理ip了，尝试了免费的[西刺免费代理](https://www.xicidaili.com/)后，最后选择了付费的 [阿布云](https://center.abuyun.com) ，感觉响应速度和稳定性还OK。
+看来廖大的反爬虫做的很好，于是只好使用代理ip了，尝试了免费的[西刺免费代理](https://www.xicidaili.com/)后，最后选择了付费的 [蘑菇代理](http://www.moguproxy.com/) ，感觉响应速度和稳定性还OK。
 
 # 运行结果
 
@@ -225,33 +225,25 @@ pdfkit.from_url('http://google.com', 'out.pdf', options=options)
 import time
 import pdfkit
 import requests
+import urllib3
 from bs4 import BeautifulSoup
 
+urllib3.disable_warnings()
 
-# 使用 阿布云代理 
-# 可以选择不使用或是其他代理
+
+# 使用 蘑菇代理
 def get_soup(target_url):
-    proxy_host = "http-dyn.abuyun.com"
-    proxy_port = "9020"
-    proxy_user = "你的用户"
-    proxy_pass = "你的密码"
-    proxy_meta = "http://%(user)s:%(pass)s@%(host)s:%(port)s" % {
-        "host": proxy_host,
-        "port": proxy_port,
-        "user": proxy_user,
-        "pass": proxy_pass,
-    }
-
-    proxies = {
-        "http": proxy_meta,
-        "https": proxy_meta,
-    }
-    headers = {'User-Agent':
-                   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
+    appKey = "a0hQT1p1U3BmTENVd2ZIRTphTWZYajliNlNNQ2l0VHdW"
+    ip_port = 'transfer.mogumiao.com:9001'
+    proxies = {"http": "http://" + ip_port, "https": "https://" + ip_port}
+    headers = {"Proxy-Authorization": 'Basic ' + appKey,
+               'User-Agent':
+                   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
+               }
     flag = True
     while flag:
         try:
-            resp = requests.get(target_url, proxies=proxies, headers=headers)
+            resp = requests.get(target_url, proxies=proxies, headers=headers, verify=False, allow_redirects=False)
             flag = False
         except Exception as e:
             print(e)
