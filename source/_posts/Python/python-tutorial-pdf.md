@@ -12,7 +12,7 @@ categories: Python
 想要把教程变成PDF有三步：
 1. 先生成空html，爬取每一篇教程放进一个新生成的div，这样就生成了包含所有教程的html文件(`BeautifulSoup`)
 2. 将html转换成pdf(`wkhtmltopdf`)
-3. 由于廖大是写教程的，反爬做的比较好，在爬取的过程中还需要代理ip(`免费 or 付费`)
+3. 由于廖大是写教程的，反爬做的比较好，在爬取的过程中还需要代理ip([蘑菇代理](http://www.moguproxy.com/))
 
 <!-- more -->
 
