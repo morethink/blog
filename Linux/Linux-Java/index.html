@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,Tomcat,CentOS7,Maven," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="本文介绍了CentOS7 64位下Java、Tomcat、MySQL、Maven热部署等服务器环境的搭建和调试过程。 学生服务器资源获取方法：  云+校园计划 - 腾讯云 阿里云云翼计划 github 学生包，里面有Digital Ocean 50美元的VPS可用  已经将所需要的工具(Xshell,Xftp、FileZilla等sftp上传工具，jdk-8u101-linux-x64.tar.g">
+<meta name="keywords" content="MySQL,Tomcat,CentOS7,Maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7下 Java、Tomcat、MySQL、Maven热部署">
+<meta property="og:url" content="https://www.morethink.cn/Linux/Linux-Java/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="本文介绍了CentOS7 64位下Java、Tomcat、MySQL、Maven热部署等服务器环境的搭建和调试过程。 学生服务器资源获取方法：  云+校园计划 - 腾讯云 阿里云云翼计划 github 学生包，里面有Digital Ocean 50美元的VPS可用  已经将所需要的工具(Xshell,Xftp、FileZilla等sftp上传工具，jdk-8u101-linux-x64.tar.g">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/mysql-2003-error.png">
+<meta property="og:image" content="https://images.morethink.cn/msql-chinese-fail.jpg">
+<meta property="og:image" content="https://images.morethink.cn/msql-chinese-success.jpg">
+<meta property="og:image" content="https://images.morethink.cn/mysql-chinese-success-result.jpg">
+<meta property="og:image" content="https://images.morethink.cn/make-maven-goal.jpg">
+<meta property="og:image" content="https://images.morethink.cn/maven-war-messy-code.jpg">
+<meta property="og:image" content="https://images.morethink.cn/maven-war-code-success.jpg">
+<meta property="og:updated_time" content="2018-03-23T03:03:50.182Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7下 Java、Tomcat、MySQL、Maven热部署">
+<meta name="twitter:description" content="本文介绍了CentOS7 64位下Java、Tomcat、MySQL、Maven热部署等服务器环境的搭建和调试过程。 学生服务器资源获取方法：  云+校园计划 - 腾讯云 阿里云云翼计划 github 学生包，里面有Digital Ocean 50美元的VPS可用  已经将所需要的工具(Xshell,Xftp、FileZilla等sftp上传工具，jdk-8u101-linux-x64.tar.g">
+<meta name="twitter:image" content="https://images.morethink.cn/mysql-2003-error.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/Linux/Linux-Java/"/>
+
+
+
+
+
+  <title>CentOS7下 Java、Tomcat、MySQL、Maven热部署 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-movies">
+          <a href="/movies/" rel="section">
+            
+            电影
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Linux/Linux-Java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="morethink">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">CentOS7下 Java、Tomcat、MySQL、Maven热部署</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-25T00:00:00+08:00">
+                2017-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Linux/Linux-Java/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/Linux/Linux-Java/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍了CentOS7 64位下Java、Tomcat、MySQL、Maven热部署等服务器环境的搭建和调试过程。</p>
+<p>学生服务器资源获取方法：</p>
+<ol>
+<li><a href="https://www.qcloud.com/act/campus" target="_blank" rel="noopener">云+校园计划 - 腾讯云</a></li>
+<li>阿里云云翼计划</li>
+<li>github 学生包，里面有Digital Ocean 50美元的VPS可用</li>
+</ol>
+<p>已经将所需要的工具(Xshell,Xftp、FileZilla等sftp上传工具，jdk-8u101-linux-x64.tar.gz和apache-tomcat-9.0.0.M10.tar.gz)上传至百度云 <a href="http://pan.baidu.com/s/1qYRms8G" target="_blank" rel="noopener">http://pan.baidu.com/s/1qYRms8G</a></p>
+<a id="more"></a>
+<h1 id="Java环境配置"><a href="#Java环境配置" class="headerlink" title="Java环境配置"></a>Java环境配置</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>通过<code>uname -r</code>判断系统是多少位</p>
+<ul>
+<li>64位 ： 出现x86_64</li>
+<li>32位 ： 出现i686或i386</li>
+</ul>
+<h2 id="安装Java-JDK8-0"><a href="#安装Java-JDK8-0" class="headerlink" title="安装Java JDK8.0"></a>安装Java JDK8.0</h2><ol>
+<li>建立Java目录，存放Java和Tomcat<ul>
+<li>cd /usr/local/</li>
+<li>mkdir Java</li>
+<li>cd Java</li>
+</ul>
+</li>
+<li>使用FileZilla将下载好的jdk-8u101-linux-x64.tar.gz 和 apache-tomcat-9.0.0.M10.tar.gz上传至Java目录下(传送的国外服务器很慢,国内几乎是国外的十倍，但是也只有两三百KB，也可能是电脑问题)</li>
+<li>将上传的jdk解压，然后重命名为jdk<ul>
+<li>tar -zxv -f  jdk-8u101-linux-x64.tar.gz</li>
+<li>mv jdk1.8.0_101  jdk</li>
+<li>cd jdk</li>
+</ul>
+</li>
+<li><p>配置环境变量Environment=JAVA_HOME=/usr/local/Java/jdk</p>
+<ol>
+<li>vim /etc/profile</li>
+<li><p>打开之后按键盘（i）进入编辑模式,将下面的内容复制到底部</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JAVA_HOME=/usr/local/Java/jdk</span><br><span class="line">PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar</span><br><span class="line">export PATH JAVA_HOME CLASSPATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>写完之后我们按键盘（ESC）按钮退出，然后按（:wq）保存并且关闭Vim。</p>
+</li>
+<li>使用 <code>source /etc/profile</code>命令使其立即生效</li>
+<li>通过<code>java -version</code>验证Java是否配置成功。</li>
+</ol>
+</li>
+</ol>
+<h1 id="安装Tomcat9"><a href="#安装Tomcat9" class="headerlink" title="安装Tomcat9"></a>安装Tomcat9</h1><ol>
+<li>在Java目录下解压上面一步已经上传上去的Tomcat9.0<ul>
+<li>tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz</li>
+<li>mv apache-tomcat-9.0.0.M10 tomcat</li>
+<li>cd tomcat</li>
+</ul>
+</li>
+<li>启动命令为 /usr/local/Java/tomcat/bin/startup.sh</li>
+<li>启动完成后还需开放8080端口(CentOS7这个版本的防火墙默认使用的是firewall，与之前的版本使用iptables不一样。 <strong>关于防火墙端口可以查看后面的参考文档</strong>)<ul>
+<li>firewall-cmd –zone=public –add-port=8080/tcp –permanent<br>出现success表明添加成功</li>
+<li>更新防火墙规则即可： firewall-cmd –reload</li>
+<li>重启防火墙 systemctl restart firewalld.service</li>
+</ul>
+</li>
+<li>然后再次在浏览器中输入<a href="http://ip:8080，如果看到tomcat系统界面，说明安装成功。" target="_blank" rel="noopener">http://ip:8080，如果看到tomcat系统界面，说明安装成功。</a></li>
+<li>Tomcat 8080 端口无法访问<ul>
+<li>查看8080端口被那个程序占用(应该是Java) netstat -anp 然后再杀死占用进程。</li>
+<li><strong>可能是你的服务器提供商有安全组来控制端口，你需要去提供商那里开启端口(PS：我的阿里云服务器就是必须要设置端口安全组才可以访问端口)</strong></li>
+</ul>
+</li>
+<li>关闭命令为 /usr/local/Java/tomcat/bin/shutdown.sh</li>
+</ol>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><p>CentOS 7的yum源中貌似没有正常安装mysql时的mysql-sever文件，需要去官网上下载</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"># rpm -ivh mysql-community-release-el7-5.noarch.rpm</span><br><span class="line"># yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+<p>成功安装之后重启mysql服务。<br>初次安装mysql是root账户是没有密码的<br>设置密码的方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># systemctl start mysqld.service</span><br><span class="line"></span><br><span class="line"># mysql -uroot</span><br><span class="line"># mysql&gt;set password = password(&quot;你的密码&quot;);</span><br><span class="line"># mysql&gt;flush privileges;</span><br><span class="line"># mysql&gt; exit</span><br></pre></td></tr></table></figure>
+<h2 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h2><p>进入MySQL后通过<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;你的密码&apos; WITH GRANT OPTION;</span><br></pre></td></tr></table></figure></p>
+<p>可以允许任意主机访问你在服务器搭建的MySQL，可以吧<code>%</code>更换为你需要允许的IP和主机。</p>
+<p>但是，在我进行远程连接的时候发生如下错误<br><img src="https://images.morethink.cn/mysql-2003-error.png" alt=""><br>可以根据下面进行排错</p>
+<ol>
+<li>服务器是否可以访问，是否能ping 通</li>
+<li>安全组及端口号是否打开或者被占用</li>
+<li>服务器是否运行或者关闭只允许本机访问</li>
+<li>重启试试</li>
+</ol>
+<p>当我排除上面3中情况后，发现属于第四中，可能是因为还没有立即生效。</p>
+<h2 id="中文乱码问题"><a href="#中文乱码问题" class="headerlink" title="中文乱码问题"></a>中文乱码问题</h2><p>在我建立数据时发现中文无法插入，于是查看使用<code>show variables like &#39;character%&#39;;</code><br>如图所示，发现默认不是utf-8，于是通过在CentOS7中修改文件/usr/share/mysql/my-default.cnf，在[mysqld]，[mysql]，[client]下分别添加如下内容<br><img src="https://images.morethink.cn/msql-chinese-fail.jpg" alt=""><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">collation-server = utf8_unicode_ci</span><br><span class="line">init-connect=&apos;SET NAMES utf8&apos;</span><br><span class="line">character_set_server = utf8</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line"></span><br><span class="line">default-character-set=utf8</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line"></span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure></p>
+<p>修改完成后，重启mysql服务，systemctl restart mysql，然后进入mysql，再次使用<code>show variables like &#39;character%&#39;;</code>命令查看，如图，<br><img src="https://images.morethink.cn/msql-chinese-success.jpg" alt=""><br>发现一样，说明utf-8可以使用，但是无法插入中文，于是猜测可能是系统原生不支持utf-8，更改系统编码后发现果然如此。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cat /etc/locale.conf</span><br><span class="line">LANG=&quot;en_US.UTF-8&quot;</span><br><span class="line"># vim /etc/locale.conf</span><br><span class="line"># cat /etc/locale.conf</span><br><span class="line">LANG=&quot;zh_CN.UTF-8&quot;</span><br></pre></td></tr></table></figure></p>
+<p>于是更改为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LANG=&quot;zh_CN.UTF-8&quot;</span><br><span class="line">LANGUAGE=&quot;zh_CN.UTF-8&quot;</span><br><span class="line">SUPPORTED=&quot;zh_CN.UTF-8:zh_CN:zh:en_US.UTF-8:en_US:en&quot;</span><br><span class="line">SYSFONT=&quot;lat0-sun16&quot;</span><br></pre></td></tr></table></figure>
+<p>重启系统之后，再次重启MySQL服务。</p>
+<p>如图，发现可以插入中文。</p>
+<p><img src="https://images.morethink.cn/mysql-chinese-success-result.jpg" alt=""></p>
+<h2 id="解决MySQL5-5忘记密码"><a href="#解决MySQL5-5忘记密码" class="headerlink" title="解决MySQL5.5忘记密码"></a>解决MySQL5.5忘记密码</h2><p>通过跳过权限安全检查设置新密码。</p>
+<ol>
+<li>首先检查mysql服务是否启动，若已启动则先将其停止服务，可在开始菜单的运行，使用命令： <code>net stop mysql</code><br>，然后打开第一个cmd1窗口，切换到mysql的bin目录，运行命令：<br><code>mysqld --defaults-file=&quot;C:\Program Files\MySQL\MySQL Server 5.5\my.ini&quot; --console --skip-grant-tables</code>，将命令中的MySql版本更换你的版本。<br><strong>该命令通过跳过权限安全检查，开启mysql服务，这样连接mysql时，可以不用输入用户密码</strong>。<br>此时已经开启了mysql服务了！<br><strong>这个窗口保留不关闭</strong>。</li>
+<li>打开第二个cmd2窗口，连接mysql<ul>
+<li>输入命令：<code>mysql -u root -p</code><br>出现： <code>Enter password:</code> ，在这里直接回车，不用输入密码。 然后就就会出现登录成功的信息。</li>
+<li>使用命令切换到mysql数据库：<code>use mysql;</code></li>
+<li>使用命令更改root密码：<br><code>UPDATE user SET Password=PASSWORD(&#39;newpassword&#39;) where USER=&#39;root&#39;;</code></li>
+<li>刷新权限：<br><code>FLUSH PRIVILEGES;</code></li>
+<li>然后退出，重新登录：<br><code>quit</code></li>
+<li>重新登录： 可以关掉之前的cmd1 窗口了。</li>
+</ul>
+</li>
+<li>然后用<code>net start mysql</code> 启动服务<ul>
+<li>登录：<code>mysql -u root -p</code></li>
+<li>出现输入密码提示，输入新的密码即可登录：<br><code>Enter password: ***********</code></li>
+</ul>
+</li>
+</ol>
+<p>显示登录信息： 成功  就一切ok了</p>
+<h1 id="Maven-热部署"><a href="#Maven-热部署" class="headerlink" title="Maven 热部署"></a>Maven 热部署</h1><p>Maven 热部署可以通过一行命令部署到本地服务器，没有问题的话就一行命令部署到正式服务器。及其方便了开发和部署。因为我的Tomcat9遇到很多问题。<br>可以参考 <a href="http://www.cnblogs.com/xyb930826/p/5725340.html" target="_blank" rel="noopener">maven自动部署到远程tomcat教程</a> 进行部署和测试。</p>
+<p>下面是我遇到的一个错误，因为没有配置IDEA的make 导致出错。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ERROR] Failed to execute goal org.apache.tomcat.maven:tomcat7-maven-plugin:2.2:deploy (default-cli) on project liwenhao: Cannot invoke Tomcat manager: Connect</span><br><span class="line">ion reset by peer: socket write error -&gt; [Help 1]</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.</span><br><span class="line">[ERROR] Re-run Maven using the -X switch to enable full debug logging.</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</span><br><span class="line">[ERROR] [Help 1]</span><br></pre></td></tr></table></figure></p>
+<p>可以通过将make如下配置<br><img src="https://images.morethink.cn/make-maven-goal.jpg" alt=""><br>即可成功</p>
+<p><strong>war包部署在服务器乱码</strong></p>
+<p><img src="https://images.morethink.cn/maven-war-messy-code.jpg" alt=""><br>可以通过配置如下属性，解决中文war包服务器乱码。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure></p>
+<p>配置完图。<br><img src="https://images.morethink.cn/maven-war-code-success.jpg" alt=""></p>
+<p>在我通过<code>mvn tomcat7:deploy</code>命令热部署时，会出现mysql无法连接的情况，后来在我重新进行热部署的时候，没有出现这个问题。<br><strong>猜测</strong><br>应该是我的配置文件的问题</p>
+<p><strong>参考文档</strong></p>
+<ol>
+<li><a href="http://www.centoscn.com/CentOS/config/2016/0511/7218.html" target="_blank" rel="noopener">centos 7 开放 80端口</a></li>
+<li><a href="http://www.cnblogs.com/weiok/p/5086971.html" target="_blank" rel="noopener">centos7 设置中文</a></li>
+<li><a href="https://zhangzifan.com/centos-7-remove-mysql.html" target="_blank" rel="noopener">CentOS 7下彻底卸载MySQL数据库</a></li>
+<li>CentOS7 <strong>远程访问MySQL</strong><ul>
+<li><a href="http://blog.sina.com.cn/s/blog_5da16ee20102x47h.html" target="_blank" rel="noopener">Centos 7 mysql 5.7 给root开启远程访问权限，修改root密码</a></li>
+<li><strong><a href="http://www.aiezu.com/db/mysql_cant_connect_through_socket.html" target="_blank" rel="noopener">连接Mysql提示Can’t connect to local MySQL server through socket的解决方法</a></strong></li>
+</ul>
+</li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-centos-7" target="_blank" rel="noopener">How To Install Apache Tomcat 8 on CentOS 7</a></li>
+<li><a href="http://www.cnblogs.com/linuxnotes/archive/2013/03/09/2951101.html" target="_blank" rel="noopener">windows环境中mysql忘记root密码的解决办法</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="morethink 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="morethink 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    morethink
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/Linux/Linux-Java/" title="CentOS7下 Java、Tomcat、MySQL、Maven热部署">https://www.morethink.cn/Linux/Linux-Java/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+            <a href="/tags/CentOS7/" rel="tag"># CentOS7</a>
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Nginx-Cross-Domain/" rel="next" title="前端通过Nginx反向代理解决跨域问题">
+                <i class="fa fa-chevron-left"></i> 前端通过Nginx反向代理解决跨域问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Spring-Transaction/" rel="prev" title="Spring 事务">
+                Spring 事务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="morethink" />
+            
+              <p class="site-author-name" itemprop="name">morethink</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java环境配置"><span class="nav-number">1.</span> <span class="nav-text">Java环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">1.1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Java-JDK8-0"><span class="nav-number">1.2.</span> <span class="nav-text">安装Java JDK8.0</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Tomcat9"><span class="nav-number">2.</span> <span class="nav-text">安装Tomcat9</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-number">3.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装MySQL"><span class="nav-number">3.1.</span> <span class="nav-text">安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程连接"><span class="nav-number">3.2.</span> <span class="nav-text">远程连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文乱码问题"><span class="nav-number">3.3.</span> <span class="nav-text">中文乱码问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决MySQL5-5忘记密码"><span class="nav-number">3.4.</span> <span class="nav-text">解决MySQL5.5忘记密码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven-热部署"><span class="nav-number">4.</span> <span class="nav-text">Maven 热部署</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">morethink</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'morethink',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '08854952e38df7965142646ffb127bd37dc9baf2',
+            
+                client_id: '2cf694e06b6dcf0e5264'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+</body>
+</html>

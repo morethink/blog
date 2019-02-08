@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://images.morethink.cn/favicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="https://images.morethink.cn/favicon.ico?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="树,索引," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="More Think" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="索引是数据库常见的数据结构，每个后台开发人员都应该对索引背后的数据结构有所了解。 本文通过分析B-Tree及B-/+Tree数据结构及索引性能分析及磁盘存取原理尝试着回答一下问题：  为什么B-Tree适合数据库索引及红黑树的二叉平衡树不适合作为索引 B+Tree比BTree做索引的优势 为什么MongoDB采用B-Tree作为索引结构而MySQL采用B+Tree作为索引存储结构">
+<meta name="keywords" content="树,索引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 及 Mysql 背后的 B&#x2F;B+树">
+<meta property="og:url" content="https://www.morethink.cn/算法/data-structure-behind-the-index/index.html">
+<meta property="og:site_name" content="More Think">
+<meta property="og:description" content="索引是数据库常见的数据结构，每个后台开发人员都应该对索引背后的数据结构有所了解。 本文通过分析B-Tree及B-/+Tree数据结构及索引性能分析及磁盘存取原理尝试着回答一下问题：  为什么B-Tree适合数据库索引及红黑树的二叉平衡树不适合作为索引 B+Tree比BTree做索引的优势 为什么MongoDB采用B-Tree作为索引结构而MySQL采用B+Tree作为索引存储结构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images.morethink.cn/B-Tree-1.jpg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1630488-43897a4dd77bf18f.gif">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1630488-25083e10d9708891.gif">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1630488-afa3b6b35908cf99.gif">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1630488-8dda91b45852ba9d.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://images.morethink.cn/B+Tree.jpg">
+<meta property="og:image" content="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/6.png">
+<meta property="og:image" content="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/7.png">
+<meta property="og:image" content="https://images.morethink.cn/B+Tree.jpg">
+<meta property="og:updated_time" content="2018-08-22T11:18:45.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB 及 Mysql 背后的 B&#x2F;B+树">
+<meta name="twitter:description" content="索引是数据库常见的数据结构，每个后台开发人员都应该对索引背后的数据结构有所了解。 本文通过分析B-Tree及B-/+Tree数据结构及索引性能分析及磁盘存取原理尝试着回答一下问题：  为什么B-Tree适合数据库索引及红黑树的二叉平衡树不适合作为索引 B+Tree比BTree做索引的优势 为什么MongoDB采用B-Tree作为索引结构而MySQL采用B+Tree作为索引存储结构">
+<meta name="twitter:image" content="https://images.morethink.cn/B-Tree-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '0UOQC1TXOW',
+      apiKey: '0f163be816631add221273d388addac7',
+      indexName: 'getstarted_actors',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.morethink.cn/算法/data-structure-behind-the-index/"/>
+
+
+
+
+
+  <title>MongoDB 及 Mysql 背后的 B/B+树 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/morethink" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">More Think</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books/" rel="section">
+            
+            读书
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-movies">
+          <a href="/movies/" rel="section">
+            
+            电影
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/算法/data-structure-behind-the-index/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="morethink">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">MongoDB 及 Mysql 背后的 B/B+树</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-01T00:00:00+08:00">
+                2018-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/算法/data-structure-behind-the-index/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/算法/data-structure-behind-the-index/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye" ></i> 阅读次数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>索引是数据库常见的数据结构，每个后台开发人员都应该对索引背后的数据结构有所了解。</p>
+<p>本文通过分析B-Tree及B-/+Tree数据结构及索引性能分析及磁盘存取原理尝试着回答一下问题：</p>
+<ol>
+<li>为什么B-Tree适合数据库索引及红黑树的二叉平衡树不适合作为索引</li>
+<li>B+Tree比BTree做索引的优势</li>
+<li>为什么MongoDB采用B-Tree作为索引结构而MySQL采用B+Tree作为索引存储结构</li>
+</ol>
+<a id="more"></a>
+<h1 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B-Tree"></a>B-Tree</h1><p>B 树（B-Tree）是为磁盘等辅助存取设备设计的一种平衡查找树，它实现了以 $O(\lg n)$ 时间复杂度执行查找、顺序读取、插入和删除操作。由于 B 树和 B 树的变种在降低磁盘 I/O 操作次数方面表现优异，所以经常用于设计文件系统和数据库。</p>
+<p>使用阶来定义 B 树，一棵 m 阶的 B 树，需要满足下列条件：</p>
+<ol>
+<li>每个节点最多拥有m个子节点且m&gt;=2，空树除外</li>
+<li><strong>除根节点外每个节点的关键字数量大于等于<code>ceil(m/2)-1</code>，小于等于<code>m-1</code>，非根节点关键字数必须&gt;=2</strong></li>
+<li>所有叶子节点均在同一层、叶子节点除了包含了关键字和关键字记录的指针外也有指向其子节点的指针只不过其指针地址都为null对应下图最后一层节点的空格子</li>
+<li><strong>如果一个非叶节点有n个子节点，则该节点的关键字数等于n-1</strong></li>
+<li>所有节点关键字是按递增次序排列，并遵循左小右大原则</li>
+</ol>
+<p>注：</p>
+<ol>
+<li>m阶代表一个树节点最多有多少个查找路径，m阶=m路,当m=2则是2叉树，m=3则是3叉。</li>
+<li>ceil()是个朝正无穷方向取整的函数，如ceil(1.1)结果为2，即向上取整。</li>
+</ol>
+<p><img src="https://images.morethink.cn/B-Tree-1.jpg" alt="B-Tree" title="B-Tree"></p>
+<p>B 树中的节点分为内部节点（Internal Node）和叶节点（Leaf Node），内部节点也就是非叶节点（Non-Leaf Node）。</p>
+<h2 id="B-Tree的查找"><a href="#B-Tree的查找" class="headerlink" title="B-Tree的查找"></a>B-Tree的查找</h2><p>B-Tree的查找过程：根据给定值查找结点和在结点的关键字中进行查找交叉进行。</p>
+<p>首先从根结点开始重复如下过程：若比结点的第一个关键字小，则查找在该结点第一个指针指向的结点进行；若等于结点中某个关键字，则查找成功；若在两个关键字之间，则查找在它们之间的指针指向的结点进行；若比该结点所有关键字大，则查找在该结点最后一个指针指向的结点进行；若查找已经到达某个叶结点，则说明给定值对应的数据记录不存在，查找失败。</p>
+<p>例如：<br>在一棵 5 阶B-树中查找元素 29</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1630488-43897a4dd77bf18f.gif" alt="" title="B-Tree的查询"></p>
+<p>首先29比根节点值大，所以找根节点的右子数，然后再根据值得判断，发现 29 介于 28 和 48 之间，然后在从中间子树继续查找下去。</p>
+<h2 id="B-Tree的插入"><a href="#B-Tree的插入" class="headerlink" title="B-Tree的插入"></a>B-Tree的插入</h2><p>插入的过程分两步完成：</p>
+<ol>
+<li><p>利用前述的B-树的查找算法查找关键字的插入位置。若找到，则说明该关键字已经存在，直接返回。否则查找操作必失败于某个最低层的非终端结点上。</p>
+</li>
+<li><p>判断该结点是否还有空位置。<strong>即判断该结点的关键字总数是否满足n&lt;=m-1</strong>。若满足，则说明该结点还有空位置，直接把关键字k插入到该结点的合适位置上。若不满足，说明该结点己没有空位置，需要把结点分裂成两个。</p>
+</li>
+</ol>
+<p>分裂的方法是：<br>生成一新结点。把原结点上的关键字和k按升序排序后，<strong>从中间位置把关键字（不包括中间位置的关键字）分成两部分</strong>。左部分所含关键字放在旧结点中，右部分所含关键字放在新结点中，中间位置的关键字连同新结点的存储位置插入到父结点中。如果父结点的关键字个数也超过（m-1），则要再分裂，再往上插。直至这个过程传到根结点为止。</p>
+<p>例子：</p>
+<p><strong>如果该节点的元素个数还没达到 m，则插入完后无需处理</strong><br>比如：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1630488-25083e10d9708891.gif" alt="" title="在 B-树中插入元素 3"></p>
+<p><strong>如果该节点元素个数达到 m 时，这时候将元素插入到合适的位置，将最中间的元素取出，成为该节点的父节点元素，然后将其余左右元素拆成两个新节点</strong></p>
+<p>比如：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1630488-afa3b6b35908cf99.gif" alt="" title="在 B-树中插入元素 44"></p>
+<p><strong>刚才的操作可能导致父节点的元素个数达到 m，这时候用情况 2 迭代处理，直到如果遇到根结点元素个数达到 m，则最中间元素将成为新的根结点。</strong></p>
+<p>比如：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1630488-8dda91b45852ba9d.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="" title="在 B-树中插入元素 45"></p>
+<h2 id="B-Tree-的删除"><a href="#B-Tree-的删除" class="headerlink" title="B-Tree 的删除"></a>B-Tree 的删除</h2><p>我们需要分两种情况进行讨论：</p>
+<ul>
+<li>如果该元素存在于叶子结点，直接删除它，无需进行其它处理。</li>
+<li>如果该元素存在于非叶子节点，那么删除它将会留下一个空位，这时候我们需要一些处理来填充该位置。<br>因为节点的元素个数在 [M/2, M] 的范围内，所以比如这里我们以 5 阶B-树为例，判断节点元素是否充足即满足个数则至少拥有三（2 + 1）个元素的节点才算是有充足的元素。<ol>
+<li>如果被删元素的左子树拥有足够的元素，这时候我们只需拿左子节点的最大值元素上来填充即可</li>
+<li>当左子树不够元素而右子树元素充足时，这时候我们拿右子树的最小值元素上来进行填充</li>
+<li>当左右子树所含元素均不足时，但左子树的左边兄弟节点的元素个数充足，这时我们需要拿左边的兄弟节点来进行调整。</li>
+<li>当左右子树所含元素均不足时，但左子树的左边兄弟节点的元素个数也不足时，这时候我们还是拿左子树的最大值元素进行填充，之后再将该节点与其他节点合并形成新的节点。</li>
+</ol>
+</li>
+</ul>
+<h1 id="B-Tree-1"><a href="#B-Tree-1" class="headerlink" title="B+Tree"></a>B+Tree</h1><p>B-Tree有许多变种，其中最常见的是B+Tree，例如MySQL就普遍使用B+Tree实现其索引结构。</p>
+<p>与B-Tree相比，B+Tree有以下不同点：</p>
+<ul>
+<li>每个节点的指针上限为2d而不是2d+1。</li>
+<li>B+Tree叶子节点保存了父节点的所有关键字和关键字记录的指针，每个叶子节点的关键字从小到大链接</li>
+<li>内节点不存储data，只存储key；叶子节点不存储指针。因此所有数据地址必须要到叶子节点才能获取到，所以每次数据查询的次数都一样。<br><img src="https://images.morethink.cn/B+Tree.jpg" alt="" title="B+Tree"></li>
+</ul>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><p>红黑树等数据结构也可以用来实现索引，但是文件系统及数据库系统普遍采用B-/+Tree作为索引结构，这一节将结合计算机组成原理相关知识讨论B-/+Tree作为索引的理论基础。</p>
+<p>一般来说，索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级，所以评价一个数据结构作为索引的优劣最重要的指标就是在查找过程中磁盘I/O操作次数的渐进复杂度。换句话说，<strong>索引的结构组织要尽量减少查找过程中磁盘I/O的存取次数</strong>。</p>
+<p>下面先介绍内存和磁盘存取原理，然后再结合这些原理分析B-/+Tree作为索引的效率。</p>
+<h1 id="磁盘存取原理"><a href="#磁盘存取原理" class="headerlink" title="磁盘存取原理"></a>磁盘存取原理</h1><p>索引一般以文件形式存储在磁盘上，索引检索需要磁盘I/O操作。与主存不同，磁盘I/O存在机械运动耗费，因此磁盘I/O的时间消耗是巨大的。</p>
+<p>下面是磁盘的整体结构示意图：</p>
+<p><img src="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/6.png" alt="" title="磁盘的整体结构"></p>
+<p>一个磁盘由大小相同且同轴的圆形盘片组成，磁盘可以转动（各个磁盘必须同步转动）。在磁盘的一侧有磁头支架，磁头支架固定了一组磁头，每个磁头负责存取一个磁盘的内容。磁头不能转动，但是可以沿磁盘半径方向运动（实际是斜切向运动），每个磁头同一时刻也必须是同轴的，即从正上方向下看，所有磁头任何时候都是重叠的（不过目前已经有多磁头独立技术，可不受此限制）。</p>
+<p>下面是磁盘结构的示意图：</p>
+<p><img src="http://blog.codinglabs.org/uploads/pictures/theory-of-mysql-index/7.png" alt="" title="磁盘结构"></p>
+<p>盘片被划分成一系列同心环，圆心是盘片中心，每个同心环叫做一个磁道，所有半径相同的磁道组成一个柱面。磁道被沿半径线划分成一个个小的段，每个段叫做一个扇区，每个扇区是磁盘的最小存储单元。为了简单起见，我们下面假设磁盘只有一个盘片和一个磁头。</p>
+<p>当需要从磁盘读取数据时，系统会将数据逻辑地址传给磁盘，磁盘的控制电路按照寻址逻辑将逻辑地址翻译成物理地址，即确定要读的数据在哪个磁道，哪个扇区。为了读取这个扇区的数据，需要将磁头放到这个扇区上方，为了实现这一点，磁头需要移动对准相应磁道，这个过程叫做寻道，所耗费时间叫做寻道时间，然后磁盘旋转将目标扇区旋转到磁头下，这个过程耗费的时间叫做旋转时间。</p>
+<h2 id="局部性原理与磁盘预读"><a href="#局部性原理与磁盘预读" class="headerlink" title="局部性原理与磁盘预读"></a>局部性原理与磁盘预读</h2><p>由于存储介质的特性，磁盘本身存取就比主存慢很多，再加上机械运动耗费，磁盘的存取速度往往是主存的几百分分之一，因此为了提高效率，要尽量减少磁盘I/O。为了达到这个目的，磁盘往往不是严格按需读取，而是每次都会预读，即使只需要一个字节，磁盘也会从这个位置开始，顺序向后读取一定长度的数据放入内存。</p>
+<p>这样做的理论依据是计算机科学中著名的局部性原理：</p>
+<blockquote>
+<p>当一个数据被用到时，其附近的数据也通常会马上被使用。</p>
+</blockquote>
+<p>程序运行期间所需要的数据通常比较集中。</p>
+<p>由于磁盘顺序读取的效率很高（不需要寻道时间，只需很少的旋转时间），因此对于具有局部性的程序来说，预读可以提高I/O效率。</p>
+<p>预读的长度一般为页（page）的整倍数。页是计算机管理存储器的逻辑块，硬件及操作系统往往将主存和磁盘存储区分割为连续的大小相等的块，每个存储块称为一页（在许多操作系统中，页得大小通常为4k），主存和磁盘以页为单位交换数据。当程序要读取的数据不在主存中时，会触发一个缺页异常，此时系统会向磁盘发出读盘信号，磁盘会找到数据的起始位置并向后连续读取一页或几页载入内存中，然后异常返回，程序继续运行。</p>
+<h1 id="B-Tree索引的性能分析"><a href="#B-Tree索引的性能分析" class="headerlink" title="B-/+Tree索引的性能分析"></a>B-/+Tree索引的性能分析</h1><p>一般使用磁盘I/O次数评价索引结构的优劣。先从B-Tree分析，根据B-Tree的定义，可知检索一次最多需要访问h个节点。数据库系统的设计者巧妙利用了磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入。为了达到这个目的，在实际实现B-Tree还需要使用如下技巧：</p>
+<p>每次新建节点时，直接申请一个页的空间，这样就保证一个节点物理上也存储在一个页里，加之计算机存储分配都是按页对齐的，就实现了一个node只需一次I/O。</p>
+<p>B-Tree中一次检索最多需要h-1次I/O（根节点常驻内存），渐进复杂度为$O(h)=O(\log_d N)$。一般实际应用中，出度d是非常大的数字，通常超过100，因此h非常小（通常不超过3）。</p>
+<p>综上所述，用B-Tree作为索引结构效率是非常高的。</p>
+<p><strong>而红黑树这种结构，h明显要深的多。由于逻辑上很近的节点（父子）物理上可能很远，无法利用局部性，所以红黑树的I/O渐进复杂度也为O(h)，效率明显比B-Tree差很多。</strong></p>
+<p>上文还说过，B+Tree更适合外存索引，原因和内节点出度d有关。从上面分析可以看到，d越大索引的性能越好，而出度的上限取决于节点内key和data的大小：</p>
+<p>$$<br>d_{max}=floor({pagesize \over keysize+datasize+pointsize})<br>$$</p>
+<p>floor表示向下取整。</p>
+<p><strong>由于B+Tree内节点去掉了data域，因此可以拥有更大的出度，容纳更多的节点，能够有效减少磁盘IO次数</strong>。</p>
+<p>一般在数据库系统或文件系统中使用的B+Tree结构都在经典B+Tree的基础上进行了优化，增加了顺序访问指针。</p>
+<p><img src="https://images.morethink.cn/B+Tree.jpg" alt="" title="B+Tree"></p>
+<p>如上图图所示，在B+Tree的每个叶子节点增加一个指向相邻叶子节点的指针，就形成了带有顺序访问指针的B+Tree。做这个优化的目的是为了提高区间访问的性能，例如图4中如果要查询key为从18到49的所有数据记录，当找到18后，<strong>只需顺着节点和指针顺序遍历就可以一次性访问到所有数据节点，极大提到了区间查询效率</strong>。</p>
+<p>综上所述：<br>B+Tree做索引的优势是：</p>
+<ol>
+<li>内部节点取消data域，每一页可以容纳更多的数据，有效减少磁盘IO次数。</li>
+<li>数据都存储在叶子节点，所以任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。所以B+树查询时间复杂度为log n，而B树查询时间复杂度不固定，与所查结点在树中的位置有关，最好为O(1)。</li>
+<li>通过增加顺序访问指针提高区间查询效率。</li>
+</ol>
+<p>而MongoDB索引选择B树可能是因为：<br>MongoDB 是文档型的数据库，是一种nosql，它使用BSON格式保存数据，归属于聚合型数据库。被设计用在数据模型简单，性能要求高的场合。之所以采用B树，是因为B树key和data域聚合在一起。因此并不需要类似于区间查询的操作。</p>
+<p><strong>参考文档</strong>：</p>
+<ol>
+<li><a href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html" target="_blank" rel="noopener">MySQL索引背后的数据结构及算法原理</a></li>
+<li><a href="https://www.cnblogs.com/gaochundong/p/btree_and_bplustree.html#bplustree_implementation" target="_blank" rel="noopener">人人都是 DBA（VII）B 树和 B+ 树</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27700617" target="_blank" rel="noopener">平衡二叉树、B-Tree、B+Tree、B*树 理解其中一种你就都明白了</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/B%E6%A0%91" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/B%E6%A0%91</a></li>
+<li>B-Tree gif：<a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank" rel="noopener">https://www.cs.usfca.edu/~galles/visualization/BTree.html</a></li>
+<li><a href="https://www.jianshu.com/p/ed76dbc0536d" target="_blank" rel="noopener">6. 数据结构 - B 树</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://images.morethink.cn//wechat-reward-image.png" alt="morethink 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://images.morethink.cn/alipay-reward-image.jpg" alt="morethink 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    morethink
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.morethink.cn/算法/data-structure-behind-the-index/" title="MongoDB 及 Mysql 背后的 B/B+树">https://www.morethink.cn/算法/data-structure-behind-the-index/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树/" rel="tag"># 树</a>
+          
+            <a href="/tags/索引/" rel="tag"># 索引</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/MAC安装RabbitMQ/" rel="next" title="MAC安装RabbitMQ">
+                <i class="fa fa-chevron-left"></i> MAC安装RabbitMQ
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/工具/Git-set-proxy-for-a-domain/" rel="prev" title="Git为某个域名设置代理">
+                Git为某个域名设置代理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://images.morethink.cn/avatar.jpg"
+                alt="morethink" />
+            
+              <p class="site-author-name" itemprop="name">morethink</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/morethink" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/morethink/" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-globe"></i>博客园</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#B-Tree"><span class="nav-number">1.</span> <span class="nav-text">B-Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#B-Tree的查找"><span class="nav-number">1.1.</span> <span class="nav-text">B-Tree的查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-Tree的插入"><span class="nav-number">1.2.</span> <span class="nav-text">B-Tree的插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-Tree-的删除"><span class="nav-number">1.3.</span> <span class="nav-text">B-Tree 的删除</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-Tree-1"><span class="nav-number">2.</span> <span class="nav-text">B+Tree</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">3.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#磁盘存取原理"><span class="nav-number">4.</span> <span class="nav-text">磁盘存取原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#局部性原理与磁盘预读"><span class="nav-number">4.1.</span> <span class="nav-text">局部性原理与磁盘预读</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-Tree索引的性能分析"><span class="nav-number">5.</span> <span class="nav-text">B-/+Tree索引的性能分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">morethink</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272571311&web_id=1272571311" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'morethink',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '08854952e38df7965142646ffb127bd37dc9baf2',
+            
+                client_id: '2cf694e06b6dcf0e5264'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+</body>
+</html>
