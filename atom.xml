@@ -207,6 +207,29 @@
   </entry>
   
   <entry>
+    <title>Git为某个域名设置代理</title>
+    <link href="https://www.morethink.cn/%E5%B7%A5%E5%85%B7/Git-set-proxy-for-a-domain/"/>
+    <id>https://www.morethink.cn/工具/Git-set-proxy-for-a-domain/</id>
+    <published>2018-08-03T16:00:00.000Z</published>
+    <updated>2018-08-04T09:51:45.987Z</updated>
+    
+    <content type="html"><![CDATA[<p>国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。</p><p>下面通过更改Git配置文件对不同的域名使用不同的代理配置。<br><br><a id="more"></a></p><ol><li><p>打开Git 配置文件</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure></li><li><p>添加如下配置：</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。&lt;/p&gt;
+&lt;p&gt;下面通过更改Git配置文件对不同的域名使用不同的代理配置。&lt;br&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)</title>
     <link href="https://www.morethink.cn/Java%E5%8E%8B%E7%BC%A9/%E8%A7%A3%E5%8E%8B%20.zip%E3%80%81.tar.gz%E3%80%81.tar.bz2(%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87)/"/>
     <id>https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/</id>
@@ -229,29 +252,6 @@
     
       <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Git为某个域名设置代理</title>
-    <link href="https://www.morethink.cn/%E5%B7%A5%E5%85%B7/Git-set-proxy-for-a-domain/"/>
-    <id>https://www.morethink.cn/工具/Git-set-proxy-for-a-domain/</id>
-    <published>2018-08-03T16:00:00.000Z</published>
-    <updated>2018-08-04T09:51:45.987Z</updated>
-    
-    <content type="html"><![CDATA[<p>国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。</p><p>下面通过更改Git配置文件对不同的域名使用不同的代理配置。<br><br><a id="more"></a></p><ol><li><p>打开Git 配置文件</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi ~/.gitconfig</span><br></pre></td></tr></table></figure></li><li><p>添加如下配置：</p> <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[http "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[https "https://github.com/"]</span><br><span class="line">    proxy = http://127.0.0.1:1081</span><br><span class="line">[http "https://my.comapnyserver.com/"]</span><br><span class="line">    proxy = ""</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;国内访问Github很慢，可以通过配置代理来加快访问速度，但是对公司内部git服务器却不能使用代理。&lt;/p&gt;
-&lt;p&gt;下面通过更改Git配置文件对不同的域名使用不同的代理配置。&lt;br&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
     
   </entry>
   
@@ -286,27 +286,6 @@
   </entry>
   
   <entry>
-    <title>科学上网之在VPS上安装SSR</title>
-    <link href="https://www.morethink.cn/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E4%B9%8B%E5%9C%A8VPS%E4%B8%8A%E5%AE%89%E8%A3%85SSR/"/>
-    <id>https://www.morethink.cn/科学上网之在VPS上安装SSR/</id>
-    <published>2018-05-11T16:00:00.000Z</published>
-    <updated>2018-05-23T16:31:30.777Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。</p><h1 id="安装SSR"><a href="#安装SSR" class="headerlink" title="安装SSR"></a>安装SSR</h1><p>简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！<br><a id="more"></a><br>本脚本需要Linux root账户权限才能正常安装运行，所以 <strong>如果不是 root账号，请先切换为root，如果是 root账号，那么请跳过</strong>！</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure><p>输入上面代码回车后会提示你输入当前用户的密码，输入并回车后，没有报错就继续下面的步骤安装ShadowsocksR。</p><p>v2.0.0 版本以后的脚本，请先卸载旧脚本ShadowsocksR服务端，再重新安装！</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://softs.fun/Bash/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure><p>备用下载地址（上面的链接无法下载，就用这个）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure></p><p>下载运行后会提示你输入数字来选择要做什么。</p><p>运行脚本：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure><p>输入对应的数字来执行相应的命令。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  请输入一个数字来选择菜单选项</span><br><span class="line"></span><br><span class="line"> 1. 安装 ShadowsocksR</span><br><span class="line"> 2. 更新 ShadowsocksR</span><br><span class="line"> 3. 卸载 ShadowsocksR</span><br><span class="line"> 4. 安装 libsodium(chacha20)</span><br><span class="line">————————————</span><br><span class="line"> 5. 查看 账号信息</span><br><span class="line"> 6. 显示 连接信息</span><br><span class="line"> 7. 设置 用户配置</span><br><span class="line"> 8. 手动 修改配置</span><br><span class="line"> 9. 切换 端口模式</span><br><span class="line">————————————</span><br><span class="line"> 10. 启动 ShadowsocksR</span><br><span class="line"> 11. 停止 ShadowsocksR</span><br><span class="line"> 12. 重启 ShadowsocksR</span><br><span class="line"> 13. 查看 ShadowsocksR 日志</span><br><span class="line">————————————</span><br><span class="line"> 14. 其他功能</span><br><span class="line"> 15. 升级脚本</span><br><span class="line"></span><br><span class="line"> 当前状态: 已安装 并 已启动</span><br><span class="line"> 当前模式: 单端口</span><br><span class="line"></span><br><span class="line">请输入数字(1-15)：</span><br></pre></td></tr></table></figure></p><h1 id="文件位置"><a href="#文件位置" class="headerlink" title="文件位置"></a>文件位置</h1><ul><li>安装目录：<code>/usr/local/shadowsocksr</code></li><li>配置文件：<code>/etc/shadowsocksr/user-config.json</code></li></ul><h1 id="设置为系统服务"><a href="#设置为系统服务" class="headerlink" title="设置为系统服务"></a>设置为系统服务</h1><p>ShadowsocksR 安装后，自动设置为 系统服务，所以支持使用服务来启动/停止等操作，同时支持开机启动。</p><ul><li>启动 ShadowsocksR：<code>/etc/init.d/ssr start</code></li><li>停止 ShadowsocksR：<code>/etc/init.d/ssr stop</code></li><li>重启 ShadowsocksR：<code>/etc/init.d/ssr restart</code></li><li>查看 ShadowsocksR状态：<code>/etc/init.d/ssr status</code></li></ul><p>ShadowsocksR 默认支持UDP转发，服务端无需任何设置。</p><h1 id="定时重启"><a href="#定时重启" class="headerlink" title="定时重启"></a>定时重启</h1><p>一些人可能需要定时重启ShadowsocksR服务端来保证稳定性等，所以这里用 crontab 定时。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 输入这个命令可以查看当前配置的定时任务</span><br><span class="line">crontab -l</span><br><span class="line"># 如果提示命令不存在，下面是安装命令</span><br><span class="line"># CentOS系统：</span><br><span class="line">yum update</span><br><span class="line">yum install -y crond</span><br><span class="line"># Debian/Ubuntu系统：</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y cron</span><br></pre></td></tr></table></figure><p>安装 crontab 后，我们就能开始添加定时任务了：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l &gt; &quot;crontab.bak&quot;</span><br><span class="line">sed -i &quot;/ssr restart/d&quot; &quot;crontab.bak&quot;</span><br><span class="line">echo -e &quot;\n10 3 * * * /etc/init.d/ssr restart&quot; &gt;&gt; &quot;crontab.bak&quot;</span><br><span class="line">crontab &quot;crontab.bak&quot;</span><br><span class="line">rm -r &quot;crontab.bak&quot;</span><br></pre></td></tr></table></figure><p>下面是定时任务规则(代码前面的 <em> </em> <em> </em> * 分别对应：分钟 小时 日 月 星期)参考：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10 2 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每天2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 2 */2 * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔2天的2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 */4 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔4小时的第10分重启一次 ShadowsocksR</span><br></pre></td></tr></table></figure><h1 id="BBR和锐速"><a href="#BBR和锐速" class="headerlink" title="BBR和锐速"></a>BBR和锐速</h1><p>BBR和锐速都是用来提高翻墙速度的。</p><p>BBR是来自于Google的黑科技，目的是通过优化和控制TCP的拥塞，充分利用带宽并降低延迟，其目的就是要尽量跑满带宽，并且尽量不要有排队的情况。<br>BBR 这个特性其实是在 Linux 内核 4.9 才计划加入的。所以，要开启BBR，需要内核版本在Linux kernel 4.9以上，脚本会帮助我们安装。</p><p>在BBR之前，比较有名的就是国产的锐速了，不过，由于锐速是个国产的闭源软件，可能存在安全性问题，因此 <strong>推荐使用安装BBR</strong>。</p><ul><li><p>启动脚本：</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure></li><li><p>选择<code>14. 其他功能</code></p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  1. 配置 BBR</span><br><span class="line">  2. 配置 锐速(ServerSpeeder)</span><br><span class="line">  3. 配置 LotServer(锐速母公司)</span><br><span class="line">  注意： 锐速/LotServer/BBR 不支持 OpenVZ！</span><br><span class="line">  注意： 锐速/LotServer/BBR 不能共存！</span><br><span class="line">————————————</span><br><span class="line">  4. 一键封禁 BT/PT/SPAM (iptables)</span><br><span class="line">  5. 一键解封 BT/PT/SPAM (iptables)</span><br><span class="line">  6. 切换 ShadowsocksR日志输出模式</span><br><span class="line">  ——说明：SSR默认只输出错误日志，此项可切换为输出详细的访问日志</span><br></pre></td></tr></table></figure></li><li><p>安装BBR或者锐速(推荐BBR)</p></li></ul><h1 id="TCP优化"><a href="#TCP优化" class="headerlink" title="TCP优化"></a>TCP优化</h1><ul><li><p>增加TCP连接数量</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/security/limits.conf</span><br></pre></td></tr></table></figure></li><li><p>添加两行：</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* soft nofile 51200</span><br><span class="line">* hard nofile 51200</span><br></pre></td></tr></table></figure></li><li><p>设置ulimit：</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ulimit -n 51200</span><br></pre></td></tr></table></figure></li><li><p>添加一些优化内容</p><ul><li><p>修改sysctl.conf</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi  /etc/sysctl.conf</span><br></pre></td></tr></table></figure></li><li><p>插入代码：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#TCP配置优化(不然你自己根本不知道你在干什么)</span><br><span class="line">fs.file-max = 51200</span><br><span class="line">#提高整个系统的文件限制</span><br><span class="line">net.core.rmem_max = 67108864</span><br><span class="line">net.core.wmem_max = 67108864</span><br><span class="line">net.core.netdev_max_backlog = 250000</span><br><span class="line">net.core.somaxconn = 4096</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.ipv4.tcp_tw_recycle = 0</span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br><span class="line">net.ipv4.tcp_keepalive_time = 1200</span><br><span class="line">net.ipv4.ip_local_port_range = 10000 65000</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 8192</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line">net.ipv4.tcp_fastopen = 3</span><br><span class="line">net.ipv4.tcp_mem = 25600 51200 102400</span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</span><br><span class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</span><br><span class="line">net.ipv4.tcp_mtu_probing = 1</span><br><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br><span class="line">#END OF LINE</span><br></pre></td></tr></table></figure></li><li><p>应用</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure></li><li><p>重启SSR</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/init.d/ssr restart</span><br></pre></td></tr></table></figure></li></ul></li></ul><p><strong>参考文档</strong>：</p><ol><li><a href="https://jasper-1024.github.io/2016/06/26/VPS%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%95%99%E7%A8%8B%E7%B3%BB%E5%88%97/" target="_blank" rel="noopener">科学上网教程（一）——VPS上搭建SSR</a></li><li><a href="https://doub.io/ss-jc42" target="_blank" rel="noopener">『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。&lt;/p&gt;
-&lt;h1 id=&quot;安装SSR&quot;&gt;&lt;a href=&quot;#安装SSR&quot; class=&quot;headerlink&quot; title=&quot;安装SSR&quot;&gt;&lt;/a&gt;安装SSR&lt;/h1&gt;&lt;p&gt;简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！&lt;br&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>MAC安装RabbitMQ</title>
     <link href="https://www.morethink.cn/MAC%E5%AE%89%E8%A3%85RabbitMQ/"/>
     <id>https://www.morethink.cn/MAC安装RabbitMQ/</id>
@@ -331,6 +310,27 @@
   </entry>
   
   <entry>
+    <title>科学上网之在VPS上安装SSR</title>
+    <link href="https://www.morethink.cn/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E4%B9%8B%E5%9C%A8VPS%E4%B8%8A%E5%AE%89%E8%A3%85SSR/"/>
+    <id>https://www.morethink.cn/科学上网之在VPS上安装SSR/</id>
+    <published>2018-05-11T16:00:00.000Z</published>
+    <updated>2018-05-23T16:31:30.777Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。</p><h1 id="安装SSR"><a href="#安装SSR" class="headerlink" title="安装SSR"></a>安装SSR</h1><p>简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！<br><a id="more"></a><br>本脚本需要Linux root账户权限才能正常安装运行，所以 <strong>如果不是 root账号，请先切换为root，如果是 root账号，那么请跳过</strong>！</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure><p>输入上面代码回车后会提示你输入当前用户的密码，输入并回车后，没有报错就继续下面的步骤安装ShadowsocksR。</p><p>v2.0.0 版本以后的脚本，请先卸载旧脚本ShadowsocksR服务端，再重新安装！</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://softs.fun/Bash/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure><p>备用下载地址（上面的链接无法下载，就用这个）：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure></p><p>下载运行后会提示你输入数字来选择要做什么。</p><p>运行脚本：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure><p>输入对应的数字来执行相应的命令。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  请输入一个数字来选择菜单选项</span><br><span class="line"></span><br><span class="line"> 1. 安装 ShadowsocksR</span><br><span class="line"> 2. 更新 ShadowsocksR</span><br><span class="line"> 3. 卸载 ShadowsocksR</span><br><span class="line"> 4. 安装 libsodium(chacha20)</span><br><span class="line">————————————</span><br><span class="line"> 5. 查看 账号信息</span><br><span class="line"> 6. 显示 连接信息</span><br><span class="line"> 7. 设置 用户配置</span><br><span class="line"> 8. 手动 修改配置</span><br><span class="line"> 9. 切换 端口模式</span><br><span class="line">————————————</span><br><span class="line"> 10. 启动 ShadowsocksR</span><br><span class="line"> 11. 停止 ShadowsocksR</span><br><span class="line"> 12. 重启 ShadowsocksR</span><br><span class="line"> 13. 查看 ShadowsocksR 日志</span><br><span class="line">————————————</span><br><span class="line"> 14. 其他功能</span><br><span class="line"> 15. 升级脚本</span><br><span class="line"></span><br><span class="line"> 当前状态: 已安装 并 已启动</span><br><span class="line"> 当前模式: 单端口</span><br><span class="line"></span><br><span class="line">请输入数字(1-15)：</span><br></pre></td></tr></table></figure></p><h1 id="文件位置"><a href="#文件位置" class="headerlink" title="文件位置"></a>文件位置</h1><ul><li>安装目录：<code>/usr/local/shadowsocksr</code></li><li>配置文件：<code>/etc/shadowsocksr/user-config.json</code></li></ul><h1 id="设置为系统服务"><a href="#设置为系统服务" class="headerlink" title="设置为系统服务"></a>设置为系统服务</h1><p>ShadowsocksR 安装后，自动设置为 系统服务，所以支持使用服务来启动/停止等操作，同时支持开机启动。</p><ul><li>启动 ShadowsocksR：<code>/etc/init.d/ssr start</code></li><li>停止 ShadowsocksR：<code>/etc/init.d/ssr stop</code></li><li>重启 ShadowsocksR：<code>/etc/init.d/ssr restart</code></li><li>查看 ShadowsocksR状态：<code>/etc/init.d/ssr status</code></li></ul><p>ShadowsocksR 默认支持UDP转发，服务端无需任何设置。</p><h1 id="定时重启"><a href="#定时重启" class="headerlink" title="定时重启"></a>定时重启</h1><p>一些人可能需要定时重启ShadowsocksR服务端来保证稳定性等，所以这里用 crontab 定时。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 输入这个命令可以查看当前配置的定时任务</span><br><span class="line">crontab -l</span><br><span class="line"># 如果提示命令不存在，下面是安装命令</span><br><span class="line"># CentOS系统：</span><br><span class="line">yum update</span><br><span class="line">yum install -y crond</span><br><span class="line"># Debian/Ubuntu系统：</span><br><span class="line">apt-get update</span><br><span class="line">apt-get install -y cron</span><br></pre></td></tr></table></figure><p>安装 crontab 后，我们就能开始添加定时任务了：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -l &gt; &quot;crontab.bak&quot;</span><br><span class="line">sed -i &quot;/ssr restart/d&quot; &quot;crontab.bak&quot;</span><br><span class="line">echo -e &quot;\n10 3 * * * /etc/init.d/ssr restart&quot; &gt;&gt; &quot;crontab.bak&quot;</span><br><span class="line">crontab &quot;crontab.bak&quot;</span><br><span class="line">rm -r &quot;crontab.bak&quot;</span><br></pre></td></tr></table></figure><p>下面是定时任务规则(代码前面的 <em> </em> <em> </em> * 分别对应：分钟 小时 日 月 星期)参考：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">10 2 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每天2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 2 */2 * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔2天的2点10分重启一次 ShadowsocksR</span><br><span class="line"></span><br><span class="line">10 */4 * * * /etc/init.d/ssr restart</span><br><span class="line"># 这个代表 每隔4小时的第10分重启一次 ShadowsocksR</span><br></pre></td></tr></table></figure><h1 id="BBR和锐速"><a href="#BBR和锐速" class="headerlink" title="BBR和锐速"></a>BBR和锐速</h1><p>BBR和锐速都是用来提高翻墙速度的。</p><p>BBR是来自于Google的黑科技，目的是通过优化和控制TCP的拥塞，充分利用带宽并降低延迟，其目的就是要尽量跑满带宽，并且尽量不要有排队的情况。<br>BBR 这个特性其实是在 Linux 内核 4.9 才计划加入的。所以，要开启BBR，需要内核版本在Linux kernel 4.9以上，脚本会帮助我们安装。</p><p>在BBR之前，比较有名的就是国产的锐速了，不过，由于锐速是个国产的闭源软件，可能存在安全性问题，因此 <strong>推荐使用安装BBR</strong>。</p><ul><li><p>启动脚本：</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash ssr.sh</span><br></pre></td></tr></table></figure></li><li><p>选择<code>14. 其他功能</code></p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  1. 配置 BBR</span><br><span class="line">  2. 配置 锐速(ServerSpeeder)</span><br><span class="line">  3. 配置 LotServer(锐速母公司)</span><br><span class="line">  注意： 锐速/LotServer/BBR 不支持 OpenVZ！</span><br><span class="line">  注意： 锐速/LotServer/BBR 不能共存！</span><br><span class="line">————————————</span><br><span class="line">  4. 一键封禁 BT/PT/SPAM (iptables)</span><br><span class="line">  5. 一键解封 BT/PT/SPAM (iptables)</span><br><span class="line">  6. 切换 ShadowsocksR日志输出模式</span><br><span class="line">  ——说明：SSR默认只输出错误日志，此项可切换为输出详细的访问日志</span><br></pre></td></tr></table></figure></li><li><p>安装BBR或者锐速(推荐BBR)</p></li></ul><h1 id="TCP优化"><a href="#TCP优化" class="headerlink" title="TCP优化"></a>TCP优化</h1><ul><li><p>增加TCP连接数量</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/security/limits.conf</span><br></pre></td></tr></table></figure></li><li><p>添加两行：</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">* soft nofile 51200</span><br><span class="line">* hard nofile 51200</span><br></pre></td></tr></table></figure></li><li><p>设置ulimit：</p>  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ulimit -n 51200</span><br></pre></td></tr></table></figure></li><li><p>添加一些优化内容</p><ul><li><p>修改sysctl.conf</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi  /etc/sysctl.conf</span><br></pre></td></tr></table></figure></li><li><p>插入代码：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#TCP配置优化(不然你自己根本不知道你在干什么)</span><br><span class="line">fs.file-max = 51200</span><br><span class="line">#提高整个系统的文件限制</span><br><span class="line">net.core.rmem_max = 67108864</span><br><span class="line">net.core.wmem_max = 67108864</span><br><span class="line">net.core.netdev_max_backlog = 250000</span><br><span class="line">net.core.somaxconn = 4096</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.ipv4.tcp_tw_recycle = 0</span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br><span class="line">net.ipv4.tcp_keepalive_time = 1200</span><br><span class="line">net.ipv4.ip_local_port_range = 10000 65000</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 8192</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line">net.ipv4.tcp_fastopen = 3</span><br><span class="line">net.ipv4.tcp_mem = 25600 51200 102400</span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</span><br><span class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</span><br><span class="line">net.ipv4.tcp_mtu_probing = 1</span><br><span class="line">net.ipv4.tcp_congestion_control = bbr</span><br><span class="line">#END OF LINE</span><br></pre></td></tr></table></figure></li><li><p>应用</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure></li><li><p>重启SSR</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/etc/init.d/ssr restart</span><br></pre></td></tr></table></figure></li></ul></li></ul><p><strong>参考文档</strong>：</p><ol><li><a href="https://jasper-1024.github.io/2016/06/26/VPS%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%95%99%E7%A8%8B%E7%B3%BB%E5%88%97/" target="_blank" rel="noopener">科学上网教程（一）——VPS上搭建SSR</a></li><li><a href="https://doub.io/ss-jc42" target="_blank" rel="noopener">『原创』CentOS/Debian/Ubuntu ShadowsocksR 单/多端口 一键管理脚本</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文对VPS安装SSR的过程进行总结，免得因为XX重新安装SSR时找不到安装方法。&lt;/p&gt;
+&lt;h1 id=&quot;安装SSR&quot;&gt;&lt;a href=&quot;#安装SSR&quot; class=&quot;headerlink&quot; title=&quot;安装SSR&quot;&gt;&lt;/a&gt;安装SSR&lt;/h1&gt;&lt;p&gt;简单的来说，如果你什么都不懂，那么你直接一路回车就可以了！&lt;br&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>给你的博客园图片添加标题</title>
     <link href="https://www.morethink.cn/%E7%BB%99%E4%BD%A0%E7%9A%84%E5%8D%9A%E5%AE%A2%E5%9B%AD%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E6%A0%87%E9%A2%98/"/>
     <id>https://www.morethink.cn/给你的博客园图片添加标题/</id>
@@ -347,28 +347,6 @@
     
       <category term="Web前端" scheme="https://www.morethink.cn/categories/Web%E5%89%8D%E7%AB%AF/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>GitHub更新已经fork的项目</title>
-    <link href="https://www.morethink.cn/%E5%B7%A5%E5%85%B7/GitHub%E6%9B%B4%E6%96%B0%E5%B7%B2%E7%BB%8Ffork%E7%9A%84%E9%A1%B9%E7%9B%AE/"/>
-    <id>https://www.morethink.cn/工具/GitHub更新已经fork的项目/</id>
-    <published>2018-04-21T16:00:00.000Z</published>
-    <updated>2018-05-23T16:31:20.473Z</updated>
-    
-    <content type="html"><![CDATA[<p>当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。</p><a id="more"></a><ol><li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li><li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure></li><li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p></li><li>切换到本地master分支<br><code>$ git checkout master</code></li><li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li><li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li></ol><p><strong>参考文档：</strong></p><ol><li>添加远程分支<br><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/configuring-a-remote-for-a-fork/</a></li><li>完成同步<br><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/syncing-a-fork/</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
     
   </entry>
   
@@ -399,6 +377,28 @@
     
       <category term="Linux" scheme="https://www.morethink.cn/categories/Linux/"/>
     
+    
+  </entry>
+  
+  <entry>
+    <title>GitHub更新已经fork的项目</title>
+    <link href="https://www.morethink.cn/%E5%B7%A5%E5%85%B7/GitHub%E6%9B%B4%E6%96%B0%E5%B7%B2%E7%BB%8Ffork%E7%9A%84%E9%A1%B9%E7%9B%AE/"/>
+    <id>https://www.morethink.cn/工具/GitHub更新已经fork的项目/</id>
+    <published>2018-04-21T16:00:00.000Z</published>
+    <updated>2018-05-23T16:31:20.473Z</updated>
+    
+    <content type="html"><![CDATA[<p>当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。</p><a id="more"></a><ol><li>clone 自己的 fork 分支到本地<br>可以直接使用 GitHub 客户端，clone 到本地，如果使用命令行，命令为：<br><code>$ git clone  git@github.com:morethink/git-recipes.git</code></li><li><p>进入仓库，增加源分支地址到你项目远程分支列表中<br>此处是关键，先得将原来的仓库指定为 upstream，命令为：<br><code>$ git remote add upstream git@github.com:geeeeeeeeek/git-recipes.git</code><br>此处可使用 <code>git remote -v</code> 查看远程分支列表</p> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (fetch)</span><br><span class="line">origingit@github.com:morethink/git-recipes.git (push)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (fetch)</span><br><span class="line">upstreamgit@github.com:geeeeeeeeek/git-recipes.git (push)</span><br></pre></td></tr></table></figure></li><li><p>fetch 源分支的新版本到本地<br><code>$ git fetch upstream</code></p></li><li>切换到本地master分支<br><code>$ git checkout master</code></li><li>合并两个版本的代码<br><code>$ git merge upstream/master</code></li><li>将合并后的代码 push 到 GitHub 上去<br><code>$ git push origin master</code></li></ol><p><strong>参考文档：</strong></p><ol><li>添加远程分支<br><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/configuring-a-remote-for-a-fork/</a></li><li>完成同步<br><a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">https://help.github.com/articles/syncing-a-fork/</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;当我们fork一个项目后，在我们使用代码的时候就会以我们本地为准，不会跟随我们fork前的项目，如果需要同步对方的代码，需要进行同步操作。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
     
   </entry>
   
