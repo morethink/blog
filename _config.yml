@@ -100,11 +100,13 @@ baidusitemap:
   path: baidusitemap.xml
 
 
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
     type: git
-    repo: hexo@MyHost2:/var/repo/hexo_static
+    # repo: hexo@MyHost2:/var/repo/hexo_static
+    repo: hexo@MyHost3:/home/hexo/blog.git
     branch: master
       # - type: git
       #   repo: https://github.com/morethink/blog.git
