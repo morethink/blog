@@ -310,6 +310,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="morethink">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/" itemprop="url">Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T00:00:00+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本文介绍Java压缩/解压.zip、.tar.gz、.tar.bz2的方式。</p>
+<ol>
+<li>对于zip文件：使用<code>java.util.zip.ZipEntry</code> 和 <code>java.util.zip.ZipFile</code>，通过设置<code>Charset</code>为<code>StandardCharsets.UTF_8</code>支持中文。</li>
+<li>对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>GzipCompressorInputStream</code>。</li>
+<li>对于.tar.bz2文件：可以看做先用tar打包，再使用bz2进行压缩。使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>BZip2CompressorInputStream</code>。</li>
+</ol>
+<p>在这里有个问题如果使用<code>TarInputStream</code>搭配jdk的 <code>GZIPInputStream</code>会产生乱码。而使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>GzipCompressorInputStream</code>则可解决乱码问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/算法/data-structure-behind-the-index/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -462,168 +614,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/MAC安装RabbitMQ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="morethink">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="More Think">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/MAC安装RabbitMQ/" itemprop="url">MAC安装RabbitMQ</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T00:00:00+08:00">
-                2018-05-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="https://images.morethink.cn/rabbitmq-logo.png" rel="gallery_cjvo2ycuj000hu136dkxnuxap"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="https://images.morethink.cn/rabbitmq-logo.png" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install rabbitmq</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/MAC安装RabbitMQ/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/科学上网之在VPS上安装SSR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -718,7 +708,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="https://images.morethink.cn/touch-google.png" rel="gallery_cjvo2ycwo003eu136114fj353"
+                 href="https://images.morethink.cn/touch-google.png" rel="gallery_cjvo33bex003hxh3640e05l6j"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="https://images.morethink.cn/touch-google.png" itemprop="contentUrl"/>
               </a>
@@ -737,6 +727,168 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/科学上网之在VPS上安装SSR/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/MAC安装RabbitMQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="morethink">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="More Think">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/MAC安装RabbitMQ/" itemprop="url">MAC安装RabbitMQ</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T00:00:00+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="https://images.morethink.cn/rabbitmq-logo.png" rel="gallery_cjvo33bcr000hxh36ci7jtbrt"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="https://images.morethink.cn/rabbitmq-logo.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        
+          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">brew update</span><br><span class="line">brew install rabbitmq</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/MAC安装RabbitMQ/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1668,155 +1820,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/求小于n的素数个数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="morethink">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://images.morethink.cn/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="More Think">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/求小于n的素数个数/" itemprop="url">求小于n的素数个数</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-11T00:00:00+08:00">
-                2018-03-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文是对 LeetCode <a href="https://leetcode.com/problems/count-primes/description/" target="_blank" rel="noopener">Count Primes</a> 解法的探讨。</p>
-<p>题目：<br>Count the number of prime numbers less than a non-negative number, n.</p>
-<p>尽管题目并没有要我们写一个最优的算法，但是身为一个程序员，优化应该是一种习惯，在编程的过程中，随着思考进行优化。只要求我们满足给定的时间和空间即可。</p>
-<p>如果你只能想出一个最简单的方法，难道你会有什么竞争力吗？</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/求小于n的素数个数/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1871,7 +1874,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
