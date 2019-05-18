@@ -5,6 +5,7 @@ tags:
 categories: 工具
 ---
 
+![cheerful-close-up-coffee](https://dev.tencent.com/u/morethink/p/images/git/raw/master/cheerful-close-up-coffee.jpg "cheerful-close-up-coffee")
 
 最近更换了服务器，需要把自己的Hexo Next重新部署到新服务器上，本文记录一下在vps上搭建hexo博客的过程。
 
