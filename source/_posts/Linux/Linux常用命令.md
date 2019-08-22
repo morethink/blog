@@ -484,6 +484,31 @@ alias vi='vim'
     killall ping
     ```
 
+# scp
+
+1. 从服务器下载文件
+    ```
+    # 下载/path/filename到/data/destfile
+    scp username@servername:/path/filename /data/destfile
+    # 下载/path/filename到本目录
+    scp username@servername:/path/filename .
+    ```
+2. 上传本地文件到服务器
+    ```
+    # 上传filename到servername的/path下
+    scp /path/filename username@servername:/path  
+    ```
+3. 从服务器下载整个目录
+    ```
+    # 把servername的path下载到/data目录
+    scp -r username@servername:/path /data
+    ```
+4. 上传目录到服务器
+    ```
+    # 吧/path目录上传到servername的/data 目录
+    scp  -r /path username@servername:/data
+    ```
+
 # 执行多个命令
 
 

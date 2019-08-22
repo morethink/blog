@@ -94,7 +94,7 @@ public static void sort2(int[] a) {
     for (int i = 1; i < a.length; i++) {
         int num = a[i];
         int j;
-        for (j = i; j > 0 && num < a[j]; j--) {
+        for (j = i; j > 0 && num < a[j - 1]; j--) {
             a[j] = a[j - 1];
         }
         a[j] = num;
