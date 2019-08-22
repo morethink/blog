@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.morethink.cn/"/>
-  <updated>2019-05-18T08:14:50.473Z</updated>
+  <updated>2019-06-06T09:04:11.141Z</updated>
   <id>https://www.morethink.cn/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Windows关闭防火墙之后端口依然不可以访问</title>
+    <link href="https://www.morethink.cn/%E7%BD%91%E7%BB%9C/the-machine-ip-address/"/>
+    <id>https://www.morethink.cn/网络/the-machine-ip-address/</id>
+    <published>2019-06-05T16:00:00.000Z</published>
+    <updated>2019-06-06T09:04:11.141Z</updated>
+    
+    <content type="html"><![CDATA[<p>在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。</p><a id="more"></a><h1 id="环回地址-127-0-0-1"><a href="#环回地址-127-0-0-1" class="headerlink" title="环回地址 127.0.0.1"></a>环回地址 127.0.0.1</h1><p>IPv4 网络标准将整个 127.0.0.0/8 地址块订为保留地址，供本地环回使用，整个地址块内有超过1600万个IP地址。所以，发送到这些地址（127.0.0.1 到 127.255.255.255）的所有数据包都会返回本机。 地址 127.0.0.1 是 IPv4 环回的常用标准地址; 其余地址并不是所有的操作系统都支持（多数人也不知道有这些地址）。但是，使用127.0.0.1/8内的不同地址，就可以在本机上设置侦听相同端口的多个服务器。 IPv6 标准只分配了一个本地环回地址:[::1]。</p><p>要将本地主机名localhost解析到一个或多个 IP 地址，一般是通过在操作系统的 hosts 文件中添加以下代码实现的：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1    localhost</span><br><span class="line">::1          localhost</span><br></pre></td></tr></table></figure><p>本地主机名也可以由 DNS 服务器解析，但这一主机名的解析请求，应在本地处理，而非发送到远程服务器。此地址块中的任何地址都将环回到本地主机中。此地址块中的任何地址都绝不会出现在任何网络中。</p><p>环回地址：所有发往该类地址的数据包都应该被 loop back。任何发往环回地址的数据包，其处理都在 TCP/IP 协议叠的链路层中实现的。这些数据包不会交由网卡（NIC）或者设备驱动程序处理，既不应在计算机系统以外出现，也不可经路由器转发。</p><p>环回地址主要用来做回环测试，通过使用ping 127.0.0.1 测试某台机器上的网络设备，操作系统或者TCP/IP实现是否工作正常。</p><h1 id="任何地址-0-0-0-0"><a href="#任何地址-0-0-0-0" class="headerlink" title="任何地址 0.0.0.0"></a>任何地址 0.0.0.0</h1><p>0.0.0.0 不能ping通。0.0.0.0就是任何地址IP_ADDR_ANY，任何地址的意思就是包括环回地址。</p><p>任何地址IP_ADDR_ANY的意思也就是，不管主机有多少个网口，多少个IP，如果监听本机的0.0.0.0上的端口，就等于监听机器上的所有IP端口。数据报的目的地址只要是机器上的一个IP地址，就能被接受。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol><li>对于只进行单机测试，一般只需要监听 127.0.0.1</li><li>如果需要外部访问，需要监听0.0.0.0(一般默认都是0.0.0.0)</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络" scheme="https://www.morethink.cn/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>在vps上搭建hexo博客</title>
@@ -476,29 +496,6 @@
     
     
       <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>二叉树从右边看到的节点</title>
-    <link href="https://www.morethink.cn/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%BB%8E%E5%8F%B3%E8%BE%B9%E7%9C%8B%E5%88%B0%E7%9A%84%E8%8A%82%E7%82%B9/"/>
-    <id>https://www.morethink.cn/算法/二叉树从右边看到的节点/</id>
-    <published>2018-03-31T16:00:00.000Z</published>
-    <updated>2018-06-29T09:32:08.288Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文是对 LeetCode <a href="https://leetcode.com/problems/binary-tree-right-side-view/description/" target="_blank" rel="noopener">Binary Tree Right Side View</a> 解法的探讨。</p><p>题目：<br>Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.<br><a id="more"></a><br>For example:<br>Given the following binary tree,<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  1            &lt;---</span><br><span class="line"> /   \</span><br><span class="line">2     3         &lt;---</span><br><span class="line"> \     \</span><br><span class="line">  5     4       &lt;---</span><br></pre></td></tr></table></figure></p><p>You should return [1, 3, 4].</p><p>解法如下：</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 因为题目的二叉树并不是满二叉树，所以采用层序遍历的方式。</span></span><br><span class="line"><span class="comment"> * 将以前层序遍历中一个个出队的方式变为一层层出队，</span></span><br><span class="line"><span class="comment"> * 这样就能定位最右边的节点。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> root</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">rightSideView</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">    Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    queue.offer(root);</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> size = queue.size();</span><br><span class="line">        <span class="comment">//将每一层的节点都出队</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            TreeNode treeNode = queue.poll();</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span>) &#123;</span><br><span class="line">                list.add(treeNode.val);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (treeNode.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">                queue.offer(treeNode.right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (treeNode.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">                queue.offer(treeNode.left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文是对 LeetCode &lt;a href=&quot;https://leetcode.com/problems/binary-tree-right-side-view/description/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Binary Tree Right Side View&lt;/a&gt; 解法的探讨。&lt;/p&gt;
-&lt;p&gt;题目：&lt;br&gt;Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.&lt;br&gt;
-    
-    </summary>
-    
-      <category term="算法" scheme="https://www.morethink.cn/categories/%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="树" scheme="https://www.morethink.cn/tags/%E6%A0%91/"/>
     
   </entry>
   
