@@ -360,7 +360,7 @@ han: false
 # Disqus
 disqus:
   enable: true
-  shortname: disqus_wE8nHS9zfF
+  shortname: morethink
   count: true
 
 # Hypercomments
