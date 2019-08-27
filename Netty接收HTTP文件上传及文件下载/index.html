@@ -381,7 +381,8 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/Netty接收HTTP文件上传及文件下载/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/Netty接收HTTP文件上传及文件下载/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="Netty接收HTTP文件上传及文件下载/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -505,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Netty-URL-routing-scheme/" rel="next" title="Netty URL路由方案探讨">
-                <i class="fa fa-chevron-left"></i> Netty URL路由方案探讨
+              <a href="/Linux/Docker中执行Shell出现乱码/" rel="next" title="Docker中执行Shell出现乱码">
+                <i class="fa fa-chevron-left"></i> Docker中执行Shell出现乱码
               </a>
             
           </div>
@@ -515,8 +516,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Linux/Docker中执行Shell出现乱码/" rel="prev" title="Docker中执行Shell出现乱码">
-                Docker中执行Shell出现乱码 <i class="fa fa-chevron-right"></i>
+              <a href="/Python/douban-ding/" rel="prev" title="Python 豆瓣顶帖">
+                Python 豆瓣顶帖 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -548,9 +549,12 @@
 
   
     <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     </div>
 
   
@@ -874,6 +878,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://disqus_wE8nHS9zfF.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://www.morethink.cn/Netty接收HTTP文件上传及文件下载/';
+          this.page.identifier = 'Netty接收HTTP文件上传及文件下载/';
+          this.page.title = 'Netty接收HTTP文件上传及文件下载';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://disqus_wE8nHS9zfF.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -889,49 +913,8 @@
 
 
 
-  
 
 
-
-
-
-
-
-<!-- LOCAL: You can save these files to your site and update links -->
-    
-        
-        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
-        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
-    
-<!-- END LOCAL -->
-
-    
-
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitmint({
-            id: window.location.pathname, 
-            owner: 'morethink',
-            repo: 'gitment-comments',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: '08854952e38df7965142646ffb127bd37dc9baf2',
-            
-                client_id: '2cf694e06b6dcf0e5264'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      renderGitment();
-      
-      </script>
-    
 
 
 
