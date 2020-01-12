@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。">
+<meta name="description" content="最近在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。 经过排查是代码绑定了 127.0.0.1 导致，而当你不绑定 127.0.0.1 时，系统默认绑定 0.0.0.0。下面介绍下 换回地址及任何地址的相关知识。">
 <meta name="keywords" content="Web,HTML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows关闭防火墙之后端口依然不可以访问">
 <meta property="og:url" content="https://www.morethink.cn/网络/the-machine-ip-address/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。">
+<meta property="og:description" content="最近在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。 经过排查是代码绑定了 127.0.0.1 导致，而当你不绑定 127.0.0.1 时，系统默认绑定 0.0.0.0。下面介绍下 换回地址及任何地址的相关知识。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-06T09:04:11.141Z">
+<meta property="og:updated_time" content="2019-09-09T02:36:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows关闭防火墙之后端口依然不可以访问">
-<meta name="twitter:description" content="在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。">
+<meta name="twitter:description" content="最近在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。 经过排查是代码绑定了 127.0.0.1 导致，而当你不绑定 127.0.0.1 时，系统默认绑定 0.0.0.0。下面介绍下 换回地址及任何地址的相关知识。">
 
 
 
@@ -415,9 +415,10 @@
       
 
       
-        <p>在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。</p>
+        <p>最近在Windows开放端口给外部访问的过程中遇到了关闭防火墙之后端口依然不可以访问的问题。</p>
+<p>经过排查是代码绑定了 <code>127.0.0.1</code> 导致，而当你不绑定 <code>127.0.0.1</code> 时，系统默认绑定 <code>0.0.0.0</code>。下面介绍下 换回地址及任何地址的相关知识。</p>
 <a id="more"></a>
-<h1 id="环回地址-127-0-0-1"><a href="#环回地址-127-0-0-1" class="headerlink" title="环回地址 127.0.0.1"></a>环回地址 127.0.0.1</h1><p>IPv4 网络标准将整个 127.0.0.0/8 地址块订为保留地址，供本地环回使用，整个地址块内有超过1600万个IP地址。所以，发送到这些地址（127.0.0.1 到 127.255.255.255）的所有数据包都会返回本机。 地址 127.0.0.1 是 IPv4 环回的常用标准地址; 其余地址并不是所有的操作系统都支持（多数人也不知道有这些地址）。但是，使用127.0.0.1/8内的不同地址，就可以在本机上设置侦听相同端口的多个服务器。 IPv6 标准只分配了一个本地环回地址:[::1]。</p>
+<h1 id="环回地址-127-0-0-1"><a href="#环回地址-127-0-0-1" class="headerlink" title="环回地址 127.0.0.1"></a>环回地址 127.0.0.1</h1><p>IPv4 网络标准将整个 127.0.0.0/8 地址块订为保留地址，供本地环回使用，整个地址块内有超过1600万个IP地址。所以，发送到这些地址（127.0.0.1 到 127.255.255.255）的所有数据包都会返回本机。 地址 127.0.0.1 是 IPv4 环回的常用标准地址; 其余地址并不是所有的操作系统都支持（多数人也不知道有这些地址）。但是，使用127.0.0.1/8内的不同地址，就可以在本机上设置侦听相同端口的多个服务器。 IPv6 标准只分配了一个本地环回地址:[::1]。</p>
 <p>要将本地主机名localhost解析到一个或多个 IP 地址，一般是通过在操作系统的 hosts 文件中添加以下代码实现的：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1    localhost</span><br><span class="line">::1          localhost</span><br></pre></td></tr></table></figure>
 <p>本地主机名也可以由 DNS 服务器解析，但这一主机名的解析请求，应在本地处理，而非发送到远程服务器。此地址块中的任何地址都将环回到本地主机中。此地址块中的任何地址都绝不会出现在任何网络中。</p>
@@ -697,7 +698,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1285,10 +1286,10 @@
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
 
 
   
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
