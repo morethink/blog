@@ -18,6 +18,7 @@
     "hexo-generator-search": "^2.3.0",
     "hexo-generator-sitemap": "^1.1.2",
     "hexo-generator-tag": "^0.2.0",
+    "hexo-helper-live2d": "^3.1.1",
     "hexo-inject": "^1.0.0",
     "hexo-pdf": "^1.1.1",
     "hexo-renderer-ejs": "^0.2.0",
@@ -26,6 +27,7 @@
     "hexo-server": "^0.2.0",
     "hexo-util": "^0.6.2",
     "hexo-wordcount": "^2.0.1",
+    "live2d-widget-model-shizuku": "^1.0.5",
     "save-dev": "^2.0.0"
   },
   "devDependencies": {

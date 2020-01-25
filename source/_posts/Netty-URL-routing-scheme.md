@@ -107,13 +107,13 @@ public class ServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> 
 
 使用状态设计模式重构代码，在增加url时只需要网map里面put一个值就行了。
 
-# 类似SpringMVC路由功能
+# Netty实现类似SpringMVC路由
 
 后来看了 [JAVA反射+运行时注解实现URL路由](https://yuerblog.cc/2018/03/08/java-router-with-annotation/) 发现反射+注解的方式很优雅，代码也不复杂。
 
 下面介绍Netty使用反射实现URL路由。
 
-路由注解：
+**路由注解**：
 ```java
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -132,6 +132,42 @@ public @interface RequestMapping {
      */
     String method();
 }
+```
+
+`json格式的body`：
+```
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface RequestBody {
+
+}
+```
+**异常类(用于全局异常处理,实现 `@ControllerAdvice` 异常处理)**：
+
+```java
+@Data
+public class MyRuntimeException extends RuntimeException {
+
+    private GeneralResponse generalResponse;
+
+    public MyRuntimeException(String message) {
+        generalResponse = new GeneralResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR, message);
+    }
+
+    public MyRuntimeException(HttpResponseStatus status, String message) {
+        generalResponse = new GeneralResponse(status, message);
+    }
+
+    public MyRuntimeException(GeneralResponse generalResponse) {
+        this.generalResponse = generalResponse;
+    }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
+}
+
 ```
 
 扫描classpath下带有`@RequestMapping`注解的方法，将这个方法放进一个路由Map：`Map<HttpLabel, Action<GeneralResponse>> httpRouterAction`，key为上面提到过的Http唯一标识  `HttpLabel`，value为通过反射调用的方法：
@@ -205,52 +241,109 @@ public class HttpRouter extends ClassLoader {
 @Data
 @RequiredArgsConstructor
 @Slf4j
-public class Action<T> {
+public class Action {
     @NonNull
     private Object object;
     @NonNull
     private Method method;
 
-    private boolean injectionFullhttprequest;
+    private List<Class> paramsClassList;
 
-    public T call(Object... args) {
+    public GeneralResponse call(Object... args) {
         try {
-            return (T) method.invoke(object, args);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            log.warn("{}", e);
+            return (GeneralResponse) method.invoke(object, args);
+        } catch (InvocationTargetException e) {
+            Throwable targetException = e.getTargetException();
+            //实现 `@ControllerAdvice` 异常处理，直接抛出自定义异常
+            if (targetException instanceof MyRuntimeException) {
+                return ((MyRuntimeException) targetException).getGeneralResponse();
+            }
+            log.warn("method invoke error: {}", e);
+            return new GeneralResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR, String.format("Internal Error: %s", ExceptionUtils.getRootCause(e)), null);
+        } catch (IllegalAccessException e) {
+            log.warn("method invoke error: {}", e);
+            return new GeneralResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR, String.format("Internal Error: %s", ExceptionUtils.getRootCause(e)), null);
         }
-        return null;
     }
+}
 ```
 
 `ServerHandler.java`处理如下：
 ```java
- //根据不同的请求API做不同的处理(路由分发)
-Action<GeneralResponse> action = httpRouter.getRoute(new HttpLabel(uri, request.method()));
-if (action != null) {
-    if (action.isInjectionFullhttprequest()) {
-        ResponseUtil.response(ctx, request, action.call(request));
-    } else {
-        ResponseUtil.response(ctx, request, action.call());
+public void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) {
+    String uri = request.uri();
+    GeneralResponse generalResponse;
+    if (uri.contains(DELIMITER)) {
+        uri = uri.substring(0, uri.indexOf(DELIMITER));
     }
-} else {
-    //错误处理
-    generalResponse = new GeneralResponse(HttpResponseStatus.BAD_REQUEST, "请检查你的请求方法及url", null);
-    ResponseUtil.response(ctx, request, generalResponse);
+    //根据不同的请求API做不同的处理(路由分发)
+    Action action = httpRouter.getRoute(new HttpLabel(uri, request.method()));
+    if (action != null) {
+        String s = request.uri();
+        if (request.headers().get(HttpHeaderNames.CONTENT_TYPE.toString()).equals(HttpHeaderValues.APPLICATION_X_WWW_FORM_URLENCODED.toString())) {
+            s = s + "&" + request.content().toString(StandardCharsets.UTF_8);
+        }
+        QueryStringDecoder queryStringDecoder = new QueryStringDecoder(s);
+        Map<String, List<String>> parameters = queryStringDecoder.parameters();
+        Class[] classes = action.getMethod().getParameterTypes();
+        Object[] objects = new Object[classes.length];
+        for (int i = 0; i < classes.length; i++) {
+            Class c = classes[i];
+            //处理@RequestBody注解
+            Annotation[] parameterAnnotation = action.getMethod().getParameterAnnotations()[i];
+            if (parameterAnnotation.length > 0) {
+                for (int j = 0; j < parameterAnnotation.length; j++) {
+                    if (parameterAnnotation[j].annotationType() == RequestBody.class &&
+                            request.headers().get(HttpHeaderNames.CONTENT_TYPE.toString()).equals(HttpHeaderValues.APPLICATION_JSON.toString())) {
+                        objects[i] = JsonUtil.fromJson(request, c);
+                    }
+                }
+                //处理数组类型
+            } else if (c.isArray()) {
+                String paramName = action.getMethod().getParameters()[i].getName();
+                List<String> paramList = parameters.get(paramName);
+                if (CollectionUtils.isNotEmpty(paramList)) {
+                    objects[i] = ParamParser.INSTANCE.parseArray(c.getComponentType(), paramList);
+                }
+            } else {
+                //处理基本类型和string
+                String paramName = action.getMethod().getParameters()[i].getName();
+                List<String> paramList = parameters.get(paramName);
+                if (CollectionUtils.isNotEmpty(paramList)) {
+                    objects[i] = ParamParser.INSTANCE.parseValue(c, paramList.get(0));
+                } else {
+                    objects[i] = ParamParser.INSTANCE.parseValue(c, null);
+                }
+            }
+        }
+        ResponseUtil.response(ctx, HttpUtil.isKeepAlive(request), action.call(objects));
+    } else {
+        //错误处理
+        generalResponse = new GeneralResponse(HttpResponseStatus.BAD_REQUEST, "请检查你的请求方法及url", null);
+        ResponseUtil.response(ctx, HttpUtil.isKeepAlive(request), generalResponse);
+    }
 }
 ```
 
 `DemoController` 方法配置：
-```
+```java
 @RequestMapping(uri = "/login", method = "POST")
-public GeneralResponse login(FullHttpRequest request) {
-    User user = JsonUtil.fromJson(request, User.class);
-    log.info("/login called,user: {}", user);
-    return new GeneralResponse(null);
-}
+    public GeneralResponse login(@RequestBody User user, FullHttpRequest request,
+                                 String test, Integer test1, int test2,
+                                 long[] test3, Long test4, String[] test5, int[] test6) {
+        System.out.println(test2);
+        log.info("/login called,user: {} ,{} ,{} {} {} {} {} {} {} {} ", user, test, test1, test2, test3, test4, test5, test6);
+        return new GeneralResponse(null);
+    }
 ```
 
 测试结果如下：
-![](https://images.morethink.cn/5166aac96c36b6fca7645a5aca07f630.png "测试结果")
 
+![](https://images.morethink.cn/774f6db42a43417eac2bd893ed6b657e.png "发送信息")
+
+`netty-route` 得到结果如下:
+
+```shell
+user=User(username=hah, password=dd),test=111,test1=null,test2=0,test3=[1],test4=null,test5=[d,a, 1],test6=[1, 2]
+```
 完整代码在 https://github.com/morethink/Netty-Route
