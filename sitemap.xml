@@ -324,14 +324,14 @@
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/Servlet/</loc>
+    <loc>https://www.morethink.cn/Spring-Transaction/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/Spring-Transaction/</loc>
+    <loc>https://www.morethink.cn/Servlet/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
@@ -345,13 +345,6 @@
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/SpringMVC-Achieve-RESTful-And-Put-With-File-Upload/</loc>
-    
-    <lastmod>2018-03-23T03:03:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.morethink.cn/SpringMVC-Annotation/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
@@ -359,7 +352,7 @@
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/SpringMVC-Empty-String-To-Null/</loc>
+    <loc>https://www.morethink.cn/SpringMVC-Achieve-RESTful-And-Put-With-File-Upload/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
@@ -367,6 +360,13 @@
   
   <url>
     <loc>https://www.morethink.cn/SpringMVC-Bean-Validation/</loc>
+    
+    <lastmod>2018-03-23T03:03:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.morethink.cn/SpringMVC-Empty-String-To-Null/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
@@ -499,14 +499,14 @@
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/tags/index.html</loc>
+    <loc>https://www.morethink.cn/categories/index.html</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/categories/index.html</loc>
+    <loc>https://www.morethink.cn/tags/index.html</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
