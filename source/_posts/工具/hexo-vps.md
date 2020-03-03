@@ -70,6 +70,8 @@ Git的钩子脚本位于版本库.git/hooks目录下，当Git执行特定操作�
 cd /home/hexo
 # 变成hexo用户
 su hexo
+# 新建blog目录存放hexo静态文件
+mkdir /home/hexo/blog
 # 使用hexo用户创建git裸仓库，以blog.git为例
 git init --bare blog.git
 # 进入钩子文件夹hooks
@@ -161,7 +163,7 @@ hexo g -d
 2. 关于` nginx root 403` 问题: 在我配置nginx碰到一个403问题，改了文件权限还是403，后来发现是nginx.conf中 user默认设置错了，把  `user nginx`改成`user root` 就好了。
 3. deploy成功之后无法访问
     1. 查看vps静态目录是否有html文件，没有就是Git推送问题
-    2. 查看Nginx配置是否成功
+    2. 查看Nginx配置是否成功(通过`systemctl status nginx.service -l`查看详细错误)
 
 
 **参考文档：**
