@@ -28,6 +28,8 @@ categories: 工具
 ```shell
 # 添加hexo用户
 adduser hexo
+# 切换到hexo用户
+su hexo
 # 切换到hexo用户目录
 cd /home/hexo
 # 创建.ssh文件夹
@@ -37,7 +39,7 @@ vim .ssh/authorized_keys
 # 如果你还没有生成公钥，那么首先在本地电脑中执行 cat ~/.ssh/id_rsa.pub | pbcopy生成公钥
 # 再将公钥复制粘贴到authorized_keys
 # 保存关闭authorized_keys后，修改相应权限
-chmod 600 .ssh/authorzied_keys
+chmod 600 .ssh/authorized_keys
 chmod 700 .ssh
 ```
 
