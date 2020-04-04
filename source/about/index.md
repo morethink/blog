@@ -32,9 +32,9 @@ type: "about"
             {
                 name: 'Something Just Like This',
                 artist: 'The Chainsmokers / Coldplay',
-                url: 'http://music.morethink.cn///Something%20Just%20Like%20This.mp3',
-                cover: 'http://music.morethink.cn//Something%20Just%20Like%20This.jpeg',
-                lrc: 'http://music.morethink.cn//Something%20Just%20Like%20This.lrc',
+                url: 'https://music.morethink.cn/Something%20Just%20Like%20This.mp3',
+                cover: 'https://music.morethink.cn/Something%20Just%20Like%20This.jpeg',
+                lrc: 'https://music.morethink.cn/Something%20Just%20Like%20This.lrc',
                 theme: '#242424'
             }
         ]
@@ -42,7 +42,9 @@ type: "about"
     ap.init();
 
 </script>
+
 #### Beethoven Virus
+
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2529459&auto=0&height=66"></iframe>
 
 <!-- #### 韩雪：积极的悲观主义者 -->
