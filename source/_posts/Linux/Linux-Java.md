@@ -1,5 +1,5 @@
 ---
-title: CentOS7下 Java、Tomcat、MySQL、Maven热部署
+title: CentOS7下 JDK8安装、Tomcat安装、MySQL5.7安装、Maven热部署
 date: 2017-4-25
 tags: [CentOS7,Tomcat,MySQL,Maven]
 categories: Linux
@@ -29,16 +29,16 @@ categories: Linux
 ## 安装Java JDK8.0
 
 1. 建立Java目录，存放Java和Tomcat
-    - cd /usr/local/
-    - mkdir Java
-    - cd Java
+    - `cd /usr/local/`
+    - `mkdir Java`
+    - `cd Java`
 2. 使用FileZilla将下载好的jdk-8u101-linux-x64.tar.gz 和 apache-tomcat-9.0.0.M10.tar.gz上传至Java目录下(传送的国外服务器很慢,国内几乎是国外的十倍，但是也只有两三百KB，也可能是电脑问题)
 3. 将上传的jdk解压，然后重命名为jdk
-    - tar -zxv -f  jdk-8u101-linux-x64.tar.gz
-    - mv jdk1.8.0_101  jdk
-    - cd jdk
+    - `tar -zxv -f  jdk-8u101-linux-x64.tar.gz`
+    - `mv jdk1.8.0_101  jdk`
+    - `cd jdk`
 4. 配置环境变量Environment=JAVA_HOME=/usr/local/Java/jdk
-      1. vim /etc/profile
+      1. `vim /etc/profile`
       2. 打开之后按键盘（i）进入编辑模式,将下面的内容复制到底部
     ```
     JAVA_HOME=/usr/local/Java/jdk
@@ -53,48 +53,42 @@ categories: Linux
 # 安装Tomcat9
 
 1. 在Java目录下解压上面一步已经上传上去的Tomcat9.0
-    - tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz
-    - mv apache-tomcat-9.0.0.M10 tomcat
-    - cd tomcat
-2. 启动命令为 /usr/local/Java/tomcat/bin/startup.sh
+    - `tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz`
+    - `mv apache-tomcat-9.0.0.M10 tomcat`
+    - `cd tomcat`
+2. 启动命令为 `/usr/local/Java/tomcat/bin/startup.sh`
 3. 启动完成后还需开放8080端口(CentOS7这个版本的防火墙默认使用的是firewall，与之前的版本使用iptables不一样。 **关于防火墙端口可以查看后面的参考文档**)
-    - firewall-cmd --zone=public --add-port=8080/tcp --permanent
+    - `firewall-cmd --zone=public --add-port=8080/tcp --permanent`
 出现success表明添加成功
-    - 更新防火墙规则即可： firewall-cmd --reload
-    - 重启防火墙 systemctl restart firewalld.service
+    - 更新防火墙规则即可： `firewall-cmd --reload`
+    - 重启防火墙 `systemctl restart firewalld.service`
 4. 然后再次在浏览器中输入http://ip:8080，如果看到tomcat系统界面，说明安装成功。
 5. Tomcat 8080 端口无法访问
       - 查看8080端口被那个程序占用(应该是Java) netstat -anp 然后再杀死占用进程。
       - **可能是你的服务器提供商有安全组来控制端口，你需要去提供商那里开启端口(PS：我的阿里云服务器就是必须要设置端口安全组才可以访问端口)**
-6. 关闭命令为 /usr/local/Java/tomcat/bin/shutdown.sh
+6. 关闭命令为 `/usr/local/Java/tomcat/bin/shutdown.sh`
 
 
-# MySQL
+# MySQL5.7
 
-## 安装MySQL
+## 安装MySQL5.7
 
 CentOS 7的yum源中貌似没有正常安装mysql时的mysql-sever文件，需要去官网上下载
 
-```
-# wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
-# rpm -ivh mysql-community-release-el7-5.noarch.rpm
+```shell
+# wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+# rpm -ivh mysql57-community-release-el7-11.noarch.rpm
 # yum install mysql-community-server
-```
-
-成功安装之后重启mysql服务。
-初次安装mysql是root账户是没有密码的
-设置密码的方法
-
-```
+# 成功安装之后启动mysql服务
 # systemctl start mysqld.service
-
+# 初次安装mysql是root账户是没有密码的，需要我们自己设置密码
 # mysql -uroot
 # mysql>set password = password("你的密码");
 # mysql>flush privileges;
 # mysql> exit
 ```
 
-## 远程连接
+## 设置MySQL远程连接
 
 进入MySQL后通过
 ```
@@ -104,7 +98,7 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '你的密码' WI
 
 
 但是，在我进行远程连接的时候发生如下错误
-![](https://images.morethink.cn/mysql-2003-error.png)
+!["MySQL 2003"](https://images.morethink.cn/mysql-2003-error.png "MySQL 2003")
 可以根据下面进行排错
 1. 服务器是否可以访问，是否能ping 通
 2. 安全组及端口号是否打开或者被占用
@@ -113,11 +107,13 @@ mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '你的密码' WI
 
 当我排除上面3中情况后，发现属于第四中，可能是因为还没有立即生效。
 
-## 中文乱码问题
+## 解决MySQL中文乱码问题
 
 在我建立数据时发现中文无法插入，于是查看使用`show variables like 'character%';`
-如图所示，发现默认不是utf-8，于是通过在CentOS7中修改文件/usr/share/mysql/my-default.cnf，在[mysqld]，[mysql]，[client]下分别添加如下内容
-![](https://images.morethink.cn/msql-chinese-fail.jpg)
+如图所示，发现默认不是utf-8，如图:
+!["MySQL中文乱码"](https://images.morethink.cn/msql-chinese-fail.jpg "MySQL中文乱码")
+
+于是通过在CentOS7中修改文件/usr/share/mysql/my-default.cnf，在[mysqld]，[mysql]，[client]下分别添加如下内容:
 ```
 [mysqld]
 collation-server = utf8_unicode_ci
@@ -134,40 +130,38 @@ default-character-set=utf8
 
 ```
 
-修改完成后，重启mysql服务，systemctl restart mysql，然后进入mysql，再次使用`show variables like 'character%';`命令查看，如图，
+修改完成后，重启mysql服务，systemctl restart mysql，然后进入mysql，再次使用`show variables like 'character%';`命令查看，如图:
 ![](https://images.morethink.cn/msql-chinese-success.jpg)
 发现一样，说明utf-8可以使用，但是无法插入中文，于是猜测可能是系统原生不支持utf-8，更改系统编码后发现果然如此。
-```
+```shell
 # cat /etc/locale.conf
 LANG="en_US.UTF-8"
 # vim /etc/locale.conf
 # cat /etc/locale.conf
 LANG="zh_CN.UTF-8"
-
 ```
 于是更改为
 
-```
+```shell
 LANG="zh_CN.UTF-8"
 LANGUAGE="zh_CN.UTF-8"
 SUPPORTED="zh_CN.UTF-8:zh_CN:zh:en_US.UTF-8:en_US:en"
 SYSFONT="lat0-sun16"
 ```
 
-重启系统之后，再次重启MySQL服务。
+执行 `source /etc/locale.conf`或者`重启服务器`之后，再次重启MySQL服务。
 
 如图，发现可以插入中文。
 
 ![](https://images.morethink.cn/mysql-chinese-success-result.jpg)
 
 
-## 解决MySQL5.5忘记密码
+## 解决MySQL忘记密码
 
 通过跳过权限安全检查设置新密码。
 
 1. 首先检查mysql服务是否启动，若已启动则先将其停止服务，可在开始菜单的运行，使用命令： `net stop mysql`
-，然后打开第一个cmd1窗口，切换到mysql的bin目录，运行命令：
-`mysqld --defaults-file="C:\Program Files\MySQL\MySQL Server 5.5\my.ini" --console --skip-grant-tables`，将命令中的MySql版本更换你的版本。
+，然后打开第一个cmd1窗口，切换到mysql的bin目录，运行命令：`mysqld --defaults-file="C:\Program Files\MySQL\MySQL Server 5.5\my.ini" --console --skip-grant-tables`，将命令中的MySql版本更换你的版本。
 **该命令通过跳过权限安全检查，开启mysql服务，这样连接mysql时，可以不用输入用户密码**。
 此时已经开启了mysql服务了！
 **这个窗口保留不关闭**。
@@ -175,17 +169,13 @@ SYSFONT="lat0-sun16"
     - 输入命令：`mysql -u root -p`
       出现： `Enter password:` ，在这里直接回车，不用输入密码。 然后就就会出现登录成功的信息。
     - 使用命令切换到mysql数据库：`use mysql;`
-    - 使用命令更改root密码：
-    `UPDATE user SET Password=PASSWORD('newpassword') where USER='root';`
-    - 刷新权限：
-    `FLUSH PRIVILEGES;`
-    - 然后退出，重新登录：
-    `quit`
+    - 使用命令更改root密码：`UPDATE user SET Password=PASSWORD('newpassword') where USER='root';`
+    - 刷新权限：`FLUSH PRIVILEGES;`
+    - 然后退出，重新登录：`quit`
     - 重新登录： 可以关掉之前的cmd1 窗口了。
 3. 然后用`net start mysql` 启动服务
     - 登录：`mysql -u root -p`
-    - 出现输入密码提示，输入新的密码即可登录：
-    `Enter password: ***********`
+    - 出现输入密码提示，输入新的密码即可登录：`Enter password: ***********`
 
 显示登录信息： 成功  就一切ok了
 
