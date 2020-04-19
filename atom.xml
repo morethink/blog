@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.morethink.cn/"/>
-  <updated>2019-09-09T02:36:40.000Z</updated>
+  <updated>2020-04-19T12:09:41.499Z</updated>
   <id>https://www.morethink.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Maven deploy 部署 jar 到 Nexus 私服</title>
+    <link href="https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/"/>
+    <id>https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/</id>
+    <published>2020-04-18T16:00:00.000Z</published>
+    <updated>2020-04-19T12:09:41.499Z</updated>
+    
+    <content type="html"><![CDATA[<p>在SOA服务成为标准配置的今天，我们经常会遇到需要将jar上传到公司Nexus私服来满足其他服务调用的需求。</p><p>常用命令如下:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn deploy:deploy-file -DgroupId=&lt;group-id&gt; \</span><br><span class="line">  -DartifactId=&lt;artifact-id&gt; \</span><br><span class="line">  -Dversion=&lt;version&gt; \</span><br><span class="line">  -Dpackaging=&lt;一般是jar&gt; \</span><br><span class="line">  -Dfile=&lt;相对路径和绝对路径都可&gt; \</span><br><span class="line">  -Durl=&lt;公司仓库地址&gt; \</span><br><span class="line">  -DrepositoryId=&lt;一般是snapshots或者releases，根据.m2/settings.xml文件servers配置来&gt; \</span><br><span class="line">  -DpomFile=&lt;pom.xml&gt;</span><br></pre></td></tr></table></figure></p><p>上面这个命令会生成jar并且上传到Nexus 私服中。</p><a id="more"></a><h2 id="DpomFile-pom-xml"><a href="#DpomFile-pom-xml" class="headerlink" title="-DpomFile=pom.xml"></a>-DpomFile=pom.xml</h2><p>这个参数指定pom文件为我们自己的pom文件，方便当其他人引入我们的jar的时候把我们的jar包的依赖都一起引入。但是如果我们不指定的话，默认会生成一个空pom.xml，没有依赖关系，这个时候如果别人引用了我们的 jar 包，就会抛出 NoClassDefFoundError 错误，因为编译时没有问题，但运行时却找不到 class 文件。</p><h2 id="maven-deploy-plugin-pom-配置"><a href="#maven-deploy-plugin-pom-配置" class="headerlink" title="maven deploy plugin pom 配置"></a>maven deploy plugin pom 配置</h2><p>下面提供了maven deploy plugin的xml 配置，方面在snapshots阶段快速部署。</p><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-deploy-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>deploy-file<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>deploy<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>deploy-file<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">file</span>&gt;</span>target/demo-api-1.0.0-SNAPSHOT.jar<span class="tag">&lt;/<span class="name">file</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://nexus.公司.com/nexus/content/repositories/snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">repositoryId</span>&gt;</span>snapshots<span class="tag">&lt;/<span class="name">repositoryId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">pomFile</span>&gt;</span>pom.xml<span class="tag">&lt;/<span class="name">pomFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure><p><strong>参考文档</strong>:</p><ol><li><a href="https://maven.apache.org/plugins/maven-deploy-plugin/deploy-file-mojo.html#packaging" target="_blank" rel="noopener">deploy-file 插件 官方文档</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在SOA服务成为标准配置的今天，我们经常会遇到需要将jar上传到公司Nexus私服来满足其他服务调用的需求。&lt;/p&gt;
+&lt;p&gt;常用命令如下:&lt;br&gt;&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mvn deploy:deploy-file -DgroupId=&amp;lt;group-id&amp;gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -DartifactId=&amp;lt;artifact-id&amp;gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -Dversion=&amp;lt;version&amp;gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -Dpackaging=&amp;lt;一般是jar&amp;gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -Dfile=&amp;lt;相对路径和绝对路径都可&amp;gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -Durl=&amp;lt;公司仓库地址&amp;gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -DrepositoryId=&amp;lt;一般是snapshots或者releases，根据.m2/settings.xml文件servers配置来&amp;gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  -DpomFile=&amp;lt;pom.xml&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;上面这个命令会生成jar并且上传到Nexus 私服中。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://www.morethink.cn/categories/Java/"/>
+    
+    
+      <category term="Maven" scheme="https://www.morethink.cn/tags/Maven/"/>
+    
+  </entry>
   
   <entry>
     <title>Windows关闭防火墙之后端口依然不可以访问</title>
@@ -257,8 +281,8 @@
   
   <entry>
     <title>Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)</title>
-    <link href="https://www.morethink.cn/Java%E5%8E%8B%E7%BC%A9/%E8%A7%A3%E5%8E%8B%20.zip%E3%80%81.tar.gz%E3%80%81.tar.bz2(%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87)/"/>
-    <id>https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/</id>
+    <link href="https://www.morethink.cn/Java/%E8%A7%A3%E5%8E%8B%20.zip%E3%80%81.tar.gz%E3%80%81.tar.bz2(%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87)/"/>
+    <id>https://www.morethink.cn/Java/解压 .zip、.tar.gz、.tar.bz2(支持中文)/</id>
     <published>2018-08-03T16:00:00.000Z</published>
     <updated>2018-10-14T16:09:56.000Z</updated>
     
@@ -474,29 +498,6 @@
     
       <category term="Web安全" scheme="https://www.morethink.cn/categories/Web%E5%AE%89%E5%85%A8/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Git同时push到多个远程仓库</title>
-    <link href="https://www.morethink.cn/%E5%B7%A5%E5%85%B7/Git%E5%90%8C%E6%97%B6push%E5%88%B0%E5%A4%9A%E4%B8%AA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/"/>
-    <id>https://www.morethink.cn/工具/Git同时push到多个远程仓库/</id>
-    <published>2018-04-02T16:00:00.000Z</published>
-    <updated>2018-05-23T16:31:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>添加第二个远程地址时使用以下命令：<br><code>git remote set-url --add origin git@github.com:morethink/programming.git</code></p><p>查看远程分支：<code>git remote -v</code></p><a id="more"></a><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">origingit@git.coding.net:morethink/programming.git (fetch)</span><br><span class="line">origingit@git.coding.net:morethink/programming.git (push)</span><br><span class="line">originhexo@MyHost2:/var/repo/gitbook.git (push)</span><br></pre></td></tr></table></figure><p>也可以同时 push 到多个远程地址：<code>git push origin master</code></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Everything up-to-date</span><br><span class="line">Everything up-to-date</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;添加第二个远程地址时使用以下命令：&lt;br&gt;&lt;code&gt;git remote set-url --add origin git@github.com:morethink/programming.git&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;查看远程分支：&lt;code&gt;git remote -v&lt;/code&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.morethink.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="Git" scheme="https://www.morethink.cn/tags/Git/"/>
     
   </entry>
   

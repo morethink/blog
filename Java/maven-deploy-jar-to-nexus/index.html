@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Maven," />
 
 
 
@@ -88,18 +88,18 @@
 
 
 
-<meta name="description" content="本文介绍Java压缩/解压.zip、.tar.gz、.tar.bz2的方式。  对于zip文件：使用java.util.zip.ZipEntry 和 java.util.zip.ZipFile，通过设置Charset为StandardCharsets.UTF_8支持中文。 对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用commons-compress包的Tar">
-<meta name="keywords" content="Web,HTML">
+<meta name="description" content="在SOA服务成为标准配置的今天，我们经常会遇到需要将jar上传到公司Nexus私服来满足其他服务调用的需求。 常用命令如下:mvn deploy:deploy-file -DgroupId=&amp;lt;group-id&amp;gt; \  -DartifactId=&amp;lt;artifact-id&amp;gt; \  -Dversion=&amp;lt;version&amp;gt; \  -Dpackaging=&amp;lt;一般是j">
+<meta name="keywords" content="Maven">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java压缩&#x2F;解压 .zip、.tar.gz、.tar.bz2(支持中文)">
-<meta property="og:url" content="https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/index.html">
+<meta property="og:title" content="Maven deploy 部署 jar 到 Nexus 私服">
+<meta property="og:url" content="https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/index.html">
 <meta property="og:site_name" content="More Think">
-<meta property="og:description" content="本文介绍Java压缩/解压.zip、.tar.gz、.tar.bz2的方式。  对于zip文件：使用java.util.zip.ZipEntry 和 java.util.zip.ZipFile，通过设置Charset为StandardCharsets.UTF_8支持中文。 对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用commons-compress包的Tar">
+<meta property="og:description" content="在SOA服务成为标准配置的今天，我们经常会遇到需要将jar上传到公司Nexus私服来满足其他服务调用的需求。 常用命令如下:mvn deploy:deploy-file -DgroupId=&amp;lt;group-id&amp;gt; \  -DartifactId=&amp;lt;artifact-id&amp;gt; \  -Dversion=&amp;lt;version&amp;gt; \  -Dpackaging=&amp;lt;一般是j">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-14T16:09:56.000Z">
+<meta property="og:updated_time" content="2020-04-19T12:09:41.499Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java压缩&#x2F;解压 .zip、.tar.gz、.tar.bz2(支持中文)">
-<meta name="twitter:description" content="本文介绍Java压缩/解压.zip、.tar.gz、.tar.bz2的方式。  对于zip文件：使用java.util.zip.ZipEntry 和 java.util.zip.ZipFile，通过设置Charset为StandardCharsets.UTF_8支持中文。 对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用commons-compress包的Tar">
+<meta name="twitter:title" content="Maven deploy 部署 jar 到 Nexus 私服">
+<meta name="twitter:description" content="在SOA服务成为标准配置的今天，我们经常会遇到需要将jar上传到公司Nexus私服来满足其他服务调用的需求。 常用命令如下:mvn deploy:deploy-file -DgroupId=&amp;lt;group-id&amp;gt; \  -DartifactId=&amp;lt;artifact-id&amp;gt; \  -Dversion=&amp;lt;version&amp;gt; \  -Dpackaging=&amp;lt;一般是j">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/"/>
+  <link rel="canonical" href="https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/"/>
 
 
 
 
 
-  <title>Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文) | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Maven deploy 部署 jar 到 Nexus 私服 | More Think</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -310,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/">
+    <link itemprop="mainEntityOfPage" href="https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="morethink">
@@ -327,7 +327,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)</h2>
+          <h2 class="post-title" itemprop="name headline">Maven deploy 部署 jar 到 Nexus 私服</h2>
         
 
         <div class="post-meta">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T00:00:00+08:00">
-                2018-08-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-19T00:00:00+08:00">
+                2020-04-19
               </time>
             
 
@@ -362,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -380,9 +380,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/#comments" itemprop="discussionUrl">
+                <a href="/Java/maven-deploy-jar-to-nexus/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/" itemprop="commentCount"></span>
+                        data-disqus-identifier="Java/maven-deploy-jar-to-nexus/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -415,20 +415,16 @@
       
 
       
-        <p>本文介绍Java压缩/解压.zip、.tar.gz、.tar.bz2的方式。</p>
-<ol>
-<li>对于zip文件：使用<code>java.util.zip.ZipEntry</code> 和 <code>java.util.zip.ZipFile</code>，通过设置<code>Charset</code>为<code>StandardCharsets.UTF_8</code>支持中文。</li>
-<li>对于.tar.gz、tgz文件：可以看做先用tar打包，再使用gz进行压缩。使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>GzipCompressorInputStream</code>。</li>
-<li>对于.tar.bz2文件：可以看做先用tar打包，再使用bz2进行压缩。使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>BZip2CompressorInputStream</code>。</li>
-</ol>
-<p>在这里有个问题如果使用<code>TarInputStream</code>搭配jdk的 <code>GZIPInputStream</code>会产生乱码。而使用<code>commons-compress</code>包的<code>TarArchiveInputStream</code>和<code>GzipCompressorInputStream</code>则可解决乱码问题。</p>
+        <p>在SOA服务成为标准配置的今天，我们经常会遇到需要将jar上传到公司Nexus私服来满足其他服务调用的需求。</p>
+<p>常用命令如下:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn deploy:deploy-file -DgroupId=&lt;group-id&gt; \</span><br><span class="line">  -DartifactId=&lt;artifact-id&gt; \</span><br><span class="line">  -Dversion=&lt;version&gt; \</span><br><span class="line">  -Dpackaging=&lt;一般是jar&gt; \</span><br><span class="line">  -Dfile=&lt;相对路径和绝对路径都可&gt; \</span><br><span class="line">  -Durl=&lt;公司仓库地址&gt; \</span><br><span class="line">  -DrepositoryId=&lt;一般是snapshots或者releases，根据.m2/settings.xml文件servers配置来&gt; \</span><br><span class="line">  -DpomFile=&lt;pom.xml&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上面这个命令会生成jar并且上传到Nexus 私服中。</p>
 <a id="more"></a>
-<p>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZipUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOG = LoggerFactory.getLogger(ZipUtil.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BUFFER_SIZE = <span class="number">1024</span> * <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">ZipUtil</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 私有函数将文件集合压缩成tar包后返回</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> files  要压缩的文件集合</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> target tar 输出流的目标文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> File  指定返回的目标文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> File <span class="title">pack</span><span class="params">(List&lt;File&gt; files, File target)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(target)) &#123;</span><br><span class="line">            <span class="keyword">try</span> (BufferedOutputStream bos = <span class="keyword">new</span> BufferedOutputStream(fos, BUFFER_SIZE)) &#123;</span><br><span class="line">                <span class="keyword">try</span> (TarArchiveOutputStream taos = <span class="keyword">new</span> TarArchiveOutputStream(bos)) &#123;</span><br><span class="line">                    <span class="comment">//解决文件名过长问题</span></span><br><span class="line">                    taos.setLongFileMode(TarArchiveOutputStream.LONGFILE_GNU);</span><br><span class="line">                    <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">                        taos.putArchiveEntry(<span class="keyword">new</span> TarArchiveEntry(file));</span><br><span class="line">                        <span class="keyword">try</span> (FileInputStream fis = <span class="keyword">new</span> FileInputStream(file)) &#123;</span><br><span class="line">                            IOUtils.copy(fis, taos);</span><br><span class="line">                            taos.closeArchiveEntry();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将tar压缩成tar.gz文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> list</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outPutPath</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileName</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">compress</span><span class="params">(List&lt;File&gt; list, String outPutPath, String fileName)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        File outPutFile = <span class="keyword">new</span> File(outPutPath + File.separator + fileName + <span class="string">".tar.gz"</span>);</span><br><span class="line">        File tempTar = <span class="keyword">new</span> File(<span class="string">"temp.tar"</span>);</span><br><span class="line">        <span class="keyword">try</span> (FileInputStream fis = <span class="keyword">new</span> FileInputStream(pack(list, tempTar))) &#123;</span><br><span class="line">            <span class="keyword">try</span> (BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(fis, BUFFER_SIZE)) &#123;</span><br><span class="line">                <span class="keyword">try</span> (FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(outPutFile)) &#123;</span><br><span class="line">                    <span class="keyword">try</span> (GZIPOutputStream gzp = <span class="keyword">new</span> GZIPOutputStream(fos)) &#123;</span><br><span class="line">                        <span class="keyword">int</span> count;</span><br><span class="line">                        <span class="keyword">byte</span>[] data = <span class="keyword">new</span> <span class="keyword">byte</span>[BUFFER_SIZE];</span><br><span class="line">                        <span class="keyword">while</span> ((count = bis.read(data, <span class="number">0</span>, BUFFER_SIZE)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                            gzp.write(data, <span class="number">0</span>, count);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Files.deleteIfExists(tempTar.toPath());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outPutFile;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">decompress</span><span class="params">(String filePath, String outputDir, <span class="keyword">boolean</span> isDeleted)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(filePath);</span><br><span class="line">        <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">            LOG.error(<span class="string">"decompress file not exist."</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (filePath.endsWith(<span class="string">".zip"</span>)) &#123;</span><br><span class="line">                unZip(file, outputDir);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (filePath.endsWith(<span class="string">".tar.gz"</span>) || filePath.endsWith(<span class="string">".tgz"</span>)) &#123;</span><br><span class="line">                decompressTarGz(file, outputDir);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (filePath.endsWith(<span class="string">".tar.bz2"</span>)) &#123;</span><br><span class="line">                decompressTarBz2(file, outputDir);</span><br><span class="line">            &#125;</span><br><span class="line">            filterFile(<span class="keyword">new</span> File(outputDir));</span><br><span class="line">            <span class="keyword">if</span> (isDeleted) &#123;</span><br><span class="line">                FileUtils.deleteQuietly(file);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            LOG.error(<span class="string">"decompress occur error."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解压 .zip 文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file      要解压的zip文件对象</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outputDir 要解压到某个指定的目录下</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">unZip</span><span class="params">(File file, String outputDir)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (ZipFile zipFile = <span class="keyword">new</span> ZipFile(file, StandardCharsets.UTF_8)) &#123;</span><br><span class="line">            <span class="comment">//创建输出目录</span></span><br><span class="line">            createDirectory(outputDir, <span class="keyword">null</span>);</span><br><span class="line">            Enumeration&lt;?&gt; enums = zipFile.entries();</span><br><span class="line">            <span class="keyword">while</span> (enums.hasMoreElements()) &#123;</span><br><span class="line">                ZipEntry entry = (ZipEntry) enums.nextElement();</span><br><span class="line">                <span class="keyword">if</span> (entry.isDirectory()) &#123;</span><br><span class="line">                    <span class="comment">//创建空目录</span></span><br><span class="line">                    createDirectory(outputDir, entry.getName());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">try</span> (InputStream in = zipFile.getInputStream(entry)) &#123;</span><br><span class="line">                        <span class="keyword">try</span> (OutputStream out = <span class="keyword">new</span> FileOutputStream(</span><br><span class="line">                                <span class="keyword">new</span> File(outputDir + File.separator + entry.getName()))) &#123;</span><br><span class="line">                            writeFile(in, out);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">decompressTarGz</span><span class="params">(File file, String outputDir)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (TarArchiveInputStream tarIn = <span class="keyword">new</span> TarArchiveInputStream(</span><br><span class="line">                <span class="keyword">new</span> GzipCompressorInputStream(</span><br><span class="line">                        <span class="keyword">new</span> BufferedInputStream(</span><br><span class="line">                                <span class="keyword">new</span> FileInputStream(file))))) &#123;</span><br><span class="line">            <span class="comment">//创建输出目录</span></span><br><span class="line">            createDirectory(outputDir, <span class="keyword">null</span>);</span><br><span class="line">            TarArchiveEntry entry = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> ((entry = tarIn.getNextTarEntry()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//是目录</span></span><br><span class="line">                <span class="keyword">if</span> (entry.isDirectory()) &#123;</span><br><span class="line">                    <span class="comment">//创建空目录</span></span><br><span class="line">                    createDirectory(outputDir, entry.getName());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//是文件</span></span><br><span class="line">                    <span class="keyword">try</span> (OutputStream out = <span class="keyword">new</span> FileOutputStream(</span><br><span class="line">                            <span class="keyword">new</span> File(outputDir + File.separator + entry.getName()))) &#123;</span><br><span class="line">                        writeFile(tarIn, out);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解压缩tar.bz2文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file      压缩包文件</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outputDir 目标文件夹</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">decompressTarBz2</span><span class="params">(File file, String outputDir)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (TarArchiveInputStream tarIn =</span><br><span class="line">                     <span class="keyword">new</span> TarArchiveInputStream(</span><br><span class="line">                             <span class="keyword">new</span> BZip2CompressorInputStream(</span><br><span class="line">                                     <span class="keyword">new</span> FileInputStream(file)))) &#123;</span><br><span class="line">            createDirectory(outputDir, <span class="keyword">null</span>);</span><br><span class="line">            TarArchiveEntry entry;</span><br><span class="line">            <span class="keyword">while</span> ((entry = tarIn.getNextTarEntry()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (entry.isDirectory()) &#123;</span><br><span class="line">                    createDirectory(outputDir, entry.getName());</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">try</span> (OutputStream out = <span class="keyword">new</span> FileOutputStream(</span><br><span class="line">                            <span class="keyword">new</span> File(outputDir + File.separator + entry.getName()))) &#123;</span><br><span class="line">                        writeFile(tarIn, out);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> in</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> out</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeFile</span><span class="params">(InputStream in, OutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length;</span><br><span class="line">        <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[BUFFER_SIZE];</span><br><span class="line">        <span class="keyword">while</span> ((length = in.read(b)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            out.write(b, <span class="number">0</span>, length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建目录</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outputDir</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subDir</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createDirectory</span><span class="params">(String outputDir, String subDir)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(outputDir);</span><br><span class="line">        <span class="comment">//子目录不为空</span></span><br><span class="line">        <span class="keyword">if</span> (!(subDir == <span class="keyword">null</span> || subDir.trim().equals(<span class="string">""</span>))) &#123;</span><br><span class="line">            file = <span class="keyword">new</span> File(outputDir + File.separator + subDir);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!file.getParentFile().exists()) &#123;</span><br><span class="line">                file.getParentFile().mkdirs();</span><br><span class="line">            &#125;</span><br><span class="line">            file.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除Mac压缩再解压产生的 __MACOSX 文件夹和 .开头的其他文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> filteredFile</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">filterFile</span><span class="params">(File filteredFile)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (filteredFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">            File[] files = filteredFile.listFiles();</span><br><span class="line">            <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">                <span class="keyword">if</span> (file.getName().startsWith(<span class="string">"."</span>) ||</span><br><span class="line">                        (file.isDirectory() &amp;&amp; file.getName().equals(<span class="string">"__MACOSX"</span>))) &#123;</span><br><span class="line">                    FileUtils.deleteQuietly(file);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>代码地址： <a href="https://github.com/morethink/code/blob/master/java/tools/src/main/java/cn/morethink/tools/util/ZipUtil.java" target="_blank" rel="noopener">https://github.com/morethink/code/blob/master/java/tools/src/main/java/cn/morethink/tools/util/ZipUtil.java</a></p>
-<p><strong>参考文档</strong>：</p>
+<h2 id="DpomFile-pom-xml"><a href="#DpomFile-pom-xml" class="headerlink" title="-DpomFile=pom.xml"></a>-DpomFile=pom.xml</h2><p>这个参数指定pom文件为我们自己的pom文件，方便当其他人引入我们的jar的时候把我们的jar包的依赖都一起引入。但是如果我们不指定的话，默认会生成一个空pom.xml，没有依赖关系，这个时候如果别人引用了我们的 jar 包，就会抛出 NoClassDefFoundError 错误，因为编译时没有问题，但运行时却找不到 class 文件。</p>
+<h2 id="maven-deploy-plugin-pom-配置"><a href="#maven-deploy-plugin-pom-配置" class="headerlink" title="maven deploy plugin pom 配置"></a>maven deploy plugin pom 配置</h2><p>下面提供了maven deploy plugin的xml 配置，方面在snapshots阶段快速部署。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-deploy-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>deploy-file<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">phase</span>&gt;</span>deploy<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">goal</span>&gt;</span>deploy-file<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">file</span>&gt;</span>target/demo-api-1.0.0-SNAPSHOT.jar<span class="tag">&lt;/<span class="name">file</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://nexus.公司.com/nexus/content/repositories/snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">repositoryId</span>&gt;</span>snapshots<span class="tag">&lt;/<span class="name">repositoryId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">pomFile</span>&gt;</span>pom.xml<span class="tag">&lt;/<span class="name">pomFile</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>参考文档</strong>:</p>
 <ol>
-<li><a href="https://www.programcreek.com/java-api-examples/?api=org.apache.commons.compress.archivers.tar.TarArchiveInputStream" target="_blank" rel="noopener">commons-compress官方实例</a></li>
+<li><a href="https://maven.apache.org/plugins/maven-deploy-plugin/deploy-file-mojo.html#packaging" target="_blank" rel="noopener">deploy-file 插件 官方文档</a></li>
 </ol>
 
       
@@ -479,7 +475,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/" title="Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)">https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/</a>
+    <a href="https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/" title="Maven deploy 部署 jar 到 Nexus 私服">https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -492,6 +488,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
+          
+        </div>
+      
 
       
       
@@ -501,8 +503,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/工具/Git-set-proxy-for-a-domain/" rel="next" title="Git为某个域名设置代理">
-                <i class="fa fa-chevron-left"></i> Git为某个域名设置代理
+              <a href="/网络/the-machine-ip-address/" rel="next" title="Windows关闭防火墙之后端口依然不可以访问">
+                <i class="fa fa-chevron-left"></i> Windows关闭防火墙之后端口依然不可以访问
               </a>
             
           </div>
@@ -510,10 +512,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Java-USES-InfluxDB-UDP-sending-data/" rel="prev" title="Java使用UDP发送数据到InfluxDB">
-                Java使用UDP发送数据到InfluxDB <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -575,8 +573,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -595,7 +602,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -663,6 +670,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DpomFile-pom-xml"><span class="nav-number">1.</span> <span class="nav-text">-DpomFile=pom.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven-deploy-plugin-pom-配置"><span class="nav-number">2.</span> <span class="nav-text">maven deploy plugin pom 配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -855,9 +878,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://www.morethink.cn/Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/';
-          this.page.identifier = 'Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)/';
-          this.page.title = 'Java压缩/解压 .zip、.tar.gz、.tar.bz2(支持中文)';
+          this.page.url = 'https://www.morethink.cn/Java/maven-deploy-jar-to-nexus/';
+          this.page.identifier = 'Java/maven-deploy-jar-to-nexus/';
+          this.page.title = 'Maven deploy 部署 jar 到 Nexus 私服';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://morethink.disqus.com/embed.js';
