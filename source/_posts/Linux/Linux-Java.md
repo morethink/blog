@@ -1,11 +1,11 @@
 ---
-title: CentOS7下 JDK8安装、Tomcat安装、MySQL5.7安装、Maven热部署
+title: CentOS7  MySQL5.7安装、JDK8安装、Tomcat安装、Maven热部署
 date: 2017-4-25
-tags: [CentOS7,Tomcat,MySQL,Maven]
+tags: [CentOS7,Tomcat,MySQL,Maven,MySQL5.7]
 categories: Linux
 ---
 
-本文介绍了CentOS7 64位下Java、Tomcat、MySQL、Maven热部署等服务器环境的搭建和调试过程。
+本文介绍了CentOS7 下MySQL5.7、Java、Tomcat、Maven热部署等服务器环境的搭建和调试过程。
 
 学生服务器资源获取方法：
 1. [云+校园计划 - 腾讯云](https://www.qcloud.com/act/campus)
@@ -16,57 +16,6 @@ categories: Linux
 已经将所需要的工具(Xshell,Xftp、FileZilla等sftp上传工具，jdk-8u101-linux-x64.tar.gz和apache-tomcat-9.0.0.M10.tar.gz)上传至百度云 http://pan.baidu.com/s/1qYRms8G
 
 <!-- more -->
-
-# Java环境配置
-
-## 环境准备
-
-通过`uname -r`判断系统是多少位
-- 64位 ： 出现x86_64
-- 32位 ： 出现i686或i386
-
-
-## 安装Java JDK8.0
-
-1. 建立Java目录，存放Java和Tomcat
-    - `cd /usr/local/`
-    - `mkdir Java`
-    - `cd Java`
-2. 使用FileZilla将下载好的jdk-8u101-linux-x64.tar.gz 和 apache-tomcat-9.0.0.M10.tar.gz上传至Java目录下(传送的国外服务器很慢,国内几乎是国外的十倍，但是也只有两三百KB，也可能是电脑问题)
-3. 将上传的jdk解压，然后重命名为jdk
-    - `tar -zxv -f  jdk-8u101-linux-x64.tar.gz`
-    - `mv jdk1.8.0_101  jdk`
-    - `cd jdk`
-4. 配置环境变量Environment=JAVA_HOME=/usr/local/Java/jdk
-      1. `vim /etc/profile`
-      2. 打开之后按键盘（i）进入编辑模式,将下面的内容复制到底部
-    ```
-    JAVA_HOME=/usr/local/Java/jdk
-    PATH=$JAVA_HOME/bin:$PATH
-    CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar
-    export PATH JAVA_HOME CLASSPATH
-    ```
-      3. 写完之后我们按键盘（ESC）按钮退出，然后按（:wq）保存并且关闭Vim。
-      4. 使用 `source /etc/profile`命令使其立即生效
-      3. 通过`java -version`验证Java是否配置成功。
-
-# 安装Tomcat9
-
-1. 在Java目录下解压上面一步已经上传上去的Tomcat9.0
-    - `tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz`
-    - `mv apache-tomcat-9.0.0.M10 tomcat`
-    - `cd tomcat`
-2. 启动命令为 `/usr/local/Java/tomcat/bin/startup.sh`
-3. 启动完成后还需开放8080端口(CentOS7这个版本的防火墙默认使用的是firewall，与之前的版本使用iptables不一样。 **关于防火墙端口可以查看后面的参考文档**)
-    - `firewall-cmd --zone=public --add-port=8080/tcp --permanent`
-出现success表明添加成功
-    - 更新防火墙规则即可： `firewall-cmd --reload`
-    - 重启防火墙 `systemctl restart firewalld.service`
-4. 然后再次在浏览器中输入http://ip:8080，如果看到tomcat系统界面，说明安装成功。
-5. Tomcat 8080 端口无法访问
-      - 查看8080端口被那个程序占用(应该是Java) netstat -anp 然后再杀死占用进程。
-      - **可能是你的服务器提供商有安全组来控制端口，你需要去提供商那里开启端口(PS：我的阿里云服务器就是必须要设置端口安全组才可以访问端口)**
-6. 关闭命令为 `/usr/local/Java/tomcat/bin/shutdown.sh`
 
 
 # MySQL5.7
@@ -87,6 +36,19 @@ CentOS 7的yum源中貌似没有正常安装mysql时的mysql-sever文件，需�
 # mysql>flush privileges;
 # mysql> exit
 ```
+
+## ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+
+安装完MySQL5.7后 执行 `mysql -uroot`首次登陆会出现此问题，原因是 MySQL5.7设置了临时密码。
+```shell
+$sudo cat /var/log/mysqld.log  | grep password
+2017-04-14T11:45:46.950302Z 1 [Note] A temporary password is generated for root@localhost: NS_E#kj!E5lJ
+$mysql -uroot -pNS_E#kj!E5lJ
+```
+
+## ERROR 1819 (HY000): Your password does not satisfy the current policy requirements
+
+原来MySQL5.6.6版本之后增加了密码强度验证插件validate_password，相关参数设置的较为严格。使用了该插件会检查设置的密码是否符合当前设置的强度规则，若不满足则拒绝设置。影响的语句和函数有：`create user,grant,set password,password(),old password`。简单点说就是系统认为密码太简单，设置复杂点就行了。如 `!QAZ2wsx`。
 
 ## 设置MySQL远程连接
 
@@ -178,6 +140,57 @@ SYSFONT="lat0-sun16"
     - 出现输入密码提示，输入新的密码即可登录：`Enter password: ***********`
 
 显示登录信息： 成功  就一切ok了
+
+# Java环境配置
+
+## 环境准备
+
+通过`uname -r`判断系统是多少位
+- 64位 ： 出现x86_64
+- 32位 ： 出现i686或i386
+
+
+## 安装Java JDK8.0
+
+1. 建立Java目录，存放Java和Tomcat
+    - `cd /usr/local/`
+    - `mkdir Java`
+    - `cd Java`
+2. 使用FileZilla将下载好的jdk-8u101-linux-x64.tar.gz 和 apache-tomcat-9.0.0.M10.tar.gz上传至Java目录下(传送的国外服务器很慢,国内几乎是国外的十倍，但是也只有两三百KB，也可能是电脑问题)
+3. 将上传的jdk解压，然后重命名为jdk
+    - `tar -zxv -f  jdk-8u101-linux-x64.tar.gz`
+    - `mv jdk1.8.0_101  jdk`
+    - `cd jdk`
+4. 配置环境变量Environment=JAVA_HOME=/usr/local/Java/jdk
+      1. `vim /etc/profile`
+      2. 打开之后按键盘（i）进入编辑模式,将下面的内容复制到底部
+    ```
+    JAVA_HOME=/usr/local/Java/jdk
+    PATH=$JAVA_HOME/bin:$PATH
+    CLASSPATH=$JAVA_HOME/jre/lib/ext:$JAVA_HOME/lib/tools.jar
+    export PATH JAVA_HOME CLASSPATH
+    ```
+      3. 写完之后我们按键盘（ESC）按钮退出，然后按（:wq）保存并且关闭Vim。
+      4. 使用 `source /etc/profile`命令使其立即生效
+      3. 通过`java -version`验证Java是否配置成功。
+
+# 安装Tomcat9
+
+1. 在Java目录下解压上面一步已经上传上去的Tomcat9.0
+    - `tar -zxv -f apache-tomcat-9.0.0.M10.tar.gz`
+    - `mv apache-tomcat-9.0.0.M10 tomcat`
+    - `cd tomcat`
+2. 启动命令为 `/usr/local/Java/tomcat/bin/startup.sh`
+3. 启动完成后还需开放8080端口(CentOS7这个版本的防火墙默认使用的是firewall，与之前的版本使用iptables不一样。 **关于防火墙端口可以查看后面的参考文档**)
+    - `firewall-cmd --zone=public --add-port=8080/tcp --permanent`
+出现success表明添加成功
+    - 更新防火墙规则即可： `firewall-cmd --reload`
+    - 重启防火墙 `systemctl restart firewalld.service`
+4. 然后再次在浏览器中输入http://ip:8080，如果看到tomcat系统界面，说明安装成功。
+5. Tomcat 8080 端口无法访问
+      - 查看8080端口被那个程序占用(应该是Java) netstat -anp 然后再杀死占用进程。
+      - **可能是你的服务器提供商有安全组来控制端口，你需要去提供商那里开启端口(PS：我的阿里云服务器就是必须要设置端口安全组才可以访问端口)**
+6. 关闭命令为 `/usr/local/Java/tomcat/bin/shutdown.sh`
 
 # Maven 热部署
 
