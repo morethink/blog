@@ -414,7 +414,7 @@
       
         
           <p>在SOA服务成为标准配置的今天，我们经常会遇到需要将jar上传到公司Nexus私服来满足其他服务调用的需求。</p>
-<p>常用命令如下:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn deploy:deploy-file -DgroupId=&lt;group-id&gt; \</span><br><span class="line">  -DartifactId=&lt;artifact-id&gt; \</span><br><span class="line">  -Dversion=&lt;version&gt; \</span><br><span class="line">  -Dpackaging=&lt;一般是jar&gt; \</span><br><span class="line">  -Dfile=&lt;相对路径和绝对路径都可&gt; \</span><br><span class="line">  -Durl=&lt;公司仓库地址&gt; \</span><br><span class="line">  -DrepositoryId=&lt;一般是snapshots或者releases，根据.m2/settings.xml文件servers配置来&gt; \</span><br><span class="line">  -DpomFile=&lt;pom.xml&gt;</span><br></pre></td></tr></table></figure></p>
+<p>常用命令如下:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mvn deploy:deploy-file -DgroupId=&lt;group-id&gt; \</span><br><span class="line">  -DartifactId=&lt;artifact-id&gt; \</span><br><span class="line">  -Dversion=&lt;version&gt; \</span><br><span class="line">  -Dpackaging=&lt;一般是jar&gt; \</span><br><span class="line">  -Dfile=&lt;相对路径和绝对路径都可&gt; \</span><br><span class="line">  -Durl=&lt;公司仓库地址&gt; \</span><br><span class="line">  -DrepositoryId=&lt;一般是snapshots或者releases，根据.m2/settings.xml文件servers配置来&gt; \</span><br><span class="line">  -DpomFile=&lt;pom.xml&gt; \</span><br><span class="line">  -Dsources=&lt;源码file地址，可不填&gt;</span><br></pre></td></tr></table></figure></p>
 <p>上面这个命令会生成jar并且上传到Nexus 私服中。</p>
           <!--noindex-->
           <div class="post-button text-center">
@@ -1970,7 +1970,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2602,10 +2602,10 @@
 
   
   <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
-  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
   
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
