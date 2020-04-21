@@ -1,7 +1,7 @@
 ---
 title: Maven deploy 部署 jar 到 Nexus 私服
 date: 2020-04-19
-tags: [Maven]
+tags: [Maven,Nexus]
 categories: Java
 ---
 
@@ -16,7 +16,8 @@ mvn deploy:deploy-file -DgroupId=<group-id> \
   -Dfile=<相对路径和绝对路径都可> \
   -Durl=<公司仓库地址> \
   -DrepositoryId=<一般是snapshots或者releases，根据.m2/settings.xml文件servers配置来> \
-  -DpomFile=<pom.xml>
+  -DpomFile=<pom.xml> \
+  -Dsources=<源码file地址，可不填>
 ```
 
 上面这个命令会生成jar并且上传到Nexus 私服中。
@@ -56,6 +57,53 @@ mvn deploy:deploy-file -DgroupId=<group-id> \
         </execution>
     </executions>
 </plugin>
+```
+
+## maven deploy source jar(maven上传源代码到Nexus私服)
+
+因为maven部署插件的`sources`配置是文件，因此我们需要在部署jar之前将 `source.jar`打包出来，所以将jar-no-fork绑定在verify流程节点上。
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>jar-no-fork</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>2.8.2</version>
+            <executions>
+                <execution>
+                    <id>deploy-file</id>
+                    <phase>deploy</phase>
+                    <goals>
+                        <goal>deploy-file</goal>
+                    </goals>
+                    <configuration>
+                        <groupId>com.example</groupId>
+                        <artifactId>demo</artifactId>
+                        <version>1.0.0-SNAPSHOT</version>
+                        <packaging>jar</packaging>
+                        <file>target/demo-1.0.0-SNAPSHOT.jar</file>
+                        <url>http://nexus.公司.com/nexus/content/repositories/snapshots/</url>
+                        <repositoryId>snapshots</repositoryId>
+                        <pomFile>pom.xml</pomFile>
+                        <sources>target/demo-1.0.0-SNAPSHOT-sources.jar</sources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 ```
 
 **参考文档**:
