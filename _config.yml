@@ -106,8 +106,9 @@ baidusitemap:
 deploy:
     type: git
     # repo: hexo@MyHost2:/var/repo/hexo_static
-    repo: hexo@MyHost3:/home/hexo/blog.git
-    branch: master
+    # repo: hexo@MyHost3:/home/hexo/blog.git
+    repo: git@github.com:morethink/blog.git
+    branch: gh-pages
       # - type: git
       #   repo: https://github.com/morethink/blog.git
       #   branch: master
