@@ -317,14 +317,14 @@
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/Nginx-several-load-balancing-algorithm/</loc>
+    <loc>https://www.morethink.cn/Nginx-Load-Balancing-under-Windows/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/Nginx-Load-Balancing-under-Windows/</loc>
+    <loc>https://www.morethink.cn/Nginx-several-load-balancing-algorithm/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
@@ -338,13 +338,6 @@
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/Servlet/</loc>
-    
-    <lastmod>2018-03-23T03:03:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.morethink.cn/Spring-Transaction/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
@@ -352,7 +345,7 @@
   </url>
   
   <url>
-    <loc>https://www.morethink.cn/Spring-transaction-no-rollback/</loc>
+    <loc>https://www.morethink.cn/Servlet/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
@@ -360,6 +353,13 @@
   
   <url>
     <loc>https://www.morethink.cn/SpringMVC-Achieve-RESTful-And-Put-With-File-Upload/</loc>
+    
+    <lastmod>2018-03-23T03:03:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.morethink.cn/Spring-transaction-no-rollback/</loc>
     
     <lastmod>2018-03-23T03:03:50.000Z</lastmod>
     
